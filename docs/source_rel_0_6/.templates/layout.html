@@ -1,0 +1,57 @@
+{% extends "!layout.html" %}
+
+{% block extrahead %}
+<script type="text/javascript" src="_static/jquery.rotator.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$.get("http://feeds2.feedburner.com/pyevolve", function(d){  
+		$(d).find('item').each(function(){  
+			var $it = $(this);
+			var title = $it.find('title').text();
+			var link = $it.find('link').text();
+			$('#rotator').append("<div style=\"height: 80px\"><p style=\"font-size: 90%\"><a href=\"" + link + "\" target=\"_blank\">" + title + '</a></p></div>');  
+		})
+	})
+	
+	$("#rotator").rotator({n:1, ms: 3200});
+});
+</script>
+
+{% endblock %}
+
+{% block sidebarlogo %}
+<p align="center">
+<a href="http://del.icio.us/post?url=http://pyevolve.sourceforge.net" target="_blank">
+	<img src="_static/delicious_icon.png" border="0">
+</a>
+
+<a href="http://digg.com/submit?url=http://pyevolve.sourceforge.net" target="_blank">
+	<img src="_static/digg_icon.png"  border="0">
+</a>
+
+<a href="http://www.reddit.com/submit?resubmit=true&url=http%3A%2F%2Fpyevolve.sourceforge.net%2F" target="_blank">
+	<img src="_static/reddit_icon.png" border="0">
+</a>
+</p>
+<br>
+
+<h3><a href="http://pyevolve.sourceforge.net/wordpress">Recent Blog Posts</a></h3>
+
+<div id="rotator" style="height: 150px; overflow:hidden;">
+<div style="height: 80px"><p style="font-size: 90%" align="center">&mdash;</p></div>
+</div>
+{% endblock %}
+
+{% block document %}
+{{ super() }}
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-7117443-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+{% endblock %}
