@@ -1,4 +1,0 @@
-
-.. automodule:: DBAdapters
-   :members:
-

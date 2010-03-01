@@ -1,4 +1,0 @@
-
-.. automodule:: GSimpleGA
-   :members:
-

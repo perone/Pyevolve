@@ -1,4 +1,0 @@
-
-
-.. automodule:: FunctionSlot
-   :members:

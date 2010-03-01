@@ -1,6 +1,0 @@
-
-.. automodule:: GPopulation
-   :members:
-
-
-

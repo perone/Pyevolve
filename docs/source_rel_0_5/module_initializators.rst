@@ -1,4 +1,0 @@
-
-.. automodule:: Initializators
-   :members:
-

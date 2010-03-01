@@ -1,4 +1,0 @@
-
-.. automodule:: Interaction
-   :members:
-

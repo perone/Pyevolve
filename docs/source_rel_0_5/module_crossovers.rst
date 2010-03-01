@@ -1,4 +1,0 @@
-
-.. automodule:: Crossovers
-   :members:
-

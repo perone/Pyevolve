@@ -1,6 +1,0 @@
-
-
-
-.. automodule:: Selectors
-   :members:
-

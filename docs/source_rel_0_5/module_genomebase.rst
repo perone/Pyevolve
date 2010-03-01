@@ -1,5 +1,0 @@
-
-
-.. automodule:: GenomeBase
-   :members:
-

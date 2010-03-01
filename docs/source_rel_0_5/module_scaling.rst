@@ -1,6 +1,0 @@
-
-
-
-.. automodule:: Scaling
-   :members:
-
