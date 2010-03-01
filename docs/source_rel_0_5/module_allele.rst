@@ -1,0 +1,6 @@
+
+
+
+.. automodule:: GAllele
+   :members:
+
