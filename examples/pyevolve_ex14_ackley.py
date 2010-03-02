@@ -19,14 +19,11 @@ def ackley(xlist):
 
    return score
 
-if __name__ == "__main__":
 
-   import psyco
-   psyco.full()
-
+def run_main():
    # Genome instance
    genome = G1DList.G1DList(5)
-   genome.setParams(rangemin=-8, rangemax=8,  bestRawScore=0.00, roundDecimal=2)
+   genome.setParams(rangemin=-8, rangemax=8,  bestrawscore=0.00, rounddecimal=2)
    genome.initializator.set(Initializators.G1DListInitializatorReal)
    genome.mutator.set(Mutators.G1DListMutatorRealGaussian)
 
@@ -51,5 +48,7 @@ if __name__ == "__main__":
    # Best individual
    best = ga.bestIndividual()
    print "\nBest individual score: %.2f" % (best.getRawScore(),)
-   #print best
+   print best
 
+if __name__ == "__main__":
+   run_main()
