@@ -15,7 +15,14 @@ import socket
 import time
 import sys
 import Util
-import cPickle, zlib
+import cPickle
+
+try:
+    import zlib
+    ZLIB_SUPPORT = True
+except ImportError:
+    ZLIB_SUPPORT = False
+
 import Consts
 import logging
 
@@ -387,6 +394,8 @@ def pickleAndCompress(obj, level=9):
    pickled = cPickle.dumps(obj)
    if level < 0: return pickled
    else:
+      if not ZLIB_SUPPORT:
+         Util.raiseException('zlib not found !', ImportError)
       pickled_zlib = zlib.compress(pickled, level)
       return pickled_zlib
 
@@ -396,6 +405,8 @@ def unpickleAndDecompress(obj_dump, decompress=True):
    :param obj: the object to be decompressend and unpickled
    """
    if decompress:
+      if not ZLIB_SUPPORT:
+         Util.raiseException('zlib not found !', ImportError)
       obj_decompress = zlib.decompress(obj_dump)
    else:
       obj_decompress = obj_dump
