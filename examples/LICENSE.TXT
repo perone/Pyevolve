@@ -9,7 +9,7 @@ to reproduce, analyze, test, perform and/or display publicly, prepare
 derivative works, distribute, and otherwise use Pyevolve 0.6
 alone or in any derivative version, provided, however, that CSP's
 License Agreement and CSP's notice of copyright, i.e., "Copyright (c)
-2007-2009 Christian S. Perone; All Rights Reserved" are retained in
+2007-2010 Christian S. Perone; All Rights Reserved" are retained in
 Pyevolve 0.6 alone or in any derivative version prepared by
 Licensee.
 
