@@ -7,6 +7,9 @@ import random
 
 def eval_func(chromosome):
    score = 0.0
+   # If you want to add score values based
+   # in the height of the Tree, the extra
+   # code is commented.
 
    #height = chromosome.getHeight()
 
@@ -18,38 +21,24 @@ def eval_func(chromosome):
 
    return score
 
-def main_run():
-
+def run_main():
    genome = GTree.GTree()
    root = GTree.GTreeNode(2)
    genome.setRoot(root)
    genome.processNodes()
 
    genome.setParams(max_depth=3, max_siblings=2, method="grow")
-   genome.evaluator += eval_func
+   genome.evaluator.set(eval_func)
    genome.crossover.set(Crossovers.GTreeCrossoverSinglePointStrict)
 
    ga = GSimpleGA.GSimpleGA(genome)
    ga.setGenerations(100)
    ga.setMutationRate(0.05)
    
-   ga(freq_stats=10)
-   #print ga.bestIndividual()
-
-#import hotshot, hotshot.stats
-#prof = hotshot.Profile("ev.prof")
-#prof.runcall(main_run)
-#prof.close()
-#stats = hotshot.stats.load("ev.prof")
-#stats.strip_dirs()
-#stats.sort_stats('time', 'calls')
-#stats.print_stats(20)
+   ga.evolve(freq_stats=10)
+   print ga.bestIndividual()
 
 if __name__ == "__main__":
-   #import psyco
-   #psyco.full()
-   t0 = time.clock()
-   main_run()
-   t1 = time.clock()
-   print "%.3f" % (t1-t0)
+   run_main()
+
   
