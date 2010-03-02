@@ -13,3 +13,9 @@ Contributors
 **Jelle Feringa**, Jelle Feringa, Tu Delft University, Netherlands.
 
 .. image:: imgs/email_jelle.png
+
+**Henrik Rudstrom**, `Blog uniqueidentifier.net <http://uniqueidentifier.net>`_, `@henrk <http://twitter.com/henrk>`_, Rotterdam, Netherlands.
+
+.. image:: imgs/email_henrik.png
+
+
