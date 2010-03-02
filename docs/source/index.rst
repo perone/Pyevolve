@@ -24,7 +24,8 @@ Get Involved !
 --------------------
 Join with us in `Pyevolve mail-list <http://groups.google.com/group/pyevolve>`_.
 
-Development information and bug reports are in the `Trac <http://sourceforge.net/apps/trac/pyevolve>`_.
+Development information and bug reports are in the `Trac <http://sourceforge.net/apps/trac/pyevolve>`_, 
+and please, feel free to create new tickets with critics or suggestions.
 
 Visit the project `blog site <http://pyevolve.sourceforge.net/wordpress>`_ and leave your comment.
 
