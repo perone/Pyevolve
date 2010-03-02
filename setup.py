@@ -11,9 +11,8 @@ setup(
    },
    author = __author__,
    author_email = "christian.perone@gmail.com",
-   description = "A complete python genetic algorithm framework",
+   description = "A complete python evolutionary framework",
    license = "PSF",
-   keywords = "genetic algorithm algorithms framework library python",
-   url = "http://pyevolve.sourceforge.net/", 
-   download_url = "https://sourceforge.net/project/showfiles.php?group_id=251160"
+   keywords = "genetic algorithm genetic programming algorithms framework library python ai evolutionary framework",
+   url = "http://pyevolve.sourceforge.net/"
 )
