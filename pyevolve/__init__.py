@@ -15,7 +15,8 @@ __all__ = ["Consts", "Crossovers", "DBAdapters", "FunctionSlot",
            "GSimpleGA", "GTree", "Initializators",
            "Migration", "Mutators", "Network", "Scaling", "Selectors",
            "Statistics", "Util"]
-__version__ =  '0.6'
+
+__version__ =  '0.6rc1'
 __author__ =  'Christian S. Perone'
 
 import pyevolve.Consts

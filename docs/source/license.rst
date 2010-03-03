@@ -18,7 +18,7 @@ to reproduce, analyze, test, perform and/or display publicly, prepare
 derivative works, distribute, and otherwise use Pyevolve |version|
 alone or in any derivative version, provided, however, that CSP's
 License Agreement and CSP's notice of copyright, i.e., "Copyright (c)
-2007-2009 Christian S. Perone; All Rights Reserved" are retained in
+2007-2010 Christian S. Perone; All Rights Reserved" are retained in
 Pyevolve |version| alone or in any derivative version prepared by
 Licensee.
 
@@ -58,6 +58,6 @@ Credits
 ==============================================
 
 Pyevolve was written by Christian S. Perone and is currently
-maintained by himself.
+maintained by himself and it's contributors.
 
 
