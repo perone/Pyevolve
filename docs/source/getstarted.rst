@@ -632,7 +632,6 @@ And the result will be:
 .. image:: imgs/gp_trees_img1.jpg
    :align: center
 
-
 Snippets
 ---------------------------------------------------------------------------
 
@@ -771,6 +770,8 @@ Real-time statistics visualization
       Use the :class:`DBAdapters.DBVPythonGraph` DB Adapter, this DB
       Adapter will show four statistical graphs, it is fast and
       easy to use.
+
+.. _snippet_gp_explicit:
 
 How to manually add non-terminal functions to Genetic Programming core
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
