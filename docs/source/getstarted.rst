@@ -823,7 +823,7 @@ prefix in your GP terminals, like in: ::
 
 	ga = GSimpleGA.GSimpleGA(genome)
 	ga.setParams(gp_terminals       = ['a', 'b', 'ephemeral:random.randint(1,10)'],
-				 gp_function_prefix = "gp")
+                gp_function_prefix = "gp")
 
 In this example, the ephemeral constant will be an integer value between 1 and 10. You
 can use any method of the Python :mod:`random` module to specify the ephemeral constant.
