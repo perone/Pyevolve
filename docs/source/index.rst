@@ -18,6 +18,8 @@ Algorithm framework than a simple GA framework.
 
 See the changes in the :ref:`whatsnew` section of this documentation.
 
+This is the documentation for the release v.\ |release|.
+
 See some plot screenshots on the :ref:`graphs_screens` section.
 
 Get Involved !

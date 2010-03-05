@@ -41,6 +41,10 @@ import Consts
 class G2DList(GenomeBase):
    """ G2DList Class - The 2D List chromosome representation
 
+   Inheritance diagram for :class:`G2DList.G2DList`:
+
+   .. inheritance-diagram:: G2DList.G2DList
+
    **Examples**
 
       The instantiation

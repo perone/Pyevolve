@@ -45,8 +45,12 @@ import Util
 class G2DBinaryString(GenomeBase):
    """ G3DBinaryString Class - The 2D Binary String chromosome
    
+   Inheritance diagram for :class:`G2DBinaryString.G2DBinaryString`:
+
+   .. inheritance-diagram:: G2DBinaryString.G2DBinaryString
+
    Example:
-      >>> genome = G2DBinaryString.G1DBinaryString(10, 12)
+      >>> genome = G2DBinaryString.G2DBinaryString(10, 12)
 
 
    :param height: the number of rows

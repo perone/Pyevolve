@@ -17,6 +17,15 @@ div.document {
     background-color: #1c4e63;
 }
 
+.inheritance {
+	border-style: hidden;
+}
+
+.graphviz {
+	border-style: hidden;
+    text-align: center;
+}
+
 div.documentwrapper {
     float: left;
     width: 100%;

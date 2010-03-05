@@ -816,6 +816,16 @@ to get it's parameters back, see an example: ::
           into each new created individual, it simple references the original
           parameters, this reduces memory and increases speed.
 
+Using ephemeral constants in Genetic Programming
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You can use an ephemeral constant in Pyevolve GP core by using the "ephemeral:"
+prefix in your GP terminals, like in: ::
 
-   
+	ga = GSimpleGA.GSimpleGA(genome)
+	ga.setParams(gp_terminals       = ['a', 'b', 'ephemeral:random.randint(1,10)'],
+                gp_function_prefix = "gp")
+
+In this example, the ephemeral constant will be an integer value between 1 and 10. You
+can use any method of the Python :mod:`random` module to specify the ephemeral constant.
+
       

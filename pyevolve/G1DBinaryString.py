@@ -41,6 +41,10 @@ import Util
 class G1DBinaryString(GenomeBase, G1DBase):
    """ G1DBinaryString Class - The 1D Binary String chromosome
    
+   Inheritance diagram for :class:`G1DBinaryString.G1DBinaryString`:
+
+   .. inheritance-diagram:: G1DBinaryString.G1DBinaryString
+
    This chromosome class extends the :class:`GenomeBase.GenomeBase`
    and :class:`GenomeBase.G1DBase` classes.
    

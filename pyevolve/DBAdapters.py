@@ -28,7 +28,7 @@ import Statistics
 
 class DBBaseAdapter:
    """ DBBaseAdapter Class - The base class for all DB Adapters
-   
+
    If you want to create your own DB Adapter, you must subclass this
    class.
 
@@ -99,6 +99,10 @@ class DBBaseAdapter:
 
 class DBFileCSV(DBBaseAdapter):
    """ DBFileCSV Class - Adapter to dump statistics in CSV format
+
+   Inheritance diagram for :class:`DBAdapters.DBFileCSV`:
+
+   .. inheritance-diagram:: DBAdapters.DBFileCSV
 
    Example:
       >>> adapter = DBFileCSV(filename="file.csv", identify="run_01",
@@ -176,9 +180,12 @@ class DBFileCSV(DBBaseAdapter):
 class DBURLPost(DBBaseAdapter):
    """ DBURLPost Class - Adapter to call an URL with statistics
 
+   Inheritance diagram for :class:`DBAdapters.DBURLPost`:
+
+   .. inheritance-diagram:: DBAdapters.DBURLPost
+
    Example:
       >>> dbadapter = DBURLPost(url="http://localhost/post.py", identify="test")
-
 
    The parameters that will be sent is all the statistics described in the :class:`Statistics.Statistics`
    class, and the parameters:
@@ -250,6 +257,10 @@ class DBURLPost(DBBaseAdapter):
 class DBSQLite(DBBaseAdapter):
    """ DBSQLite Class - Adapter to dump data in SQLite3 database format
    
+   Inheritance diagram for :class:`DBAdapters.DBSQLite`:
+
+   .. inheritance-diagram:: DBAdapters.DBSQLite
+
    Example:
       >>> dbadapter = DBSQLite(identify="test")
 
@@ -429,6 +440,10 @@ class DBSQLite(DBBaseAdapter):
 class DBXMLRPC(DBBaseAdapter):
    """ DBXMLRPC Class - Adapter to dump statistics to a XML Remote Procedure Call
 
+   Inheritance diagram for :class:`DBAdapters.DBXMLRPC`:
+
+   .. inheritance-diagram:: DBAdapters.DBXMLRPC
+
    Example:
       >>> adapter = DBXMLRPC(url="http://localhost:8000/", identify="run_01",
                              frequency = 1)
@@ -503,6 +518,10 @@ class DBXMLRPC(DBBaseAdapter):
 
 class DBVPythonGraph(DBBaseAdapter):
    """ The DBVPythonGraph Class - A DB Adapter for real-time visualization using VPython
+
+   Inheritance diagram for :class:`DBAdapters.DBVPythonGraph`:
+
+   .. inheritance-diagram:: DBAdapters.DBVPythonGraph
 
    .. note:: to use this DB Adapter, you **must** install VPython first.
 
@@ -581,7 +600,11 @@ class DBVPythonGraph(DBBaseAdapter):
       
 class DBMySQLAdapter(DBBaseAdapter):
    """ DBMySQLAdapter Class - Adapter to dump data in MySql database server
-   
+
+   Inheritance diagram for :class:`DBAdapters.DBMySQLAdapter`:
+
+   .. inheritance-diagram:: DBAdapters.DBMySQLAdapter
+
    Example:
       >>> dbadapter = DBMySQLAdapter("pyevolve_username", "password", identify="run1")
 

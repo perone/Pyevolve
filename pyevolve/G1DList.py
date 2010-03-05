@@ -40,6 +40,10 @@ import Consts
 class G1DList(GenomeBase, G1DBase):
    """ G1DList Class - The 1D List chromosome representation
    
+   Inheritance diagram for :class:`G1DList.G1DList`:
+
+   .. inheritance-diagram:: G1DList.G1DList
+
    This chromosome class extends the :class:`GenomeBase.GenomeBase`
    and :class:`GenomeBase.G1DBase` classes.
    

@@ -67,10 +67,10 @@ Windows
 
 Installers for Microsoft Windows platform:
 
-`Pyevolve v.0.6 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5.win32-py2.5.exe?use_mirror=>`__ (*installer*) for Python 2.5
+`Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5.win32-py2.5.exe?use_mirror=>`__ (*installer*) for Python 2.5
    *This is an .exe installer for Microsoft Windows XP/Vista*
 
-`Pyevolve v.0.6 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5.win32-py2.6.exe?use_mirror=>`__ (*installer*) for Python 2.6
+`Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5.win32-py2.6.exe?use_mirror=>`__ (*installer*) for Python 2.6
    *This is an .exe installer for Microsoft Windows XP/Vista*
 
 Linux
@@ -78,10 +78,10 @@ Linux
 
 Installation package for Linux platform:
 
-`Pyevolve v.0.6 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-py2.5.egg?use_mirror=>`__ (*egg package*) for Python 2.5
+`Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-py2.5.egg?use_mirror=>`__ (*egg package*) for Python 2.5
    *This is an egg package file*
 
-`Pyevolve v.0.6 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-py2.6.egg?use_mirror=>`__ (*egg package*) for Python 2.6
+`Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-py2.6.egg?use_mirror=>`__ (*egg package*) for Python 2.6
    *This is an egg package file*
 
 
@@ -90,10 +90,10 @@ Examples and Source code
 
 Examples and source code for Pyevolve |release|:
 
-`Pyevolve v.0.6 source code <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-source.zip?use_mirror=>`__ (*package*)
+`Pyevolve v.0.6rc1 source code <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-source.zip?use_mirror=>`__ (*package*)
    *This is an package with the Pyevolve source code*
 
-`Examples for Pyevolve v.0.6 <http://downloads.sourceforge.net/pyevolve/ex_pyevolve0_5.zip?use_mirror=>`__ (*package*)
+`Examples for Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/ex_pyevolve0_5.zip?use_mirror=>`__ (*package*)
    *This is an package with the Pyevolve examples*
 
 
@@ -120,7 +120,7 @@ This command will automatic search, download and install a suitable version of p
 
    >>> import pyevolve
    >>> print pyevolve.__version__
-   '0.6'
+   'v.0.6rc1'
 
 *easy_install* utility is part of `setuptools <http://pypi.python.org/pypi/setuptools>`_. Once you have installed setuptools, you will find the easy_install.exe program in your Python Scripts subdirectory.
 

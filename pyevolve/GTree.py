@@ -52,6 +52,10 @@ except ImportError:
 class GTree(GenomeBase, GTreeBase):
    """ The GTree class - The tree chromosome representation
 
+   Inheritance diagram for :class:`GTree.GTree`:
+
+   .. inheritance-diagram:: GTree.GTree
+
    :param root_node: the root node of the tree
    """
    
@@ -120,6 +124,10 @@ class GTree(GenomeBase, GTreeBase):
 
 class GTreeNode(GTreeNodeBase):
    """ The GTreeNode class - The node representation
+
+   Inheritance diagram for :class:`GTree.GTreeNode`:
+
+   .. inheritance-diagram:: GTree.GTreeNode
 
    :param data: the root node of the tree
    :param parent: the parent node, if root, this
@@ -247,6 +255,10 @@ def buildGTreeFull(depth, value_callback, max_siblings, max_depth):
 class GTreeNodeGP(GTreeNodeBase):
    """ The GTreeNodeGP Class - The Genetic Programming Node representation
    
+   Inheritance diagram for :class:`GTree.GTreeNodeGP`:
+
+   .. inheritance-diagram:: GTree.GTreeNodeGP
+
    :param data: the node data
    :param type: the node type
    :param parent: the node parent
@@ -346,6 +358,10 @@ class GTreeNodeGP(GTreeNodeBase):
 class GTreeGP(GenomeBase, GTreeBase):
    """ The GTreeGP Class - The Genetic Programming Tree representation
    
+   Inheritance diagram for :class:`GTree.GTreeGP`:
+
+   .. inheritance-diagram:: GTree.GTreeGP
+
    :param root_node: the Root node of the GP Tree
    """
    def __init__(self, root_node=None, cloning=False):
