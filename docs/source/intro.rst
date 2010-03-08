@@ -124,106 +124,6 @@ This command will automatic search, download and install a suitable version of p
 
 *easy_install* utility is part of `setuptools <http://pypi.python.org/pypi/setuptools>`_. Once you have installed setuptools, you will find the easy_install.exe program in your Python Scripts subdirectory.
 
-Running Pyevolve on Symbian OS (PyS60)
----------------------------------------------------------------------------
-Pyevolve is compatible with PyS60 2.0 (but older versions of the 1.9.x trunk should work fine too); PyS60 
-2.0 is a port of Python 2.5.4 core to the S60 smartphones, it was made by Nokia and it's Open Source.
-All smartphones based on the `S60 2nd and 3rd editions <http://en.wikipedia.org/wiki/Nokia_S60_and_Symbian_OS#S60_editions>`_
-should run PyS60, you can download it from the `Maemo garage project home <https://garage.maemo.org/projects/pys60/>`_.
-
-To install Pyevolve in PyS60 you simple need to copy the "pyevolve" package (you can use the sources of Pyevolve
-or even the "pyevolve" of your Python installation to the smartphone in a place that PyS60 can find it, usually
-in :file:`c:\\resource\\Python25`, for more information read the PyS60 documentation. The Genetic Algorithms and the
-Genetic Programming cores of Pyevolve was tested with PyS60 2.0, but to use Genetic Programming, you must
-define explicitly the funtions of the GP, like in :ref:`snippet_gp_explicit`.
-
-Of course not all features of Pyevolve are supported in PyS60, like for example some DBAdapters and the graphical
-plotting tool, since no matplotlib port is available to PyS60 at the moment. Pyevolve was tested with PyS60 2.0
-in a Nokia N78 and in a Nokia N73 smartphones.
-
-.. seealso::
-
-   `Croozeus.com -  home to PyS60 developers <http://croozeus.com/>`_
-      A lot of information and tutorials about PyS60, very recommended.
-
-   `Python for S60 - OpenSource <http://wiki.opensource.nokia.com/projects/PyS60>`_
-      The PyS60 project wiki.
-
-Running Pyevolve on Jython
----------------------------------------------------------------------------
-Jython is an implementation of Python language and it's modules (not all unfortunatelly) which
-is designed to run over the Java platform.
-Pyevolve was tested against Jython 2.5.x and worked well, except for the Genetic Programming
-core which is taking a lot of memory, maybe a Jython issue with the Java JVM.
-
-You're highly encouraged to run Jython with the JVM "-server" option; this option will enable
-anoter VM JIT which is optimal for applications where the fast startup times isn't important,
-and the overall performance is what matters. This JIT of the "Server mode" has different
-policies to compile your code into native code, and it's well designed for long running
-applications, where the VM can profile and optimize better than the JIT of "Client mode".
-
-Pyevolve was tested against Jython 2.5.1 in Java v.1.6.0_18
-Java(TM) SE Runtime Environment (build 1.6.0_18-b07)
-Java HotSpot(TM) Client VM (build 16.0-b13, mixed mode, sharing)
-
-.. seealso::
-
-   `Jython <http://www.jython.org/>`_
-      Official Jython project home.
-
-   `Java HotSpot <http://java.sun.com/products/hotspot/whitepaper.html#1>`_
-      The Java HotSpot Performance Engine Architecture.
-
-
-Running Pyevolve on IronPython
----------------------------------------------------------------------------
-IronPython is an open-source implementation of the Python programming language targeting
-the .NET Framework and Mono, written entirely in C# and created by Jim Hugunin.
-IronPython is currently language-compatible with Python 2.6.
-
-Pyevolve was tested against the IronPython 2.6 (2.6.10920.0) in a Windows XP SP3
-with .NET 2.0.50727.3603.
-
-.. seealso::
-
-   `Official IronPython project home <http://www.ironpython.net>`_
-      Official IronPython project home.
-
-   `Differences between IronPython and CPython <http://ironpython.codeplex.com/wikipage?title=Differences>`_
-      Documents with differences between IronPython and CPython (the official Python interepreter).
-
-   `IronPython performance benchmarks <http://ironpython.codeplex.com/wikipage?title=IP26RC1VsCPy26Perf&referringTitle=Home&ProjectName=ironpython>`_
-      A lot of benchmarks and comparisons between IronPython and CPython.
-
-
-Improving Pyevolve performance
----------------------------------------------------------------------------
-Pyevolve, at least for the versions <= 0.6 are all written in pure Python, which enables some
-very useful features and portability, but sometimes weights in performance. Here are some
-ways users and developers uses to increase the performance of Pyevolve:
-
-   **Psyco**
-      Psyco is the well know Python specializing compiled, created by Armin Rigo. Psyco
-      is very easy to use and can give you a lot of speed up.
-
-   **Cython**
-      Cython is a specific language used to create C/C++ extensions for Python, it is based
-      on the Python language itself, so if you think Psyco is not enought or aren't giving
-      too much optimizations, you can use Cython to create your own C/C++ extensions; the
-      best approach is to use Cython to build your :term:`Evaluation function`, which is
-      usually the most consuming part of Genetic Algorithms.
-
-.. seealso::
-
-   `Psyco at Sourceforge.net <http://psyco.sourceforge.net/>`_
-      The official site of Psyco at Sourceforge.net
-
-   `Psyco 2.0 binaries for Windows <http://www.voidspace.org.uk/python/modules.shtml#psyco>`_
-      Development of psyco was recently done by Christian Tismer. Here you'll find the
-      binaries of Psyco 2.0 (Python 2.4, 2.5 and 2.6) for Windows.
-
-   `Cython - C-Extensions for Python <http://www.cython.org/>`_
-      Official Cython project home.
 
 Genetic Algorithm Features
 -----------------------------------
@@ -486,3 +386,108 @@ Glossary / Concepts
 
    `Wikipedia: Genetic Programming <http://en.wikipedia.org/wiki/Genetic_programming>`_
       The Wikipedia article about Genetic Programming.
+
+
+Other platforms and performance
+============================================================
+
+Running Pyevolve on Symbian OS (PyS60)
+---------------------------------------------------------------------------
+Pyevolve is compatible with PyS60 2.0 (but older versions of the 1.9.x trunk should work fine too); PyS60 
+2.0 is a port of Python 2.5.4 core to the S60 smartphones, it was made by Nokia and it's Open Source.
+All smartphones based on the `S60 2nd and 3rd editions <http://en.wikipedia.org/wiki/Nokia_S60_and_Symbian_OS#S60_editions>`_
+should run PyS60, you can download it from the `Maemo garage project home <https://garage.maemo.org/projects/pys60/>`_.
+
+To install Pyevolve in PyS60 you simple need to copy the "pyevolve" package (you can use the sources of Pyevolve
+or even the "pyevolve" of your Python installation to the smartphone in a place that PyS60 can find it, usually
+in :file:`c:\\resource\\Python25`, for more information read the PyS60 documentation. The Genetic Algorithms and the
+Genetic Programming cores of Pyevolve was tested with PyS60 2.0, but to use Genetic Programming, you must
+define explicitly the funtions of the GP, like in :ref:`snippet_gp_explicit`.
+
+Of course not all features of Pyevolve are supported in PyS60, like for example some DBAdapters and the graphical
+plotting tool, since no matplotlib port is available to PyS60 at the moment. Pyevolve was tested with PyS60 2.0
+in a Nokia N78 and in a Nokia N73 smartphones.
+
+.. seealso::
+
+   `Croozeus.com -  home to PyS60 developers <http://croozeus.com/>`_
+      A lot of information and tutorials about PyS60, very recommended.
+
+   `Python for S60 - OpenSource <http://wiki.opensource.nokia.com/projects/PyS60>`_
+      The PyS60 project wiki.
+
+Running Pyevolve on Jython
+---------------------------------------------------------------------------
+Jython is an implementation of Python language and it's modules (not all unfortunatelly) which
+is designed to run over the Java platform.
+Pyevolve was tested against Jython 2.5.x and worked well, except for the Genetic Programming
+core which is taking a lot of memory, maybe a Jython issue with the Java JVM.
+
+You're highly encouraged to run Jython with the JVM "-server" option; this option will enable
+anoter VM JIT which is optimal for applications where the fast startup times isn't important,
+and the overall performance is what matters. This JIT of the "Server mode" has different
+policies to compile your code into native code, and it's well designed for long running
+applications, where the VM can profile and optimize better than the JIT of "Client mode".
+
+Pyevolve was tested against Jython 2.5.1 in Java v.1.6.0_18
+Java(TM) SE Runtime Environment (build 1.6.0_18-b07)
+Java HotSpot(TM) Client VM (build 16.0-b13, mixed mode, sharing)
+
+.. seealso::
+
+   `Jython <http://www.jython.org/>`_
+      Official Jython project home.
+
+   `Java HotSpot <http://java.sun.com/products/hotspot/whitepaper.html#1>`_
+      The Java HotSpot Performance Engine Architecture.
+
+
+Running Pyevolve on IronPython
+---------------------------------------------------------------------------
+IronPython is an open-source implementation of the Python programming language targeting
+the .NET Framework and Mono, written entirely in C# and created by Jim Hugunin.
+IronPython is currently language-compatible with Python 2.6.
+
+Pyevolve was tested against the IronPython 2.6 (2.6.10920.0) in a Windows XP SP3
+with .NET 2.0.50727.3603.
+
+.. seealso::
+
+   `Official IronPython project home <http://www.ironpython.net>`_
+      Official IronPython project home.
+
+   `Differences between IronPython and CPython <http://ironpython.codeplex.com/wikipage?title=Differences>`_
+      Documents with differences between IronPython and CPython (the official Python interepreter).
+
+   `IronPython performance benchmarks <http://ironpython.codeplex.com/wikipage?title=IP26RC1VsCPy26Perf&referringTitle=Home&ProjectName=ironpython>`_
+      A lot of benchmarks and comparisons between IronPython and CPython.
+
+
+Improving Pyevolve performance
+---------------------------------------------------------------------------
+Pyevolve, at least for the versions <= 0.6 are all written in pure Python, which enables some
+very useful features and portability, but sometimes weights in performance. Here are some
+ways users and developers uses to increase the performance of Pyevolve:
+
+   **Psyco**
+      Psyco is the well know Python specializing compiled, created by Armin Rigo. Psyco
+      is very easy to use and can give you a lot of speed up.
+
+   **Cython**
+      Cython is a specific language used to create C/C++ extensions for Python, it is based
+      on the Python language itself, so if you think Psyco is not enought or aren't giving
+      too much optimizations, you can use Cython to create your own C/C++ extensions; the
+      best approach is to use Cython to build your :term:`Evaluation function`, which is
+      usually the most consuming part of Genetic Algorithms.
+
+.. seealso::
+
+   `Psyco at Sourceforge.net <http://psyco.sourceforge.net/>`_
+      The official site of Psyco at Sourceforge.net
+
+   `Psyco 2.0 binaries for Windows <http://www.voidspace.org.uk/python/modules.shtml#psyco>`_
+      Development of psyco was recently done by Christian Tismer. Here you'll find the
+      binaries of Psyco 2.0 (Python 2.4, 2.5 and 2.6) for Windows.
+
+   `Cython - C-Extensions for Python <http://www.cython.org/>`_
+      Official Cython project home.

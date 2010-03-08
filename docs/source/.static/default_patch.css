@@ -13,8 +13,27 @@ body {
 
 /* :::: LAYOUT :::: */
 
+#contents { width:750px; font-family:Georgia, Times, serif; /* font-size:15px; */}
+#contents ul { /*list-style: none; */}
+#contents ul li { }
+#contents ul li a { display:block; text-decoration:none; line-height:30px;
+	border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#CCCCCC; padding-left:5px; cursor:pointer; }
+#contents ul li a:hover { color:#FFFFFF; background-image:url(hover.png); background-repeat:repeat-x; }
+#contents ul li a strong { margin-right:5px; }
+
+#extraDiv2 {
+	background-image: url(bottom.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	height: 60px;
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	z-index: 5;
+}
+
 div.document {
-    background-color: #1c4e63;
+    background-color: #155146 /*#1c4e63*/;
 }
 
 .inheritance {
@@ -69,7 +88,7 @@ div.footer a {
 }
 
 div.related {
-    background-color: #133f52;
+    background-color: #000000 /*#133f52*/;
     color: #fff;
     width: 100%;
     line-height: 30px;
