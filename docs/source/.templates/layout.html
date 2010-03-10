@@ -1,8 +1,48 @@
 {% extends "!layout.html" %}
 
 {% block extrahead %}
-<!-- script type="text/javascript" src="_static/jquery-1.4.2.min.js"></script --> 
- 
+{{ super() }}
+
+<script type="text/javascript" src="_static/fg.menu.js"></script>
+<link type="text/css" href="_static/fg.menu.css" media="screen" rel="stylesheet" />
+<link type="text/css" href="_static/theme/ui.all.css" media="screen" rel="stylesheet" />
+
+	<style type="text/css">
+	.hidden { position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden; }
+	.ui-widget-content { font-size:0.9em; }
+
+	.fg-button {
+		clear:left;
+		margin:0 4px 40px 20px;
+		padding:.4em 1em;
+		text-decoration:none !important;
+		cursor:pointer;
+		position:relative;
+		text-align:center;
+		font-size:0.8em;
+		zoom:1;
+	}
+
+	.fg-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
+/*	a.fg-button { float:left;  }*/
+	button.fg-button { width:auto; overflow:visible; }
+	
+	.fg-button-icon-left { padding-left: 2.1em; }
+	.fg-button-icon-right { padding-right: 2.1em; }
+	.fg-button-icon-left .ui-icon { right: auto; left: .2em; margin-left: 0; }
+	.fg-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
+	.fg-button-icon-solo { display:block; width:8px; text-indent: -9999px; }	
+	</style>
+	
+	<!-- style exceptions for IE 6 -->
+	<!--[if IE 6]>
+	<style type="text/css">
+		.fg-menu-ipod .fg-menu li { width: 95%; }
+		.fg-menu-ipod .ui-widget-content { border:0; }
+	</style>
+	<![endif]-->	
+
+
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-7117443-1']);
@@ -14,6 +54,23 @@
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
   })();
 </script>
+
+<script type="text/javascript">    
+	$(document).ready(function(){
+    	$('.fg-button').hover(
+    		function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
+    		function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
+    	);
+
+		$('#hierarchybreadcrumb').menu({
+			content: $('#upper-menu-items').html(),
+			width: 200,
+			maxHeight: 300
+		});
+
+    });
+</script>
+
 {% endblock %}
 
 {% block sidebarlogo %}
@@ -34,7 +91,29 @@
 {% endblock %}
 
 {% block footer %}
+{{ super() }}
 <div id="extraDiv2"><span></span></div>
 {% endblock %}
 
+{% block rootrellink %}
+{{ super() }}
+ <li class="right">
+<div id="upper-menu">
+<a tabindex="0" href="#upper-menu-items" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="hierarchybreadcrumb">
+	<span class="ui-icon ui-icon-triangle-1-s"></span>
+	Pyevolve Menu
+</a>
 
+<div id="upper-menu-items" class="hidden">
+<ul>
+	<a href="{{ pathto(master_doc) }}"><li>Main Index</li></a>
+	<li><a href="http://pyevolve.sourceforge.net/wordpress">Pyevolve Blog</a></li>
+	<li><a href="http://sourceforge.net/apps/trac/pyevolve">Trac System</a></li>
+	<li><a href="http://groups.google.com/group/pyevolve">Mail-list</a>
+</ul>
+</div>
+
+</div>
+</li>
+
+{% endblock %}
