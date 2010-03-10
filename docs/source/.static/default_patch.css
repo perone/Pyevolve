@@ -33,7 +33,7 @@ body {
 }
 
 div.document {
-    background-color: #155146 /*#1c4e63*/;
+    background-color: #005C8A; /*#155146;*/
 }
 
 .inheritance {
@@ -76,6 +76,7 @@ div.clearer {
 
 div.footer {
     color: #fff;
+	background-color: #363636;
     width: 100%;
     padding: 9px 0 9px 0;
     text-align: center;
