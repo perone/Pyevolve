@@ -5,7 +5,7 @@ from optparse import OptionGroup
 
 
 def graph_pop_heatmap_raw(all, minimize, colormap="jet", filesave=None):
-   pylab.imshow(all, aspect="equal", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
+   pylab.imshow(all, aspect="auto", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
    pylab.title("Plot of pop. raw scores along the generations")
    pylab.xlabel('Population')
    pylab.ylabel('Generations')
@@ -374,7 +374,11 @@ if __name__ == "__main__":
    parser.add_option("-g", "--genrange", dest="genrange",
                   help="""This is the generation range of the graph, ex: 1:30 (interval between 1 and 30).""",
                   metavar="GENRANGE")
-   
+
+   parser.add_option("-l", "--lindrange", dest="lindrange",
+                  help="""This is the individual range of the graph, ex: 1:30 (individuals between 1 and 30), only applies to heatmaps.""",
+                  metavar="LINDRANGE")
+  
    parser.add_option("-c", "--colormap", dest="colormap",
                   help="""Sets the Color Map for the graph types 8 and 9. Some options are: summer, bone, gray, hot, jet, cooper, spectral. The default is 'jet'.""",
                   metavar="COLORMAP", default="jet")
@@ -459,7 +463,22 @@ if __name__ == "__main__":
       all = []
       for gen in generations:
          pop_tmp = []
-         ret = c.execute("select *  from population where identify = ? and generation = ?", ( options.identify, gen[0]))
+
+         if options.lindrange:
+            individual_range = options.lindrange.split(":")
+            ret = c.execute("""
+                         select *  from population
+                         where identify = ?
+                         and generation = ?
+                         and individual between ? and ?
+                         """, (options.identify, gen[0], individual_range[0], individual_range[1]))
+         else:
+            ret = c.execute("""
+                         select *  from population
+                         where identify = ?
+                         and generation = ?
+                         """, (options.identify, gen[0]))
+
          ret_fetch = ret.fetchall()
          for it in ret_fetch:
             if options.pop_heatmap_raw:
