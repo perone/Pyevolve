@@ -462,7 +462,21 @@ with .NET 2.0.50727.3603.
    `IronPython performance benchmarks <http://ironpython.codeplex.com/wikipage?title=IP26RC1VsCPy26Perf&referringTitle=Home&ProjectName=ironpython>`_
       A lot of benchmarks and comparisons between IronPython and CPython.
 
+	  
+Running Pyevolve on iPod/iPhone
+---------------------------------------------------------------------------
+The Genetic Algorithm core of Pyevolve was tested on iPod Touch 2G with the
+firmware v.3.1.2. To use it, you first must install the port of Python 2.5+ to the
+OS of iPod. You just need to put the Pyevolve package inside the directory where
+you'll call your application or just put it inside another place where the Python
+from iPod/iPhone can found in path.
+	  
+.. seealso::
 
+	`Miniguide to install Python on iPhone <http://coding.derkeiler.com/Archive/Python/comp.lang.python/2008-11/msg00252.html>`_
+		Miniguide on how to install Python on iPhone
+
+		
 Improving Pyevolve performance
 ---------------------------------------------------------------------------
 Pyevolve, at least for the versions <= 0.6 are all written in pure Python, which enables some
