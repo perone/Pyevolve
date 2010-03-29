@@ -609,6 +609,11 @@ class GSimpleGA:
       """
       return self.internalPop.getStatistics()
 
+   
+   def clear(self):
+      """ Petrowski's Clearing Method """
+      
+
    def step(self):
       """ Just do one step in evolution, one generation """
       genomeMom = None
@@ -661,6 +666,9 @@ class GSimpleGA:
 
       logging.debug("Evaluating the new created population.")
       newPop.evaluate()
+
+      #Niching methods- Petrowski's clearing
+      self.clear()
 
       if self.elitism:
          logging.debug("Doing elitism.")
@@ -813,7 +821,7 @@ class GSimpleGA:
                         print
                         code.interact(interact_banner, local=session_locals)
 
-            if self.step(): break
+            if self.step(): break #exit if the number of generations is equal to the max. number of gens.
 
       except KeyboardInterrupt:
          logging.debug("CTRL-C detected, finishing evolution.")
