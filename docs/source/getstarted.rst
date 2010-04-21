@@ -431,20 +431,22 @@ Pyevolve. So, that is where you should look to implement your new
 crossover method. The process of adding a new crossover method is as
 follows:
 
-     1. Add a new method such that the name reflects the type of
-     chromosome representation it works with, and the crossover method name. For
-     example, G1DListCrossoverRealSBX, can work with 1D List
-     representations and it operates on real values and it is the SBX
-     crossover operator.
-     2. The method must take two parameters, genome and **args
-     3. From 'args', get the two parents which will take part in the
-     crossover, gMom and gDad
-     4. Once you have gMom and gDad, use them to create the two
-     children, sister and brother
-     5. Simply return the sister and brother
+1) Create a new method such that the name reflects the type of chromosome
+   representation it works with, and the crossover method name. For example,
+   :func:`Crossovers.G1DListCrossoverRealSBX`, can work with 1D List representations
+   and it operates on real values and it is the SBX crossover operator.
 
-Any constants that your crossover method uses should be defined in Consts.py
+2) The method must take two parameters, 'genome' and 'args'.
 
+3) From 'args', get the two parents which will take part in the crossover,
+   gMom and gDad.
+
+4) Once you have gMom and gDad, use them to create the two children, sister
+   and brother.
+
+5) Simply return the sister and brother.
+
+Any constants that your crossover method uses should be defined in Consts.py (:mod:`Consts`).
 
 Genetic Programming Tutorial
 ---------------------------------------------------------------------------
