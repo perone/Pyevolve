@@ -78,7 +78,9 @@ release = '0.6rc1'
 
 # List of directories, relative to source directory, that shouldn't be searched
 # for source files.
-exclude_trees = []
+exclude_trees = [r'.static\.svn']
+
+exclude_dirnames = ['.svn']
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
@@ -96,7 +98,6 @@ exclude_trees = []
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
-
 highlight_language = 'python'
 
 # Options for HTML output
