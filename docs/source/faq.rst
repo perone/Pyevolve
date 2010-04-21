@@ -2,7 +2,7 @@
 F.A.Q.
 ====================================
 
-**What is Pyevole ?**
+**What is Pyevolve ?**
 
    Pyevolve is an Evolutionary Computation framework written in pure python.
 
