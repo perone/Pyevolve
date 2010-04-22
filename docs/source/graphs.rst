@@ -19,54 +19,62 @@ Graphical Plotting Tool Options
 
 This is the documentation where you call the *--help* option: ::
 
-   Usage: pyevolve_graph.py [options]
+Pyevolve 0.6rc1 - Graph Plot Tool
+By Christian S. Perone
 
-   Options:
-     -h, --help            show this help message and exit
-     -f FILENAME, --file=FILENAME
-                           Database file to read (default is 'pyevolve.db').
-     -i IDENTIFY, --identify=IDENTIFY
-                           The identify of evolution.
-     -o OUTFILE, --outfile=OUTFILE
-                           Write the graph image to a file (don't use extension,
-                           just the filename, default is png format, but you can
-                           change using --extension (-e) parameter).
-     -e EXTENSION, --extension=EXTENSION
-                           Graph image file format. Supported options (formats)
-                           are: emf, eps, pdf, png, ps, raw, rgba, svg, svgz.
-                           Default is 'png'.
-     -g GENRANGE, --genrange=GENRANGE
-                           This is the generation range of the graph, ex: 1:30
-                           (interval between 1 and 30).
-     -c COLORMAP, --colormap=COLORMAP
-                           Sets the Color Map for the graph types 8 and 9. Some
-                           options are: summer, bone, gray, hot, jet, cooper,
-                           spectral. The default is 'jet'.
-     -m, --minimize        Sets the 'Minimize' mode, default is the Maximize
-                           mode. This option makes sense if you are minimizing
-                           your evaluation function.
+Usage: pyevolve_graph.py [options]
 
-     Graph types:
-       This is the supported graph types
+Options:
+  -h, --help            show this help message and exit
+  -f FILENAME, --file=FILENAME
+                        Database file to read (default is 'pyevolve.db').
+  -i IDENTIFY, --identify=IDENTIFY
+                        The identify of evolution.
+  -o OUTFILE, --outfile=OUTFILE
+                        Write the graph image to a file (don't use extension,
+                        just the filename, default is png format, but you can
+                        change using --extension (-e) parameter).
+  -e EXTENSION, --extension=EXTENSION
+                        Graph image file format. Supported options (formats)
+                        are: emf, eps, pdf, png, ps, raw, rgba, svg, svgz.
+                        Default is 'png'.
+  -g GENRANGE, --genrange=GENRANGE
+                        This is the generation range of the graph, ex: 1:30
+                        (interval between 1 and 30).
+  -l LINDRANGE, --lindrange=LINDRANGE
+                        This is the individual range of the graph, ex: 1:30
+                        (individuals between 1 and 30), only applies to
+                        heatmaps.
+  -c COLORMAP, --colormap=COLORMAP
+                        Sets the Color Map for the graph types 8 and 9. Some
+                        options are: summer, bone, gray, hot, jet, cooper,
+                        spectral. The default is 'jet'.
+  -m, --minimize        Sets the 'Minimize' mode, default is the Maximize
+                        mode. This option makes sense if you are minimizing
+                        your evaluation function.
 
-       -0                  Write all graphs to files. Graph types: 1, 2, 3, 4 and 5.
-       -1                  Error bars graph (raw scores).
-       -2                  Error bars graph (fitness scores).
-       -3                  Max/min/avg/std. dev. graph (raw scores).
-       -4                  Max/min/avg graph (fitness scores).
-       -5                  Raw and Fitness min/max difference graph.
-       -6                  Compare best raw score of two or more evolutions (you
-                           must specify the identify comma-separed list with
-                           --identify (-i) parameter, like 'one, two, three'),
-                           the maximum is 6 items.
-       -7                  Compare best fitness score of two or more evolutions
-                           (you must specify the identify comma-separed list with
-                           --identify (-i) parameter, like 'one, two, three'),
-                           the maximum is 6 items.
-       -8                  Show a heat map of population raw score distribution
-                           between generations.
-       -9                  Show a heat map of population fitness score
-                           distribution between generations.
+  Graph types:
+    This is the supported graph types
+
+    -0                  Write all graphs to files. Graph types: 1, 2, 3, 4 and
+                        5.
+    -1                  Error bars graph (raw scores).
+    -2                  Error bars graph (fitness scores).
+    -3                  Max/min/avg/std. dev. graph (raw scores).
+    -4                  Max/min/avg graph (fitness scores).
+    -5                  Raw and Fitness min/max difference graph.
+    -6                  Compare best raw score of two or more evolutions (you
+                        must specify the identify comma-separed list with
+                        --identify (-i) parameter, like 'one, two, three'),
+                        the maximum is 6 items.
+    -7                  Compare best fitness score of two or more evolutions
+                        (you must specify the identify comma-separed list with
+                        --identify (-i) parameter, like 'one, two, three'),
+                        the maximum is 6 items.
+    -8                  Show a heat map of population raw score distribution
+                        between generations.
+    -9                  Show a heat map of population fitness score
+                        distribution between generations.
 
 Usage
 ---------------------------------------------------------------------------
