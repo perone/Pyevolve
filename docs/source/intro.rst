@@ -67,35 +67,30 @@ Windows
 
 Installers for Microsoft Windows platform:
 
-`Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5.win32-py2.5.exe?use_mirror=>`__ (*installer*) for Python 2.5
+`Pyevolve <http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.win32-py2.5.exe>`__ v.\ |release| (*installer*) for Python 2.5
    *This is an .exe installer for Microsoft Windows XP/Vista*
 
-`Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5.win32-py2.6.exe?use_mirror=>`__ (*installer*) for Python 2.6
+`Pyevolve <http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.win32-py2.6.exe>`__ v.\ |release| (*installer*) for Python 2.6
    *This is an .exe installer for Microsoft Windows XP/Vista*
+
+`Pyevolve <http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.tar.gz>`__ v.\ |release| (*source code*) for Python 2.x
+   *This is the source code*
 
 Linux
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
 Installation package for Linux platform:
 
-`Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-py2.5.egg?use_mirror=>`__ (*egg package*) for Python 2.5
-   *This is an egg package file*
+`Pyevolve <http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.tar.gz>`__ v.\ |release| (*source code*) for Python 2.x
+   *This is the source code*
 
-`Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-py2.6.egg?use_mirror=>`__ (*egg package*) for Python 2.6
-   *This is an egg package file*
-
-
-Examples and Source code 
+Examples package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
 
-Examples and source code for Pyevolve |release|:
+Examples package for Pyevolve v.\ |release|:
 
-`Pyevolve v.0.6rc1 source code <http://downloads.sourceforge.net/pyevolve/Pyevolve-0.5-source.zip?use_mirror=>`__ (*package*)
+`Pyevolve examples <http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1-examples.zip>`__ v.\ |release| (*examples*)
    *This is an package with the Pyevolve source code*
-
-`Examples for Pyevolve v.0.6rc1 <http://downloads.sourceforge.net/pyevolve/ex_pyevolve0_5.zip?use_mirror=>`__ (*package*)
-   *This is an package with the Pyevolve examples*
-
 
 
 Installation
@@ -115,6 +110,10 @@ You can upgrade your older version too: ::
 or install a downloaded *egg package*: ::
    
    easy_install /downloads/downloaded_package.egg
+
+or install from an URL: ::
+
+   easy_install http://site/package.egg
 
 This command will automatic search, download and install a suitable version of pyevolve, once you have installed, you can test: ::
 
@@ -479,7 +478,7 @@ from iPod/iPhone can found in path.
 		
 Improving Pyevolve performance
 ---------------------------------------------------------------------------
-Pyevolve, at least for the versions <= 0.6 are all written in pure Python, which enables some
+Pyevolve, at least for the versions <= 0.6, have all modules written in pure Python, which enables some
 very useful features and portability, but sometimes weights in performance. Here are some
 ways users and developers uses to increase the performance of Pyevolve:
 
