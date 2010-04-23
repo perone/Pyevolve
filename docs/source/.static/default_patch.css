@@ -12,7 +12,6 @@ body {
 }
 
 .ttip {
-	font-size: 80%;
 	border-bottom: 1px dotted #BBBBBB;
 	color: #A64E15;
 	font-style: italic;
@@ -20,8 +19,9 @@ body {
 }
 
 .tip {
+	font-size: 75%;
 	width: 212px;
-	padding-top: 37px;
+	padding-top: 30px;
 	display: none;
 	position: absolute;
 	background: transparent url(tip_images/tipTop.png) no-repeat top;
