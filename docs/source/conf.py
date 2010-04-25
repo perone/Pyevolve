@@ -29,12 +29,14 @@ elif sys.platform[:3] == "win":
    sys.path.append(os.path.abspath("../../") + "\\pyevolve")
    sys.path.append(os.path.abspath("../../"))
 
+sys.path.append(os.path.abspath('ext'))
+
 # General configuration
 # ---------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.inheritance_diagram']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.inheritance_diagram', 'pyevolve_tooltip']
 
 inheritance_node_attrs = dict(shape='rectangle', fontsize=10, height=0.40)
 
@@ -78,9 +80,11 @@ release = '0.6rc1'
 
 # List of directories, relative to source directory, that shouldn't be searched
 # for source files.
-exclude_trees = [r'.static\.svn']
+#exclude_trees = [r'.static\.svn']
 
-exclude_dirnames = ['.svn']
+exclude_dirnames = [".svn"]
+exclude_dirs = [".svn"]
+
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
