@@ -3,7 +3,10 @@
 {% block extrahead %}
 {{ super() }}
 
+<!-- Remove it for the htmlhelp chm -->
+<!-- script type="text/javascript" src="_static/jquery.js"></script -->
 <script type="text/javascript" src="_static/fg.menu.js"></script>
+<script type="text/javascript" src="_static/jquery.betterTooltip.js"></script>
 <link type="text/css" href="_static/fg.menu.css" media="screen" rel="stylesheet" />
 <link type="text/css" href="_static/theme/ui.all.css" media="screen" rel="stylesheet" />
 
@@ -68,6 +71,7 @@
 			maxHeight: 300
 		});
 
+		$('.ttip').betterTooltip({speed: 200, delay: 50});
     });
 </script>
 
@@ -86,6 +90,7 @@
 <a href="http://www.reddit.com/submit?resubmit=true&url=http%3A%2F%2Fpyevolve.sourceforge.net%2F" target="_blank">
 	<img src="_static/reddit_icon.png" border="0">
 </a>
+
 </p>
 <br>
 {% endblock %}

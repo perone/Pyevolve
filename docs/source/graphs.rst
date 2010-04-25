@@ -19,6 +19,9 @@ Graphical Plotting Tool Options
 
 This is the documentation where you call the *--help* option: ::
 
+   Pyevolve 0.6rc1 - Graph Plot Tool
+   By Christian S. Perone
+
    Usage: pyevolve_graph.py [options]
 
    Options:
@@ -38,6 +41,10 @@ This is the documentation where you call the *--help* option: ::
      -g GENRANGE, --genrange=GENRANGE
                            This is the generation range of the graph, ex: 1:30
                            (interval between 1 and 30).
+     -l LINDRANGE, --lindrange=LINDRANGE
+                           This is the individual range of the graph, ex: 1:30
+                           (individuals between 1 and 30), only applies to
+                           heatmaps.
      -c COLORMAP, --colormap=COLORMAP
                            Sets the Color Map for the graph types 8 and 9. Some
                            options are: summer, bone, gray, hot, jet, cooper,
@@ -49,7 +56,8 @@ This is the documentation where you call the *--help* option: ::
      Graph types:
        This is the supported graph types
 
-       -0                  Write all graphs to files. Graph types: 1, 2, 3, 4 and 5.
+       -0                  Write all graphs to files. Graph types: 1, 2, 3, 4 and
+                           5.
        -1                  Error bars graph (raw scores).
        -2                  Error bars graph (fitness scores).
        -3                  Max/min/avg/std. dev. graph (raw scores).

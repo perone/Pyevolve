@@ -22,6 +22,14 @@ This is the documentation for the release v.\ |release|.
 
 See some plot screenshots on the :ref:`graphs_screens` section.
 
+You can download this manual also in other formats:
+
+`Pyevolve PDF Manual <http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1-manual.pdf>`__ v.\ |release| (*PDF*)
+   *This is a PDF file version with this manual*
+
+`Pyevolve CHM Manual <http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1-manual.chm>`__ v.\ |release| (*CHM - Windows Help*)
+   *This is the CHM (Windows Help) version of this manual*
+
 Get Involved !
 --------------------
 Join with us in `Pyevolve mail-list <http://groups.google.com/group/pyevolve>`_.

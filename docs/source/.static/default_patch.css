@@ -5,11 +5,30 @@
 body {
     font-family: sans-serif;
     font-size: 100%;
-    background-color: #11303d;
+    background-color: #11303D;
     color: #000;
     margin: 0;
     padding: 0;
 }
+
+.ttip {
+	border-bottom: 1px dotted #BBBBBB;
+	color: #A64E15;
+	font-style: italic;
+	cursor: help;
+}
+
+.tip {
+	font-size: 75%;
+	width: 212px;
+	padding-top: 30px;
+	display: none;
+	position: absolute;
+	background: transparent url(tip_images/tipTop.png) no-repeat top;
+}
+
+.tipMid {background: transparent url(tip_images/tipMid.png) repeat-y; padding: 0 25px 20px 25px;}
+.tipBtm {background: transparent url(tip_images/tipBtm.png) no-repeat bottom; height: 32px;}
 
 /* :::: LAYOUT :::: */
 
