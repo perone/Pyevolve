@@ -5,10 +5,13 @@
 
 <!-- Remove it for the htmlhelp chm -->
 <!-- script type="text/javascript" src="_static/jquery.js"></script -->
-<script type="text/javascript" src="_static/fg.menu.js"></script>
-<script type="text/javascript" src="_static/jquery.betterTooltip.js"></script>
 <link type="text/css" href="_static/fg.menu.css" media="screen" rel="stylesheet" />
 <link type="text/css" href="_static/theme/ui.all.css" media="screen" rel="stylesheet" />
+<link rel="stylesheet" href="_static/nivo-slider.css" type="text/css" media="screen" />
+
+<script type="text/javascript" src="_static/fg.menu.js"></script>
+<script type="text/javascript" src="_static/jquery.betterTooltip.js"></script>
+<script src="_static/jquery.nivo.slider.pack.js" type="text/javascript"></script>
 
 	<style type="text/css">
 	.hidden { position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden; }
@@ -72,6 +75,8 @@
 		});
 
 		$('.ttip').betterTooltip({speed: 200, delay: 50});
+		$('#slider').nivoSlider();
+
     });
 </script>
 

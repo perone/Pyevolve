@@ -3,9 +3,14 @@
 Welcome to Pyevolve documentation !
 =================================================
 
-.. image:: imgs/pyevolve_logo_new.png
-   :align: center
+.. raw:: html
 
+   <div id="slider">
+      <img src="_static/index_slide_1.jpg" alt="" />
+      <img src="_static/index_slide_2.jpg" alt="" />
+      <img src="_static/index_slide_3.jpg" alt="" />
+      <img src="_static/index_slide_4.jpg" alt="" />
+   </div>
 
 "*We can allow satellites, planets, suns, universe, nay whole systems of universe, to
 be governed by laws, but the smallest insect, we wish to be created at once by special act.*"
@@ -14,7 +19,7 @@ be governed by laws, but the smallest insect, we wish to be created at once by s
 
 Pyevolve was developed to be a *complete genetic algorithm framework written in pure python*, but since the version 0.6,
 the framework is also supporting Genetic Programming, so in the near future, the framework will be more an Evolutionary
-Algorithm framework than a simple GA framework.
+Computation framework than a simple GA framework.
 
 See the changes in the :ref:`whatsnew` section of this documentation.
 
