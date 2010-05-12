@@ -1,8 +1,9 @@
+#!/usr/bin/python
+
 # This code is part of Pyevolve.
-# Require matplotlib v.0.98.5.0+
+# It requires matplotlib v.0.98.5.0+
 from optparse import OptionParser
 from optparse import OptionGroup
-
 
 def graph_pop_heatmap_raw(all, minimize, colormap="jet", filesave=None):
    pylab.imshow(all, aspect="auto", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
