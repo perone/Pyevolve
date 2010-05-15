@@ -1,7 +1,7 @@
 Examples
 ============================================================================
 
-All the examples can be download from the :ref:`download_sec` section, **they are not**
+All the examples can be downloaded from the :ref:`download_sec` section, **they are not**
 included in the installation package.
 
 Example 1 - Simple example
@@ -9,7 +9,7 @@ Example 1 - Simple example
 
 Filename: :file:`examples/pyevolve_ex1_simple.py`
 
-This is the Example #1, it is a very simple example: 
+This is Example #1, a very simple example: 
 
 .. literalinclude:: ../../examples/pyevolve_ex1_simple.py
 
@@ -28,7 +28,7 @@ Example 3 - Schaffer F6 deceptive function
 
 Filename: :file:`examples/pyevolve_ex3_schaffer.py`
 
-This examples tries to minimize the Schaffer F6 function, this function is a
+This examples tries to minimize the Schaffer F6 function. This function is a
 deceptive function, considered a GA-hard function to optimize: 
 
 .. literalinclude:: ../../examples/pyevolve_ex3_schaffer.py
@@ -38,7 +38,7 @@ Example 4 - Using Sigma truncation scaling
 
 Filename: :file:`examples/pyevolve_ex4_sigmatrunc.py`
 
-This example shows the use of the sigma truncation scale method, it tries
+This example shows the use of the sigma truncation scale method. It tries
 to minimize a function with negative results:
 
 .. literalinclude:: ../../examples/pyevolve_ex4_sigmatrunc.py
@@ -58,7 +58,7 @@ Example 6 - The DB Adapters
 
 Filename: :file:`examples/pyevolve_ex6_dbadapter.py`
 
-This example show the use of the DB Adapters (:mod:`DBAdapters`) : 
+This example shows the use of the DB Adapters (:mod:`DBAdapters`) : 
 
 .. literalinclude:: ../../examples/pyevolve_ex6_dbadapter.py
 
@@ -78,7 +78,7 @@ Example 8 - The Gaussian Integer Mutator
 
 Filename: :file:`examples/pyevolve_ex8_gauss_int.py`
 
-This example shows the use of the Gaussian Integer Mutator
+This example shows the use of the Gaussian Integer Mutator:
 (:class:`Mutators.G1DListMutatorIntegerGaussian`): 
 
 .. literalinclude:: ../../examples/pyevolve_ex8_gauss_int.py
@@ -88,7 +88,7 @@ Example 9 - The 2D List genome
 
 Filename: :file:`examples/pyevolve_ex9_g2dlist.py`
 
-This example shows the use of the 2d list genome (:class:`G2DList.G2DList`):
+This example shows the use of the 2D list genome (:class:`G2DList.G2DList`):
 
 .. literalinclude:: ../../examples/pyevolve_ex9_g2dlist.py
 
@@ -120,7 +120,7 @@ This example shows the use of Pyevolve to solve the `TSP <http://en.wikipedia.or
 .. literalinclude:: ../../examples/pyevolve_ex12_tsp.py
 
 This example will plot a file called :file:`tsp_result.png` in the same
-directory of the execution, this image will be the best result of the
+current working directory. The generated image will be the best result of the
 TSP, it looks like:
 
    .. image:: imgs/ex_12_tsp_result.png
@@ -207,7 +207,7 @@ Example 22 - The Infinite Monkey Theorem
 
 Filename: :file:`examples/pyevolve_ex22_monkey.py`
 
-This example was a kindly contribution by Jelle Feringa, it shows the
+This example was kindly contributed by Jelle Feringa, it shows the
 `Infinite Monkey Theorem <http://en.wikipedia.org/wiki/Infinite_monkey_theorem>`_:
 
 .. literalinclude:: ../../examples/pyevolve_ex22_monkey.py

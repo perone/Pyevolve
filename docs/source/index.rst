@@ -18,7 +18,7 @@ be governed by laws, but the smallest insect, we wish to be created at once by s
 \- **Charles R. Darwin, 1838**
 
 Pyevolve was developed to be a *complete genetic algorithm framework written in pure python*, but since the version 0.6,
-the framework is also supporting Genetic Programming, so in the near future, the framework will be more an Evolutionary
+the framework also supports Genetic Programming, so in the near future, the framework will be more of an Evolutionary
 Computation framework than a simple GA framework.
 
 See the changes in the :ref:`whatsnew` section of this documentation.
@@ -40,7 +40,7 @@ Get Involved !
 Join with us in `Pyevolve mail-list <http://groups.google.com/group/pyevolve>`_.
 
 Development information and bug reports are in the `Trac <http://sourceforge.net/apps/trac/pyevolve>`_, 
-and please, feel free to create new tickets with critics or suggestions.
+and please, feel free to create new tickets with criticisms or suggestions.
 
 Visit the project `blog site <http://pyevolve.sourceforge.net/wordpress>`_ and leave your comment.
 

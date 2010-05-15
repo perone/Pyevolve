@@ -2,7 +2,7 @@
 Graphical Analysis - Plots
 ============================================================================
 
-Pyevolve comes with an Graphical Plotting Tool, this utility uses the great
+Pyevolve comes with an Graphical Plotting Tool. This utility uses the great
 python plotting library called Matplotlib.
 
 .. seealso::
@@ -17,7 +17,7 @@ Graphical Plotting Tool Options
 
 **pyevolve_graph.py**, installed in :file:`\\Python2{x}\\Scripts\\pyevolve_graph.py`.
 
-This is the documentation where you call the *--help* option: ::
+This is the documentation you get by calling the *--help* option: ::
 
    Pyevolve 0.6rc1 - Graph Plot Tool
    By Christian S. Perone
@@ -80,7 +80,7 @@ Usage
 ---------------------------------------------------------------------------
 
 To use this graphical plotting tool, you need to use the :class:`DBAdapters.DBSQLite`
-adapter and create the database file. Pyevolve have the "identify" concept, the value
+adapter and create the database file. Pyevolve uses the "identify" concept. The value
 of this parameter means the same value used in the "identify" parameter of the DB Adapter.
 
 See this example: ::
@@ -96,14 +96,14 @@ This DB Adapter attached to the GA Engine will create the database file named "p
       I recommend the Sqliteman tool to open the database and see the contents or structure, if
       you are interested.
 
-When you run your GA, all the statistics will be dumped to this database, and you have an ID
+When you run your GA, all the statistics will be dumped to this database, and you will have an ID
 for this run, which is the identify parameter. So when you use the graph tool, it will read
 the statistics from this database file. The "identify" parameter is passed to the tool using
 the "-i" option, like this: ::
 
    pyevolve_graph.py -i ex1 -1
 
-By default, this tool will use the database file named *pyevolve.db*, but you can change
+By default, this tool will use the database file named *pyevolve.db*, but you can change that
 using the "-f" option like this: ::
    
    pyevolve_graph.py -i ex1 -1 -f another_db.db
@@ -124,7 +124,7 @@ Usage Examples
 
 **Using the generation range** ::
 
-   # this command wil plot the evoltion of the generations between 10 and 20.
+   # this command wil plot the evolution of the generations between 10 and 20.
    pyevolve_graph.py -i ex1 -1 -g 10:20
 
 **When you have minimized the evaluation function** ::
@@ -133,7 +133,7 @@ Usage Examples
 
 **To specify an identify list (graphs "-6" and "-7")** ::
 
-   pyevolve_graph.py -i ex1_run1,ex1_run2,ex1_run3 -6s
+   pyevolve_graph.py -i ex1_run1,ex1_run2,ex1_run3 -6
 
 .. _graphs_screens:
 
@@ -146,7 +146,7 @@ Error bars graph (raw scores) / "-1" option
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In this graph, you will find the generations on the x-axis and the raw scores on
-the y-axis. The green vertical bars represents the **maximum and the minimum raw
+the y-axis. The green vertical bars represent the **maximum and the minimum raw
 scores** of the current population at generation indicated in the x-axis. The blue
 line between them is the **average raw score** of the population.
 
@@ -160,8 +160,8 @@ This graph was generated using: ::
 Error bars graph (fitness scores) / "-2" option
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The differente between this graph option and the "-1" option is that we are
-using the **fitness scores** instead of the raw scores.
+The difference between this graph option and the "-1" option is that we 
+use the **fitness scores** instead of the raw scores.
 
 This graph was generated using: ::
 
@@ -192,14 +192,14 @@ This graph was generated using: ::
    :align: center
 
 .. note:: We can see in this graph the minimum standard deviation at the
-          convergence point. The GA Engine have stopped the evolution
-          using this criteria.
+          convergence point. The GA Engine stopped the evolution
+          using these criteria.
 
    
 Max/min/avg graph (fitness scores) / "-4" option
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This graphs shows the maximum fitness score from the population at the
+This graph shows the maximum fitness score from the population at the
 x-axis generation using the green line. The red line shows the minimum
 fitness score and the blue line shows the average fitness score from
 the population. The green shaded region between the green and red line
@@ -222,7 +222,7 @@ In this graph, we have two subplots, the first is the difference between
 the best individual raw score and the worst individual raw score. The
 second graph shows the difference between the best individual fitness score
 and the worst individual fitness score
-Both subplost shows the generation on the x-axis and the score difference
+Both subplots show the generation on the x-axis and the score difference
 in the y-axis.
 
 This graph was generated using: ::
@@ -259,7 +259,7 @@ This graph was generated using: ::
 Compare best fitness score of two or more evolutions / "-7" option
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The differente between this graph option and the "-6" option is that we are
+The difference between this graph option and the "-6" option is that we are
 using the **fitness scores** instead of the raw scores.
 
 This graph was generated using: ::
@@ -302,7 +302,7 @@ This graph was generated using: ::
 Heat map of population fitness score distribution / "-9" option
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The differente between this graph option and the "-8" option is that we are
+The difference between this graph option and the "-8" option is that we are
 using the **fitness scores** instead of the raw scores.
 
 This graph was generated using: ::
@@ -312,8 +312,8 @@ This graph was generated using: ::
 .. image:: imgs/graph_9_ex1.png
    :align: center
 
-.. note:: Here you can note some interesting thing, in this graph of the scaled
-          score, the individuals fitness seems almost equaly distributed in the
+.. note:: Here you can note some interesting things, in this graph of the scaled
+          score, the individual's fitnesses seem almost equaly distributed in the
           population.
 
 Now, the same plot using the "hot" colormap.

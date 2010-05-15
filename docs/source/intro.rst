@@ -2,18 +2,18 @@
 Introduction
 ============================================================
 
-This is the documentation of the Pyevolve release |release|. Since the version 0.5, Pyevolve has changed in many aspects, many new features was added and **many** bugs was fixed, this documentation describes those changes, the new API and new features.
+This is the documentation for Pyevolve release |release|. Since version 0.5, Pyevolve has changed in many aspects - many new features were added and **many** bugs were fixed. This documentation describes those changes, the new API and new features.
 
-Pyevolve was developed to be a *complete genetic algorithm framework written in pure python*, the main objectives of Pyevolve is:
+Pyevolve was developed to be a *complete genetic algorithm framework written in pure python*. The main objectives of Pyevolve are:
 
-* **written in pure python**, to maximize the cross-platform issue;
-* **easy to use API**, the API must be easy for end-user;
-* **see the evolution**, the user can and must see and *interact* with the evolution statistics, *graphs* and etc;
-* **extensible**, the API must be extensible, the user can create new representations, genetic operators like crossover, mutation and etc;
+* **written in pure python**, to maximize the cross-platform aspect;
+* **easy to use API**, the API must be simple to use to the end-user;
+* **see the evolution**, the user must be able to see and *interact* with the evolution statistics, *graphs* and etc;
+* **extensible**, the API must be extensible, the user must be able to create new representations, genetic operators like crossover, mutation and etc;
 * **fast**, the design must be optimized for performance;
-* **common features**, the framework must implement the most common features: selectors like roulette wheel, tournament, ranking, uniform. Scaling schemes like linear scaling, etc;
-* **default parameters**, we must have default operators, settings, etc in all options;
-* **open-source**, the source is for everyone, not for only one.
+* **common features**, the framework must implement the most common features of GA: selectors like roulette wheel, tournament, ranking, uniform. Scaling schemes like linear scaling, etc;
+* **default parameters**, There must be sensible defaults for all operators, settings, etc.
+* **open-source**, the source must be available to everyone.
 
 .. _requirements:
 
@@ -22,33 +22,33 @@ Requirements
 
 Pyevolve can be executed on **Windows**, **Linux** and **Mac** platforms.
 
-.. note:: On the Mac platform, it's reported that *Pyevolve 0.5* can't enter on the
+.. note:: On the Mac platform, it's reported that *Pyevolve 0.5* can't enter the
           :term:`Interactive Mode`.
 
 Pyevolve can be executed under `Jython 2.5b1+ <http://www.jython.org>`_, but with some restrictions:
    * You can't use some features like the *SQLite3* adapter to dump statistics and *graphs*
-     (unless you install Matplotlib on Jython, but I think that still is not possible).
+     (unless you install Matplotlib on Jython, but I think that still isn't possible).
 
 Pyevolve can be executed under `IronPython 2.x <http://www.codeplex.com/IronPython>`_, but with some restrictions:
    * You can't use some features like the *SQLite3* adapter to dump statistics and *graphs*
      (unless you install Matplotlib on Jython, but I think that still is not possible).
    * You must install a `zlib module <https://svn.sourceforge.net/svnroot/fepy/trunk/lib/zlib.py>`_ for IronPython.
 
-Pyevolve requires the follow modules:
+Pyevolve requires the following modules:
 
 * `Python 2.5+, v.2.6 is recommended <http://www.python.org>`_
 
 * **Optional, for graph plotting**: `Matplotlib 0.98.4+ <http://matplotlib.sourceforge.net/>`_
-     The matplotlib [#matplotlib]_ is required to plot the graphs.
+     Matplotlib [#matplotlib]_ is required to plot the graphs.
 
 * **Optional, for real-time statistics visualization**: `VPython <http://vpython.org/index.html>`_
-     The VPython [#vvpython]_ is required to see real-time statistics visualization.
+     VPython [#vvpython]_ is required to see real-time statistics visualization.
 
 * **Optional, for drawing GP Trees**: `Pydot 1.0.2+ <http://code.google.com/p/pydot/>`_
-     The Pydot [#pydot]_ is used to plot the Genetic Programming Trees.
+     Pydot [#pydot]_ is used to plot the Genetic Programming Trees.
 
 * **Optional, for MySQL DB Adapter**: `MySQL for Python <http://sourceforge.net/projects/mysql-python/>`_
-     The MySQL [#mysqldb]_ is used by the MySQL DB Adapter.
+     MySQL-python [#mysqldb]_ is used by the MySQL DB Adapter.
 
 .. rubric:: Footnotes
 
@@ -96,13 +96,13 @@ Examples package for Pyevolve v.\ |release|:
 Installation
 -----------------------------------
 
-You can download the specific Pyevolve from the :ref:`download_sec` section, or using *easy_install*.
+You can download the specific Pyevolve version from the :ref:`download_sec` section, or by using *easy_install*.
 
-The installation can be easy done by using the *easy_install*: ::
+The installation can be done the most easiest by using the *easy_install*: ::
    
    easy_install pyevolve
 
-You can upgrade your older version too: ::
+You can upgrade your older version, too: ::
 
    easy_install --upgrade pyevolve
 
@@ -115,13 +115,13 @@ or install from an URL: ::
 
    easy_install http://site/package.egg
 
-This command will automatic search, download and install a suitable version of pyevolve, once you have installed, you can test: ::
+This command will automatically search, download and install a suitable version of Pyevolve; once you have installed it, you can perform test for success: ::
 
    >>> import pyevolve
    >>> print pyevolve.__version__
    'v.0.6rc1'
 
-*easy_install* utility is part of `setuptools <http://pypi.python.org/pypi/setuptools>`_. Once you have installed setuptools, you will find the easy_install.exe program in your Python Scripts subdirectory.
+The *easy_install* utility is part of `setuptools <http://pypi.python.org/pypi/setuptools>`_. Once you have installed setuptools, you will find the easy_install.exe program in your Python Scripts subdirectory.
 
 
 Genetic Algorithm Features
@@ -130,7 +130,7 @@ Genetic Algorithm Features
 **Chromosomes / Representations**
    **1D List**, **2D List**, **1D Binary String**, **2D Binary String** and **Tree**
 
-   .. note:: it is important to note, that the 1D List, 2D List and Tree can carry
+   .. note:: it is important to note that the 1D List, 2D List and Tree can carry
              any type of python objects or primitives.
    
 **Crossover Methods**
@@ -309,13 +309,13 @@ Glossary / Concepts
 .. glossary::
 
    Raw score
-      The raw score represents the score returned by the :term:`Evaluation function`, this score
+      The raw score represents the score returned by the :term:`Evaluation function`. This score
       is not scaled.
 
    Fitness score
-      The fitness score is the scaled raw score, for example, if you use the Linear Scaling (:func:`Scaling.LinearScaling`),
+      The fitness score is the scaled raw score. For example, if you use Linear Scaling (:func:`Scaling.LinearScaling`),
       the fitness score will be the raw score scaled with the Linear Scaling method. The fitness score represents
-      how good is the individual relative to our population.
+      how good the individual is relative to our population.
 
    Evaluation function
       Also called *Fitness Function* or *Objective Function*, the evaluation function is the function which
@@ -328,13 +328,13 @@ Glossary / Concepts
             An article talking about the Evaluation function, or the "Fitness Function".
 
    Sample genome
-      The sample genome is the genome which are used as configuration base for all the new replicated
+      The sample genome is the genome which is used as a configuration base for all the new replicated
       genomes.
 
    Interactive mode
-      Pyevolve have an interactive mode, you can enter in this mode by pressing ESC key before the end of
-      the evolution. When you press ESC, a python environment will be load. In this environment, you
-      have some analysis functions and you can interact with the population of individuals at the
+      Pyevolve has an interactive mode. You can enter in this mode by pressing ESC key before the end of
+      the evolution. When you press ESC, a python environment will load. In this environment, you
+      are provided with some analysis functions and you can interact with the population of individuals at the
       specific generation.
 
       .. seealso::
@@ -347,8 +347,8 @@ Glossary / Concepts
       every generation. It receives one parameter, the GA Engine by itself.
 
    Data Type Independent
-      When a genetic operator is data type idependent, it will operates on different 
-      data types but not with different chromosome representation, for example, the
+      When a genetic operator is data type idependent, it will operate on different 
+      data types but not with different chromosome representations. For example, the
       :func:`Mutators.G1DListMutatorSwap` mutator will operate on Real, Allele or
       Integer :class:`G1DList.G1DList` chromosome, but not on :class:`G2DList.G2DList`
       chromosome.
@@ -365,8 +365,8 @@ Glossary / Concepts
 
 
    Adjusted Fitness
-      The adjusted fitness is a measure computed from the Standardized Fitness, the Adjusted Fitness is always
-      between 0 and 1 and it's always bigger for better individuals.
+      The adjusted fitness is a measure computed from the Standardized Fitness. The Adjusted Fitness is always
+      between 0 and 1 and it's always larger for better individuals.
 
       .. seealso::
 
@@ -375,7 +375,7 @@ Glossary / Concepts
 
    Non-terminal node
       The non-terminal node or non-terminal function is a function in a parse tree which is either a root
-      or a branch in that tree, in the GP we call non-terminal nodes as "functions", the opposite of
+      or a branch in that tree. In GP, we call non-terminal nodes as "functions", the opposite of
       terminal nodes, which are the variables of the GP.
 
 .. seealso::
@@ -401,9 +401,9 @@ To install Pyevolve in PyS60 you simple need to copy the "pyevolve" package (you
 or even the "pyevolve" of your Python installation to the smartphone in a place that PyS60 can find it, usually
 in :file:`c:\\resource\\Python25`, for more information read the PyS60 documentation. The Genetic Algorithms and the
 Genetic Programming cores of Pyevolve was tested with PyS60 2.0, but to use Genetic Programming, you must
-define explicitly the funtions of the GP, like in :ref:`snippet_gp_explicit`.
+explicitly define the funtions of the GP, like in :ref:`snippet_gp_explicit`.
 
-Of course not all features of Pyevolve are supported in PyS60, like for example some DBAdapters and the graphical
+Of course not all features of Pyevolve are supported in PyS60, for example some DBAdapters and the graphical
 plotting tool, since no matplotlib port is available to PyS60 at the moment. Pyevolve was tested with PyS60 2.0
 in a Nokia N78 and in a Nokia N73 smartphones.
 
@@ -417,13 +417,13 @@ in a Nokia N78 and in a Nokia N73 smartphones.
 
 Running Pyevolve on Jython
 ---------------------------------------------------------------------------
-Jython is an implementation of Python language and it's modules (not all unfortunatelly) which
+Jython is an implementation of Python language and its modules (not all unfortunatelly) which
 is designed to run over the Java platform.
 Pyevolve was tested against Jython 2.5.x and worked well, except for the Genetic Programming
 core which is taking a lot of memory, maybe a Jython issue with the Java JVM.
 
 You're highly encouraged to run Jython with the JVM "-server" option; this option will enable
-anoter VM JIT which is optimal for applications where the fast startup times isn't important,
+another VM JIT which is optimal for applications where the fast startup times isn't important,
 and the overall performance is what matters. This JIT of the "Server mode" has different
 policies to compile your code into native code, and it's well designed for long running
 applications, where the VM can profile and optimize better than the JIT of "Client mode".
@@ -478,13 +478,13 @@ from iPod/iPhone can found in path.
 		
 Improving Pyevolve performance
 ---------------------------------------------------------------------------
-Pyevolve, at least for the versions <= 0.6, have all modules written in pure Python, which enables some
-very useful features and portability, but sometimes weights in performance. Here are some
+Pyevolve, at least for versions <= 0.6, has all modules written in pure Python, which enables some
+very useful features and portability, but sometimes at a cost to performance. Here are some
 ways users and developers uses to increase the performance of Pyevolve:
 
    **Psyco**
-      Psyco is the well know Python specializing compiled, created by Armin Rigo. Psyco
-      is very easy to use and can give you a lot of speed up.
+      Psyco is the well known Python specializing compiler, created by Armin Rigo. Psyco
+      is very easy to use and can greatly speed up execution.
 
    **Cython**
       Cython is a specific language used to create C/C++ extensions for Python, it is based
