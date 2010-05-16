@@ -9,29 +9,7 @@ This module have the *selection methods*, like roulette wheel, tournament, ranki
 
 import random
 import Consts
-
-def key_raw_score(individual):
-   """ A key function to return raw score
-
-   :param individual: the individual instance
-   :rtype: the individual raw score
-
-   .. note:: this function is used by the max()/min() python functions
-
-   """
-   return individual.score
-
-def key_fitness_score(individual):
-   """ A key function to return fitness score, used by max()/min()
-
-   :param individual: the individual instance
-   :rtype: the individual fitness score
-
-   .. note:: this function is used by the max()/min() python functions
-
-   """
-   return individual.fitness
-
+import operator
 
 def GRankSelector(population, **args):
    """ The Rank Selector - This selector will pick the best individual of
@@ -80,14 +58,16 @@ def GTournamentSelector(population, **args):
 
    """
    choosen = None
-   poolSize = population.getParam("tournamentPool", Consts.CDefTournamentPoolSize)
+   should_minimize = population.minimax == Consts.minimaxType["minimize"]
+   minimax_operator = min if should_minimize else max
 
+   poolSize = population.getParam("tournamentPool", Consts.CDefTournamentPoolSize)
    tournament_pool = [GRouletteWheel(population, **args) for i in xrange(poolSize) ] 
 
    if population.sortType == Consts.sortType["scaled"]:
-      choosen = max(tournament_pool, key=key_fitness_score)
+      choosen = minimax_operator(tournament_pool, key=lambda ind: ind.fitness)
    else:
-      choosen = max(tournament_pool, key=key_raw_score)
+      choosen = minimax_operator(tournament_pool, key=lambda ind: ind.score)
 
    return choosen
 
@@ -102,20 +82,18 @@ def GTournamentSelectorAlternative(population, **args):
       Added the GTournamentAlternative function.
 
    """
-   choosen = None
-   best_measure = 0
+   pool_size = population.getParam("tournamentPool", Consts.CDefTournamentPoolSize)
    len_pop = len(population)
-   poolSize = population.getParam("tournamentPool", Consts.CDefTournamentPoolSize)
-
-   for i in xrange(poolSize):
-      tryit = population[random.randint(0, len_pop-1)]
-      measure = tryit.fitness if population.sortType == Consts.sortType["scaled"] else tryit.score
-      if measure > best_measure:
-         choosen = tryit
-         best_measure = measure
+   should_minimize = population.minimax == Consts.minimaxType["minimize"]
+   minimax_operator = min if should_minimize else max
+   tournament_pool = [population[random.randint(0, len_pop-1)] for i in xrange(pool_size)]
+   
+   if population.sortType == Consts.sortType["scaled"]:
+      choosen = minimax_operator(tournament_pool, key=lambda ind: ind.fitness)
+   else:
+      choosen = minimax_operator(tournament_pool, key=lambda ind: ind.score)
 
    return choosen
-
 
 def GRouletteWheel(population, **args):
    """ The Roulette Wheel selector """
