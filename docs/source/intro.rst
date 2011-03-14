@@ -492,6 +492,13 @@ ways users and developers uses to increase the performance of Pyevolve:
       too much optimizations, you can use Cython to create your own C/C++ extensions; the
       best approach is to use Cython to build your :term:`Evaluation function`, which is
       usually the most consuming part of Genetic Algorithms.
+	
+   **PyPy**
+      PyPy is the current holy grail of for improving performance of pure-Python
+      modules like Pyevolve. Benchmarks has shown that PyPy is currently the
+      most indicated alternative for speeding up your Genetic Algorithm, if you're
+      only using pure-Python modules in your application, you definitively 
+      should use PyPy.
 
 .. seealso::
 
@@ -504,3 +511,6 @@ ways users and developers uses to increase the performance of Pyevolve:
 
    `Cython - C-Extensions for Python <http://www.cython.org/>`_
       Official Cython project home.
+   
+   `PyPy - PyPy Python Implementation <http://pypy.org/>`_
+      Official PyPy project site.

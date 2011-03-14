@@ -21,3 +21,7 @@ Contributors
 **Christian Kastner**, Austria.
 
 .. image:: imgs/email_christian_kastner.png
+
+**Eric Floehr**, `Intellovations <http://www.intellovations.com/>`_, `@ForecastWatch <http://twitter.com/ForecastWatch>`_, Ohio, USA.
+
+.. image:: imgs/email_eric_floehr.png
