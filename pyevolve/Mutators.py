@@ -439,7 +439,7 @@ def G2DListMutatorAllele(genome, **args):
 
    """
    if args["pmut"] <= 0.0: return 0
-   listSize = len(genome) - 1
+   listSize = genome.getHeight()*genome.getWidth() - 1
    mutations = args["pmut"] * (listSize+1)
 
    allele = genome.getParam("allele", None)
@@ -453,15 +453,15 @@ def G2DListMutatorAllele(genome, **args):
       mutations = 0
 
       for i in xrange(genome.getHeight()):
-         for j in xrange(genome.getWidht()):
+         for j in xrange(genome.getWidth()):
             if Util.randomFlipCoin(args["pmut"]):
                new_val = allele[0].getRandomAllele()
                genome.setItem(i, j, new_val)
                mutations+=1
    else:
       for it in xrange(int(round(mutations))):
-         which_x = rand_randint(0, genome.getWidth()-1)
-         which_y = rand_randint(0, genome.getHeight()-1)
+         which_x = rand_randint(0, genome.getHeight()-1)
+         which_y = rand_randint(0, genome.getWidth()-1)
 
          new_val = allele[0].getRandomAllele()
          genome.setItem(which_x, which_y, new_val)
