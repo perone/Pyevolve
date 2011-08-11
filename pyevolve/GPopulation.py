@@ -367,10 +367,14 @@ class GPopulation:
          # Multiprocessing full_copy parameter
          if self.multiProcessing[1]:
             results = proc_pool.map(multiprocessing_eval_full, self.internalPop)
+            proc_pool.close()
+            proc_pool.join()
             for i in xrange(len(self.internalPop)):
                self.internalPop[i] = results[i]
          else:
             results = proc_pool.map(multiprocessing_eval, self.internalPop)
+            proc_pool.close()
+            proc_pool.join()
             for individual, score in zip(self.internalPop, results):
                individual.score = score
       else:
