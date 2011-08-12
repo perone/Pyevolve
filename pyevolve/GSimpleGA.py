@@ -430,8 +430,6 @@ class GSimpleGA:
       .. versionadded:: 0.6
          The `setMigrationAdapter` method.
       """
-      if (migration_adapter is not None) and (not isinstance(migration_adapter, MigrationScheme)):
-         Util.raiseException("The Migration Adapter must be a MigrationScheme subclass", TypeError)
 
       self.migrationAdapter = migration_adapter
       if self.migrationAdapter is not None:
