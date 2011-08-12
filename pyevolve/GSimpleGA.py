@@ -430,8 +430,6 @@ class GSimpleGA:
       .. versionadded:: 0.6
          The `setMigrationAdapter` method.
       """
-      if (migration_adapter is not None) and (not isinstance(migration_adapter, MigrationScheme)):
-         Util.raiseException("The Migration Adapter must be a MigrationScheme subclass", TypeError)
 
       self.migrationAdapter = migration_adapter
       if self.migrationAdapter is not None:
@@ -666,10 +664,14 @@ class GSimpleGA:
          logging.debug("Doing elitism.")
          if self.getMinimax() == Consts.minimaxType["maximize"]:
             for i in xrange(self.nElitismReplacement):
+               #re-evaluate before being sure this is the best
+               self.internalPop.bestRaw(i).evaluate()
                if self.internalPop.bestRaw(i).score > newPop.bestRaw(i).score:
                   newPop[len(newPop)-1-i] = self.internalPop.bestRaw(i)
          elif self.getMinimax() == Consts.minimaxType["minimize"]:
             for i in xrange(self.nElitismReplacement):
+               #re-evaluate before being sure this is the best
+               self.internalPop.bestRaw(i).evaluate()
                if self.internalPop.bestRaw(i).score < newPop.bestRaw(i).score:
                   newPop[len(newPop)-1-i] = self.internalPop.bestRaw(i)
 
