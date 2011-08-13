@@ -29,7 +29,7 @@ def randomFlipCoin(p):
    if p == 1.0: return True
    if p == 0.0: return False
 
-   return True if rand_random() <= p else False
+   return rand_random() <= p
    
 def listSwapElement(lst, indexa, indexb):
    """ Swaps elements A and B in a list.
