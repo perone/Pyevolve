@@ -29,7 +29,7 @@ def randomFlipCoin(p):
    if p == 1.0: return True
    if p == 0.0: return False
 
-   return True if rand_random() <= p else False
+   return rand_random() <= p
    
 def listSwapElement(lst, indexa, indexb):
    """ Swaps elements A and B in a list.
@@ -161,14 +161,12 @@ class ErrorAccumulator:
       :param evaluated: the evaluated value
       """
       self.acc_square += (target - evaluated)**2
-      self.acc        += (target - evaluated)
+      self.acc        += abs(target - evaluated)
       self.acc_len    +=1
       
    def __iadd__(self, value):
       """ The same as append, but you must pass a tuple """
-      self.acc_square += (value[0] - value[1])**2
-      self.acc        += abs(value[0] - value[1])
-      self.acc_len    +=1
+      self.append(*value)
       return self
 
    def getMean(self):
