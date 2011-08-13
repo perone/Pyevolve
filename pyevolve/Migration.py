@@ -17,13 +17,14 @@ import Consts
 from FunctionSlot import FunctionSlot
 import logging
 
-class MigrationScheme:
-   """ This is the base class for all migration schemes
-   
-   :param host: the source hostname
-   :param port: the source host port
-   :param group_name: the group name
-   """
+try:
+   from mpi4py import MPI
+   HAS_MPI4PY = True
+except ImportError:
+   HAS_MPI4PY = False
+
+class MigrationScheme(object):
+   """ This is the base class for all migration schemes """
 
    selector = None
    """ This is the function slot for the selection method
@@ -31,11 +32,8 @@ class MigrationScheme:
 
       migration_scheme.selector.set(Selectors.GRouletteWheel) """
 
-   def __init__(self, host, port, group_name):
-      self.myself = None
-      self.groupName = group_name
+   def __init__(self):
       self.selector = FunctionSlot("Selector")
-      self.setMyself(host, port)
       self.GAEngine = None
       self.nMigrationRate = Consts.CDefGenMigrationRate
       self.nIndividuals = Consts.CDefMigrationNIndividuals
@@ -117,32 +115,6 @@ class MigrationScheme:
       """ Stops the migration engine """
       pass
 
-   def getGroupName(self):
-      """ Gets the group name
-      
-      .. note:: all islands of evolution which are supposed to exchange
-                individuals, must have the same group name.
-      """
-      return self.groupName
-
-   def setGroupName(self, name):
-      """ Sets the group name
-      
-      :param name: the group name
-
-      .. note:: all islands of evolution which are supposed to exchange
-                individuals, must have the same group name.
-      """
-      self.groupName = name
-
-   def setMyself(self, host, port):
-      """ Which interface you will use to send/receive data
-      
-      :param host: your hostname
-      :param port: your port
-      """
-      self.myself = (host, port)
-
    def select(self):
       """ Pickes an individual from population using specific selection method
       
@@ -151,7 +123,8 @@ class MigrationScheme:
       if self.selector.isEmpty():
          return self.GAEngine.select(popID=self.GAEngine.currentGeneration)
       else:
-         for it in self.selector.applyFunctions(self.GAEngine.internalPop, popID=self.GAEngine.currentGeneration):
+         for it in self.selector.applyFunctions(self.GAEngine.internalPop,
+                                                popID=self.GAEngine.currentGeneration):
             return it
 
    def selectPool(self, num_individuals):
@@ -167,7 +140,6 @@ class MigrationScheme:
       """ Exchange individuals """
       pass
 
-######################################################################################################
 
 class WANMigration(MigrationScheme):
    """ This is the Simple Migration class for distributed GA
@@ -187,10 +159,38 @@ class WANMigration(MigrationScheme):
       migration_scheme.selector.set(Selectors.GRouletteWheel) """
 
    def __init__(self, host, port, group_name):
-      MigrationScheme.__init__(self, host, port, group_name)
+      super(WANMigration, self).__init__()
+      self.setMyself(host, port)
+      self.setGroupName(group_name)
       self.topologyGraph = None
       self.serverThread = Network.UDPThreadServer(host, port)
       self.clientThread = Network.UDPThreadUnicastClient(self.myself[0], rand_randint(30000, 65534))
+
+   def setMyself(self, host, port):
+      """ Which interface you will use to send/receive data
+      
+      :param host: your hostname
+      :param port: your port
+      """
+      self.myself = (host, port)
+
+   def getGroupName(self):
+      """ Gets the group name
+      
+      .. note:: all islands of evolution which are supposed to exchange
+                individuals, must have the same group name.
+      """
+      return self.groupName
+
+   def setGroupName(self, name):
+      """ Sets the group name
+      
+      :param name: the group name
+
+      .. note:: all islands of evolution which are supposed to exchange
+                individuals, must have the same group name.
+      """
+      self.groupName = name
 
    def setTopology(self, graph):
       """ Sets the topology of the migrations
@@ -266,3 +266,75 @@ class WANMigration(MigrationScheme):
 
          # replace the worst
          population[len(population)-1-i] = choice[2]
+
+
+class MPIMigration(MigrationScheme):
+   """ This is the MPIMigration """
+
+   def __init__(self):
+      # Delayed ImportError of mpi4py
+      if not HAS_MPI4PY:
+         raise ImportError, "No module named mpi4py, you must install mpi4py to use MPIMIgration !"
+
+      super(MPIMigration, self).__init__()
+
+      self.comm = MPI.COMM_WORLD
+      self.pid = self.comm.rank
+
+      if self.pid == 0:
+         self.source = self.comm.size - 1
+      else:
+         self.source = self.comm.rank - 1
+      
+      self.dest = (self.comm.rank +1) % (self.comm.size)
+
+      self.all_stars = None
+
+   def isReady(self):
+      """ Returns true if is time to migrate """
+
+      if self.GAEngine.getCurrentGeneration() == 0:
+         return False
+
+      if self.GAEngine.getCurrentGeneration() % self.nMigrationRate == 0:
+         return True
+      else:
+         return False
+
+   def gather_bests(self):
+      '''
+      Collect all the best individuals from the various populations. The
+      result is stored in process 0
+      '''
+      best_guy = self.selector(self.GAEngine.internalPop,
+                               popID=self.GAEngine.currentGeneration)
+
+      self.all_stars = self.comm.gather(sendobj = best_guy, root = 0)
+
+   def exchange(self):
+      """ This is the main method, is where the individuals
+      are exchanged """
+
+      if not self.isReady(): return
+
+      pool_to_send = self.selectPool(self.getNumIndividuals())
+      pool_received  = self.comm.sendrecv(sendobj=pool_to_send,
+                                          dest=self.dest,
+                                          sendtag=0,
+                                          recvobj=None,
+                                          source=self.source,
+                                          recvtag=0)
+
+      population = self.GAEngine.getPopulation()
+
+      pool = pool_received
+      for i in xrange(self.getNumReplacement()):
+         if len(pool) <= 0: break
+
+         choice = rand_choice(pool)
+         pool.remove(choice)
+
+         # replace the worst
+         population[len(population)-1-i] = choice
+
+      self.gather_bests()
