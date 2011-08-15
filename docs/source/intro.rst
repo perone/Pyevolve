@@ -22,8 +22,8 @@ Requirements
 
 Pyevolve can be executed on **Windows**, **Linux** and **Mac** platforms.
 
-.. note:: On the Mac platform, it's reported that *Pyevolve 0.5* can't enter the
-          :term:`Interactive Mode`.
+.. note:: On the Mac platform, it was reported that *Pyevolve 0.5* can't enter in the
+          Interactive Mode.
 
 Pyevolve can be executed under `Jython 2.5b1+ <http://www.jython.org>`_, but with some restrictions:
    * You can't use some features like the *SQLite3* adapter to dump statistics and *graphs*
