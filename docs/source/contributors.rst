@@ -25,3 +25,5 @@ Contributors
 **Eric Floehr**, `Intellovations <http://www.intellovations.com/>`_, `@ForecastWatch <http://twitter.com/ForecastWatch>`_, Ohio, USA.
 
 .. image:: imgs/email_eric_floehr.png
+
+**Lorenzo Riano**, from `ISRC, University of Ulster <http://isrc.ulster.ac.uk/Staff/LRiano/Contact.html>`_, `@lorenzoriano <https://twitter.com/lorenzoriano>`_, UK.
