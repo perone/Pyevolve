@@ -23,6 +23,9 @@ def evolve_callback(ga_engine):
       print ''.join(map(chr,indiv))
    return False
 
+def eval_func(genome):
+   return sum([abs(a-b) for a,b in zip(genome, numeric_sentence)])
+   
 def run_main():
    genome = G1DList.G1DList(len(sentence))
    genome.setParams(rangemin=min(numeric_sentence),
@@ -32,9 +35,7 @@ def run_main():
 
    genome.initializator.set(Initializators.G1DListInitializatorInteger)
    genome.mutator.set(Mutators.G1DListMutatorIntegerGaussian)
-   genome.evaluator.set(lambda genome: sum(
-                           [abs(a-b) for a, b in zip(genome, numeric_sentence)]
-                        ))
+   genome.evaluator.set(eval_func)
 
    ga = GSimpleGA.GSimpleGA(genome)
    #ga.stepCallback.set(evolve_callback)
