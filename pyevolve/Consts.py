@@ -489,6 +489,10 @@ CDefG2DListCrossover = Crossovers.G2DListCrossoverUniform
 CDefG2DListInit      = Initializators.G2DListInitializatorInteger
 CDefG2DListCrossUniformProb = 0.5
 
+# Gaussian Gradient
+CDefGaussianGradientMU = 1.0
+CDefGaussianGradientSIGMA = 0.1
+
 # - DB Adapters SQLite defaults
 CDefSQLiteDBName = "pyevolve.db"
 CDefSQLiteDBTable = "statistics"

@@ -165,6 +165,48 @@ def G1DListMutatorRealRange(genome, **args):
 
    return int(mutations)
 
+def G1DListMutatorIntegerGaussianGradient(genome, **args):
+   """ A gaussian mutator for G1DList of Integers
+
+   Accepts the *rangemin* and *rangemax* genome parameters, both optional. The
+   random distribution is set with mu=1.0 and std=0.1
+   
+   Same as IntegerGaussian, except that this uses relative gradient rather than
+   absolute gaussian. A value is randomly generated about gauss(mu=1, sigma=.1)
+   and multiplied by the gene to drift it up or down (depending on what side of
+   1 the random value falls on) and cast to integer
+
+   """
+   if args["pmut"] <= 0.0: return 0
+   listSize = len(genome)
+   mutations = args["pmut"] * (listSize)
+   
+   mu = Consts.CDefGaussianGradientMU
+   sigma = Consts.CDefGaussianGradientSIGMA
+
+   if mutations < 1.0:
+      mutations = 0
+      for it in xrange(listSize):
+         if Util.randomFlipCoin(args["pmut"]):
+            final_value = int(genome[it] * abs(rand_gauss(mu, sigma)))
+
+            final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
+            final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
+
+            genome[it] = final_value
+            mutations += 1
+   else: 
+      for it in xrange(int(round(mutations))):
+         which_gene = rand_randint(0, listSize-1)
+         final_value = int(genome[which_gene] * abs(rand_gauss(mu, sigma)))
+
+         final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
+         final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
+
+         genome[which_gene] = final_value
+
+   return int(mutations)
+
 def G1DListMutatorIntegerGaussian(genome, **args):
    """ A gaussian mutator for G1DList of Integers
 
@@ -246,6 +288,53 @@ def G1DListMutatorRealGaussian(genome, **args):
       for it in xrange(int(round(mutations))):
          which_gene = rand_randint(0, listSize-1)
          final_value = genome[which_gene] + rand_gauss(mu, sigma)
+
+         final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
+         final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
+
+         genome[which_gene] = final_value
+
+   return int(mutations)
+
+def G1DListMutatorRealGaussianGradient(genome, **args):
+   """ The mutator of G1DList, Gaussian Gradient Mutator
+
+   Accepts the *rangemin* and *rangemax* genome parameters, both optional. The
+   random distribution is set with mu=1.0 and std=0.1
+   
+   The difference between this routine and the normal Gaussian Real is that the
+   other function generates a gaussian value and adds it to the value. If the 
+   mu is 0, and the std is 1, a typical value could be 1.8 or -0.5. These small
+   values are fine if your range is 0-10, but if your range is much larger, like
+   0-100,000, a relative gradient makes sense.
+   
+   This routine generates a gaussian value with mu=1.0 and std=0.1 and then
+   the gene is multiplied by this value. This will cause the gene to drift
+   no matter how large it is.
+
+   """
+   if args["pmut"] <= 0.0: return 0
+   listSize = len(genome)
+   mutations = args["pmut"] * (listSize)
+
+   mu = Consts.CDefGaussianGradientMU
+   sigma = Consts.CDefGaussianGradientSIGMA
+
+   if mutations < 1.0:
+      mutations = 0
+      for it in xrange(listSize):
+         if Util.randomFlipCoin(args["pmut"]):
+            final_value = genome[it] * abs(rand_gauss(mu, sigma))
+
+            final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
+            final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
+
+            genome[it] = final_value
+            mutations += 1
+   else:
+      for it in xrange(int(round(mutations))):
+         which_gene = rand_randint(0, listSize-1)
+         final_value = genome[which_gene] * abs(rand_gauss(mu, sigma))
 
          final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
          final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
@@ -376,6 +465,53 @@ def G2DListMutatorIntegerRange(genome, **args):
 
    return int(mutations)
 
+
+def G2DListMutatorIntegerGaussianGradient(genome, **args):
+   """ A gaussian mutator for G2DList of Integers 
+
+   Accepts the *rangemin* and *rangemax* genome parameters, both optional.
+   
+   This routine generates a gaussian value with mu=1.0 and std=0.1 and then
+   the gene is multiplied by this value. This will cause the gene to drift
+   no matter how large it is.
+
+   """
+   if args["pmut"] <= 0.0: return 0
+   height, width = genome.getSize()
+   elements = height * width
+
+   mutations = args["pmut"] * elements
+
+   mu = Consts.CDefGaussianGradientMU
+   sigma = Consts.CDefGaussianGradientSIGMA
+
+   if mutations < 1.0:
+      mutations = 0
+      
+      for i in xrange(genome.getHeight()):
+         for j in xrange(genome.getWidth()):
+            if Util.randomFlipCoin(args["pmut"]):
+               final_value = int(genome[i][j] * abs(rand_gauss(mu, sigma)))
+
+               final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
+               final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
+
+               genome.setItem(i, j, final_value)
+               mutations += 1
+   else: 
+
+      for it in xrange(int(round(mutations))):
+         which_x = rand_randint(0, genome.getWidth()-1)
+         which_y = rand_randint(0, genome.getHeight()-1)
+
+         final_value = int(genome[which_y][which_x] * abs(rand_gauss(mu, sigma)))
+
+         final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
+         final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
+
+         genome.setItem(which_y, which_x, final_value)
+
+   return int(mutations)
 
 def G2DListMutatorIntegerGaussian(genome, **args):
    """ A gaussian mutator for G2DList of Integers 
@@ -520,6 +656,51 @@ def G2DListMutatorRealGaussian(genome, **args):
 
    return int(mutations)
 
+def G2DListMutatorRealGaussianGradient(genome, **args):
+   """ A gaussian gradient mutator for G2DList of Real 
+
+   Accepts the *rangemin* and *rangemax* genome parameters, both optional.
+   
+   The difference is that this multiplies the gene by gauss(1.0, 0.1), allowing
+   for a smooth gradient drift about the value.
+
+   """
+   if args["pmut"] <= 0.0: return 0
+   height, width = genome.getSize()
+   elements = height * width
+
+   mutations = args["pmut"] * elements
+
+   mu = Consts.CDefGaussianGradientMU
+   sigma = Consts.CDefGaussianGradientSIGMA
+
+   if mutations < 1.0:
+      mutations = 0
+      
+      for i in xrange(genome.getHeight()):
+         for j in xrange(genome.getWidth()):
+            if Util.randomFlipCoin(args["pmut"]):
+               final_value = genome[i][j] * abs(rand_gauss(mu, sigma))
+
+               final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
+               final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
+
+               genome.setItem(i, j, final_value)
+               mutations += 1
+   else: 
+
+      for it in xrange(int(round(mutations))):
+         which_x = rand_randint(0, genome.getWidth()-1)
+         which_y = rand_randint(0, genome.getHeight()-1)
+
+         final_value = genome[which_y][which_x] * abs(rand_gauss(mu, sigma))
+
+         final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
+         final_value = max(final_value, genome.getParam("rangemin", Consts.CDefRangeMin))
+
+         genome.setItem(which_y, which_x, final_value)
+
+   return int(mutations)
 
 #############################
 ##     2D Binary String    ##
