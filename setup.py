@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from distutils.core import setup #changed to distutils.core for pypy comptibility
 from pyevolve import __version__, __author__
 
 setup(
