@@ -169,10 +169,10 @@ def G1DListMutatorIntegerGaussianGradient(genome, **args):
    """ A gaussian mutator for G1DList of Integers
 
    Accepts the *rangemin* and *rangemax* genome parameters, both optional. The
-   random distribution is set with mu=1.0 and std=0.1
+   random distribution is set with mu=1.0 and std=0.0333
    
    Same as IntegerGaussian, except that this uses relative gradient rather than
-   absolute gaussian. A value is randomly generated about gauss(mu=1, sigma=.1)
+   absolute gaussian. A value is randomly generated about gauss(mu=1, sigma=.0333)
    and multiplied by the gene to drift it up or down (depending on what side of
    1 the random value falls on) and cast to integer
 
@@ -300,7 +300,7 @@ def G1DListMutatorRealGaussianGradient(genome, **args):
    """ The mutator of G1DList, Gaussian Gradient Mutator
 
    Accepts the *rangemin* and *rangemax* genome parameters, both optional. The
-   random distribution is set with mu=1.0 and std=0.1
+   random distribution is set with mu=1.0 and std=0.0333
    
    The difference between this routine and the normal Gaussian Real is that the
    other function generates a gaussian value and adds it to the value. If the 
@@ -308,7 +308,7 @@ def G1DListMutatorRealGaussianGradient(genome, **args):
    values are fine if your range is 0-10, but if your range is much larger, like
    0-100,000, a relative gradient makes sense.
    
-   This routine generates a gaussian value with mu=1.0 and std=0.1 and then
+   This routine generates a gaussian value with mu=1.0 and std=0.0333 and then
    the gene is multiplied by this value. This will cause the gene to drift
    no matter how large it is.
 
@@ -471,7 +471,7 @@ def G2DListMutatorIntegerGaussianGradient(genome, **args):
 
    Accepts the *rangemin* and *rangemax* genome parameters, both optional.
    
-   This routine generates a gaussian value with mu=1.0 and std=0.1 and then
+   This routine generates a gaussian value with mu=1.0 and std=0.0333 and then
    the gene is multiplied by this value. This will cause the gene to drift
    no matter how large it is.
 
@@ -661,7 +661,7 @@ def G2DListMutatorRealGaussianGradient(genome, **args):
 
    Accepts the *rangemin* and *rangemax* genome parameters, both optional.
    
-   The difference is that this multiplies the gene by gauss(1.0, 0.1), allowing
+   The difference is that this multiplies the gene by gauss(1.0, 0.0333), allowing
    for a smooth gradient drift about the value.
 
    """
