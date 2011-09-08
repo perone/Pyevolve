@@ -160,7 +160,11 @@ def G1DListCrossoverTwoPoint(genome, **args):
    return (sister, brother)
 
 def G1DListCrossoverUniform(genome, **args):
-   """ The G1DList Uniform Crossover """
+   """ The G1DList Uniform Crossover 
+   
+   Each gene has a 50% chance of being swapped between mom and dad
+   
+   """
    sister = None
    brother = None
    gMom = args["mom"]
@@ -291,6 +295,7 @@ def G1DListCrossoverRealSBX(genome, **args):
    """ Experimental SBX Implementation - Follows the implementation in NSGA-II (Deb, et.al)
 
    Some implementation `reference <http://vision.ucsd.edu/~sagarwal/icannga.pdf>`_.
+   And another reference to the `Simulated Binary Crossover <http://www.mitpressjournals.org/doi/abs/10.1162/106365601750190406>`_.
 
    .. warning:: This crossover method is Data Type Dependent, which means that
                 must be used for 1D genome of real values.
@@ -313,7 +318,6 @@ def G1DListCrossoverRealSBX(genome, **args):
    brother.resetStats()
 
    for i in range(0,len(gMom)):
-
       if math.fabs(gMom[i]-gDad[i]) > EPS:
          if gMom[i] > gDad[i]:
             #swap

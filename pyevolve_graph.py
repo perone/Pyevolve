@@ -1,7 +1,4 @@
 #!/usr/bin/python
-
-# This code is part of Pyevolve.
-# It requires matplotlib v.0.98.5.0+
 from optparse import OptionParser
 from optparse import OptionGroup
 

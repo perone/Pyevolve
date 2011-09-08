@@ -474,6 +474,8 @@ CDefG1DListCrossUniformProb = 0.5
 
 # SBX Crossover defaults
 # Crossover distribution index for SBX
+# Larger Etac = similar to parents
+# Smaller Etac = far away from parents
 CDefG1DListSBXEtac  = 10
 CDefG1DListSBXEPS   = 1.0e-14
   
@@ -488,6 +490,10 @@ CDefG2DListMutator   = Mutators.G2DListMutatorSwap
 CDefG2DListCrossover = Crossovers.G2DListCrossoverUniform
 CDefG2DListInit      = Initializators.G2DListInitializatorInteger
 CDefG2DListCrossUniformProb = 0.5
+
+# Gaussian Gradient
+CDefGaussianGradientMU = 1.0
+CDefGaussianGradientSIGMA = (1.0/3.0) # approx. +/- 3-sigma is +/- 10%
 
 # - DB Adapters SQLite defaults
 CDefSQLiteDBName = "pyevolve.db"
