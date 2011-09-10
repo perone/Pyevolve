@@ -5,8 +5,8 @@
 from optparse import OptionParser
 from optparse import OptionGroup
 
-def graph_pop_heatmap_raw(all, minimize, colormap="jet", filesave=None):
-   pylab.imshow(all, aspect="auto", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
+def graph_pop_heatmap_raw(pop, minimize, colormap="jet", filesave=None):
+   pylab.imshow(pop, aspect="auto", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
    pylab.title("Plot of pop. raw scores along the generations")
    pylab.xlabel('Population')
    pylab.ylabel('Generations')
@@ -19,8 +19,8 @@ def graph_pop_heatmap_raw(all, minimize, colormap="jet", filesave=None):
    else:
       pylab.show()
 
-def graph_pop_heatmap_fitness(all, minimize, colormap="jet", filesave=None):
-   pylab.imshow(all, aspect="equal", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
+def graph_pop_heatmap_fitness(pop, minimize, colormap="jet", filesave=None):
+   pylab.imshow(pop, aspect="equal", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
    pylab.title("Plot of pop. fitness scores along the generations")
    pylab.xlabel('Population')
    pylab.ylabel('Generations')
@@ -34,13 +34,13 @@ def graph_pop_heatmap_fitness(all, minimize, colormap="jet", filesave=None):
       pylab.show()
 
 
-def graph_diff_raw(all, minimize, filesave=None):
+def graph_diff_raw(pop, minimize, filesave=None):
    x = []
 
    diff_raw_y = []
    diff_fit_y = []
 
-   for it in all:
+   for it in pop:
       x.append(it["generation"])
       diff_raw_y.append(it["rawMax"] - it["rawMin"])
       diff_fit_y.append(it["fitMax"] - it["fitMin"])
@@ -94,14 +94,14 @@ def graph_diff_raw(all, minimize, filesave=None):
    else:
       pylab.show()
 
-def graph_maxmin_raw(all, minimize, filesave=None):
+def graph_maxmin_raw(pop, minimize, filesave=None):
    x = []
    max_y = []
    min_y = []
    std_dev_y = []
    avg_y = []
 
-   for it in all:
+   for it in pop:
       x.append(it["generation"])
       max_y.append(it["rawMax"])
       min_y.append(it["rawMin"])
@@ -165,13 +165,13 @@ def graph_maxmin_raw(all, minimize, filesave=None):
       pylab.show()
 
 
-def graph_maxmin_fitness(all, minimize, filesave=None):
+def graph_maxmin_fitness(pop, minimize, filesave=None):
    x = []
    max_y = []
    min_y = []
    avg_y = []
 
-   for it in all:
+   for it in pop:
       x.append(it["generation"])
       max_y.append(it["fitMax"])
       min_y.append(it["fitMin"])
@@ -211,13 +211,13 @@ def graph_maxmin_fitness(all, minimize, filesave=None):
    else:
       pylab.show()
 
-def graph_errorbars_raw(all, minimize, filesave=None):
+def graph_errorbars_raw(pop, minimize, filesave=None):
    x = []
    y = []
    yerr_max = []
    yerr_min = []
 
-   for it in all:
+   for it in pop:
       x.append(it["generation"])
       y.append(it["rawAve"])
       ymax = it["rawMax"] - it["rawAve"]
@@ -239,13 +239,13 @@ def graph_errorbars_raw(all, minimize, filesave=None):
    else:
       pylab.show()
 
-def graph_errorbars_fitness(all, minimize, filesave=None):
+def graph_errorbars_fitness(pop, minimize, filesave=None):
    x = []
    y = []
    yerr_max = []
    yerr_min = []
 
-   for it in all:
+   for it in pop:
       x.append(it["generation"])
       y.append(it["fitAve"])
       ymax = it["fitMax"] - it["fitAve"]
@@ -268,13 +268,13 @@ def graph_errorbars_fitness(all, minimize, filesave=None):
    else:
       pylab.show()
 
-def graph_compare_raw(all, minimize, id_list, filesave=None):
+def graph_compare_raw(pop, minimize, id_list, filesave=None):
    colors_list = ["g", "b", "r", "k", "m", "y"]
    index = 0
 
    pylab.figure()
    
-   for it_out in all:
+   for it_out in pop:
       x = []
       max_y = []
       min_y = []
@@ -308,13 +308,13 @@ def graph_compare_raw(all, minimize, id_list, filesave=None):
    else:
       pylab.show()
 
-def graph_compare_fitness(all, minimize, id_list, filesave=None):
+def graph_compare_fitness(pop, minimize, id_list, filesave=None):
    colors_list = ["g", "b", "r", "k", "m", "y"]
    index = 0
 
    pylab.figure()
    
-   for it_out in all:
+   for it_out in pop:
       x = []
       max_y = []
       min_y = []
@@ -443,7 +443,7 @@ if __name__ == "__main__":
    identify_list = options.identify.split(",")
    identify_list = map(str.strip, identify_list)
 
-   all = None
+   pop = None
 
    if options.pop_heatmap_raw or options.pop_heatmap_fitness:
       conn = sqlite3.connect(options.dbfile)
@@ -461,7 +461,7 @@ if __name__ == "__main__":
          print "No generation data found for the identify '%s' !" % (options.identify,)
          exit()
 
-      all = []
+      pop = []
       for gen in generations:
          pop_tmp = []
 
@@ -486,16 +486,16 @@ if __name__ == "__main__":
                pop_tmp.append(it["raw"])
             else:
                pop_tmp.append(it["fitness"])
-         all.append(pop_tmp)
+         pop.append(pop_tmp)
 
       ret.close()
       conn.close()
 
-      if len(all) <= 0:
+      if len(pop) <= 0:
          print "No statistic data found for the identify '%s' !" % (options.identify,)
          exit()
 
-      print "%d generations found !" % (len(all),)
+      print "%d generations found !" % (len(pop),)
 
       popGraph = True
 
@@ -514,19 +514,19 @@ if __name__ == "__main__":
       else:
          ret = c.execute("select * from statistics where identify = ?", (options.identify,))
 
-      all = ret.fetchall()
+      pop = ret.fetchall()
 
       ret.close()
       conn.close()
 
-      if len(all) <= 0:
+      if len(pop) <= 0:
          print "No statistic data found for the identify '%s' !" % (options.identify,)
          exit()
 
-      print "%d generations found !" % (len(all),)
+      print "%d generations found !" % (len(pop),)
    
    elif len(identify_list) > 1 and not popGraph:
-      all = []
+      pop = []
       if (not options.compare_raw) and (not options.compare_fitness):
          parser.error("You can't use many ids with this graph type !")
 
@@ -541,36 +541,36 @@ if __name__ == "__main__":
             ret = c.execute("select * from statistics where identify = ?", (item,))
          fetchall = ret.fetchall()
          if len(fetchall) > 0:
-            all.append(fetchall)
+            pop.append(fetchall)
 
       ret.close()
       conn.close()
 
-      if len(all) <= 0:
+      if len(pop) <= 0:
          print "No statistic data found for the identify list '%s' !" % (options.identify,)
          exit()
 
-      print "%d identify found !" % (len(all),)
+      print "%d identify found !" % (len(pop),)
 
    if options.errorbars_raw:
-      if options.outfile: graph_errorbars_raw(all, options.minimize, options.outfile + "." + options.extension)
-      else: graph_errorbars_raw(all, options.minimize)
+      if options.outfile: graph_errorbars_raw(pop, options.minimize, options.outfile + "." + options.extension)
+      else: graph_errorbars_raw(pop, options.minimize)
 
    if options.errorbars_fitness:
-      if options.outfile: graph_errorbars_fitness(all, options.minimize, options.outfile + "." + options.extension)
-      else: graph_errorbars_fitness(all, options.minimize)
+      if options.outfile: graph_errorbars_fitness(pop, options.minimize, options.outfile + "." + options.extension)
+      else: graph_errorbars_fitness(pop, options.minimize)
 
    if options.maxmin_raw:
-      if options.outfile: graph_maxmin_raw(all, options.minimize, options.outfile + "." + options.extension)
-      else: graph_maxmin_raw(all, options.minimize)
+      if options.outfile: graph_maxmin_raw(pop, options.minimize, options.outfile + "." + options.extension)
+      else: graph_maxmin_raw(pop, options.minimize)
 
    if options.maxmin_fitness:
-      if options.outfile: graph_maxmin_fitness(all, options.minimize, options.outfile + "." + options.extension)
-      else: graph_maxmin_fitness(all, options.minimize)
+      if options.outfile: graph_maxmin_fitness(pop, options.minimize, options.outfile + "." + options.extension)
+      else: graph_maxmin_fitness(pop, options.minimize)
 
    if options.diff_raw:
-      if options.outfile: graph_diff_raw(all, options.minimize, options.outfile + "." + options.extension)
-      else: graph_diff_raw(all, options.minimize)
+      if options.outfile: graph_diff_raw(pop, options.minimize, options.outfile + "." + options.extension)
+      else: graph_diff_raw(pop, options.minimize)
 
    if options.all_graphs:
       all_graph_functions = [graph_errorbars_raw, graph_errorbars_fitness, graph_maxmin_raw,
@@ -586,25 +586,25 @@ if __name__ == "__main__":
          filename = dirname + "/"
          filename += options.identify + "_" + graph.__name__[6:]
          filename += "." + options.extension
-         graph(all, options.minimize, filename)
+         graph(pop, options.minimize, filename)
       
       print "\n\tDone ! The graphs was saved in the directory '%s'" % (dirname)
 
    if options.compare_raw:
-      if options.outfile: graph_compare_raw(all, options.minimize, identify_list, options.outfile + "." + options.extension)
-      else: graph_compare_raw(all, options.minimize, identify_list )
+      if options.outfile: graph_compare_raw(pop, options.minimize, identify_list, options.outfile + "." + options.extension)
+      else: graph_compare_raw(pop, options.minimize, identify_list )
 
    if options.compare_fitness:
-      if options.outfile: graph_compare_fitness(all, options.minimize, identify_list, options.outfile + "." + options.extension)
-      else: graph_compare_fitness(all, options.minimize, identify_list )
+      if options.outfile: graph_compare_fitness(pop, options.minimize, identify_list, options.outfile + "." + options.extension)
+      else: graph_compare_fitness(pop, options.minimize, identify_list )
 
    if options.pop_heatmap_raw:
-      if options.outfile: graph_pop_heatmap_raw(all, options.minimize, options.colormap, options.outfile + "." + options.extension)
-      else: graph_pop_heatmap_raw(all, options.minimize, options.colormap)
+      if options.outfile: graph_pop_heatmap_raw(pop, options.minimize, options.colormap, options.outfile + "." + options.extension)
+      else: graph_pop_heatmap_raw(pop, options.minimize, options.colormap)
       
    if options.pop_heatmap_fitness:
-      if options.outfile: graph_pop_heatmap_fitness(all, options.minimize, options.colormap, options.outfile + "." + options.extension)
-      else: graph_pop_heatmap_fitness(all, options.minimize, options.colormap)
+      if options.outfile: graph_pop_heatmap_fitness(pop, options.minimize, options.colormap, options.outfile + "." + options.extension)
+      else: graph_pop_heatmap_fitness(pop, options.minimize, options.colormap)
       
 
 
