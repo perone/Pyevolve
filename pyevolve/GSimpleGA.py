@@ -82,6 +82,28 @@ import pyevolve
 # Platform dependant code for the Interactive Mode
 if sys_platform[:3] == "win":
    import msvcrt
+elif sys_platform[:3] == "lin":
+    import tty
+    import termios
+    from sys import stdin as sys_stdin
+    def linux_getch():
+        try:
+            fd = sys_stdin.fileno()
+            old_settings = termios.tcgetattr(fd)
+            try:
+                tty.setraw(sys_stdin.fileno())
+                ch = sys_stdin.read(1)
+            finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+                return ch
+        except:
+            return
+            
+    import signal
+    TIMEOUT = 1
+
+
+
 
 def RawScoreCriteria(ga_engine):
    """ Terminate the evolution using the **bestrawscore** and **rounddecimal**
@@ -790,6 +812,20 @@ class GSimpleGA:
                if sys_platform[:3] == "win":
                   if msvcrt.kbhit():
                      if ord(msvcrt.getch()) == Consts.CDefESCKey:
+                        print "Loading modules for Interactive Mode...",
+                        logging.debug("Windows Interactive Mode key detected ! generation=%d", self.getCurrentGeneration())
+                        from pyevolve import Interaction
+                        print " done !"
+                        interact_banner = "## Pyevolve v.%s - Interactive Mode ##\nPress CTRL-Z to quit interactive mode." % (pyevolve.__version__,)
+                        session_locals = { "ga_engine"  : self,
+                                           "population" : self.getPopulation(),
+                                           "pyevolve"   : pyevolve,
+                                           "it"         : Interaction}
+                        print
+                        code.interact(interact_banner, local=session_locals)
+
+               if sys_platform[:3] == "lin":
+                  if ord(msvcrt.getch()) == Consts.CDefESCKey:
                         print "Loading modules for Interactive Mode...",
                         logging.debug("Windows Interactive Mode key detected ! generation=%d", self.getCurrentGeneration())
                         from pyevolve import Interaction
