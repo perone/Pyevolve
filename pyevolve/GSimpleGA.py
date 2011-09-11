@@ -79,29 +79,6 @@ from sys   import stdout as sys_stdout
 import code
 import pyevolve
 
-# Platform dependant code for the Interactive Mode
-if sys_platform[:3] == "win":
-   import msvcrt
-elif sys_platform[:3] == "lin":
-    import tty
-    import termios
-    from sys import stdin as sys_stdin
-    def linux_getch():
-        try:
-            fd = sys_stdin.fileno()
-            old_settings = termios.tcgetattr(fd)
-            try:
-                tty.setraw(sys_stdin.fileno())
-                ch = sys_stdin.read(1)
-            finally:
-                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-                return ch
-        except:
-            return
-            
-    import signal
-    TIMEOUT = 1
-
 
 
 
@@ -772,8 +749,8 @@ class GSimpleGA:
       self.internalPop.sort()
       logging.debug("Starting loop over evolutionary algorithm.")
 
-      try:      
-         while True:
+      while True:
+         try:      
             if self.migrationAdapter:
                logging.debug("Migration adapter: exchange")
                self.migrationAdapter.exchange()
@@ -809,35 +786,6 @@ class GSimpleGA:
                break
 
             if self.interactiveMode:
-               if sys_platform[:3] == "win":
-                  if msvcrt.kbhit():
-                     if ord(msvcrt.getch()) == Consts.CDefESCKey:
-                        print "Loading modules for Interactive Mode...",
-                        logging.debug("Windows Interactive Mode key detected ! generation=%d", self.getCurrentGeneration())
-                        from pyevolve import Interaction
-                        print " done !"
-                        interact_banner = "## Pyevolve v.%s - Interactive Mode ##\nPress CTRL-Z to quit interactive mode." % (pyevolve.__version__,)
-                        session_locals = { "ga_engine"  : self,
-                                           "population" : self.getPopulation(),
-                                           "pyevolve"   : pyevolve,
-                                           "it"         : Interaction}
-                        print
-                        code.interact(interact_banner, local=session_locals)
-
-               if sys_platform[:3] == "lin":
-                  if ord(msvcrt.getch()) == Consts.CDefESCKey:
-                        print "Loading modules for Interactive Mode...",
-                        logging.debug("Windows Interactive Mode key detected ! generation=%d", self.getCurrentGeneration())
-                        from pyevolve import Interaction
-                        print " done !"
-                        interact_banner = "## Pyevolve v.%s - Interactive Mode ##\nPress CTRL-Z to quit interactive mode." % (pyevolve.__version__,)
-                        session_locals = { "ga_engine"  : self,
-                                           "population" : self.getPopulation(),
-                                           "pyevolve"   : pyevolve,
-                                           "it"         : Interaction}
-                        print
-                        code.interact(interact_banner, local=session_locals)
-
                if (self.getInteractiveGeneration() >= 0) and (self.getInteractiveGeneration() == self.getCurrentGeneration()):
                         print "Loading modules for Interactive Mode...",
                         logging.debug("Manual Interactive Mode key detected ! generation=%d", self.getCurrentGeneration())
@@ -853,9 +801,25 @@ class GSimpleGA:
 
             if self.step(): break
 
-      except KeyboardInterrupt:
-         logging.debug("CTRL-C detected, finishing evolution.")
-         if freq_stats: print "\n\tA break was detected, you have interrupted the evolution !\n"
+         except KeyboardInterrupt:
+            if self.interactiveMode:
+               print "Loading modules for Interactive Mode...",
+               logging.debug("CTRL-C detected, continuing in Interactive Mode ! generation=%d", self.getCurrentGeneration())
+               from pyevolve import Interaction
+               print " done !"
+               if sys_platform[:3] == "win":
+                  interact_banner = "## Pyevolve v.%s - Interactive Mode ##\nPress CTRL-Z to quit interactive mode." % (pyevolve.__version__,)
+               else:
+                  interact_banner = "## Pyevolve v.%s - Interactive Mode ##\nPress CTRL-D to quit interactive mode." % (pyevolve.__version__,)
+               session_locals = { "ga_engine"  : self,
+                                  "population" : self.getPopulation(),
+                                  "pyevolve"   : pyevolve,
+                                  "it"         : Interaction}
+               print
+               code.interact(interact_banner, local=session_locals)
+            else:
+               logging.debug("CTRL-C detected, finishing evolution.")
+               if freq_stats: print "\n\tA break was detected, you have interrupted the evolution !\n"
 
       if freq_stats != 0:
          self.printStats()
