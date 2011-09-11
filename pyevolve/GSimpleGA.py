@@ -787,17 +787,17 @@ class GSimpleGA:
 
             if self.interactiveMode:
                if (self.getInteractiveGeneration() >= 0) and (self.getInteractiveGeneration() == self.getCurrentGeneration()):
-                        print "Loading modules for Interactive Mode...",
-                        logging.debug("Manual Interactive Mode key detected ! generation=%d", self.getCurrentGeneration())
-                        from pyevolve import Interaction
-                        print " done !"
-                        interact_banner = "## Pyevolve v.%s - Interactive Mode ##" % (pyevolve.__version__,)
-                        session_locals = { "ga_engine"  : self,
-                                           "population" : self.getPopulation(),
-                                           "pyevolve"   : pyevolve,
-                                           "it"         : Interaction}
-                        print
-                        code.interact(interact_banner, local=session_locals)
+                  print "Loading modules for Interactive Mode...",
+                  logging.debug("Manual Interactive Mode key detected ! generation=%d", self.getCurrentGeneration())
+                  from pyevolve import Interaction
+                  print " done !"
+                  interact_banner = "## Pyevolve v.%s - Interactive Mode ##" % (pyevolve.__version__,)
+                  session_locals = { "ga_engine"  : self,
+                                     "population" : self.getPopulation(),
+                                     "pyevolve"   : pyevolve,
+                                     "it"         : Interaction}
+                  print
+                  code.interact(interact_banner, local=session_locals)
 
             if self.step(): break
 
@@ -820,6 +820,7 @@ class GSimpleGA:
             else:
                logging.debug("CTRL-C detected, finishing evolution.")
                if freq_stats: print "\n\tA break was detected, you have interrupted the evolution !\n"
+               break
 
       if freq_stats != 0:
          self.printStats()
