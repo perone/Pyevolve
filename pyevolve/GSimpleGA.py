@@ -802,7 +802,7 @@ class GSimpleGA:
             if self.step(): break
 
          except KeyboardInterrupt:
-            if self.interactiveMode:
+            if self.interactiveMode and self.interactiveGen == -1:
                print "Loading modules for Interactive Mode...",
                logging.debug("CTRL-C detected, continuing in Interactive Mode ! generation=%d", self.getCurrentGeneration())
                from pyevolve import Interaction
