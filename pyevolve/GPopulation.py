@@ -365,9 +365,9 @@ class GPopulation:
          logging.debug("Evaluating the population using the multiprocessing method")
 
          # Check for the numer of cores to use
-         if self.multipProcessing[2] is not False and (self.multiProcessing[2] <= CPU_COUNT and self.multiProcessing[2] > 0):
+         if self.multiProcessing[2] is not False and (self.multiProcessing[2] <= CPU_COUNT and self.multiProcessing[2] > 0):
             proc_pool = Pool(processes=self.multiProcessing[2])
-            logging.debug("You have limited the number of cores to be used to %d out of %d CPU cores available" % (self.multiprocessing[2], CPU_COUNT))
+            logging.debug("You have limited the number of cores to be used to %d out of %d CPU cores available" % (self.multiProcessing[2], CPU_COUNT))
          else:
             proc_pool = Pool(processes=CPU_COUNT)
             logging.debug("Warning: Too many cores requested!  You asked for %d out of %d CPU cores available, so defaulting back to using all of them." % (self.multiprocessing[2], CPU_COUNT))
