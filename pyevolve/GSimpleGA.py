@@ -72,7 +72,7 @@ import random
 import logging
 
 from time  import time
-from types import BooleanType
+from types import BooleanType, IntType
 from sys   import platform as sys_platform
 from sys   import stdout as sys_stdout
 
@@ -381,7 +381,7 @@ class GSimpleGA:
       ret+="\n"
       return ret
    
-   def setMultiProcessing(self, flag=True, full_copy=False):
+   def setMultiProcessing(self, flag=True, full_copy=False, limit_cores=False):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
       Use this option when you have more than one core on your CPU and when your
       evaluation function is very slow.
@@ -401,6 +401,7 @@ class GSimpleGA:
       
       :param flag: True (default) or False
       :param full_copy: True or False (default)
+      :param limit_cores: Number of cores to use or just use them all (default)
 
       .. warning:: Use this option only when your evaluation function is slow, so you'll
                    get a good tradeoff between the process communication speed and the
@@ -422,7 +423,11 @@ class GSimpleGA:
       if type(full_copy) != BooleanType:
          Util.raiseException("Multiprocessing 'full_copy' option must be True or False", TypeError)
 
-      self.internalPop.setMultiProcessing(flag, full_copy)
+      if type(limit_cores) != BooleanType:
+         if type(limit_cores) != IntType:
+            Util.raiseException("Multiprocessing 'limit_cores' option must be either False or an Integer number of processes to spawn", TypeError)
+
+      self.internalPop.setMultiProcessing(flag, full_copy, limit_cores)
 
    def setMigrationAdapter(self, migration_adapter=None):
       """ Sets the Migration Adapter

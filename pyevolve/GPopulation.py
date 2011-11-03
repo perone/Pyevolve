@@ -151,13 +151,13 @@ class GPopulation:
       self.allSlots      = [self.scaleMethod]
 
       self.internalParams = {}
-      self.multiProcessing = (False, False)
+      self.multiProcessing = (False, False, False)
 
       # Statistics
       self.statted = False
       self.stats   = Statistics()
 
-   def setMultiProcessing(self, flag=True, full_copy=False):
+   def setMultiProcessing(self, flag=True, full_copy=False, limit_cores=False):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
       Use this option when you have more than one core on your CPU and when your
       evaluation function is very slow.
@@ -167,6 +167,7 @@ class GPopulation:
       
       :param flag: True (default) or False
       :param full_copy: True or False (default)
+      :param limit_cores: Number of cores to use or just all use them all (default)
 
       .. warning:: Use this option only when your evaluation function is slow, se you
                    will get a good tradeoff between the process communication speed and the
@@ -176,7 +177,7 @@ class GPopulation:
          The `setMultiProcessing` method.
 
       """
-      self.multiProcessing = (flag, full_copy)
+      self.multiProcessing = (flag, full_copy, limit_cores)
    
    def setMinimax(self, minimax):
       """ Sets the population minimax
@@ -362,7 +363,15 @@ class GPopulation:
       # We have multiprocessing
       if self.multiProcessing[0] and MULTI_PROCESSING:
          logging.debug("Evaluating the population using the multiprocessing method")
-         proc_pool = Pool()
+
+         # Check for the numer of cores to use
+         if self.multipProcessing[2] is not False and (self.multiProcessing[2] <= CPU_COUNT and self.multiProcessing[2] > 0):
+            proc_pool = Pool(processes=self.multiProcessing[2])
+            logging.debug("You have limited the number of cores to be used to %d out of %d CPU cores available" % (self.multiprocessing[2], CPU_COUNT))
+         else:
+            proc_pool = Pool(processes=CPU_COUNT)
+            logging.debug("Warning: Too many cores requested!  You asked for %d out of %d CPU cores available, so defaulting back to using all of them." % (self.multiprocessing[2], CPU_COUNT))
+            
 
          # Multiprocessing full_copy parameter
          if self.multiProcessing[1]:
