@@ -275,6 +275,15 @@ class GPopulation:
       """
       self.sort()
       return self.internalPop[index]
+  
+   def worstFitness(self):
+      """ Return the worst scaled fitness individual of the population
+      
+      :rtype: the individual
+      
+      """
+      self.sort()
+      return self.internalPop[-1]
 
    def bestRaw(self, index=0):
       """ Return the best raw score individual of population
@@ -291,6 +300,21 @@ class GPopulation:
       else:
          self.sort()
          return self.internalPopRaw[index]
+     
+   def worstRaw(self):
+      """ Return the worst raw score individual of population
+      
+      :rtype: the individual
+
+      .. versionadded:: 0.6
+         The parameter `index`.
+      
+      """
+      if self.sortType == Consts.sortType["raw"]:
+         return self.internalPop[-1]
+      else:
+         self.sort()
+         return self.internalPopRaw[-1]
 
    def sort(self):
       """ Sort the population """

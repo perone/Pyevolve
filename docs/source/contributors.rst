@@ -27,3 +27,7 @@ Contributors
 .. image:: imgs/email_eric_floehr.png
 
 **Lorenzo Riano**, from `ISRC, University of Ulster <http://isrc.ulster.ac.uk/Staff/LRiano/Contact.html>`_, `@lorenzoriano <https://twitter.com/lorenzoriano>`_, UK.
+
+**Blaine Booher**, `University of Cincinnati, Cincinnati, Ohio USA`_,
+
+.. image:: imgs/email_blaine.png
