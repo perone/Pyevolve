@@ -563,6 +563,14 @@ class GSimpleGA:
 
       """
       return self.internalPop.bestRaw()
+  
+   def worstIndividual(self):
+      """ Returns the population worst individual
+
+      :rtype: the best individual
+
+      """
+      return self.internalPop.worstRaw()
 
    def __gp_catch_functions(self, prefix):
       """ Internally used to catch functions with some specific prefix
