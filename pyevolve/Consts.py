@@ -36,10 +36,6 @@ General constants
       >>> minmax = Consts.minimaxType["minimize"]
       >>> minmax = Consts.minimaxType["maximize]
   
-.. attribute:: CDefESCKey
-
-   The ESC key ASCII code. Used to start Interactive Mode.
-
 .. attribute:: CDefRangeMin
 
    Minimum range. This constant is used as integer and real max/min.
@@ -395,7 +391,6 @@ minimaxType = { "minimize" : 0,
                 "maximize" : 1
                }
 
-CDefESCKey = 27
 
 CDefImportList = {"visual.graph": "you must install VPython !",
                   "csv" : "csv module not found !",
