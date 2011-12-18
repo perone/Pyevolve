@@ -16,6 +16,9 @@ generation using the :meth:`GSimpleGA.GSimpleGA.setInteractiveGeneration` method
 If the *interactiveGen* in :class:`GSimpleGA.GSimpleGA` is not set, pressing 
 CTRL-C during the evolution will start interactive mode.
 
+If you want exit the evolution completely when *interactiveMode* is enabled, you 
+need to enter interactive mode by pressing CTRL-C and then type *exit()* at the prompt.
+
 """
 import logging
 
