@@ -350,6 +350,8 @@ class GSimpleGA:
 
    def setInteractiveMode(self, flag=True):
       """ Enable/disable the interactive mode
+      If True, press CTRL-C to enter Interactive Mode during the evolution
+      If False, CTRL-C will exit the evolution normally
       
       :param flag: True or False
 
