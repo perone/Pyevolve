@@ -13,6 +13,9 @@ To use this mode, the parameter *interactiveMode* must be enabled in the
 You can use the manual method to enter in the Interactive Mode at specific
 generation using the :meth:`GSimpleGA.GSimpleGA.setInteractiveGeneration` method.
 
+If the *interactiveGen* in :class:`GSimpleGA.GSimpleGA` is not set, pressing 
+CTRL-C during the evolution will start interactive mode.
+
 """
 import logging
 
