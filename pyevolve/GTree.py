@@ -34,6 +34,7 @@ Classes
 -------------------------------------------------------------
 """
 import random
+from random import choice as rand_choice
 from GenomeBase import GenomeBase, GTreeBase, GTreeNodeBase
 import Consts
 import Util
@@ -261,12 +262,16 @@ class GTreeNodeGP(GTreeNodeBase):
 
    :param data: the node data
    :param type: the node type
+   :param out: the node output value type
+   :param in: the node input value type
    :param parent: the node parent
    
    """
-   def __init__(self, data, node_type=0, parent=None):
+   def __init__(self, data, node_type=0, out_type=0, in_type=0, parent=None):
       GTreeNodeBase.__init__(self, parent)
       self.node_type = node_type
+      self.out_type = out_type
+      self.in_type = in_type
       self.node_data = data
 
    def __repr__(self):
@@ -282,9 +287,11 @@ class GTreeNodeGP(GTreeNodeBase):
       if not isinstance(other, GTreeNodeGP):
          Util.raiseException("The other node used to compare is not a GTreeNodeGP class", TypeError)
 
-      if other.node_type == self.node_type:
-         if other.node_data == self.node_data:
-            return 0
+      if other.node_type == self.node_type and \
+         other.out_type == self.out_type and \
+         other.in_type == self.in_type:
+            if other.node_data == self.node_data:
+               return 0
       return -1
 
    def setData(self, data):
@@ -315,6 +322,36 @@ class GTreeNodeGP(GTreeNodeBase):
       """
       return self.node_type
 
+   def setOutType(self, out_type):
+      """Sets the node output value type
+
+      :param node_type: the node output value type is type of Consts.nodeValueType
+      """
+      self.out_type = out_type
+
+   def getOutType(self):
+      """Get the node output value type
+
+      :rtype: the node output value type is type of Consts.nodeValueType
+      """
+      return self.out_type
+
+   def setInType(self, in_type):
+      """Sets the node input value type
+
+      :param node_type: the node input value type is type of Consts.nodeValueType
+      """
+      self.in_type = in_type
+
+   def getInType(self, index=0):
+      """Get the node input value type
+
+      :rtype: the node input value type is type of Consts.nodeValueType
+      """
+      if type(self.in_type) == list:
+         return self.in_type[index]
+      return self.in_type
+
    def newNode(self, data):
       """Creates a new node and adds this
       node as children of current node
@@ -332,10 +369,16 @@ class GTreeNodeGP(GTreeNodeBase):
       """
       tmp_data = self.node_data
       tmp_type = self.node_type
+      tmp_out_type = self.out_type
+      tmp_in_type = self.in_type
       self.setData(node.getData())
       self.setType(node.getType())
+      self.setInType(node.getInType())
+      self.setOutType(node.getOutType())
       node.setData(tmp_data)
       node.setType(tmp_type)
+      node.setInType(tmp_in_type)
+      node.setOutType(tmp_out_type)
 
    def copy(self, g):
       """ Copy the contents to the destination g
@@ -345,6 +388,8 @@ class GTreeNodeGP(GTreeNodeBase):
       GTreeNodeBase.copy(self, g)
       g.node_data = self.node_data
       g.node_type = self.node_type
+      g.out_type = self.out_type
+      g.in_type = self.in_type
 
    def clone(self):
       """ Return a new copy of the node
@@ -379,6 +424,22 @@ class GTreeGP(GenomeBase, GTreeBase):
       ret += "\n- GTreeGP\n"      
       ret += "\tExpression: %s\n" % self.getPreOrderExpression()
       return ret
+
+   def getRandomNode(self, node_type=0, out_type=0, in_type=0):
+      """ Returns a random node from the Tree
+
+      :param node_type: 0 = Any, 1 = Leaf, 2 = Branch
+      :param out_type: the type returned to the node's parent
+      :param in_type: the type returned from the node's children
+      :rtype: random node
+      """
+      lists = (self.nodes_list, self.nodes_leaf, self.nodes_branch)
+      cho = lists[node_type]
+      if node_type == 2:
+         cho = [c for c in cho if c.getOutType() == out_type and c.getInType() == in_type]
+      if len(cho) <= 0:
+         return None
+      return rand_choice(cho)
 
    def writeDotImage(self, filename):
       """ Writes a image representation of the individual
@@ -473,21 +534,17 @@ class GTreeGP(GenomeBase, GTreeBase):
       
       :rtype: a S-Expression representing the tree
       """
-      str_buff = ""
       if start_node is None:
          start_node = self.getRoot()
-         str_buff += "%s " % start_node.getData()
 
-      is_leaf = start_node.isLeaf()
-      if not is_leaf:
+      str_buff = "%s " % start_node.getData()
+
+      if not start_node.isLeaf():
          str_buff += "( "
-
-      for child_node in start_node.getChilds():
-         str_buff += "%s " % child_node.getData()
-         str_buff += self.getSExpression(child_node)
-
-      if not is_leaf:
+         for child_node in start_node.getChilds():
+            str_buff += self.getSExpression(child_node)
          str_buff += " )"
+
       return str_buff
 
    def getPreOrderExpression(self, start_node=None):
@@ -667,7 +724,7 @@ def checkTerminal(terminal):
    else:
       return terminal
 
-def buildGTreeGPGrow(ga_engine, depth, max_depth):
+def buildGTreeGPGrow(ga_engine, depth, max_depth, out_type=0):
    """ Creates a new random GTreeGP root node with subtrees using
    the "Grow" method.
    
@@ -676,16 +733,22 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
    :max_depth: the maximum depth of the tree
    :rtype: the root node
    """
+   if out_type == 0:
+      out_type = Consts.CDefValueType
 
-   gp_terminals = ga_engine.getParam("gp_terminals")
+   gp_terminals = ga_engine.getParam("gp%s_terminals" % Consts.nodeValueType[out_type])
    assert gp_terminals is not None
 
-   gp_function_set = ga_engine.getParam("gp_function_set")
-   assert gp_function_set is not None
+   gp_function_set = {}
+   for value_type in Consts.nodeValueType:
+      temp_function_set = ga_engine.getParam("gp%s%s_function_set" % (Consts.nodeValueType[out_type], value_type))
+      if temp_function_set is not None:
+         gp_function_set.update(temp_function_set)
+   assert len(gp_function_set) > 0
 
    if depth == max_depth:
       random_terminal = checkTerminal(random.choice(gp_terminals))
-      n = GTreeNodeGP(random_terminal, Consts.nodeType["TERMINAL"])
+      n = GTreeNodeGP(random_terminal, Consts.nodeType["TERMINAL"], out_type)
       return n
    else:
       # Do not generate degenerative trees 
@@ -696,19 +759,19 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
          random_node = random.choice(fchoice)
 
       if random_node in gp_terminals:
-         n = GTreeNodeGP(checkTerminal(random_node), Consts.nodeType["TERMINAL"])
+         n = GTreeNodeGP(checkTerminal(random_node), Consts.nodeType["TERMINAL"], out_type)
       else:
-         n = GTreeNodeGP(random_node, Consts.nodeType["NONTERMINAL"])
+         n = GTreeNodeGP(random_node, Consts.nodeType["NONTERMINAL"], out_type, gp_function_set[random_node][2])
 
    if n.getType() == Consts.nodeType["NONTERMINAL"]:
-      for i in xrange(gp_function_set[n.getData()]):
-         child = buildGTreeGPGrow(ga_engine, depth+1, max_depth)
+      for i in xrange(gp_function_set[n.getData()][0]):
+         child = buildGTreeGPGrow(ga_engine, depth+1, max_depth, n.getInType(i))
          child.setParent(n)
          n.addChild(child)
 
    return n
 
-def buildGTreeGPFull(ga_engine, depth, max_depth):
+def buildGTreeGPFull(ga_engine, depth, max_depth, out_type=0):
    """ Creates a new random GTreeGP root node with subtrees using
    the "Full" method.
    
@@ -717,23 +780,30 @@ def buildGTreeGPFull(ga_engine, depth, max_depth):
    :max_depth: the maximum depth of the tree
    :rtype: the root node
    """
-   gp_terminals = ga_engine.getParam("gp_terminals")
+   if out_type == 0:
+      out_type = Consts.CDefValueType
+
+   gp_terminals = ga_engine.getParam("gp%s_terminals" % Consts.nodeValueType[out_type])
    assert gp_terminals is not None
 
-   gp_function_set = ga_engine.getParam("gp_function_set")
-   assert gp_function_set is not None
+   gp_function_set = {}
+   for value_type in Consts.nodeValueType:
+      temp_function_set = ga_engine.getParam("gp%s%s_function_set" % (Consts.nodeValueType[out_type], value_type))
+      if temp_function_set is not None:
+         gp_function_set.update(temp_function_set)
+   assert len(gp_function_set) > 0
 
    if depth == max_depth:
       random_terminal = checkTerminal(random.choice(gp_terminals))
-      n = GTreeNodeGP(random_terminal, Consts.nodeType["TERMINAL"])
+      n = GTreeNodeGP(random_terminal, Consts.nodeType["TERMINAL"], out_type)
       return n
    else:
       random_oper = random.choice(gp_function_set.keys())
-      n = GTreeNodeGP(random_oper, Consts.nodeType["NONTERMINAL"])
+      n = GTreeNodeGP(random_oper, Consts.nodeType["NONTERMINAL"], out_type, gp_function_set[random_oper][2])
 
    if n.getType() == Consts.nodeType["NONTERMINAL"]:
-      for i in xrange(gp_function_set[n.getData()]):
-         child = buildGTreeGPFull(ga_engine, depth+1, max_depth)
+      for i in xrange(gp_function_set[n.getData()][0]):
+         child = buildGTreeGPFull(ga_engine, depth+1, max_depth, n.getInType(i))
          child.setParent(n)
          n.addChild(child)
 

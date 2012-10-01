@@ -954,9 +954,6 @@ def GTreeGPMutatorOperation(genome, **args):
    ga_engine = args["ga_engine"]
 
 
-   gp_terminals = ga_engine.getParam("gp_terminals")
-   assert gp_terminals is not None
-
    gp_function_set = ga_engine.getParam("gp_function_set")
    assert gp_function_set is not None
 
@@ -968,12 +965,16 @@ def GTreeGPMutatorOperation(genome, **args):
             rand_node = genome.getRandomNode()
             assert rand_node is not None
             if rand_node.getType() == Consts.nodeType["TERMINAL"]:
+               gp_terminals = ga_engine.getParam("gp%s_terminals" % Consts.nodeValueType[rand_node.getOutType()])
+               if len(gp_terminals) == 0: continue
                term_operator = rand_choice(gp_terminals)
             else:
-               op_len = gp_function_set[rand_node.getData()]
+               op_len = gp_function_set[rand_node.getData()][0]
+               out_type = rand_node.getOutType()
+               in_type = rand_node.getInType()
                fun_candidates = []
                for o, l in gp_function_set.items():
-                  if l==op_len:
+                  if l[0] == op_len and l[1] == out_type and l[2] == in_type:
                      fun_candidates.append(o)
 
                if len(fun_candidates) <= 0:
@@ -986,12 +987,16 @@ def GTreeGPMutatorOperation(genome, **args):
          rand_node = genome.getRandomNode()
          assert rand_node is not None
          if rand_node.getType() == Consts.nodeType["TERMINAL"]:
+            gp_terminals = ga_engine.getParam("gp%s_terminals" % Consts.nodeValueType[rand_node.getOutType()])
+            if len(gp_terminals) == 0: continue
             term_operator = rand_choice(gp_terminals)
          else:
-            op_len = gp_function_set[rand_node.getData()]
+            op_len = gp_function_set[rand_node.getData()][0]
+            out_type = rand_node.getOutType()
+            in_type = rand_node.getInType()
             fun_candidates = []
             for o, l in gp_function_set.items():
-               if l==op_len:
+               if l[0] == op_len and l[1] == out_type and l[2] == in_type:
                   fun_candidates.append(o)
 
             if len(fun_candidates) <= 0:
@@ -1035,7 +1040,7 @@ def GTreeGPMutatorSubtree(genome, **args):
          depth = genome.getNodeDepth(node)
          mutations += 1
 
-         root_subtree = GTree.buildGTreeGPGrow(ga_engine, 0, max_depth-depth)
+         root_subtree = GTree.buildGTreeGPGrow(ga_engine, 0, max_depth-depth, node.getOutType())
          node_parent = node.getParent()
 
          if node_parent is None:

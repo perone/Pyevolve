@@ -572,7 +572,7 @@ class GSimpleGA:
       """
       return self.internalPop.worstRaw()
 
-   def __gp_catch_functions(self, prefix):
+   def __gp_catch_functions(self, prefix, arg_name="gp_function_set", out_type=0, in_type=0):
       """ Internally used to catch functions with some specific prefix
       as non-terminals of the GP core """
       import __main__ as mod_main
@@ -586,12 +586,12 @@ class GSimpleGA:
                op_len = addr.func_code.co_argcount
             except:
                continue
-            function_set[obj] = op_len
+            function_set[obj] = (op_len, out_type, in_type)
 
       if len(function_set) <= 0:
          Util.raiseException("No function set found using function prefix '%s' !" % prefix, ValueError)
 
-      self.setParams(gp_function_set=function_set)
+      self.setParams(**{arg_name: function_set})
 
    def initialize(self):
       """ Initializes the GA Engine. Create and initialize population """
@@ -749,9 +749,11 @@ class GSimpleGA:
 
 
       if self.getGPMode():
-         gp_function_prefix = self.getParam("gp_function_prefix")
-         if gp_function_prefix is not None:
-            self.__gp_catch_functions(gp_function_prefix)
+         for index1, value_type1 in enumerate(Consts.nodeValueType):
+            for index2, value_type2 in enumerate(Consts.nodeValueType):
+               gp_function_prefix = self.getParam("gp%s%s_function_prefix" % (value_type1, value_type2))
+               if gp_function_prefix is not None:
+                  self.__gp_catch_functions(gp_function_prefix, "gp%s%s_function_set" % (value_type1, value_type2), index1, index2)
 
       self.initialize()
       self.internalPop.evaluate()
