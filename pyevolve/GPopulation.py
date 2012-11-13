@@ -151,13 +151,13 @@ class GPopulation:
       self.allSlots      = [self.scaleMethod]
 
       self.internalParams = {}
-      self.multiProcessing = (False, False)
+      self.multiProcessing = (False, False, CPU_COUNT)
 
       # Statistics
       self.statted = False
       self.stats   = Statistics()
 
-   def setMultiProcessing(self, flag=True, full_copy=False):
+   def setMultiProcessing(self, flag=True, full_copy=False, processes=CPU_COUNT):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
       Use this option when you have more than one core on your CPU and when your
       evaluation function is very slow.
@@ -167,6 +167,7 @@ class GPopulation:
       
       :param flag: True (default) or False
       :param full_copy: True or False (default)
+      :param proccesses: Number of processes (default=CPU_COUNT)
 
       .. warning:: Use this option only when your evaluation function is slow, se you
                    will get a good tradeoff between the process communication speed and the
@@ -176,7 +177,7 @@ class GPopulation:
          The `setMultiProcessing` method.
 
       """
-      self.multiProcessing = (flag, full_copy)
+      self.multiProcessing = (flag, full_copy, processes)
    
    def setMinimax(self, minimax):
       """ Sets the population minimax
@@ -386,7 +387,7 @@ class GPopulation:
       # We have multiprocessing
       if self.multiProcessing[0] and MULTI_PROCESSING:
          logging.debug("Evaluating the population using the multiprocessing method")
-         proc_pool = Pool()
+         proc_pool = Pool(self.multiProcessing[2])
 
          # Multiprocessing full_copy parameter
          if self.multiProcessing[1]:
