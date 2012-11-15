@@ -399,7 +399,7 @@ class GSimpleGA:
       after the evaluation or not. This parameter is useful when you change the
       individual in the evaluation function.
 
-      The parameter processes sets the number of processes to be used in the processing
+      The parameter "processes" sets the number of processes to be used in the processing
       pool.  If processes is set to a value less than 1, the number of CPUs will be used.
       By default, processes is set to the number of CPUs.  In some cases the
       user may wish to specify fewer or more processes than this.  Fewer processes may be
@@ -409,6 +409,7 @@ class GSimpleGA:
       
       :param flag: True (default) or False
       :param full_copy: True or False (default)
+      :param processes: number of processes in the pool (default=CPU_COUNT)
 
       .. warning:: Use this option only when your evaluation function is slow, so you'll
                    get a good tradeoff between the process communication speed and the
