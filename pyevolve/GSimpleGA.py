@@ -72,7 +72,7 @@ import random
 import logging
 
 from time  import time
-from types import BooleanType
+from types import BooleanType, IntType
 from sys   import platform as sys_platform
 from sys   import stdout as sys_stdout
 
@@ -381,7 +381,7 @@ class GSimpleGA:
       ret+="\n"
       return ret
    
-   def setMultiProcessing(self, flag=True, full_copy=False):
+   def setMultiProcessing(self, flag=True, full_copy=False, processes=None):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
       Use this option when you have more than one core on your CPU and when your
       evaluation function is very slow.
@@ -398,9 +398,18 @@ class GSimpleGA:
       The parameter "full_copy" defines where the individual data should be copied back
       after the evaluation or not. This parameter is useful when you change the
       individual in the evaluation function.
+
+      The parameter "processes" sets the number of processes to be used in the processing
+      pool.  If processes is set to a value less than 1, the number of CPUs will be used.
+      By default, processes is set to the number of CPUs.  In some cases the
+      user may wish to specify fewer or more processes than this.  Fewer processes may be
+      used to restrict the number of processes spawned.  More processes may be used when
+      the machine has multiple CPUs, each with multiple cores, or with processes that are
+      not CPU bound.
       
       :param flag: True (default) or False
       :param full_copy: True or False (default)
+      :param processes: number of processes in the pool (default=CPU_COUNT)
 
       .. warning:: Use this option only when your evaluation function is slow, so you'll
                    get a good tradeoff between the process communication speed and the
@@ -422,7 +431,13 @@ class GSimpleGA:
       if type(full_copy) != BooleanType:
          Util.raiseException("Multiprocessing 'full_copy' option must be True or False", TypeError)
 
-      self.internalPop.setMultiProcessing(flag, full_copy)
+      if processes != None and type(processes) != IntType:
+         Util.raiseException("Multiprocessing 'processes' option must be an integer")
+          
+      if processes != None and processes > 0:
+         self.internalPop.setMultiProcessing(flag, full_copy, processes)
+      else:
+         self.internalPop.setMultiProcessing(flag, full_copy)
 
    def setMigrationAdapter(self, migration_adapter=None):
       """ Sets the Migration Adapter

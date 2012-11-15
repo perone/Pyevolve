@@ -133,6 +133,7 @@ class GPopulation:
 
          self.internalParams = genome.internalParams
          self.multiProcessing = genome.multiProcessing
+         self.proc_pool = genome.proc_pool
 
          self.statted = False
          self.stats   = Statistics()
@@ -151,13 +152,14 @@ class GPopulation:
       self.allSlots      = [self.scaleMethod]
 
       self.internalParams = {}
-      self.multiProcessing = (False, False)
+      self.multiProcessing = (False, False, CPU_COUNT)
+      self.proc_pool = None
 
       # Statistics
       self.statted = False
       self.stats   = Statistics()
 
-   def setMultiProcessing(self, flag=True, full_copy=False):
+   def setMultiProcessing(self, flag=True, full_copy=False, processes=CPU_COUNT):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
       Use this option when you have more than one core on your CPU and when your
       evaluation function is very slow.
@@ -167,6 +169,7 @@ class GPopulation:
       
       :param flag: True (default) or False
       :param full_copy: True or False (default)
+      :param proccesses: Number of processes (default=CPU_COUNT)
 
       .. warning:: Use this option only when your evaluation function is slow, se you
                    will get a good tradeoff between the process communication speed and the
@@ -176,7 +179,10 @@ class GPopulation:
          The `setMultiProcessing` method.
 
       """
-      self.multiProcessing = (flag, full_copy)
+      self.multiProcessing = (flag, full_copy, processes)
+
+      if self.multiProcessing[0] and MULTI_PROCESSING:
+         self.proc_pool = Pool(self.multiProcessing[2])
    
    def setMinimax(self, minimax):
       """ Sets the population minimax
@@ -386,19 +392,17 @@ class GPopulation:
       # We have multiprocessing
       if self.multiProcessing[0] and MULTI_PROCESSING:
          logging.debug("Evaluating the population using the multiprocessing method")
-         proc_pool = Pool()
+
+         if self.proc_pool == None:   #Should not happen but just in case
+            self.proc_pool = Pool(self.multiProcessing[2])
 
          # Multiprocessing full_copy parameter
          if self.multiProcessing[1]:
-            results = proc_pool.map(multiprocessing_eval_full, self.internalPop)
-            proc_pool.close()
-            proc_pool.join()
+            results = self.proc_pool.map(multiprocessing_eval_full, self.internalPop)
             for i in xrange(len(self.internalPop)):
                self.internalPop[i] = results[i]
          else:
-            results = proc_pool.map(multiprocessing_eval, self.internalPop)
-            proc_pool.close()
-            proc_pool.join()
+            results = self.proc_pool.map(multiprocessing_eval, self.internalPop)
             for individual, score in zip(self.internalPop, results):
                individual.score = score
       else:
@@ -452,6 +456,7 @@ class GPopulation:
       #pop.internalParams = self.internalParams.copy()
       pop.internalParams = self.internalParams
       pop.multiProcessing = self.multiProcessing
+      pop.proc_pool = self.proc_pool
    
    def getParam(self, key, nvl=None):
       """ Gets an internal parameter
