@@ -733,7 +733,10 @@ def GTreeGPCrossoverSinglePoint(genome, **args):
       if   dadRandom.getType() == Consts.nodeType["TERMINAL"]:
          momRandom = gMom.getRandomNode(1)
       elif dadRandom.getType() == Consts.nodeType["NONTERMINAL"]:
-         momRandom = gMom.getRandomNode(2)
+         momRandom = gMom.getRandomNode(2, dadRandom.getOutType(), dadRandom.getInType())
+
+      if momRandom is None:
+         continue
 
       mD = gMom.getNodeDepth(momRandom)
       dD = gDad.getNodeDepth(dadRandom)

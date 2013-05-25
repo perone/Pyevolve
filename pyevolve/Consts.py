@@ -524,6 +524,9 @@ CDefXMLRPCStatsGenFreq = 20
 # Util Consts
 CDefBroadcastAddress = "255.255.255.255"
 nodeType = {"TERMINAL" : 0, "NONTERMINAL": 1}
+nodeValueType = [ "", "i", "b", "f", "s" ]
+# [ default, int, bool, float, string ]
+CDefValueType = 0
 
 CDefGPGenomes = [GTreeGP]
 
