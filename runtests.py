@@ -1,7 +1,5 @@
-import unittest
-
-from tests.test_util import *
+import nose
 
 
 if __name__ == '__main__':
-    unittest.main()
+    nose.main()
