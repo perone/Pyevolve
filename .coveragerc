@@ -1,0 +1,4 @@
+[run]
+branch = True
+omit =  # excluding files from 3rd party apps
+    */lib/*

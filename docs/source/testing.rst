@@ -6,7 +6,7 @@ Running Pyevolve tests
     pip install -r requirements_test.txt
 2. Run tests with coverage::
 
-    coverage run --branch runtests.py
+    coverage run runtests.py
 3. Create coverage report and it's html presentation::
 
     coverage report -m
