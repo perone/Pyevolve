@@ -31,3 +31,7 @@ Contributors
 **Blaine Booher**, `University of Cincinnati, Cincinnati, Ohio USA`_,
 
 .. image:: imgs/email_blaine.png
+
+**Lebedev Ilya**, `@melevir <http://twitter.com/melevir>`_, Moscow, Russia.
+
+.. image:: imgs/email_melevir.png
