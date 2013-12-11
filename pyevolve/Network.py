@@ -150,8 +150,7 @@ class UDPThreadUnicastClient(threading.Thread):
       self.doshutdown = False
 
       self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-      #self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-      self.sock.bind((host, port))     
+      self.sock.bind((host, port))
 
    def poolLength(self):
       """ Returns the size of the pool
@@ -286,8 +285,7 @@ class UDPThreadServer(threading.Thread):
       self.poolSize = poolSize
 
       self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-      #self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-      self.sock.bind((host, port))     
+      self.sock.bind((host, port))
       self.sock.settimeout(self.timeout)
 
    def shutdown(self):

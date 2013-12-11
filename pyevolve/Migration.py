@@ -206,7 +206,6 @@ class WANMigration(MigrationScheme):
       if self.topologyGraph is None:
          Util.raiseException("You must add a topology graph to the migration scheme !")
       
-      # targets = [ (ip, port), (ip, port), ...]
       targets = self.topologyGraph.getNeighbors(self.myself)
       self.clientThread.setMultipleTargetHost(targets)
       self.clientThread.start()
