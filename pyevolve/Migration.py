@@ -232,7 +232,8 @@ class WANMigration(MigrationScheme):
         """ This is the main method, is where the individuals
         are exchanged """
 
-        if not self.isReady(): return
+        if not self.isReady():
+            return
 
         # Client section --------------------------------------
         # How many will migrate ?
@@ -255,12 +256,14 @@ class WANMigration(MigrationScheme):
             pool.append(networkObject)
 
         # No individuals received
-        if len(pool) <= 0: return
+        if len(pool) <= 0:
+            return
 
         population = self.GAEngine.getPopulation()
 
         for i in xrange(self.getNumReplacement()):
-            if len(pool) <= 0: break
+            if len(pool) <= 0:
+                break
             choice = rand_choice(pool)
             pool.remove(choice)
 
@@ -274,7 +277,7 @@ class MPIMigration(MigrationScheme):
     def __init__(self):
         # Delayed ImportError of mpi4py
         if not HAS_MPI4PY:
-            raise ImportError, "No module named mpi4py, you must install mpi4py to use MPIMIgration !"
+            raise ImportError("No module named mpi4py, you must install mpi4py to use MPIMIgration !")
 
         super(MPIMigration, self).__init__()
 
@@ -286,7 +289,7 @@ class MPIMigration(MigrationScheme):
         else:
             self.source = self.comm.rank - 1
 
-        self.dest = (self.comm.rank +1) % (self.comm.size)
+        self.dest = (self.comm.rank + 1) % (self.comm.size)
 
         self.all_stars = None
 
@@ -304,10 +307,12 @@ class MPIMigration(MigrationScheme):
     def gather_bests(self):
         """ Collect all the best individuals from the various populations. The
         result is stored in process 0"""
-        best_guy = self.selector(self.GAEngine.internalPop,
-                                 popID=self.GAEngine.currentGeneration)
+        best_guy = self.selector(
+            self.GAEngine.internalPop,
+            popID=self.GAEngine.currentGeneration
+        )
 
-        self.all_stars = self.comm.gather(sendobj = best_guy, root = 0)
+        self.all_stars = self.comm.gather(sendobj=best_guy, root=0)
 
     def exchange(self):
         """ This is the main method, is where the individuals
@@ -330,7 +335,8 @@ class MPIMigration(MigrationScheme):
 
         pool = pool_received
         for i in xrange(self.getNumReplacement()):
-            if len(pool) <= 0: break
+            if len(pool) <= 0:
+                break
 
             choice = rand_choice(pool)
             pool.remove(choice)

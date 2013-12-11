@@ -52,8 +52,7 @@ def G1DBinaryStringMutatorFlip(genome, **args):
         mutations = 0
         for it in xrange(stringLength):
             if Util.randomFlipCoin(args["pmut"]):
-                if genome[it] == 0: genome[it] = 1
-                else: genome[it] = 0
+                genome[it] = 1 if genome[it] == 0 else 0
                 mutations += 1
 
     else:
@@ -388,7 +387,8 @@ def G1DListMutatorIntegerBinary(genome, **args):
         mutations = 0
         for it in xrange(listSize):
             if Util.randomFlipCoin(args["pmut"]):
-                if genome[it] == 0: genome[it] = 1
+                if genome[it] == 0:
+                    genome[it] = 1
                 elif genome[it] == 1:
                     genome[it] = 0
 
@@ -460,7 +460,7 @@ def G2DListMutatorSwap(genome, **args):
             for j in xrange(width):
                 if Util.randomFlipCoin(args["pmut"]):
                     index_b = (rand_randint(0, height-1), rand_randint(0, width-1))
-                    Util.list2DSwapElement(genome.genomeList, (i,j), index_b)
+                    Util.list2DSwapElement(genome.genomeList, (i, j), index_b)
                     mutations += 1
     else:
         for it in xrange(int(round(mutations))):
@@ -774,7 +774,7 @@ def G2DBinaryStringMutatorSwap(genome, **args):
             for j in xrange(width):
                 if Util.randomFlipCoin(args["pmut"]):
                     index_b = (rand_randint(0, height-1), rand_randint(0, width-1))
-                    Util.list2DSwapElement(genome.genomeString, (i,j), index_b)
+                    Util.list2DSwapElement(genome.genomeString, (i, j), index_b)
                     mutations += 1
     else:
         for it in xrange(int(round(mutations))):
@@ -1082,7 +1082,10 @@ def GTreeGPMutatorSubtree(genome, **args):
         Util.raiseException("You must specify the max_depth genome parameter !", ValueError)
 
     if max_depth < 0:
-        Util.raiseException("The max_depth must be >= 1, if you want to use GTreeGPMutatorSubtree crossover !", ValueError)
+        Util.raiseException(
+            "The max_depth must be >= 1, if you want to use GTreeGPMutatorSubtree crossover !",
+            ValueError
+        )
 
     branch_list = genome.nodes_branch
     elements = len(branch_list)

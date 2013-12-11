@@ -11,11 +11,11 @@ Default Parameters
 -------------------------------------------------------------
 
 *Number of Generations*
-  
+
    Default is 100 generations
 
 *Mutation Rate*
-   
+
    Default is 0.02, which represents 0.2%
 
 *Crossover Rate*
@@ -43,7 +43,7 @@ Default Parameters
 *Migration Adapter*
 
    Default is **None**
-   
+
 *Interactive Mode*
 
    Default is **True**
@@ -194,7 +194,8 @@ class GSimpleGA:
 
     Now, when you run your GA, it will stop when the population converges.
 
-    There are those termination criteria functions: :func:`GSimpleGA.RawScoreCriteria`, :func:`GSimpleGA.ConvergenceCriteria`, :func:`GSimpleGA.RawStatsCriteria`, :func:`GSimpleGA.FitnessStatsCriteria`
+    There are those termination criteria functions: :func:`GSimpleGA.RawScoreCriteria`,
+    :func:`GSimpleGA.ConvergenceCriteria`, :func:`GSimpleGA.RawStatsCriteria`, :func:`GSimpleGA.FitnessStatsCriteria`
 
     But you can create your own termination function, this function receives
     one parameter which is the GA Engine, follows an example: ::
@@ -210,7 +211,8 @@ class GSimpleGA:
 
     def __init__(self, genome, seed=None, interactiveMode=True):
         """ Initializator of GSimpleGA """
-        if seed: random.seed(seed)
+        if seed:
+            random.seed(seed)
 
         if type(interactiveMode) != BooleanType:
             Util.raiseException("Interactive Mode option must be True or False", TypeError)
@@ -348,7 +350,6 @@ class GSimpleGA:
             Util.raiseException("Replacement number must be >= 1", ValueError)
         self.nElitismReplacement = numreplace
 
-
     def setInteractiveMode(self, flag=True):
         """ Enable/disable the interactive mode
 
@@ -365,7 +366,7 @@ class GSimpleGA:
     def __repr__(self):
         """ The string representation of the GA Engine """
         minimax_type = Consts.minimaxType.keys()[Consts.minimaxType.values().index(self.minimax)]
-        ret =  "- GSimpleGA\n"
+        ret = "- GSimpleGA\n"
         ret += "\tGP Mode:\t\t %s\n" % self.getGPMode()
         ret += "\tPopulation Size:\t %d\n" % self.internalPop.popSize
         ret += "\tGenerations:\t\t %d\n" % self.nGenerations
@@ -623,7 +624,8 @@ class GSimpleGA:
         size_iterate = len(self.internalPop)
 
         # Odd population size
-        if size_iterate % 2 != 0: size_iterate -= 1
+        if size_iterate % 2 != 0:
+            size_iterate -= 1
 
         crossover_empty = self.select(popID=self.currentGeneration).crossover.isEmpty()
 
@@ -741,8 +743,10 @@ class GSimpleGA:
         self.time_init = time()
 
         logging.debug("Starting the DB Adapter and the Migration Adapter if any")
-        if self.dbAdapter: self.dbAdapter.open(self)
-        if self.migrationAdapter: self.migrationAdapter.start()
+        if self.dbAdapter:
+            self.dbAdapter.open(self)
+        if self.migrationAdapter:
+            self.migrationAdapter.start()
 
         if self.getGPMode():
             gp_function_prefix = self.getParam("gp_function_prefix")
@@ -795,7 +799,10 @@ class GSimpleGA:
                         if msvcrt.kbhit():
                             if ord(msvcrt.getch()) == Consts.CDefESCKey:
                                 print "Loading modules for Interactive Mode...",
-                                logging.debug("Windows Interactive Mode key detected ! generation=%d", self.getCurrentGeneration())
+                                logging.debug(
+                                    "Windows Interactive Mode key detected ! generation=%d",
+                                    self.getCurrentGeneration()
+                                )
                                 from pyevolve import Interaction
                                 print " done !"
                                 interact_banner = "## Pyevolve v.%s - Interactive Mode ##\n" \
@@ -809,7 +816,8 @@ class GSimpleGA:
                                 print
                                 code.interact(interact_banner, local=session_locals)
 
-                    if (self.getInteractiveGeneration() >= 0) and (self.getInteractiveGeneration() == self.getCurrentGeneration()):
+                    is_interactive_generation = self.getInteractiveGeneration() == self.getCurrentGeneration()
+                    if self.getInteractiveGeneration() >= 0 and is_interactive_generation:
                         print "Loading modules for Interactive Mode...",
                         logging.debug(
                             "Manual Interactive Mode key detected ! generation=%d",
@@ -847,9 +855,11 @@ class GSimpleGA:
 
         if self.migrationAdapter:
             logging.debug("Closing the Migration Adapter")
-            if freq_stats: print "Stopping the migration adapter... ",
+            if freq_stats:
+                print "Stopping the migration adapter... ",
             self.migrationAdapter.stop()
-            if freq_stats: print "done !"
+            if freq_stats:
+                print "done !"
 
         return self.bestIndividual()
 

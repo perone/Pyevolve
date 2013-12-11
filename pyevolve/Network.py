@@ -375,12 +375,14 @@ class UDPThreadServer(threading.Thread):
             # Get the data
             data = self.getData()
             # Shutdown called
-            if self.doshutdown: break
+            if self.doshutdown:
+                break
             # The pool is full
             if self.poolLength() >= self.poolSize:
                 continue
                 # There is no data received
-            if data == None: continue
+            if data is None:
+                continue
             # It's a packet from myself
             if data[0] == self.host:
                 continue

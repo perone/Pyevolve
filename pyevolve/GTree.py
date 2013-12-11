@@ -16,7 +16,7 @@ Default Parameters
    The Integer Initializator for GTree
 
 *Mutator*
-   
+
    :func:`Mutators.GTreeMutatorIntegerRange`
 
    The Integer Range mutator for GTree
@@ -45,7 +45,7 @@ except ImportError:
     HAVE_PYDOT = False
 
 #################################
-#             GTree             # 
+#             GTree             #
 #################################
 
 
@@ -100,7 +100,7 @@ class GTree(GenomeBase, GTreeBase):
 
     def __repr__(self):
         """ Return a string representation of Genome """
-        ret  = GenomeBase.__repr__(self)
+        ret = GenomeBase.__repr__(self)
         ret += GTreeBase.__repr__(self)
         return ret
 
@@ -194,7 +194,7 @@ class GTreeNode(GTreeNodeBase):
         return newcopy
 
 #################################
-#    Tree Utility Functions     # 
+#    Tree Utility Functions     #
 #################################
 
 
@@ -214,7 +214,8 @@ def buildGTreeGrow(depth, value_callback, max_siblings, max_depth):
     random_value = value_callback()
     n = GTreeNode(random_value)
 
-    if depth == max_depth: return n
+    if depth == max_depth:
+        return n
 
     for i in xrange(random.randint(0, abs(max_siblings))):
         child = buildGTreeGrow(depth+1, value_callback, max_siblings, max_depth)
@@ -239,7 +240,8 @@ def buildGTreeFull(depth, value_callback, max_siblings, max_depth):
     random_value = value_callback()
     n = GTreeNode(random_value)
 
-    if depth == max_depth: return n
+    if depth == max_depth:
+        return n
 
     if max_siblings < 0:
         range_val = abs(max_siblings)
@@ -253,7 +255,7 @@ def buildGTreeFull(depth, value_callback, max_siblings, max_depth):
     return n
 
 #################################
-#             GTree   GP        # 
+#             GTree   GP        #
 #################################
 
 
@@ -275,7 +277,7 @@ class GTreeNodeGP(GTreeNodeBase):
         self.node_data = data
 
     def __repr__(self):
-        str_repr  = GTreeNodeBase.__repr__(self)
+        str_repr = GTreeNodeBase.__repr__(self)
         str_repr += " - [%s]" % self.node_data
         return str_repr
 
@@ -445,7 +447,8 @@ class GTreeGP(GenomeBase, GTreeBase):
                     newnode.set_label(func.representation)
                 else:
                     newnode.set_label(self.nodes_list[i].getData())
-                if hasattr(func, "color"): newnode.set_color(func.color)
+                if hasattr(func, "color"):
+                    newnode.set_color(func.color)
 
             else:
                 newnode.set_label(self.nodes_list[i].getData())
@@ -563,7 +566,7 @@ class GTreeGP(GenomeBase, GTreeBase):
                 return -1
 
             tmp_self, tmp_other = stack_self.pop(), stack_other.pop()
-            if tmp_self.compare(tmp_other) <> 0:
+            if tmp_self.compare(tmp_other) != 0:
                 return -1
 
             stack_self.extend(tmp_self.getChilds())
@@ -596,10 +599,13 @@ class GTreeGP(GenomeBase, GTreeBase):
             Util.raiseException("The population must have individuals of the GTreeGP chromosome !")
 
         n = 0
-        end_index = len(pop) if end==0 else end
+        end_index = len(pop) if end == 0 else end
         for i in xrange(start, end_index):
             ind = pop[i]
-            subg = pydot.Cluster("cluster_%d" % i, label="\"Ind. #%d - Score Raw/Fit.: %.4f/%.4f\"" % (i, ind.getRawScore(), ind.getFitnessScore()))
+            subg = pydot.Cluster(
+                "cluster_%d" % i,
+                label="\"Ind. #%d - Score Raw/Fit.: %.4f/%.4f\"" % (i, ind.getRawScore(), ind.getFitnessScore())
+            )
             n = ind.writeDotGraph(subg, n)
             graph.add_subgraph(subg)
 
@@ -630,10 +636,13 @@ class GTreeGP(GenomeBase, GTreeBase):
             Util.raiseException("The population must have individuals of the GTreeGP chromosome !")
 
         n = 0
-        end_index = len(pop) if end==0 else end
+        end_index = len(pop) if end == 0 else end
         for i in xrange(start, end_index):
             ind = pop[i]
-            subg = pydot.Cluster("cluster_%d" % i, label="\"Ind. #%d - Score Raw/Fit.: %.4f/%.4f\"" % (i, ind.getRawScore(), ind.getFitnessScore()))
+            subg = pydot.Cluster(
+                "cluster_%d" % i,
+                label="\"Ind. #%d - Score Raw/Fit.: %.4f/%.4f\"" % (i, ind.getRawScore(), ind.getFitnessScore())
+            )
             n = ind.writeDotGraph(subg, n)
             graph.add_subgraph(subg)
 
@@ -641,7 +650,7 @@ class GTreeGP(GenomeBase, GTreeBase):
 
 
 #################################
-#    Tree GP Utility Functions  # 
+#    Tree GP Utility Functions  #
 #################################
 
 def gpdec(**kwds):

@@ -79,8 +79,12 @@ class GenomeBase:
 
     def __repr__(self):
         """String representation of Genome"""
-        allSlots = self.allSlots = [ self.evaluator, self.initializator,
-                                      self.mutator, self.crossover ]
+        allSlots = self.allSlots = [
+            self.evaluator,
+            self.initializator,
+            self.mutator,
+            self.crossover
+        ]
 
         ret = "- GenomeBase\n"
         ret+= "\tScore:\t\t\t %.6f\n" % (self.score,)
@@ -189,6 +193,7 @@ class GenomeBase:
         self.copy(newcopy)
         return newcopy
 
+
 class G1DBase:
     """ G1DBase Class - The base class for 1D chromosomes
 
@@ -210,7 +215,7 @@ class G1DBase:
     def __eq__(self, other):
         """ Compares one chromosome with another """
         cond1 = (self.genomeList == other.genomeList)
-        cond2 = (self.genomeSize   == other.genomeSize)
+        cond2 = (self.genomeSize == other.genomeSize)
         return True if cond1 and cond2 else False
 
     def __contains__(self, value):
@@ -305,6 +310,7 @@ class G1DBase:
         """
         self.genomeList = lst
 
+
 class GTreeNodeBase:
     """ GTreeNodeBase Class - The base class for the node tree genomes
 
@@ -389,7 +395,6 @@ class GTreeNodeBase:
         return self.parent
 
     def __repr__(self):
-        parent = "None" if self.getParent() is None else "Present"
         str_repr = "GTreeNodeBase [Childs=%d]" % len(self)
         return str_repr
 
@@ -440,7 +445,8 @@ class GTreeBase:
         internal nodes list and the internal nodes properties such as
         depth and height.
         """
-        if self.root_node is None: return
+        if self.root_node is None:
+            return
         self.nodes_list = self.getAllNodes()
         self.nodes_leaf = filter(lambda n: n.isLeaf(), self.nodes_list)
         self.nodes_branch = filter(lambda n: not n.isLeaf(), self.nodes_list)
@@ -602,7 +608,8 @@ class GTreeBase:
             g.tree_height = self.tree_height
             node = self.root_node
 
-        if node is None: return None
+        if node is None:
+            return None
 
         newnode = node.clone()
 
@@ -629,5 +636,3 @@ class GTreeBase:
         self.copy(newcopy)
         newcopy.processNodes()
         return newcopy
-
-

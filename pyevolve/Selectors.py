@@ -111,9 +111,10 @@ def GRouletteWheel(population, **args):
     cutoff = random.random()
     lower = 0
     upper = len(population) - 1
-    while(upper >= lower):
+    while upper >= lower:
         i = lower + ((upper-lower)/2)
-        if psum[i] > cutoff: upper = i-1
+        if psum[i] > cutoff:
+            upper = i - 1
         else:
             lower = i + 1
 

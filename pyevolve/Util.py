@@ -292,7 +292,7 @@ class Graph:
         return self.adjacent[node].keys()
 
     def __repr__(self):
-        ret =  "- Graph\n"
+        ret = "- Graph\n"
         ret += "\tNode list:\n"
         for node in self:
             ret += "\t\tNode [%s] = %s\n" % (node, self.getNeighbors(node))

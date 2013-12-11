@@ -10,7 +10,7 @@ choosing random data.
 .. note:: In Pyevolve, the Initializator defines the data type that will
           be used on the chromosome, for example, the :func:`G1DListInitializatorInteger`
           will initialize the G1DList with Integers.
-          
+
 
 """
 
@@ -42,7 +42,7 @@ def G2DBinaryStringInitializator(genome, **args):
 
     for i in xrange(genome.getHeight()):
         for j in xrange(genome.getWidth()):
-            random_gene = rand_choice((0,1))
+            random_gene = rand_choice((0, 1))
             genome.setItem(i, j, random_gene)
 
 
@@ -62,7 +62,7 @@ def G1DListInitializatorAllele(genome, **args):
     if allele is None:
         Util.raiseException("to use the G1DListInitializatorAllele, you must specify the 'allele' parameter")
 
-    genome.genomeList = [ allele[i].getRandomAllele() for i in xrange(genome.getListSize())  ]
+    genome.genomeList = [allele[i].getRandomAllele() for i in xrange(genome.getListSize())]
 
 
 def G1DListInitializatorInteger(genome, **args):
@@ -137,7 +137,7 @@ def G2DListInitializatorAllele(genome, **args):
     if allele is None:
         Util.raiseException("to use the G2DListInitializatorAllele, you must specify the 'allele' parameter")
 
-    if allele.homogeneous == False:
+    if not allele.homogeneous:
         Util.raiseException("to use the G2DListInitializatorAllele, the 'allele' must be homogeneous")
 
     genome.clearList()
