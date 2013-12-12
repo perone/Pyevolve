@@ -242,14 +242,11 @@ class GPopulation:
       len_pop = len(self)
       for ind in xrange(len_pop):
          raw_sum += self[ind].score
-         #fit_sum += self[ind].fitness
 
       self.stats["rawMax"] = max(self, key=key_raw_score).score
       self.stats["rawMin"] = min(self, key=key_raw_score).score
       self.stats["rawAve"] = raw_sum / float(len_pop)
-      #self.stats["rawTot"] = raw_sum
-      #self.stats["fitTot"] = fit_sum
-      
+
       tmpvar = 0.0
       for ind in xrange(len_pop):
          s = self[ind].score - self.stats["rawAve"]
@@ -449,7 +446,6 @@ class GPopulation:
       pop.sortType = self.sortType
       pop.minimax = self.minimax
       pop.scaleMethod = self.scaleMethod
-      #pop.internalParams = self.internalParams.copy()
       pop.internalParams = self.internalParams
       pop.multiProcessing = self.multiProcessing
    

@@ -174,7 +174,6 @@ class GenomeBase:
       g.initializator = self.initializator
       g.mutator = self.mutator
       g.crossover = self.crossover
-      #g.internalParams = self.internalParams.copy()
       g.internalParams = self.internalParams
       
    def clone(self):
@@ -377,8 +376,6 @@ class GTreeNodeBase:
 
       :param parent: the parent node
       """
-      #if not isinstance(parent, GTreeNodeBase):
-      #   Util.raiseException("The parent must be a node", TypeError)
       self.parent = parent
    
    def getParent(self):
