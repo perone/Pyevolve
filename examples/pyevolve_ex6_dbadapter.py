@@ -7,13 +7,13 @@ from pyevolve import Statistics
 # This function is the evaluation function, we want
 # to give high score to more zero'ed chromosomes
 def eval_func(chromosome):
-   score = 0.0
+    score = 0.0
 
-   # iterate over the chromosome
-   for value in chromosome:
-      if value==0:
-         score += 0.5
-   return score
+    # iterate over the chromosome
+    for value in chromosome:
+        if value==0:
+            score += 0.5
+    return score
 
 # Genome instance
 genome = G1DList.G1DList(100)
