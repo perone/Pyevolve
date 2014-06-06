@@ -37,15 +37,14 @@ Class
 from GenomeBase import GenomeBase, G1DBase
 import Consts
 
-class G1DList(GenomeBase, G1DBase):
+class G1DList(G1DBase):
    """ G1DList Class - The 1D List chromosome representation
    
    Inheritance diagram for :class:`G1DList.G1DList`:
 
    .. inheritance-diagram:: G1DList.G1DList
 
-   This chromosome class extends the :class:`GenomeBase.GenomeBase`
-   and :class:`GenomeBase.G1DBase` classes.
+   This chromosome class extends the :class:`GenomeBase.G1DBase` classes.
    
    **Examples**
 
@@ -104,43 +103,10 @@ class G1DList(GenomeBase, G1DBase):
 
    """
 
-   evaluator = None
-   """ This is the :term:`evaluation function` slot, you can add
-   a function with the *set* method: ::
-
-      genome.evaluator.set(eval_func)
-   """
-
-   initializator = None
-   """ This is the initialization function of the genome, you
-   can change the default initializator using the function slot: ::
-
-      genome.initializator.set(Initializators.G1DListInitializatorAllele)
-
-   In this example, the initializator :func:`Initializators.G1DListInitializatorAllele`
-   will be used to create the initial population.
-   """
-
-   mutator = None
-   """ This is the mutator function slot, you can change the default
-   mutator using the slot *set* function: ::
-
-      genome.mutator.set(Mutators.G1DListMutatorSwap)
-
-   """
-
-   crossover = None
-   """ This is the reproduction function slot, the crossover. You
-   can change the default crossover method using: ::
-
-      genome.crossover.set(Crossovers.G1DListCrossoverUniform)
-   """
-
    def __init__(self, size=10, cloning=False):
       """ The initializator of G1DList representation,
       size parameter must be specified """
-      GenomeBase.__init__(self)
-      G1DBase.__init__(self, size)
+      super(G1DList, self).__init__(size)
       if not cloning:
          self.initializator.set(Consts.CDefG1DListInit)
          self.mutator.set(Consts.CDefG1DListMutator)

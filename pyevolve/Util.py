@@ -139,7 +139,7 @@ def importSpecial(name):
       raiseException("Cannot import module %s: %s" % (name, Consts.CDefImportList[name]), expt=ImportError)
    return imp_mod 
 
-class ErrorAccumulator:
+class ErrorAccumulator(object):
    """ An accumulator for the Root Mean Square Error (RMSE) and the
    Mean Square Error (MSE)
    """
@@ -202,7 +202,7 @@ class ErrorAccumulator:
       return (self.acc_square / float(self.acc_len))
 
 
-class Graph:
+class Graph(object):
    """ The Graph class
 
    Example:

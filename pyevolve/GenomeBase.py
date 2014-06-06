@@ -14,41 +14,9 @@ import inspect
 from FunctionSlot import FunctionSlot
 import Util
 
-class GenomeBase:
+class GenomeBase(object):
    """ GenomeBase Class - The base of all chromosome representation """
-
-   evaluator = None
-   """ This is the :term:`evaluation function` slot, you can add
-   a function with the *set* method: ::
-
-      genome.evaluator.set(eval_func)
-   """
-
-   initializator = None
-   """ This is the initialization function of the genome, you
-   can change the default initializator using the function slot: ::
-
-      genome.initializator.set(Initializators.G1DListInitializatorAllele)
-
-   In this example, the initializator :func:`Initializators.G1DListInitializatorAllele`
-   will be used to create the initial population.
-   """
-
-   mutator = None
-   """ This is the mutator function slot, you can change the default
-   mutator using the slot *set* function: ::
-
-      genome.mutator.set(Mutators.G1DListMutatorSwap)
-
-   """
-
-   crossover = None
-   """ This is the reproduction function slot, the crossover. You
-   can change the default crossover method using: ::
-
-      genome.crossover.set(Crossovers.G1DListCrossoverUniform)
-   """
-
+   __slots__ = [ "evaluator", "initializator", "mutator", "crossover", "internalParams", "score", "fitness" ]
 
    def __init__(self):
       """Genome Constructor"""
@@ -79,8 +47,8 @@ class GenomeBase:
 
    def __repr__(self):
       """String representation of Genome"""
-      allSlots =  self.allSlots = [ self.evaluator, self.initializator,
-                                    self.mutator, self.crossover ]
+      allSlots = [ self.evaluator, self.initializator,
+                   self.mutator, self.crossover ]
 
       ret = "- GenomeBase\n"
       ret+= "\tScore:\t\t\t %.6f\n" % (self.score,)
@@ -189,16 +157,20 @@ class GenomeBase:
       self.copy(newcopy)
       return newcopy
    
-class G1DBase:
+class G1DBase(GenomeBase):
    """ G1DBase Class - The base class for 1D chromosomes
-   
+
+   This chromosome class extends the :class:`GenomeBase` classes.
+
    :param size: the 1D list size
 
    .. versionadded:: 0.6
-      Added te *G1DBase* class
+      Added the *G1DBase* class
    """
+   __slots__ = [ "genomeSize", "genomeList" ]
 
    def __init__(self, size):
+      super(G1DBase, self).__init__()
       self.genomeSize = size
       self.genomeList = []
 
@@ -305,15 +277,16 @@ class G1DBase:
       """
       self.genomeList = lst
 
-class GTreeNodeBase:
+class GTreeNodeBase(object):
    """ GTreeNodeBase Class - The base class for the node tree genomes
    
    :param parent: the parent node of the node
    :param childs: the childs of the node, must be a list of nodes   
 
    .. versionadded:: 0.6
-      Added te *GTreeNodeBase* class
+      Added the *GTreeNodeBase* class
    """
+   __slots__ = [ "parent", "childs" ]
 
    def __init__(self, parent, childs=None):
       self.parent = parent
@@ -420,16 +393,20 @@ class GTreeNodeBase:
       return newcopy
    
 
-class GTreeBase:
+class GTreeBase(GenomeBase):
    """ GTreeBase Class - The base class for the tree genomes
-   
+
+   This chromosome class extends the :class:`GenomeBase` classes.
+
    :param root_node: the root node of the tree
 
    .. versionadded:: 0.6
-      Added te *GTreeBase* class
+      Added the *GTreeBase* class
    """
+   __slots__ = [ "root_node", "tree_height", "nodes_list", "nodes_leaf", "nodes_branch" ]
 
    def __init__(self, root_node):
+      super(GTreeBase, self).__init__()
       self.root_node = root_node
       self.tree_height = None
       self.nodes_list = None

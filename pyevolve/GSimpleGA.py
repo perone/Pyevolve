@@ -148,7 +148,7 @@ def FitnessStatsCriteria(ga_engine):
          return True
    return False
 
-class GSimpleGA:
+class GSimpleGA(object):
    """ GA Engine Class - The Genetic Algorithm Core
 
    Example:

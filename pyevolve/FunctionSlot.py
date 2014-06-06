@@ -17,7 +17,7 @@ from types import BooleanType
 
 import Util
 
-class FunctionSlot:
+class FunctionSlot(object):
    """ FunctionSlot Class - The function slot
 
    Example:

@@ -82,7 +82,7 @@ def multiprocessing_eval_full(ind):
    return ind
 
 
-class GPopulation:
+class GPopulation(object):
    """ GPopulation Class - The container for the population
 
    **Examples**

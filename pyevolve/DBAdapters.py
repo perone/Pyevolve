@@ -26,7 +26,7 @@ import datetime
 import Statistics
 
 
-class DBBaseAdapter:
+class DBBaseAdapter(object):
    """ DBBaseAdapter Class - The base class for all DB Adapters
 
    If you want to create your own DB Adapter, you must subclass this
@@ -121,7 +121,7 @@ class DBFileCSV(DBBaseAdapter):
                 frequency = Consts.CDefCSVFileStatsGenFreq, reset=True):
       """ The creator of DBFileCSV Class """
 
-      DBBaseAdapter.__init__(self, frequency, identify)
+      super(DBFileCSV, self).__init__(frequency, identify)
       
       self.csvmod = None
 
@@ -211,7 +211,7 @@ class DBURLPost(DBBaseAdapter):
                 frequency = Consts.CDefURLPostStatsGenFreq, post=True):
       """ The creator of the DBURLPost Class. """
 
-      DBBaseAdapter.__init__(self, frequency, identify)
+      super(DBURLPost, self).__init__(frequency, identify)
       self.urllibmod = None
 
       self.url = url
@@ -286,7 +286,7 @@ class DBSQLite(DBBaseAdapter):
                 commit_freq=Consts.CDefSQLiteStatsCommitFreq):
       """ The creator of the DBSQLite Class """
 
-      DBBaseAdapter.__init__(self, frequency, identify)
+      super(DBSQLite, self).__init__(frequency, identify)
 
       self.sqlite3mod = None
       self.connection = None
@@ -476,7 +476,7 @@ class DBXMLRPC(DBBaseAdapter):
    def __init__(self, url, identify=None, frequency = Consts.CDefXMLRPCStatsGenFreq):
       """ The creator of DBXMLRPC Class """
 
-      DBBaseAdapter.__init__(self, frequency, identify)
+      super(DBXMLRPC, self).__init__(frequency, identify)
       self.xmlrpclibmod = None
 
       self.url = url
@@ -538,7 +538,7 @@ class DBVPythonGraph(DBBaseAdapter):
    """
 
    def __init__(self, identify=None, frequency = 20, genmax=False):
-      DBBaseAdapter.__init__(self, frequency, identify)
+      super(DBVPythonGraph, self).__init__(frequency, identify)
       self.genmax = genmax
       self.vtkGraph = None
       self.curveMin = None
@@ -638,7 +638,7 @@ class DBMySQLAdapter(DBBaseAdapter):
                 frequency=Consts.CDefMySQLStatsGenFreq, commit_freq=Consts.CDefMySQLStatsCommitFreq):
       """ The creator of the DBSQLite Class """
 
-      DBBaseAdapter.__init__(self, frequency, identify)
+      super(DBMySQLAdapter, self).__init__(frequency, identify)
 
       self.mysqldbmod = None
       self.connection = None

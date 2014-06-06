@@ -50,7 +50,7 @@ except ImportError:
 #################################
 
 
-class GTree(GenomeBase, GTreeBase):
+class GTree(GTreeBase):
    """ The GTree class - The tree chromosome representation
 
    Inheritance diagram for :class:`GTree.GTree`:
@@ -59,42 +59,9 @@ class GTree(GenomeBase, GTreeBase):
 
    :param root_node: the root node of the tree
    """
-   
-   evaluator = None
-   """ This is the :term:`evaluation function` slot, you can add
-   a function with the *set* method: ::
-
-      genome.evaluator.set(eval_func)
-   """
-
-   initializator = None
-   """ This is the initialization function of the genome, you
-   can change the default initializator using the function slot: ::
-
-      genome.initializator.set(Initializators.G1DListInitializatorAllele)
-
-   In this example, the initializator :func:`Initializators.G1DListInitializatorAllele`
-   will be used to create the initial population.
-   """
-
-   mutator = None
-   """ This is the mutator function slot, you can change the default
-   mutator using the slot *set* function: ::
-
-      genome.mutator.set(Mutators.G1DListMutatorSwap)
-
-   """
-
-   crossover = None
-   """ This is the reproduction function slot, the crossover. You
-   can change the default crossover method using: ::
-
-      genome.crossover.set(Crossovers.G1DListCrossoverUniform)
-   """
 
    def __init__(self, root_node=None):
-      GenomeBase.__init__(self)
-      GTreeBase.__init__(self, root_node)
+      super(GTree, self).__init__(root_node)
       self.initializator.set(Consts.CDefGTreeInit)
       self.mutator.set(Consts.CDefGGTreeMutator)
       self.crossover.set(Consts.CDefGTreeCrossover)
@@ -134,9 +101,10 @@ class GTreeNode(GTreeNodeBase):
    :param parent: the parent node, if root, this
                   must be *None*
    """
+   __slots__ = [ "node_data" ]
 
    def __init__(self, data, parent=None):
-      GTreeNodeBase.__init__(self, parent)
+      super(GTreeNode, self).__init__(parent)
       self.node_data = data
 
    def __repr__(self):
@@ -267,8 +235,10 @@ class GTreeNodeGP(GTreeNodeBase):
    :param parent: the node parent
    
    """
+   __slots__ = [ "node_type", "node_data", "out_type", "in_type" ]
+
    def __init__(self, data, node_type=0, out_type=0, in_type=0, parent=None):
-      GTreeNodeBase.__init__(self, parent)
+      super(GTreeNodeGP, self).__init__(parent)
       self.node_type = node_type
       self.out_type = out_type
       self.in_type = in_type
@@ -400,7 +370,7 @@ class GTreeNodeGP(GTreeNodeBase):
       self.copy(newcopy)
       return newcopy
 
-class GTreeGP(GenomeBase, GTreeBase):
+class GTreeGP(GTreeBase):
    """ The GTreeGP Class - The Genetic Programming Tree representation
    
    Inheritance diagram for :class:`GTree.GTreeGP`:
@@ -409,9 +379,9 @@ class GTreeGP(GenomeBase, GTreeBase):
 
    :param root_node: the Root node of the GP Tree
    """
+
    def __init__(self, root_node=None, cloning=False):
-      GenomeBase.__init__(self)
-      GTreeBase.__init__(self, root_node)
+      super(GTreeGP, self).__init__(root_node)
       if not cloning:
          self.initializator.set(Consts.CDefGTreeGPInit)
          self.mutator.set(Consts.CDefGGTreeGPMutator)
