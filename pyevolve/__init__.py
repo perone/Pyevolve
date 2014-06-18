@@ -41,4 +41,5 @@ def logEnable(filename=Consts.CDefLogFile, level=Consts.CDefLogLevel):
    logging.basicConfig(level=level,
                     format='%(asctime)s [%(module)s:%(funcName)s:%(lineno)d] %(levelname)s %(message)s',
                     filename=filename,
-                    filemode='w')   logging.info("Pyevolve v.%s, the log was enabled by user.", __version__)
+                    filemode='w')
+   logging.info("Pyevolve v.%s, the log was enabled by user.", __version__)
