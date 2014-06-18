@@ -116,7 +116,7 @@ class MigrationScheme(object):
       pass
 
    def select(self):
-      """ Pickes an individual from population using specific selection method
+      """ Picks an individual from population using specific selection method
       
       :rtype: an individual object
       """
