@@ -305,9 +305,7 @@ class MPIMigration(MigrationScheme):
       Collect all the best individuals from the various populations. The
       result is stored in process 0
       '''
-      best_guy = self.selector(self.GAEngine.internalPop,
-                               popID=self.GAEngine.currentGeneration)
-
+      best_guy = self.select()
       self.all_stars = self.comm.gather(sendobj = best_guy, root = 0)
 
    def exchange(self):
