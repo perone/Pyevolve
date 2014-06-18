@@ -855,11 +855,7 @@ class GSimpleGA:
 
         if self.migrationAdapter:
             logging.debug("Closing the Migration Adapter")
-            if freq_stats:
-                print "Stopping the migration adapter... ",
             self.migrationAdapter.stop()
-            if freq_stats:
-                print "done !"
 
         return self.bestIndividual()
 
