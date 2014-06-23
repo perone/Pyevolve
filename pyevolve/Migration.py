@@ -273,7 +273,7 @@ class MPIMigration(MigrationScheme):
    def __init__(self):
       # Delayed ImportError of mpi4py
       if not HAS_MPI4PY:
-         raise ImportError, "No module named mpi4py, you must install mpi4py to use MPIMIgration !"
+         raise ImportError("No module named mpi4py, you must install mpi4py to use MPIMIgration!")
 
       super(MPIMigration, self).__init__()
 
