@@ -9,7 +9,7 @@ Default Parameters
 -------------------------------------------------------------
 
 *Sort Type*
-   
+
    >>> Consts.sortType["scaled"]
 
    The scaled sort type
@@ -104,7 +104,7 @@ class GPopulation:
          >>> for ind in pop:
          >>>   print ind
          (...)
-         
+
          >>> for i in xrange(len(pop)):
          >>>    print pop[i]
          (...)
@@ -164,7 +164,7 @@ class GPopulation:
       The parameter "full_copy" defines where the individual data should be copied back
       after the evaluation or not. This parameter is useful when you change the
       individual in the evaluation function.
-      
+
       :param flag: True (default) or False
       :param full_copy: True or False (default)
 
@@ -177,13 +177,13 @@ class GPopulation:
 
       """
       self.multiProcessing = (flag, full_copy)
-   
+
    def setMinimax(self, minimax):
       """ Sets the population minimax
 
       Example:
          >>> pop.setMinimax(Consts.minimaxType["maximize"])
-   
+
       :param minimax: the minimax type
 
       """
@@ -204,7 +204,7 @@ class GPopulation:
    def __len__(self):
       """ Return the length of population """
       return len(self.internalPop)
-      
+
    def __getitem__(self, key):
       """ Returns the specified individual from population """
       return self.internalPop[key]
@@ -230,7 +230,7 @@ class GPopulation:
 
       """
       self.statistics()
-      return self.stats      
+      return self.stats
 
    def statistics(self):
       """ Do statistical analysis of population and set 'statted' to True """
@@ -272,12 +272,12 @@ class GPopulation:
       """
       self.sort()
       return self.internalPop[index]
-  
+
    def worstFitness(self):
       """ Return the worst scaled fitness individual of the population
-      
+
       :rtype: the individual
-      
+
       """
       self.sort()
       return self.internalPop[-1]
@@ -290,22 +290,22 @@ class GPopulation:
 
       .. versionadded:: 0.6
          The parameter `index`.
-      
+
       """
       if self.sortType == Consts.sortType["raw"]:
          return self.internalPop[index]
       else:
          self.sort()
          return self.internalPopRaw[index]
-     
+
    def worstRaw(self):
       """ Return the worst raw score individual of population
-      
+
       :rtype: the individual
 
       .. versionadded:: 0.6
          The parameter `index`.
-      
+
       """
       if self.sortType == Consts.sortType["raw"]:
          return self.internalPop[-1]
@@ -362,7 +362,7 @@ class GPopulation:
       """ Initialize all individuals of population,
       this calls the initialize() of individuals """
       logging.debug("Initializing the population")
-   
+
       if self.oneSelfGenome.getParam("full_diversity", True) and hasattr(self.oneSelfGenome, "compare"):
          for i in xrange(len(self.internalPop)):
             curr = self.internalPop[i]
@@ -376,7 +376,7 @@ class GPopulation:
 
    def evaluate(self, **args):
       """ Evaluate all individuals in population, calls the evaluate() method of individuals
-   
+
       :param args: this params are passed to the evaluation function
 
       """
@@ -448,7 +448,7 @@ class GPopulation:
       pop.scaleMethod = self.scaleMethod
       pop.internalParams = self.internalParams
       pop.multiProcessing = self.multiProcessing
-   
+
    def getParam(self, key, nvl=None):
       """ Gets an internal parameter
 
@@ -481,11 +481,9 @@ class GPopulation:
       del self.internalPop[:]
       del self.internalPopRaw[:]
       self.clearFlags()
-      
+
    def clone(self):
       """ Return a brand-new cloned population """
       newpop = GPopulation(self.oneSelfGenome)
       self.copy(newpop)
       return newpop
-      
-

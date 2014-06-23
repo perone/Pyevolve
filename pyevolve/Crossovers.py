@@ -55,7 +55,7 @@ def G1DBinaryStringXTwoPoint(genome, **args):
    brother = None
    gMom = args["mom"]
    gDad = args["dad"]
-   
+
    if len(gMom) == 1:
       Util.raiseException("The Binary String have one element, can't use the Two Point Crossover method !", TypeError)
 
@@ -93,13 +93,13 @@ def G1DBinaryStringXUniform(genome, **args):
          temp = sister[i]
          sister[i] = brother[i]
          brother[i] = temp
-            
+
    return (sister, brother)
 
 ####################
 ##     1D List    ##
 ####################
-     
+
 def G1DListCrossoverSinglePoint(genome, **args):
    """ The crossover of G1DList, Single Point
 
@@ -110,10 +110,10 @@ def G1DListCrossoverSinglePoint(genome, **args):
    brother = None
    gMom = args["mom"]
    gDad = args["dad"]
-   
+
    if len(gMom) == 1:
       Util.raiseException("The 1D List have one element, can't use the Single Point Crossover method !", TypeError)
-      
+
    cut = rand_randint(1, len(gMom)-1)
 
    if args["count"] >= 1:
@@ -138,7 +138,7 @@ def G1DListCrossoverTwoPoint(genome, **args):
    brother = None
    gMom = args["mom"]
    gDad = args["dad"]
-   
+
    if len(gMom) == 1:
       Util.raiseException("The 1D List have one element, can't use the Two Point Crossover method !", TypeError)
 
@@ -160,10 +160,10 @@ def G1DListCrossoverTwoPoint(genome, **args):
    return (sister, brother)
 
 def G1DListCrossoverUniform(genome, **args):
-   """ The G1DList Uniform Crossover 
-   
+   """ The G1DList Uniform Crossover
+
    Each gene has a 50% chance of being swapped between mom and dad
-   
+
    """
    sister = None
    brother = None
@@ -180,7 +180,7 @@ def G1DListCrossoverUniform(genome, **args):
          temp = sister[i]
          sister[i] = brother[i]
          brother[i] = temp
-            
+
    return (sister, brother)
 
 def G1DListCrossoverOX(genome, **args):
@@ -206,7 +206,7 @@ def G1DListCrossoverOX(genome, **args):
       sister.resetStats()
       P1 = [ c for c in gMom[c2:] + gMom[:c2] if c not in gDad[c1:c2] ]
       sister.genomeList = P1[listSize - c2:] + gDad[c1:c2] + P1[:listSize-c2]
-    
+
    if args["count"] == 2:
       brother = gDad.clone()
       brother.resetStats()
@@ -232,7 +232,7 @@ def G1DListCrossoverEdge(genome, **args):
    for c, u in (sisterl, set(gMom)), (brotherl, set(gDad)):
       curr = None
       for i in xrange(len(gMom)):
-         curr = rand_choice(tuple(u)) if not curr else curr         
+         curr = rand_choice(tuple(u)) if not curr else curr
          c.append(curr)
          u.remove(curr)
          d = [v for v in merge_edges.get(curr, []) if v in u]
@@ -259,10 +259,10 @@ def G1DListCrossoverCutCrossfill(genome, **args):
    brother = None
    gMom = args["mom"]
    gDad = args["dad"]
-   
+
    if len(gMom) == 1:
       Util.raiseException("The 1D List have one element, can't use the Single Point Crossover method !", TypeError)
-      
+
    cut = rand_randint(1, len(gMom)-1)
 
    if args["count"] >= 1:
@@ -276,19 +276,19 @@ def G1DListCrossoverCutCrossfill(genome, **args):
          if x >= i: break
          sister[cut+x] = v
          x += 1
-      
+
    if args["count"] == 2:
       brother = gDad.clone()
       father_part = gDad[0:cut]
       brother.resetStats()
-      i = (len(brother) - cut) 
+      i = (len(brother) - cut)
       x = 0
       for v in gMom:
          if v in father_part: continue
          if x >= i: break
          brother[cut+x] = v
          x += 1
-      
+
    return (sister, brother)
 
 def G1DListCrossoverRealSBX(genome, **args):
@@ -302,7 +302,7 @@ def G1DListCrossoverRealSBX(genome, **args):
    """
    EPS = Consts.CDefG1DListSBXEPS
    # Crossover distribution index
-   eta_c = Consts.CDefG1DListSBXEtac  
+   eta_c = Consts.CDefG1DListSBXEtac
 
    gMom = args["mom"]
    gDad = args["dad"]
@@ -326,8 +326,8 @@ def G1DListCrossoverRealSBX(genome, **args):
             gDad[i] = temp
 
          #random number betwn. 0 & 1
-         u = rand_random() 
-      
+         u = rand_random()
+
          beta = 1.0 + 2*(gMom[i] - lb)/(1.0*(gDad[i]-gMom[i]))
          alpha = 2.0 - beta**(-(eta_c+1.0))
 
@@ -365,7 +365,7 @@ def G1DListCrossoverRealSBX(genome, **args):
          brother[i] = gDad[i]
 
    return (sister, brother)
-        
+
 
 ####################
 ##     2D List    ##
@@ -382,9 +382,9 @@ def G2DListCrossoverUniform(genome, **args):
    brother = gDad.clone()
    sister.resetStats()
    brother.resetStats()
-   
+
    h, w = gMom.getSize()
-   
+
    for i in xrange(h):
       for j in xrange(w):
          if Util.randomFlipCoin(Consts.CDefG2DListCrossUniformProb):
@@ -449,7 +449,7 @@ def G2DListCrossoverSingleHPoint(genome, **args):
 
 def G2DBinaryStringXUniform(genome, **args):
    """ The G2DBinaryString Uniform Crossover
-   
+
    .. versionadded:: 0.6
       The *G2DBinaryStringXUniform* function
    """
@@ -462,9 +462,9 @@ def G2DBinaryStringXUniform(genome, **args):
    brother = gDad.clone()
    sister.resetStats()
    brother.resetStats()
-   
+
    h, w = gMom.getSize()
-   
+
    for i in xrange(h):
       for j in xrange(w):
          if Util.randomFlipCoin(Consts.CDefG2DBinaryStringUniformProb):
@@ -477,7 +477,7 @@ def G2DBinaryStringXUniform(genome, **args):
 
 def G2DBinaryStringXSingleVPoint(genome, **args):
    """ The crossover of G2DBinaryString, Single Vertical Point
-   
+
    .. versionadded:: 0.6
       The *G2DBinaryStringXSingleVPoint* function
    """
@@ -504,10 +504,10 @@ def G2DBinaryStringXSingleVPoint(genome, **args):
 
 def G2DBinaryStringXSingleHPoint(genome, **args):
    """ The crossover of G2DBinaryString, Single Horizontal Point
-   
+
    .. versionadded:: 0.6
       The *G2DBinaryStringXSingleHPoint* function
-  
+
    """
    sister = None
    brother = None
@@ -600,11 +600,11 @@ def GTreeCrossoverSinglePointStrict(genome, **args):
 
    ..note:: This crossover method creates offspring with restriction of the
             *max_depth* parameter.
-   
+
    Accepts the *max_attempt* parameter, *max_depth* (required), and
    the distr_leaft (>= 0.0 and <= 1.0), which represents the probability
    of leaf selection when findin random nodes for crossover.
-   
+
    """
    sister = None
    brother = None
@@ -621,13 +621,13 @@ def GTreeCrossoverSinglePointStrict(genome, **args):
 
    if max_depth is None:
       Util.raiseException("You must specify the max_depth genome parameter !", ValueError)
-      
+
    if max_depth < 0:
       Util.raiseException("The max_depth must be >= 1, if you want to use GTreeCrossoverSinglePointStrict crossover !", ValueError)
 
    momRandom = None
    dadRandom = None
-   
+
    for i in xrange(max_attempt):
 
       if distr_leaf is None:
@@ -636,7 +636,7 @@ def GTreeCrossoverSinglePointStrict(genome, **args):
       else:
          if Util.randomFlipCoin(distr_leaf):
             momRandom = gMom.getRandomNode(1)
-         else: 
+         else:
             momRandom = gMom.getRandomNode(2)
 
          if Util.randomFlipCoin(distr_leaf):
@@ -702,8 +702,8 @@ def GTreeGPCrossoverSinglePoint(genome, **args):
 
    ..note:: This crossover method creates offspring with restriction of the
             *max_depth* parameter.
-   
-   Accepts the *max_attempt* parameter, *max_depth* (required).   
+
+   Accepts the *max_attempt* parameter, *max_depth* (required).
    """
    sister = None
    brother = None
@@ -719,13 +719,13 @@ def GTreeGPCrossoverSinglePoint(genome, **args):
 
    if max_depth is None:
       Util.raiseException("You must specify the max_depth genome parameter !", ValueError)
-      
+
    if max_depth < 0:
       Util.raiseException("The max_depth must be >= 1, if you want to use GTreeCrossoverSinglePointStrict crossover !", ValueError)
 
    momRandom = None
    dadRandom = None
-   
+
    for i in xrange(max_attempt):
 
       dadRandom = gDad.getRandomNode()
@@ -740,7 +740,7 @@ def GTreeGPCrossoverSinglePoint(genome, **args):
 
       # Two nodes are root
       if mD==0 and dD==0: continue
-      
+
       mH = gMom.getNodeHeight(momRandom)
       if dD+mH > max_depth: continue
 
@@ -783,6 +783,3 @@ def GTreeGPCrossoverSinglePoint(genome, **args):
       assert brother.getHeight() <= max_depth
 
    return (sister, brother)
-
-
-

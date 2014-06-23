@@ -45,7 +45,7 @@ def GUniformSelector(population, **args):
 
 def GTournamentSelector(population, **args):
    """ The Tournament Selector
-   
+
    It accepts the *tournamentPool* population parameter.
 
    .. note::
@@ -62,7 +62,7 @@ def GTournamentSelector(population, **args):
    minimax_operator = min if should_minimize else max
 
    poolSize = population.getParam("tournamentPool", Consts.CDefTournamentPoolSize)
-   tournament_pool = [GRouletteWheel(population, **args) for i in xrange(poolSize) ] 
+   tournament_pool = [GRouletteWheel(population, **args) for i in xrange(poolSize) ]
 
    if population.sortType == Consts.sortType["scaled"]:
       choosen = minimax_operator(tournament_pool, key=lambda ind: ind.fitness)
@@ -73,7 +73,7 @@ def GTournamentSelector(population, **args):
 
 def GTournamentSelectorAlternative(population, **args):
    """ The alternative Tournament Selector
-   
+
    This Tournament Selector don't uses the Roulette Wheel
 
    It accepts the *tournamentPool* population parameter.
@@ -87,7 +87,7 @@ def GTournamentSelectorAlternative(population, **args):
    should_minimize = population.minimax == Consts.minimaxType["minimize"]
    minimax_operator = min if should_minimize else max
    tournament_pool = [population[random.randint(0, len_pop-1)] for i in xrange(pool_size)]
-   
+
    if population.sortType == Consts.sortType["scaled"]:
       choosen = minimax_operator(tournament_pool, key=lambda ind: ind.fitness)
    else:
@@ -104,7 +104,7 @@ def GRouletteWheel(population, **args):
       GRouletteWheel.cacheWheel = psum
    else:
       psum = GRouletteWheel.cacheWheel
-  
+
    cutoff = random.random()
    lower = 0
    upper = len(population) - 1
@@ -125,7 +125,7 @@ def GRouletteWheel_PrepareWheel(population):
    """ A preparation for Roulette Wheel selection """
 
    len_pop = len(population)
-   
+
    psum = [i for i in xrange(len_pop)]
 
    population.statistics()
@@ -158,7 +158,7 @@ def GRouletteWheel_PrepareWheel(population):
       if pop_rawMax == pop_rawMin:
          for index in xrange(len_pop):
             psum[index] = (index+1) / float(len_pop)
-      
+
       elif (pop_rawMax > 0 and pop_rawMin >= 0) or (pop_rawMax <= 0 and pop_rawMin < 0):
          population.sort()
          if population.minimax == Consts.minimaxType["maximize"]:

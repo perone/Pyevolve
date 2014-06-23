@@ -34,10 +34,10 @@ class GAlleles:
       if allele_list is not None:
          self.allele_list.extend(allele_list)
       self.homogeneous = homogeneous
-     
+
    def __iadd__(self, allele):
       """ To add more alleles using the += operator
-      
+
          .. versionadded:: 0.6
             The __iadd__ method.
       """
@@ -46,7 +46,7 @@ class GAlleles:
 
    def add(self, allele):
       """ Appends one allele to the alleles list
-      
+
       :param allele: allele to be added
 
       """
@@ -123,7 +123,7 @@ class GAlleleList:
    def clear(self):
       """ Removes all the allele options from the list """
       del self.options[:]
-   
+
    def getRandomAllele(self):
       """ Returns one random choice from the options list """
       return random.choice(self.options)
@@ -131,7 +131,7 @@ class GAlleleList:
    def add(self, option):
       """ Appends one option to the options list
 
-      :param option: option to be added in the list         
+      :param option: option to be added in the list
 
       """
       self.options.append(option)
@@ -168,7 +168,7 @@ class GAlleleList:
       """ Return a string representation of the allele """
       ret = "- GAlleleList\n"
       ret += "\tList size:\t %s\n" % (len(self),)
-      ret += "\tAllele Options:\t %s\n\n" % (self.options,) 
+      ret += "\tAllele Options:\t %s\n\n" % (self.options,)
       return ret
 
 class GAlleleRange:
@@ -236,7 +236,7 @@ class GAlleleRange:
       :rtype: the minimum value
       """
       return self.minimum
-      
+
    def clear(self):
       """ Removes all ranges """
       del self.beginEnd[:]
@@ -247,7 +247,7 @@ class GAlleleRange:
       """ Returns one random choice between the range """
       rand_func = random.uniform if self.real else random.randint
 
-      if len(self.beginEnd) <= 1: choice = 0      
+      if len(self.beginEnd) <= 1: choice = 0
       else: choice = random.randint(0, len(self.beginEnd)-1)
       return rand_func(self.beginEnd[choice][0], self.beginEnd[choice][1])
 

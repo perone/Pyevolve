@@ -9,11 +9,11 @@ General constants
 ----------------------------------------------------------------------------
 
 .. attribute:: CDefPythonRequire
-  
+
    The mininum version required to run Pyevolve.
 
 .. attribute:: CDefLogFile
-   
+
    The default log filename.
 
 .. attribute:: CDefLogLevel
@@ -21,7 +21,7 @@ General constants
    Default log level.
 
 .. attribute:: sortType
-   
+
    Sort type, raw or scaled.
 
    Example:
@@ -35,7 +35,7 @@ General constants
    Example:
       >>> minmax = Consts.minimaxType["minimize"]
       >>> minmax = Consts.minimaxType["maximize]
-  
+
 .. attribute:: CDefESCKey
 
    The ESC key ASCII code. Used to start Interactive Mode.
@@ -49,11 +49,11 @@ General constants
    Maximum range. This constant is used as integer and real max/min.
 
 .. attribute:: CDefBroadcastAddress
-   
+
    The broadcast address for UDP, 255.255.255.255
 
 .. attribute:: CDefImportList
-   
+
    The import list and messages
 
 .. attribute:: nodeType
@@ -104,9 +104,9 @@ Scaling scheme constants (:mod:`Scaling`)
 
 Population constants (:class:`GPopulation.GPopulation`)
 ----------------------------------------------------------------------------
-   
+
 .. attribute:: CDefPopSortType
-   
+
    Default sort type parameter.
 
 .. attribute:: CDefPopMinimax
@@ -164,15 +164,15 @@ Population constants (:class:`GPopulation.GPopulation`)
 .. attribute:: CDefG1DListMutIntMU
 
    Default *mu* value of the 1D List Gaussian Integer Mutator (:func:`Mutators.G1DListMutatorIntegerGaussian`), the *mu* represents the mean of the distribution.
-   
+
 .. attribute:: CDefG1DListMutIntSIGMA
 
    Default *sigma* value of the 1D List Gaussian Integer Mutator (:func:`Mutators.G1DListMutatorIntegerGaussian`), the *sigma* represents the standard deviation of the distribution.
-   
+
 .. attribute:: CDefG1DListMutRealMU
 
    Default *mu* value of the 1D List Gaussian Real Mutator (:func:`Mutators.G1DListMutatorRealGaussian`), the *mu* represents the mean of the distribution.
-   
+
 .. attribute:: CDefG1DListMutRealSIGMA
 
    Default *sigma* value of the 1D List Gaussian Real Mutator (:func:`Mutators.G1DListMutatorRealGaussian`), the *sigma* represents the mean of the distribution.
@@ -184,15 +184,15 @@ Tree chromosome constants (:class:`GTree.GTree`)
 .. attribute:: CDefGTreeInit
 
    Default initializator of the tree chromosome.
-   
+
 .. attribute:: CDefGGTreeMutator
 
    Default mutator of the tree chromosome.
-   
+
 .. attribute:: CDefGTreeCrossover
 
    Default crossover of the tree chromosome.
-  
+
 
 2D List chromosome constants (:class:`G2DList.G2DList`)
 ----------------------------------------------------------------------------
@@ -208,7 +208,7 @@ Tree chromosome constants (:class:`GTree.GTree`)
 .. attribute:: CDefG2DListMutIntMU
 
    Default *mu* value of the 2D List Gaussian Integer Mutator (:func:`Mutators.G2DListMutatorIntegerGaussian`), the *mu* represents the mean of the distribution.
-   
+
 .. attribute:: CDefG2DListMutIntSIGMA
 
    Default *sigma* value of the 2D List Gaussian Integer Mutator (:func:`Mutators.G2DListMutatorIntegerGaussian`), the *sigma* represents the mean of the distribution.
@@ -262,7 +262,7 @@ SQLite3 DB Adapter Constants (:class:`DBAdapters.DBSQLite`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. attribute:: CDefSQLiteDBName
-   
+
    Default database filename.
 
 .. attribute:: CDefSQLiteDBTable
@@ -286,7 +286,7 @@ MySQL DB Adapter Constants (:class:`DBAdapters.DBMySQLAdapter`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. attribute:: CDefMySQLDBName
-   
+
    Default database name.
 
 .. attribute:: CDefMySQLDBTable
@@ -326,7 +326,7 @@ CSV File DB Adapter Constants (:class:`DBAdapters.DBFileCSV`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. attribute:: CDefCSVFileName
-   
+
    The default CSV filename to dump statistics.
 
 .. attribute:: CDefCSVFileStatsGenFreq
@@ -344,7 +344,7 @@ XMP RPC DB Adapter Constants (:class:`DBAdapters.DBXMLRPC`)
 Migration Constants (:mod:`Migration`)
 ----------------------------------------------------------------------------
 .. attribute:: CDefGenMigrationRate
-   
+
    The default generations supposed to migrate and receive individuals
 
 .. attribute:: CDefMigrationNIndividuals
@@ -384,7 +384,7 @@ CDefLogLevel = logging.DEBUG
 # Types of sort
 # - raw: uses the "score" attribute
 # - scaled: uses the "fitness" attribute
-sortType = { 
+sortType = {
    "raw"    : 0,
    "scaled" : 1
 }
@@ -478,7 +478,7 @@ CDefG1DListCrossUniformProb = 0.5
 # Smaller Etac = far away from parents
 CDefG1DListSBXEtac  = 10
 CDefG1DListSBXEPS   = 1.0e-14
-  
+
 # - G2DList defaults
 CDefG2DListMutIntMU = 2
 CDefG2DListMutIntSIGMA = 10
@@ -534,4 +534,3 @@ CDefGenMigrationReplacement = 3
 
 CDefNetworkIndividual = 1
 CDefNetworkInfo = 2
-

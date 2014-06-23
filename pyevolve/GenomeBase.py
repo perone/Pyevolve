@@ -56,7 +56,7 @@ class GenomeBase:
       self.initializator = FunctionSlot("Initializator")
       self.mutator = FunctionSlot("Mutator")
       self.crossover = FunctionSlot("Crossover")
- 
+
       self.internalParams = {}
       self.score = 0.0
       self.fitness = 0.0
@@ -106,7 +106,7 @@ class GenomeBase:
 
       """
       self.internalParams.update(args)
-   
+
    def getParam(self, key, nvl=None):
       """ Gets an internal parameter
 
@@ -122,12 +122,12 @@ class GenomeBase:
 
       """
       return self.internalParams.get(key, nvl)
-      
+
    def resetStats(self):
       """ Clear score and fitness of genome """
       self.score = 0.0
       self.fitness = 0.0
-      
+
    def evaluate(self, **args):
       """ Called to evaluate genome
 
@@ -162,7 +162,7 @@ class GenomeBase:
    def copy(self, g):
       """ Copy the current GenomeBase to 'g'
 
-      :param g: the destination genome      
+      :param g: the destination genome
 
       .. note:: If you are planning to create a new chromosome representation, you
                 **must** implement this method on your class.
@@ -175,11 +175,11 @@ class GenomeBase:
       g.mutator = self.mutator
       g.crossover = self.crossover
       g.internalParams = self.internalParams
-      
+
    def clone(self):
       """ Clone this GenomeBase
 
-      :rtype: the clone genome   
+      :rtype: the clone genome
 
       .. note:: If you are planning to create a new chromosome representation, you
                 **must** implement this method on your class.
@@ -187,10 +187,10 @@ class GenomeBase:
       newcopy = GenomeBase()
       self.copy(newcopy)
       return newcopy
-   
+
 class G1DBase:
    """ G1DBase Class - The base class for 1D chromosomes
-   
+
    :param size: the 1D list size
 
    .. versionadded:: 0.6
@@ -211,7 +211,7 @@ class G1DBase:
       cond1 = (self.genomeList == other.genomeList)
       cond2 = (self.genomeSize   == other.genomeSize)
       return True if cond1 and cond2 else False
-   
+
    def __contains__(self, value):
       """ Used on: *value in genome* """
       return value in self.genomeList
@@ -235,7 +235,7 @@ class G1DBase:
    def __iter__(self):
       """ Iterator support to the list """
       return iter(self.genomeList)
-   
+
    def __len__(self):
       """ Return the size of the List """
       return len(self.genomeList)
@@ -253,36 +253,36 @@ class G1DBase:
 
    def append(self, value):
       """ Appends an item to the end of the list
-      
+
       Example:
          >>> genome.append(44)
 
       :param value: value to be added
-      
+
       """
       self.genomeList.append(value)
 
    def remove(self, value):
       """ Removes an item from the list
-      
+
       Example:
          >>> genome.remove(44)
 
       :param value: value to be added
-      
+
       """
       self.genomeList.remove(value)
 
    def clearList(self):
       """ Remove all genes from Genome """
       del self.genomeList[:]
-   
+
    def copy(self, g):
       """ Copy genome to 'g'
-      
+
       Example:
          >>> genome_origin.copy(genome_destination)
-      
+
       :param g: the destination instance
 
       """
@@ -299,16 +299,16 @@ class G1DBase:
 
    def setInternalList(self, lst):
       """ Assigns a list to the internal list of the chromosome
-      
+
       :param lst: the list to assign the internal list of the chromosome
       """
       self.genomeList = lst
 
 class GTreeNodeBase:
    """ GTreeNodeBase Class - The base class for the node tree genomes
-   
+
    :param parent: the parent node of the node
-   :param childs: the childs of the node, must be a list of nodes   
+   :param childs: the childs of the node, must be a list of nodes
 
    .. versionadded:: 0.6
       Added te *GTreeNodeBase* class
@@ -332,10 +332,10 @@ class GTreeNodeBase:
       :rtype: True or False
       """
       return len(self.childs)==0
-   
+
    def getChild(self, index):
       """ Returns the index-child of the node
-      
+
       :rtype: child node
       """
       return self.childs[index]
@@ -349,11 +349,11 @@ class GTreeNodeBase:
       :rtype: a list of nodes
       """
       return self.childs
-   
+
    def addChild(self, child):
       """ Adds a child to the node
-      
-      :param child: the node to be added   
+
+      :param child: the node to be added
       """
       if type(child) == list:
          self.childs.extend(child)
@@ -377,7 +377,7 @@ class GTreeNodeBase:
       :param parent: the parent node
       """
       self.parent = parent
-   
+
    def getParent(self):
       """ Get the parent node of the node
 
@@ -396,18 +396,18 @@ class GTreeNodeBase:
    def copy(self, g):
       """ Copy the current contents GTreeNodeBase to 'g'
 
-      :param g: the destination node      
+      :param g: the destination node
 
       .. note:: If you are planning to create a new chromosome representation, you
                 **must** implement this method on your class.
       """
       g.parent = self.parent
       g.childs = self.childs[:]
-      
+
    def clone(self):
       """ Clone this GenomeBase
 
-      :rtype: the clone genome   
+      :rtype: the clone genome
 
       .. note:: If you are planning to create a new chromosome representation, you
                 **must** implement this method on your class.
@@ -415,11 +415,11 @@ class GTreeNodeBase:
       newcopy = GTreeNodeBase(None)
       self.copy(newcopy)
       return newcopy
-   
+
 
 class GTreeBase:
    """ GTreeBase Class - The base class for the tree genomes
-   
+
    :param root_node: the root node of the tree
 
    .. versionadded:: 0.6
@@ -444,14 +444,14 @@ class GTreeBase:
 
       if not cloning:
          self.tree_height = self.getNodeHeight(self.getRoot())
-   
+
    def getRoot(self):
-      """ Return the tree root node 
+      """ Return the tree root node
 
       :rtype: the tree root node
       """
       return self.root_node
-   
+
    def setRoot(self, root):
       """ Sets the root of the tree
 
@@ -487,7 +487,7 @@ class GTreeBase:
 
    def getHeight(self):
       """ Return the tree height
-      
+
       :rtype: the tree height
       """
       return self.tree_height
@@ -505,11 +505,11 @@ class GTreeBase:
       for i in start_node.getChilds():
          count += self.getNodesCount(i)
       return count
-   
+
    def getTraversalString(self, start_node=None, spc=0):
       """ Returns a tree-formated string of the tree. This
       method is used by the __repr__ method of the tree
-      
+
       :rtype: a string representing the tree
       """
       str_buff = ""
@@ -554,7 +554,7 @@ class GTreeBase:
 
    def getAllNodes(self):
       """ Return a new list with all nodes
-      
+
       :rtype: the list with all nodes
       """
       node_stack = []
@@ -568,7 +568,7 @@ class GTreeBase:
          childs = tmp.getChilds()
          node_stack.extend(childs)
 
-      return all_nodes 
+      return all_nodes
 
    def __repr__(self):
       str_buff  = "- GTree\n"
@@ -580,7 +580,7 @@ class GTreeBase:
 
    def __len__(self):
       return len(self.nodes_list)
-   
+
    def __getitem__(self, index):
       return self.nodes_list[index]
 
@@ -608,16 +608,16 @@ class GTreeBase:
       else:
          newnode.setParent(node_parent)
          node_parent.replaceChild(node, newnode)
-      
+
       for ci in xrange(len(newnode)):
          GTreeBase.copy(self, g, newnode.getChild(ci), newnode)
 
       return newnode
-      
+
    def clone(self):
       """ Clone this GenomeBase
 
-      :rtype: the clone genome   
+      :rtype: the clone genome
 
       .. note:: If you are planning to create a new chromosome representation, you
                 **must** implement this method on your class.
@@ -626,5 +626,3 @@ class GTreeBase:
       self.copy(newcopy)
       newcopy.processNodes()
       return newcopy
-
-

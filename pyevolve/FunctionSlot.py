@@ -60,7 +60,7 @@ class FunctionSlot:
    def __typeCheck(self, func):
       """ Used internally to check if a function passed to the
       function slot is callable. Otherwise raises a TypeError exception.
-  
+
       :param func: the function object
       """
       if not callable(func):
@@ -68,7 +68,7 @@ class FunctionSlot:
 
    def __iadd__(self, func):
       """ To add more functions using the += operator
-      
+
          .. versionadded:: 0.6
             The __iadd__ method.
       """
@@ -83,7 +83,7 @@ class FunctionSlot:
    def __setitem__(self, index, value):
       """ Used to set the index slot function """
       self.__typeCheck(value)
-      self.funcList[index] = value      
+      self.funcList[index] = value
 
    def __iter__(self):
       """ Return the function list iterator """
@@ -108,7 +108,7 @@ class FunctionSlot:
          Util.raiseException("Random option must be True or False", TypeError)
 
       self.rand_apply = flag
-   
+
    def clear(self):
       """ Used to clear the functions in the slot """
       if len(self.funcList) > 0:
@@ -157,23 +157,23 @@ class FunctionSlot:
 
       :param index: the index of the function
       :param obj: this object is passes as parameter to the function
-      :param args: this args dictionary is passed to the function   
+      :param args: this args dictionary is passed to the function
 
       """
       if len(self.funcList) <= 0:
          raise Exception("No function defined: " + self.slotName)
       return self.funcList[index](obj, **args)
-      
+
    def applyFunctions(self, obj=None, **args):
       """ Generator to apply all function slots in obj
 
       :param obj: this object is passes as parameter to the function
-      :param args: this args dictionary is passed to the function   
+      :param args: this args dictionary is passed to the function
 
       """
       if len(self.funcList) <= 0:
          Util.raiseException("No function defined: " + self.slotName)
-      
+
       if not self.rand_apply:
          for f in self.funcList:
             yield f(obj, **args)

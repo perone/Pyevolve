@@ -14,7 +14,7 @@ Default Parameters
 -------------------------------------------------------------
 
 *Initializator*
-   
+
    :func:`Initializators.G2DBinaryStringInitializator`
 
    The Binatry String Initializator for G2DBinaryString

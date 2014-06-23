@@ -11,7 +11,7 @@ Default Parameters
 -------------------------------------------------------------
 
 *Initializator*
-   
+
    :func:`Initializators.G2DListInitializatorInteger`
 
    The Integer Initializator for G2DList

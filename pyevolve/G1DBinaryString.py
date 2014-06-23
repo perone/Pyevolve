@@ -10,7 +10,7 @@ Default Parameters
 -------------------------------------------------------------
 
 *Initializator*
-   
+
    :func:`Initializators.G1DBinaryStringInitializator`
 
    The Binatry String Initializator for G1DBinaryString
@@ -37,17 +37,17 @@ Class
 from GenomeBase import GenomeBase, G1DBase
 import Consts
 import Util
-    
+
 class G1DBinaryString(GenomeBase, G1DBase):
    """ G1DBinaryString Class - The 1D Binary String chromosome
-   
+
    Inheritance diagram for :class:`G1DBinaryString.G1DBinaryString`:
 
    .. inheritance-diagram:: G1DBinaryString.G1DBinaryString
 
    This chromosome class extends the :class:`GenomeBase.GenomeBase`
    and :class:`GenomeBase.G1DBase` classes.
-   
+
    Example:
       >>> genome = G1DBinaryString.G1DBinaryString(5)
 
@@ -183,10 +183,10 @@ class G1DBinaryString(GenomeBase, G1DBase):
       """
       GenomeBase.copy(self, g)
       G1DBase.copy(self, g)
-   
+
    def clone(self):
       """ Return a new instace copy of the genome
-      
+
       Example:
          >>> g = G1DBinaryString(5)
          >>> for i in xrange(len(g)):

@@ -48,7 +48,7 @@ class DBBaseAdapter:
 
    def setIdentify(self, identify):
       """ Sets the identify of the statistics
-      
+
       :param identify: the id string
       """
       if identify is None:
@@ -58,21 +58,21 @@ class DBBaseAdapter:
 
    def getIdentify(self):
       """ Return the statistics identify
-      
+
       :rtype: identify string
       """
       return self.identify
 
    def getStatsGenFreq(self):
       """ Returns the frequency of statistical dump
-      
+
       :rtype: the generation interval of statistical dump
       """
       return self.statsGenFreq
 
    def setStatsGenFreq(self, statsGenFreq):
       """ Set the frequency of statistical dump
-      
+
       :param statsGenFreq: the generation interval of statistical dump
       """
       self.statsGenFreq = statsGenFreq
@@ -122,7 +122,7 @@ class DBFileCSV(DBBaseAdapter):
       """ The creator of DBFileCSV Class """
 
       DBBaseAdapter.__init__(self, frequency, identify)
-      
+
       self.csvmod = None
 
       self.filename = filename
@@ -189,7 +189,7 @@ class DBURLPost(DBBaseAdapter):
 
    The parameters that will be sent is all the statistics described in the :class:`Statistics.Statistics`
    class, and the parameters:
-   
+
    **generation**
       The generation of the statistics
 
@@ -206,7 +206,7 @@ class DBURLPost(DBBaseAdapter):
    .. versionadded:: 0.6
       Removed the stub methods and subclassed the :class:`DBBaseAdapter` class.
    """
-   
+
    def __init__(self, url, identify=None,
                 frequency = Consts.CDefURLPostStatsGenFreq, post=True):
       """ The creator of the DBURLPost Class. """
@@ -256,7 +256,7 @@ class DBURLPost(DBBaseAdapter):
 
 class DBSQLite(DBBaseAdapter):
    """ DBSQLite Class - Adapter to dump data in SQLite3 database format
-   
+
    Inheritance diagram for :class:`DBAdapters.DBSQLite`:
 
    .. inheritance-diagram:: DBAdapters.DBSQLite
@@ -271,7 +271,7 @@ class DBSQLite(DBBaseAdapter):
 
    This parameter will erase all the database tables and will create the new ones.
    The *resetDB* parameter is different from the *resetIdentify* parameter, the *resetIdentify*
-   only erases the rows with the same "identify" name.   
+   only erases the rows with the same "identify" name.
 
    :param dbname: the database filename
    :param identify: the identify if the run
@@ -407,7 +407,7 @@ class DBSQLite(DBBaseAdapter):
       c.execute("drop table if exists %s" % (Consts.CDefSQLiteDBTablePop,))
       self.commit()
       self.createStructure(stats)
-      
+
    def insert(self, ga_engine):
       """ Inserts the statistics data to database
 
@@ -424,7 +424,7 @@ class DBSQLite(DBBaseAdapter):
       pstmt = "insert into %s values (?, ?, " % (Consts.CDefSQLiteDBTable)
       for i in xrange(len(stats)):
          pstmt += "?, "
-      pstmt = pstmt[:-2] + ")" 
+      pstmt = pstmt[:-2] + ")"
       c.execute(pstmt, (self.getIdentify(), generation) + stats.asTuple())
 
       pstmt = "insert into %s values(?, ?, ?, ?, ?)" % (Consts.CDefSQLiteDBTablePop,)
@@ -455,7 +455,7 @@ class DBXMLRPC(DBBaseAdapter):
 
    .. note:: The XML RPC Server must implement the *insert* method, wich receives
              a python dictionary as argument.
-   
+
    Example of an server in Python: ::
 
       import xmlrpclib
@@ -528,7 +528,7 @@ class DBVPythonGraph(DBBaseAdapter):
    Example:
       >>> adapter = DBAdapters.DBVPythonGraph(identify="run_01", frequency = 1)
       >>> ga_engine.setDBAdapter(adapter)
-   
+
    :param identify: the identify of the run
    :param genmax: use the generations as max value for x-axis, default False
    :param frequency: the generational dump frequency
@@ -548,7 +548,7 @@ class DBVPythonGraph(DBBaseAdapter):
 
    def makeDisplay(self, title_sec, x, y, ga_engine):
       """ Used internally to create a new display for VPython.
-      
+
       :param title_sec: the title of the window
       :param x: the x position of the window
       :param y: the y position of the window
@@ -597,7 +597,7 @@ class DBVPythonGraph(DBBaseAdapter):
       self.curveMax.plot(pos=(generation, stats["rawMax"]))
       self.curveDev.plot(pos=(generation, stats["rawDev"]))
       self.curveAvg.plot(pos=(generation, stats["rawAve"]))
-      
+
 class DBMySQLAdapter(DBBaseAdapter):
    """ DBMySQLAdapter Class - Adapter to dump data in MySql database server
 
@@ -760,7 +760,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       c.execute("drop table if exists %s" % (Consts.CDefMySQLDBTablePop,))
       self.commit()
       self.createStructure(stats)
-      
+
    def insert(self, ga_engine):
       """ Inserts the statistics data to database
 
@@ -777,7 +777,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       pstmt = "insert into " + Consts.CDefMySQLDBTable + " values (%s, %s, "
       for i in xrange(len(stats)):
          pstmt += "%s, "
-      pstmt = pstmt[:-2] + ")" 
+      pstmt = pstmt[:-2] + ")"
       c.execute(pstmt, (self.getIdentify(), generation) + stats.asTuple())
 
       pstmt = "insert into " + Consts.CDefMySQLDBTablePop + " values(%s, %s, %s, %s, %s)"
