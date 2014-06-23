@@ -41,7 +41,7 @@ GRankSelector.cacheCount = None
 
 def GUniformSelector(population, **args):
    """ The Uniform Selector """
-   return population[random.randint(0, len(population)-1)]
+   return population[random.randint(0, len(population) - 1)]
 
 def GTournamentSelector(population, **args):
    """ The Tournament Selector
@@ -62,7 +62,7 @@ def GTournamentSelector(population, **args):
    minimax_operator = min if should_minimize else max
 
    poolSize = population.getParam("tournamentPool", Consts.CDefTournamentPoolSize)
-   tournament_pool = [GRouletteWheel(population, **args) for i in xrange(poolSize) ]
+   tournament_pool = [GRouletteWheel(population, **args) for i in xrange(poolSize)]
 
    if population.sortType == Consts.sortType["scaled"]:
       choosen = minimax_operator(tournament_pool, key=lambda ind: ind.fitness)
@@ -86,7 +86,7 @@ def GTournamentSelectorAlternative(population, **args):
    len_pop = len(population)
    should_minimize = population.minimax == Consts.minimaxType["minimize"]
    minimax_operator = min if should_minimize else max
-   tournament_pool = [population[random.randint(0, len_pop-1)] for i in xrange(pool_size)]
+   tournament_pool = [population[random.randint(0, len_pop - 1)] for i in xrange(pool_size)]
 
    if population.sortType == Consts.sortType["scaled"]:
       choosen = minimax_operator(tournament_pool, key=lambda ind: ind.fitness)
@@ -109,11 +109,11 @@ def GRouletteWheel(population, **args):
    lower = 0
    upper = len(population) - 1
    while(upper >= lower):
-      i = lower + ((upper-lower)/2)
+      i = lower + ((upper - lower) / 2)
       if psum[i] > cutoff: upper = i-1
       else: lower = i+1
 
-   lower = min(len(population)-1, lower)
+   lower = min(len(population) - 1, lower)
    lower = max(0, lower)
 
    return population.bestFitness(lower)
@@ -136,19 +136,19 @@ def GRouletteWheel_PrepareWheel(population):
 
       if pop_fitMax == pop_fitMin:
          for index in xrange(len_pop):
-            psum[index] = (index+1) / float(len_pop)
+            psum[index] = (index + 1) / float(len_pop)
       elif (pop_fitMax > 0 and pop_fitMin >= 0) or (pop_fitMax <= 0 and pop_fitMin < 0):
          population.sort()
          if population.minimax == Consts.minimaxType["maximize"]:
             psum[0] = population[0].fitness
             for i in xrange(1, len_pop):
-               psum[i] = population[i].fitness + psum[i-1]
+               psum[i] = population[i].fitness + psum[i - 1]
             for i in xrange(len_pop):
                psum[i] /= float(psum[len_pop - 1])
          else:
             psum[0] = -population[0].fitness + pop_fitMax + pop_fitMin
             for i in xrange(1, len_pop):
-               psum[i] = -population[i].fitness + pop_fitMax + pop_fitMin + psum[i-1]
+               psum[i] = -population[i].fitness + pop_fitMax + pop_fitMin + psum[i - 1]
             for i in xrange(len_pop):
                psum[i] /= float(psum[len_pop - 1])
    else:
@@ -157,21 +157,21 @@ def GRouletteWheel_PrepareWheel(population):
 
       if pop_rawMax == pop_rawMin:
          for index in xrange(len_pop):
-            psum[index] = (index+1) / float(len_pop)
+            psum[index] = (index + 1) / float(len_pop)
 
       elif (pop_rawMax > 0 and pop_rawMin >= 0) or (pop_rawMax <= 0 and pop_rawMin < 0):
          population.sort()
          if population.minimax == Consts.minimaxType["maximize"]:
             psum[0] = population[0].score
             for i in xrange(1, len_pop):
-               psum[i] = population[i].score + psum[i-1]
+               psum[i] = population[i].score + psum[i - 1]
             for i in xrange(len_pop):
-               psum[i] /= float(psum[len_pop-1])
+               psum[i] /= float(psum[len_pop - 1])
          else:
             psum[0] = - population[0].score + pop_rawMax + pop_rawMin
             for i in xrange(1, len_pop):
-               psum[i] = - population[i].score + pop_rawMax + pop_rawMin + psum[i-1]
+               psum[i] = - population[i].score + pop_rawMax + pop_rawMin + psum[i - 1]
             for i in xrange(len_pop):
-               psum[i] /= float(psum[len_pop-1])
+               psum[i] /= float(psum[len_pop - 1])
 
    return psum

@@ -218,7 +218,7 @@ def buildGTreeGrow(depth, value_callback, max_siblings, max_depth):
         return n
 
     for i in xrange(random.randint(0, abs(max_siblings))):
-        child = buildGTreeGrow(depth+1, value_callback, max_siblings, max_depth)
+        child = buildGTreeGrow(depth + 1, value_callback, max_siblings, max_depth)
         child.setParent(n)
         n.addChild(child)
     return n
@@ -249,7 +249,7 @@ def buildGTreeFull(depth, value_callback, max_siblings, max_depth):
         range_val = random.randint(1, abs(max_siblings))
 
     for i in xrange(range_val):
-        child = buildGTreeFull(depth+1, value_callback, max_siblings, max_depth)
+        child = buildGTreeFull(depth + 1, value_callback, max_siblings, max_depth)
         child.setParent(n)
         n.addChild(child)
     return n
@@ -713,7 +713,7 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
 
     if n.getType() == Consts.nodeType["NONTERMINAL"]:
         for i in xrange(gp_function_set[n.getData()]):
-            child = buildGTreeGPGrow(ga_engine, depth+1, max_depth)
+            child = buildGTreeGPGrow(ga_engine, depth + 1, max_depth)
             child.setParent(n)
             n.addChild(child)
 
@@ -745,7 +745,7 @@ def buildGTreeGPFull(ga_engine, depth, max_depth):
 
     if n.getType() == Consts.nodeType["NONTERMINAL"]:
         for i in xrange(gp_function_set[n.getData()]):
-            child = buildGTreeGPFull(ga_engine, depth+1, max_depth)
+            child = buildGTreeGPFull(ga_engine, depth + 1, max_depth)
             child.setParent(n)
             n.addChild(child)
 

@@ -118,7 +118,7 @@ class DBFileCSV(DBBaseAdapter):
 
    """
    def __init__(self, filename=Consts.CDefCSVFileName, identify=None,
-                frequency = Consts.CDefCSVFileStatsGenFreq, reset=True):
+                frequency=Consts.CDefCSVFileStatsGenFreq, reset=True):
       """ The creator of DBFileCSV Class """
 
       DBBaseAdapter.__init__(self, frequency, identify)
@@ -208,7 +208,7 @@ class DBURLPost(DBBaseAdapter):
    """
 
    def __init__(self, url, identify=None,
-                frequency = Consts.CDefURLPostStatsGenFreq, post=True):
+                frequency=Consts.CDefURLPostStatsGenFreq, post=True):
       """ The creator of the DBURLPost Class. """
 
       DBBaseAdapter.__init__(self, frequency, identify)
@@ -248,9 +248,9 @@ class DBURLPost(DBBaseAdapter):
       params = stats.internalDict.copy()
       params["generation"] = ga_engine.getCurrentGeneration()
       params["identify"] = self.getIdentify()
-      if self.post: # POST
+      if self.post:  # POST
          response = self.urllibmod.urlopen(self.url, self.urllibmod.urlencode(params))
-      else: # GET
+      else:  # GET
          response = self.urllibmod.urlopen(self.url + "?%s" % (self.urllibmod.urlencode(params)))
       if response: response.close()
 
@@ -293,7 +293,7 @@ class DBSQLite(DBBaseAdapter):
       self.resetDB = resetDB
       self.resetIdentify = resetIdentify
       self.dbName = dbname
-      self.typeDict = { types.FloatType : "real" }
+      self.typeDict = {types.FloatType: "real"}
       self.cursorPool = None
       self.commitFreq = commit_freq
 
@@ -381,7 +381,7 @@ class DBSQLite(DBBaseAdapter):
    def resetTableIdentify(self):
       """ Delete all records on the table with the same Identify """
       c = self.getCursor()
-      stmt  = "delete from %s where identify = ?" % (Consts.CDefSQLiteDBTable)
+      stmt = "delete from %s where identify = ?" % (Consts.CDefSQLiteDBTable)
       stmt2 = "delete from %s where identify = ?" % (Consts.CDefSQLiteDBTablePop)
 
       logging.debug("Erasing data from the tables with the identify = %s", self.getIdentify())
@@ -416,7 +416,7 @@ class DBSQLite(DBBaseAdapter):
       .. versionchanged:: 0.6
          The method now receives the *ga_engine* parameter.
       """
-      stats      = ga_engine.getStatistics()
+      stats = ga_engine.getStatistics()
       population = ga_engine.getPopulation()
       generation = ga_engine.getCurrentGeneration()
 
@@ -473,7 +473,7 @@ class DBXMLRPC(DBBaseAdapter):
       The :class:`DBXMLRPC` class.
 
    """
-   def __init__(self, url, identify=None, frequency = Consts.CDefXMLRPCStatsGenFreq):
+   def __init__(self, url, identify=None, frequency=Consts.CDefXMLRPCStatsGenFreq):
       """ The creator of DBXMLRPC Class """
 
       DBBaseAdapter.__init__(self, frequency, identify)
@@ -537,7 +537,7 @@ class DBVPythonGraph(DBBaseAdapter):
       The *DBVPythonGraph* class.
    """
 
-   def __init__(self, identify=None, frequency = 20, genmax=False):
+   def __init__(self, identify=None, frequency=20, genmax=False):
       DBBaseAdapter.__init__(self, frequency, identify)
       self.genmax = genmax
       self.vtkGraph = None
@@ -559,11 +559,11 @@ class DBVPythonGraph(DBBaseAdapter):
       title = "Pyevolve v.%s - %s - id [%s]" % (__version__, title_sec, self.identify)
       if self.genmax:
          disp = self.vtkGraph.gdisplay(title=title, xtitle='Generation', ytitle=title_sec,
-                                    xmax=ga_engine.getGenerations(), xmin=0., width=500,
-                                    height=250, x=x, y=y)
+                                       xmax=ga_engine.getGenerations(), xmin=0., width=500,
+                                       height=250, x=x, y=y)
       else:
          disp = self.vtkGraph.gdisplay(title=title, xtitle='Generation', ytitle=title_sec,
-                                    xmin=0., width=500, height=250, x=x, y=y)
+                                       xmin=0., width=500, height=250, x=x, y=y)
          return disp
 
    def open(self, ga_engine):
@@ -575,14 +575,14 @@ class DBVPythonGraph(DBBaseAdapter):
       if self.vtkGraph is None:
          self.vtkGraph = Util.importSpecial("visual.graph").graph
 
-      display_rawmin = self.makeDisplay("Raw Score (min)",       0,   0,   ga_engine)
-      display_rawmax = self.makeDisplay("Raw Score (max)",       0,   250, ga_engine)
-      display_rawdev = self.makeDisplay("Raw Score (std. dev.)", 500, 0,   ga_engine)
-      display_rawavg = self.makeDisplay("Raw Score (avg)",       500, 250, ga_engine)
+      display_rawmin = self.makeDisplay("Raw Score (min)", 0, 0, ga_engine)
+      display_rawmax = self.makeDisplay("Raw Score (max)", 0, 250, ga_engine)
+      display_rawdev = self.makeDisplay("Raw Score (std. dev.)", 500, 0, ga_engine)
+      display_rawavg = self.makeDisplay("Raw Score (avg)", 500, 250, ga_engine)
 
-      self.curveMin = self.vtkGraph.gcurve(color=self.vtkGraph.color.red,    gdisplay=display_rawmin)
-      self.curveMax = self.vtkGraph.gcurve(color=self.vtkGraph.color.green,  gdisplay=display_rawmax)
-      self.curveDev = self.vtkGraph.gcurve(color=self.vtkGraph.color.blue,   gdisplay=display_rawdev)
+      self.curveMin = self.vtkGraph.gcurve(color=self.vtkGraph.color.red, gdisplay=display_rawmin)
+      self.curveMax = self.vtkGraph.gcurve(color=self.vtkGraph.color.green, gdisplay=display_rawmax)
+      self.curveDev = self.vtkGraph.gcurve(color=self.vtkGraph.color.blue, gdisplay=display_rawdev)
       self.curveAvg = self.vtkGraph.gcurve(color=self.vtkGraph.color.orange, gdisplay=display_rawavg)
 
    def insert(self, ga_engine):
@@ -649,7 +649,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       self.port = port
       self.user = user
       self.passwd = passwd
-      self.typeDict = { types.FloatType : "DOUBLE(14,6)" }
+      self.typeDict = {types.FloatType: "DOUBLE(14,6)"}
       self.cursorPool = None
       self.commitFreq = commit_freq
 
@@ -738,7 +738,7 @@ class DBMySQLAdapter(DBBaseAdapter):
    def resetTableIdentify(self):
       """ Delete all records on the table with the same Identify """
       c = self.getCursor()
-      stmt  = "delete from %s where identify = '%s'" % (Consts.CDefMySQLDBTable, self.getIdentify())
+      stmt = "delete from %s where identify = '%s'" % (Consts.CDefMySQLDBTable, self.getIdentify())
       stmt2 = "delete from %s where identify = '%s'" % (Consts.CDefMySQLDBTablePop, self.getIdentify())
 
       logging.debug("Erasing data from the tables with the identify = %s", self.getIdentify())
@@ -769,7 +769,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       .. versionchanged:: 0.6
          The method now receives the *ga_engine* parameter.
       """
-      stats      = ga_engine.getStatistics()
+      stats = ga_engine.getStatistics()
       population = ga_engine.getPopulation()
       generation = ga_engine.getCurrentGeneration()
 

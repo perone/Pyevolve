@@ -28,7 +28,7 @@ class GAlleles:
 
    """
 
-   def __init__(self, allele_list = None, homogeneous=False):
+   def __init__(self, allele_list=None, homogeneous=False):
       """ The constructor of GAlleles class """
       self.allele_list = []
       if allele_list is not None:
@@ -63,9 +63,9 @@ class GAlleles:
          val = self.allele_list[index]
       except IndexError:
          Util.raiseException(
-         """An error was occurred while finding allele for the %d position of chromosome.
-           You may consider use the 'homogeneous' parameter of the GAlleles class.
-         """ % (index,))
+             """An error was occurred while finding allele for the %d position of chromosome.
+             You may consider use the 'homogeneous' parameter of the GAlleles class.
+             """ % (index,))
       return val
 
    def __setitem__(self, index, value):
@@ -196,8 +196,8 @@ class GAlleleRange:
 
    def __processMinMax(self):
       """ Process the mininum and maximum of the Allele """
-      self.minimum = min([x for x,y in self.beginEnd])
-      self.maximum = max([y for x,y in self.beginEnd])
+      self.minimum = min([x for x, y in self.beginEnd])
+      self.maximum = max([y for x, y in self.beginEnd])
 
    def add(self, begin, end):
       """ Add a new range

@@ -121,41 +121,41 @@ class GPopulation:
       """ The GPopulation Class creator """
 
       if isinstance(genome, GPopulation):
-         self.oneSelfGenome  = genome.oneSelfGenome
-         self.internalPop    = []
+         self.oneSelfGenome = genome.oneSelfGenome
+         self.internalPop = []
          self.internalPopRaw = []
-         self.popSize       = genome.popSize
-         self.sortType      = genome.sortType
-         self.sorted        = False
-         self.minimax       = genome.minimax
-         self.scaleMethod   = genome.scaleMethod
-         self.allSlots      = [self.scaleMethod]
+         self.popSize = genome.popSize
+         self.sortType = genome.sortType
+         self.sorted = False
+         self.minimax = genome.minimax
+         self.scaleMethod = genome.scaleMethod
+         self.allSlots = [self.scaleMethod]
 
          self.internalParams = genome.internalParams
          self.multiProcessing = genome.multiProcessing
 
          self.statted = False
-         self.stats   = Statistics()
+         self.stats = Statistics()
          return
 
       logging.debug("New population instance, %s class genomes.", genome.__class__.__name__)
-      self.oneSelfGenome  = genome
-      self.internalPop    = []
+      self.oneSelfGenome = genome
+      self.internalPop = []
       self.internalPopRaw = []
-      self.popSize       = 0
-      self.sortType      = Consts.CDefPopSortType
-      self.sorted        = False
-      self.minimax       = Consts.CDefPopMinimax
-      self.scaleMethod   = FunctionSlot("Scale Method")
+      self.popSize = 0
+      self.sortType = Consts.CDefPopSortType
+      self.sorted = False
+      self.minimax = Consts.CDefPopMinimax
+      self.scaleMethod = FunctionSlot("Scale Method")
       self.scaleMethod.set(Consts.CDefPopScale)
-      self.allSlots      = [self.scaleMethod]
+      self.allSlots = [self.scaleMethod]
 
       self.internalParams = {}
       self.multiProcessing = (False, False)
 
       # Statistics
       self.statted = False
-      self.stats   = Statistics()
+      self.stats = Statistics()
 
    def setMultiProcessing(self, flag=True, full_copy=False):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
@@ -191,14 +191,14 @@ class GPopulation:
 
    def __repr__(self):
       """ Returns the string representation of the population """
-      ret =  "- GPopulation\n"
+      ret = "- GPopulation\n"
       ret += "\tPopulation Size:\t %d\n" % (self.popSize,)
       ret += "\tSort Type:\t\t %s\n" % (Consts.sortType.keys()[Consts.sortType.values().index(self.sortType)].capitalize(),)
       ret += "\tMinimax Type:\t\t %s\n" % (Consts.minimaxType.keys()[Consts.minimaxType.values().index(self.minimax)].capitalize(),)
       for slot in self.allSlots:
-         ret+= "\t" + slot.__repr__()
-      ret+="\n"
-      ret+= self.stats.__repr__()
+         ret += "\t" + slot.__repr__()
+      ret += "\n"
+      ret += self.stats.__repr__()
       return ret
 
    def __len__(self):
@@ -250,10 +250,10 @@ class GPopulation:
       tmpvar = 0.0
       for ind in xrange(len_pop):
          s = self[ind].score - self.stats["rawAve"]
-         s*= s
+         s *= s
          tmpvar += s
 
-      tmpvar/= float((len(self) - 1))
+      tmpvar /= float((len(self) - 1))
       try:
          self.stats["rawDev"] = math_sqrt(tmpvar)
       except:

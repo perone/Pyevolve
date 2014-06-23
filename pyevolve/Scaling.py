@@ -56,7 +56,7 @@ def SigmaTruncScaling(pop):
    pop_rawDev = pop.stats["rawDev"]
    for i in xrange(len(pop)):
       f = pop[i].score - pop_rawAve
-      f+= c * pop_rawDev
+      f += c * pop_rawDev
       if f < 0: f = 0.0
       pop[i].fitness = f
 
@@ -88,10 +88,10 @@ def BoltzmannScaling(pop):
 
    """
    boltz_temperature = pop.getParam("boltz_temperature", Consts.CDefScaleBoltzStart)
-   boltz_factor      = pop.getParam("boltz_factor", Consts.CDefScaleBoltzFactor)
-   boltz_min         = pop.getParam("boltz_min", Consts.CDefScaleBoltzMinTemp)
+   boltz_factor = pop.getParam("boltz_factor", Consts.CDefScaleBoltzFactor)
+   boltz_min = pop.getParam("boltz_min", Consts.CDefScaleBoltzMinTemp)
 
-   boltz_temperature-= boltz_factor
+   boltz_temperature -= boltz_factor
    boltz_temperature = max(boltz_temperature, boltz_min)
    pop.setParams(boltzTemperature=boltz_temperature)
 

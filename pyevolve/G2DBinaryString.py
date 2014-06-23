@@ -98,7 +98,7 @@ class G2DBinaryString(GenomeBase):
         self.height = height
         self.width = width
 
-        self.genomeString = [None]*height
+        self.genomeString = [None] * height
         for i in xrange(height):
             self.genomeString[i] = [None] * width
 
@@ -109,8 +109,8 @@ class G2DBinaryString(GenomeBase):
     def __eq__(self, other):
         """ Compares one chromosome with another """
         cond1 = (self.genomeString == other.genomeString)
-        cond2 = (self.height     == other.height)
-        cond3 = (self.width      == other.width)
+        cond2 = (self.height == other.height)
+        cond3 = (self.width == other.width)
         return True if cond1 and cond2 and cond3 else False
 
     def getItem(self, x, y):
@@ -138,7 +138,7 @@ class G2DBinaryString(GenomeBase):
         :param value: the value (integers 0 or 1)
 
         """
-        if value not in [0,1]:
+        if value not in [0, 1]:
             Util.raiseException("The item value must be 0 or 1 in the G2DBinaryString chromosome", ValueError)
         self.genomeString[x][y] = value
 
@@ -197,7 +197,7 @@ class G2DBinaryString(GenomeBase):
         """ Remove all genes from Genome """
         del self.genomeString[:]
 
-        self.genomeString = [None]* self.height
+        self.genomeString = [None] * self.height
         for i in xrange(self.height):
             self.genomeString[i] = [None] * self.width
 

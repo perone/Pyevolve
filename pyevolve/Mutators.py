@@ -28,13 +28,13 @@ def G1DBinaryStringMutatorSwap(genome, **args):
       mutations = 0
       for it in xrange(stringLength):
          if Util.randomFlipCoin(args["pmut"]):
-            Util.listSwapElement(genome, it, rand_randint(0, stringLength-1))
-            mutations+=1
+            Util.listSwapElement(genome, it, rand_randint(0, stringLength - 1))
+            mutations += 1
 
    else:
       for it in xrange(int(round(mutations))):
-         Util.listSwapElement(genome, rand_randint(0, stringLength-1),
-                                      rand_randint(0, stringLength-1))
+         Util.listSwapElement(genome, rand_randint(0, stringLength - 1),
+                              rand_randint(0, stringLength - 1))
 
    return int(mutations)
 
@@ -50,11 +50,11 @@ def G1DBinaryStringMutatorFlip(genome, **args):
          if Util.randomFlipCoin(args["pmut"]):
             if genome[it] == 0: genome[it] = 1
             else: genome[it] = 0
-            mutations+=1
+            mutations += 1
 
    else:
       for it in xrange(int(round(mutations))):
-         which = rand_randint(0, stringLength-1)
+         which = rand_randint(0, stringLength - 1)
          if genome[which] == 0: genome[which] = 1
          else: genome[which] = 0
 
@@ -72,14 +72,14 @@ def G1DListMutatorSwap(genome, **args):
    """
    if args["pmut"] <= 0.0: return 0
    listSize = len(genome) - 1
-   mutations = args["pmut"] * (listSize+1)
+   mutations = args["pmut"] * (listSize + 1)
 
    if mutations < 1.0:
       mutations = 0
-      for it in xrange(listSize+1):
+      for it in xrange(listSize + 1):
          if Util.randomFlipCoin(args["pmut"]):
             Util.listSwapElement(genome, it, rand_randint(0, listSize))
-            mutations+=1
+            mutations += 1
    else:
       for it in xrange(int(round(mutations))):
          Util.listSwapElement(genome, rand_randint(0, listSize), rand_randint(0, listSize))
@@ -100,7 +100,7 @@ def G1DListMutatorSIM(genome, **args):
    if cuts[0] > cuts[1]:
       Util.listSwapElement(cuts, 0, 1)
 
-   if (cuts[1]-cuts[0]) <= 0:
+   if (cuts[1] - cuts[0]) <= 0:
       cuts[1] = rand_randint(cuts[0], len(genome))
 
    if Util.randomFlipCoin(args["pmut"]):
@@ -127,14 +127,14 @@ def G1DListMutatorIntegerRange(genome, **args):
       for it in xrange(listSize):
          if Util.randomFlipCoin(args["pmut"]):
             genome[it] = rand_randint(genome.getParam("rangemin", Consts.CDefRangeMin),
-                         genome.getParam("rangemax", Consts.CDefRangeMax))
+                                      genome.getParam("rangemax", Consts.CDefRangeMax))
             mutations += 1
 
    else:
       for it in xrange(int(round(mutations))):
-         which_gene = rand_randint(0, listSize-1)
+         which_gene = rand_randint(0, listSize - 1)
          genome[which_gene] = rand_randint(genome.getParam("rangemin", Consts.CDefRangeMin),
-                              genome.getParam("rangemax", Consts.CDefRangeMax))
+                                           genome.getParam("rangemax", Consts.CDefRangeMax))
 
    return int(mutations)
 
@@ -154,14 +154,14 @@ def G1DListMutatorRealRange(genome, **args):
       for it in xrange(listSize):
          if Util.randomFlipCoin(args["pmut"]):
             genome[it] = rand_uniform(genome.getParam("rangemin", Consts.CDefRangeMin),
-                         genome.getParam("rangemax", Consts.CDefRangeMax))
+                                      genome.getParam("rangemax", Consts.CDefRangeMax))
             mutations += 1
 
    else:
       for it in xrange(int(round(mutations))):
-         which_gene = rand_randint(0, listSize-1)
+         which_gene = rand_randint(0, listSize - 1)
          genome[which_gene] = rand_uniform(genome.getParam("rangemin", Consts.CDefRangeMin),
-                              genome.getParam("rangemax", Consts.CDefRangeMax))
+                                           genome.getParam("rangemax", Consts.CDefRangeMax))
 
    return int(mutations)
 
@@ -197,7 +197,7 @@ def G1DListMutatorIntegerGaussianGradient(genome, **args):
             mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         which_gene = rand_randint(0, listSize-1)
+         which_gene = rand_randint(0, listSize - 1)
          final_value = int(genome[which_gene] * abs(rand_gauss(mu, sigma)))
 
          final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
@@ -241,7 +241,7 @@ def G1DListMutatorIntegerGaussian(genome, **args):
             mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         which_gene = rand_randint(0, listSize-1)
+         which_gene = rand_randint(0, listSize - 1)
          final_value = genome[which_gene] + int(rand_gauss(mu, sigma))
 
          final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
@@ -286,7 +286,7 @@ def G1DListMutatorRealGaussian(genome, **args):
             mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         which_gene = rand_randint(0, listSize-1)
+         which_gene = rand_randint(0, listSize - 1)
          final_value = genome[which_gene] + rand_gauss(mu, sigma)
 
          final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
@@ -333,7 +333,7 @@ def G1DListMutatorRealGaussianGradient(genome, **args):
             mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         which_gene = rand_randint(0, listSize-1)
+         which_gene = rand_randint(0, listSize - 1)
          final_value = genome[which_gene] * abs(rand_gauss(mu, sigma))
 
          final_value = min(final_value, genome.getParam("rangemax", Consts.CDefRangeMax))
@@ -363,7 +363,7 @@ def G1DListMutatorIntegerBinary(genome, **args):
             mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         which_gene = rand_randint(0, listSize-1)
+         which_gene = rand_randint(0, listSize - 1)
          if genome[which_gene] == 0: genome[which_gene] = 1
          elif genome[which_gene] == 1: genome[which_gene] = 0
 
@@ -378,7 +378,7 @@ def G1DListMutatorAllele(genome, **args):
    """
    if args["pmut"] <= 0.0: return 0
    listSize = len(genome) - 1
-   mutations = args["pmut"] * (listSize+1)
+   mutations = args["pmut"] * (listSize + 1)
 
    allele = genome.getParam("allele", None)
    if allele is None:
@@ -386,11 +386,11 @@ def G1DListMutatorAllele(genome, **args):
 
    if mutations < 1.0:
       mutations = 0
-      for it in xrange(listSize+1):
+      for it in xrange(listSize + 1):
          if Util.randomFlipCoin(args["pmut"]):
             new_val = allele[it].getRandomAllele()
             genome[it] = new_val
-            mutations+=1
+            mutations += 1
    else:
       for it in xrange(int(round(mutations))):
          which_gene = rand_randint(0, listSize)
@@ -421,13 +421,13 @@ def G2DListMutatorSwap(genome, **args):
       for i in xrange(height):
          for j in xrange(width):
             if Util.randomFlipCoin(args["pmut"]):
-               index_b = (rand_randint(0, height-1), rand_randint(0, width-1))
-               Util.list2DSwapElement(genome.genomeList, (i,j), index_b)
-               mutations+=1
+               index_b = (rand_randint(0, height - 1), rand_randint(0, width - 1))
+               Util.list2DSwapElement(genome.genomeList, (i, j), index_b)
+               mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         index_a = (rand_randint(0, height-1), rand_randint(0, width-1))
-         index_b = (rand_randint(0, height-1), rand_randint(0, width-1))
+         index_a = (rand_randint(0, height - 1), rand_randint(0, width - 1))
+         index_b = (rand_randint(0, height - 1), rand_randint(0, width - 1))
          Util.list2DSwapElement(genome.genomeList, index_a, index_b)
 
    return int(mutations)
@@ -458,8 +458,8 @@ def G2DListMutatorIntegerRange(genome, **args):
 
    else:
       for it in xrange(int(round(mutations))):
-         which_x = rand_randint(0, genome.getWidth()-1)
-         which_y = rand_randint(0, genome.getHeight()-1)
+         which_x = rand_randint(0, genome.getWidth() - 1)
+         which_y = rand_randint(0, genome.getHeight() - 1)
          random_int = rand_randint(range_min, range_max)
          genome.setItem(which_y, which_x, random_int)
 
@@ -501,8 +501,8 @@ def G2DListMutatorIntegerGaussianGradient(genome, **args):
    else:
 
       for it in xrange(int(round(mutations))):
-         which_x = rand_randint(0, genome.getWidth()-1)
-         which_y = rand_randint(0, genome.getHeight()-1)
+         which_x = rand_randint(0, genome.getWidth() - 1)
+         which_y = rand_randint(0, genome.getHeight() - 1)
 
          final_value = int(genome[which_y][which_x] * abs(rand_gauss(mu, sigma)))
 
@@ -552,8 +552,8 @@ def G2DListMutatorIntegerGaussian(genome, **args):
    else:
 
       for it in xrange(int(round(mutations))):
-         which_x = rand_randint(0, genome.getWidth()-1)
-         which_y = rand_randint(0, genome.getHeight()-1)
+         which_x = rand_randint(0, genome.getWidth() - 1)
+         which_y = rand_randint(0, genome.getHeight() - 1)
 
          final_value = genome[which_y][which_x] + int(rand_gauss(mu, sigma))
 
@@ -575,8 +575,8 @@ def G2DListMutatorAllele(genome, **args):
 
    """
    if args["pmut"] <= 0.0: return 0
-   listSize = genome.getHeight()*genome.getWidth() - 1
-   mutations = args["pmut"] * (listSize+1)
+   listSize = genome.getHeight() * genome.getWidth() - 1
+   mutations = args["pmut"] * (listSize + 1)
 
    allele = genome.getParam("allele", None)
    if allele is None:
@@ -593,11 +593,11 @@ def G2DListMutatorAllele(genome, **args):
             if Util.randomFlipCoin(args["pmut"]):
                new_val = allele[0].getRandomAllele()
                genome.setItem(i, j, new_val)
-               mutations+=1
+               mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         which_x = rand_randint(0, genome.getHeight()-1)
-         which_y = rand_randint(0, genome.getWidth()-1)
+         which_x = rand_randint(0, genome.getHeight() - 1)
+         which_y = rand_randint(0, genome.getWidth() - 1)
 
          new_val = allele[0].getRandomAllele()
          genome.setItem(which_x, which_y, new_val)
@@ -644,8 +644,8 @@ def G2DListMutatorRealGaussian(genome, **args):
    else:
 
       for it in xrange(int(round(mutations))):
-         which_x = rand_randint(0, genome.getWidth()-1)
-         which_y = rand_randint(0, genome.getHeight()-1)
+         which_x = rand_randint(0, genome.getWidth() - 1)
+         which_y = rand_randint(0, genome.getHeight() - 1)
 
          final_value = genome[which_y][which_x] + rand_gauss(mu, sigma)
 
@@ -690,8 +690,8 @@ def G2DListMutatorRealGaussianGradient(genome, **args):
    else:
 
       for it in xrange(int(round(mutations))):
-         which_x = rand_randint(0, genome.getWidth()-1)
-         which_y = rand_randint(0, genome.getHeight()-1)
+         which_x = rand_randint(0, genome.getWidth() - 1)
+         which_y = rand_randint(0, genome.getHeight() - 1)
 
          final_value = genome[which_y][which_x] * abs(rand_gauss(mu, sigma))
 
@@ -724,13 +724,13 @@ def G2DBinaryStringMutatorSwap(genome, **args):
       for i in xrange(height):
          for j in xrange(width):
             if Util.randomFlipCoin(args["pmut"]):
-               index_b = (rand_randint(0, height-1), rand_randint(0, width-1))
-               Util.list2DSwapElement(genome.genomeString, (i,j), index_b)
-               mutations+=1
+               index_b = (rand_randint(0, height - 1), rand_randint(0, width - 1))
+               Util.list2DSwapElement(genome.genomeString, (i, j), index_b)
+               mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         index_a = (rand_randint(0, height-1), rand_randint(0, width-1))
-         index_b = (rand_randint(0, height-1), rand_randint(0, width-1))
+         index_a = (rand_randint(0, height - 1), rand_randint(0, width - 1))
+         index_b = (rand_randint(0, height - 1), rand_randint(0, width - 1))
          Util.list2DSwapElement(genome.genomeString, index_a, index_b)
 
    return int(mutations)
@@ -760,8 +760,8 @@ def G2DBinaryStringMutatorFlip(genome, **args):
    else:
 
       for it in xrange(int(round(mutations))):
-         which_x = rand_randint(0, genome.getWidth()-1)
-         which_y = rand_randint(0, genome.getHeight()-1)
+         which_x = rand_randint(0, genome.getWidth() - 1)
+         which_y = rand_randint(0, genome.getHeight() - 1)
 
          if genome[i][j] == 0: genome.setItem(which_y, which_x, 1)
          else:                 genome.setItem(which_y, which_x, 0)
@@ -973,7 +973,7 @@ def GTreeGPMutatorOperation(genome, **args):
                op_len = gp_function_set[rand_node.getData()]
                fun_candidates = []
                for o, l in gp_function_set.items():
-                  if l==op_len:
+                  if l == op_len:
                      fun_candidates.append(o)
 
                if len(fun_candidates) <= 0:
@@ -991,7 +991,7 @@ def GTreeGPMutatorOperation(genome, **args):
             op_len = gp_function_set[rand_node.getData()]
             fun_candidates = []
             for o, l in gp_function_set.items():
-               if l==op_len:
+               if l == op_len:
                   fun_candidates.append(o)
 
             if len(fun_candidates) <= 0:
@@ -1035,7 +1035,7 @@ def GTreeGPMutatorSubtree(genome, **args):
          depth = genome.getNodeDepth(node)
          mutations += 1
 
-         root_subtree = GTree.buildGTreeGPGrow(ga_engine, 0, max_depth-depth)
+         root_subtree = GTree.buildGTreeGPGrow(ga_engine, 0, max_depth - depth)
          node_parent = node.getParent()
 
          if node_parent is None:

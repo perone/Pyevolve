@@ -79,17 +79,17 @@ class GenomeBase:
 
    def __repr__(self):
       """String representation of Genome"""
-      allSlots =  self.allSlots = [ self.evaluator, self.initializator,
-                                    self.mutator, self.crossover ]
+      allSlots = self.allSlots = [self.evaluator, self.initializator,
+                                  self.mutator, self.crossover]
 
       ret = "- GenomeBase\n"
-      ret+= "\tScore:\t\t\t %.6f\n" % (self.score,)
-      ret+= "\tFitness:\t\t %.6f\n\n" % (self.fitness,)
-      ret+= "\tParams:\t\t %s\n\n" % (self.internalParams,)
+      ret += "\tScore:\t\t\t %.6f\n" % (self.score,)
+      ret += "\tFitness:\t\t %.6f\n\n" % (self.fitness,)
+      ret += "\tParams:\t\t %s\n\n" % (self.internalParams,)
 
       for slot in allSlots:
-         ret+= "\t" + slot.__repr__()
-      ret+="\n"
+         ret += "\t" + slot.__repr__()
+      ret += "\n"
 
       return ret
 
@@ -156,7 +156,7 @@ class GenomeBase:
       """
       nmuts = 0
       for it in self.mutator.applyFunctions(self, **args):
-         nmuts+=it
+         nmuts += it
       return nmuts
 
    def copy(self, g):
@@ -209,7 +209,7 @@ class G1DBase:
    def __eq__(self, other):
       """ Compares one chromosome with another """
       cond1 = (self.genomeList == other.genomeList)
-      cond2 = (self.genomeSize   == other.genomeSize)
+      cond2 = (self.genomeSize == other.genomeSize)
       return True if cond1 and cond2 else False
 
    def __contains__(self, value):
@@ -331,7 +331,7 @@ class GTreeNodeBase:
 
       :rtype: True or False
       """
-      return len(self.childs)==0
+      return len(self.childs) == 0
 
    def getChild(self, index):
       """ Returns the index-child of the node
@@ -438,8 +438,8 @@ class GTreeBase:
       depth and height.
       """
       if self.root_node is None: return
-      self.nodes_list   = self.getAllNodes()
-      self.nodes_leaf   = filter(lambda n: n.isLeaf(), self.nodes_list)
+      self.nodes_list = self.getAllNodes()
+      self.nodes_leaf = filter(lambda n: n.isLeaf(), self.nodes_list)
       self.nodes_branch = filter(lambda n: n.isLeaf()==False, self.nodes_list)
 
       if not cloning:
@@ -480,7 +480,7 @@ class GTreeBase:
       if len(node) <= 0:
          return 0
       for child in node.getChilds():
-         h_inner = self.getNodeHeight(child)+1
+         h_inner = self.getNodeHeight(child) + 1
          if h_inner > height:
             height = h_inner
       return height
@@ -558,7 +558,7 @@ class GTreeBase:
       :rtype: the list with all nodes
       """
       node_stack = []
-      all_nodes  = []
+      all_nodes = []
       tmp = None
 
       node_stack.append(self.getRoot())
@@ -571,7 +571,7 @@ class GTreeBase:
       return all_nodes
 
    def __repr__(self):
-      str_buff  = "- GTree\n"
+      str_buff = "- GTree\n"
       str_buff += "\tHeight:\t\t\t%d\n" % self.getHeight()
       str_buff += "\tNodes:\t\t\t%d\n" % self.getNodesCount()
       str_buff += "\n" + self.getTraversalString()

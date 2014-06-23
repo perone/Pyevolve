@@ -126,7 +126,7 @@ class G2DList(GenomeBase):
         self.height = height
         self.width = width
 
-        self.genomeList = [None]*height
+        self.genomeList = [None] * height
         for i in xrange(height):
             self.genomeList[i] = [None] * width
 
@@ -228,7 +228,7 @@ class G2DList(GenomeBase):
         """ Remove all genes from Genome """
         del self.genomeList[:]
 
-        self.genomeList = [None]* self.height
+        self.genomeList = [None] * self.height
         for i in xrange(self.height):
             self.genomeList[i] = [None] * self.width
 

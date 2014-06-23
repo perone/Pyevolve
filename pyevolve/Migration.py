@@ -217,8 +217,8 @@ class WANMigration(MigrationScheme):
       server_timeout = self.serverThread.timeout
       client_timeout = self.clientThread.timeout
 
-      self.serverThread.join(server_timeout+3)
-      self.clientThread.join(client_timeout+3)
+      self.serverThread.join(server_timeout + 3)
+      self.clientThread.join(client_timeout + 3)
 
       if self.serverThread.isAlive():
          logging.warning("warning: server thread not joined !")
@@ -264,7 +264,7 @@ class WANMigration(MigrationScheme):
          pool.remove(choice)
 
          # replace the worst
-         population[len(population)-1-i] = choice[2]
+         population[len(population) - 1 - i] = choice[2]
 
 
 class MPIMigration(MigrationScheme):
@@ -285,7 +285,7 @@ class MPIMigration(MigrationScheme):
       else:
          self.source = self.comm.rank - 1
 
-      self.dest = (self.comm.rank +1) % (self.comm.size)
+      self.dest = (self.comm.rank + 1) % (self.comm.size)
 
       self.all_stars = None
 
@@ -306,7 +306,7 @@ class MPIMigration(MigrationScheme):
       result is stored in process 0
       '''
       best_guy = self.select()
-      self.all_stars = self.comm.gather(sendobj = best_guy, root = 0)
+      self.all_stars = self.comm.gather(sendobj=best_guy, root=0)
 
    def exchange(self):
       """ This is the main method, is where the individuals
@@ -315,12 +315,12 @@ class MPIMigration(MigrationScheme):
       if not self.isReady(): return
 
       pool_to_send = self.selectPool(self.getNumIndividuals())
-      pool_received  = self.comm.sendrecv(sendobj=pool_to_send,
-                                          dest=self.dest,
-                                          sendtag=0,
-                                          recvobj=None,
-                                          source=self.source,
-                                          recvtag=0)
+      pool_received = self.comm.sendrecv(sendobj=pool_to_send,
+                                         dest=self.dest,
+                                         sendtag=0,
+                                         recvobj=None,
+                                         source=self.source,
+                                         recvtag=0)
 
       population = self.GAEngine.getPopulation()
 
@@ -332,6 +332,6 @@ class MPIMigration(MigrationScheme):
          pool.remove(choice)
 
          # replace the worst
-         population[len(population)-1-i] = choice
+         population[len(population) - 1 - i] = choice
 
       self.gather_bests()
