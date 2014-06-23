@@ -32,7 +32,8 @@ def GRankSelector(population, **args):
       GRankSelector.cachePopID = args["popID"]
       GRankSelector.cacheCount = count
 
-   else: count = GRankSelector.cacheCount
+   else:
+      count = GRankSelector.cacheCount
 
    return population[random.randint(0, count)]
 
@@ -110,8 +111,10 @@ def GRouletteWheel(population, **args):
    upper = len(population) - 1
    while(upper >= lower):
       i = lower + ((upper - lower) / 2)
-      if psum[i] > cutoff: upper = i-1
-      else: lower = i+1
+      if psum[i] > cutoff:
+         upper = i - 1
+      else:
+         lower = i + 1
 
    lower = min(len(population) - 1, lower)
    lower = max(0, lower)

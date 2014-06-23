@@ -58,7 +58,8 @@ class GAlleles:
 
    def __getitem__(self, index):
       """ Returns the index allele of the alleles list """
-      if self.homogeneous: return self.allele_list[0]
+      if self.homogeneous:
+         return self.allele_list[0]
       try:
          val = self.allele_list[index]
       except IndexError:
@@ -70,7 +71,8 @@ class GAlleles:
 
    def __setitem__(self, index, value):
       """ Sets the index allele of the alleles list """
-      if self.homogeneous: self.allele_list[0] = value
+      if self.homogeneous:
+         self.allele_list[0] = value
       self.allele_list[index] = value
 
    def __iter__(self):
@@ -82,7 +84,8 @@ class GAlleles:
 
    def __len__(self):
       """ Returns the lenght of the alleles list """
-      if self.homogeneous: return 1
+      if self.homogeneous:
+         return 1
       return len(self.allele_list)
 
    def __repr__(self):
@@ -247,8 +250,10 @@ class GAlleleRange:
       """ Returns one random choice between the range """
       rand_func = random.uniform if self.real else random.randint
 
-      if len(self.beginEnd) <= 1: choice = 0
-      else: choice = random.randint(0, len(self.beginEnd)-1)
+      if len(self.beginEnd) <= 1:
+         choice = 0
+      else:
+         choice = random.randint(0, len(self.beginEnd) - 1)
       return rand_func(self.beginEnd[choice][0], self.beginEnd[choice][1])
 
    def setReal(self, flag=True):

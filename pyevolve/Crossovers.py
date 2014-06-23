@@ -236,7 +236,8 @@ def G1DListCrossoverEdge(genome, **args):
          c.append(curr)
          u.remove(curr)
          d = [v for v in merge_edges.get(curr, []) if v in u]
-         if d: curr = rand_choice(d)
+         if d:
+            curr = rand_choice(d)
          else:
             s = [v for v in mom_edges.get(curr, []) if v in u]
             s += [v for v in dad_edges.get(curr, []) if v in u]
@@ -272,8 +273,10 @@ def G1DListCrossoverCutCrossfill(genome, **args):
       i = (len(sister) - cut)
       x = 0
       for v in gDad:
-         if v in mother_part: continue
-         if x >= i: break
+         if v in mother_part:
+            continue
+         if x >= i:
+            break
          sister[cut + x] = v
          x += 1
 
@@ -284,8 +287,10 @@ def G1DListCrossoverCutCrossfill(genome, **args):
       i = (len(brother) - cut)
       x = 0
       for v in gMom:
-         if v in father_part: continue
-         if x >= i: break
+         if v in father_part:
+            continue
+         if x >= i:
+            break
          brother[cut + x] = v
          x += 1
 
@@ -348,12 +353,15 @@ def G1DListCrossoverRealSBX(genome, **args):
 
          sister[i] = 0.5 * ((gMom[i] + gDad[i]) + beta_q * (gDad[i] - gMom[i]))
 
+         if brother[i] > ub:
+            brother[i] = ub
+         if brother[i] < lb:
+            brother[i] = lb
 
-         if brother[i] > ub: brother[i] = ub
-         if brother[i] < lb: brother[i] = lb
-
-         if sister[i] > ub: sister[i] = ub
-         if sister[i] < lb: sister[i] = lb
+         if sister[i] > ub:
+            sister[i] = ub
+         if sister[i] < lb:
+            sister[i] = lb
 
          if rand_random() > 0.5:
             # Swap
@@ -570,11 +578,15 @@ def GTreeCrossoverSinglePoint(genome, **args):
    if len(all_mom_nodes) == 0 or len(all_dad_nodes) == 0:
       return (gMom, gDad)
 
-   if len(all_dad_nodes) == 1: nodeDad = all_dad_nodes[0]
-   else: nodeDad = rand_choice(all_dad_nodes)
+   if len(all_dad_nodes) == 1:
+      nodeDad = all_dad_nodes[0]
+   else:
+      nodeDad = rand_choice(all_dad_nodes)
 
-   if len(all_mom_nodes) == 1: nodeMom = all_mom_nodes[0]
-   else: nodeMom = rand_choice(all_mom_nodes)
+   if len(all_mom_nodes) == 1:
+      nodeMom = all_mom_nodes[0]
+   else:
+      nodeMom = rand_choice(all_mom_nodes)
 
    nodeMom_parent = nodeMom.getParent()
    nodeDad_parent = nodeDad.getParent()
@@ -739,13 +751,16 @@ def GTreeGPCrossoverSinglePoint(genome, **args):
       dD = gDad.getNodeDepth(dadRandom)
 
       # Two nodes are root
-      if mD==0 and dD==0: continue
+      if mD == 0 and dD == 0:
+         continue
 
       mH = gMom.getNodeHeight(momRandom)
-      if dD+mH > max_depth: continue
+      if dD + mH > max_depth:
+         continue
 
       dH = gDad.getNodeHeight(dadRandom)
-      if mD+dH > max_depth: continue
+      if mD + dH > max_depth:
+         continue
 
       break
 

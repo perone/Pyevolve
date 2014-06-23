@@ -32,7 +32,8 @@ Class
 
 """
 
-import Consts, Util
+import Consts
+import Util
 from FunctionSlot import FunctionSlot
 from Statistics import Statistics
 from math import sqrt as math_sqrt
@@ -234,7 +235,8 @@ class GPopulation:
 
    def statistics(self):
       """ Do statistical analysis of population and set 'statted' to True """
-      if self.statted: return
+      if self.statted:
+         return
       logging.debug("Running statistical calculations")
       raw_sum = 0
       fit_sum = 0
@@ -315,7 +317,8 @@ class GPopulation:
 
    def sort(self):
       """ Sort the population """
-      if self.sorted: return
+      if self.sorted:
+         return
       rev = (self.minimax == Consts.minimaxType["maximize"])
 
       if self.sortType == Consts.sortType["raw"]:
@@ -461,7 +464,6 @@ class GPopulation:
 
       """
       return self.internalParams.get(key, nvl)
-
 
    def setParams(self, **args):
       """ Gets an internal parameter

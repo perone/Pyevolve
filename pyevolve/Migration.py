@@ -226,12 +226,12 @@ class WANMigration(MigrationScheme):
       if self.clientThread.isAlive():
          logging.warning("warning: client thread not joined !")
 
-
    def exchange(self):
       """ This is the main method, is where the individuals
       are exchanged """
 
-      if not self.isReady(): return
+      if not self.isReady():
+         return
 
       # Client section --------------------------------------
       # How many will migrate ?
@@ -254,12 +254,14 @@ class WANMigration(MigrationScheme):
          pool.append(networkObject)
 
       # No individuals received
-      if len(pool) <= 0: return
+      if len(pool) <= 0:
+         return
 
       population = self.GAEngine.getPopulation()
 
       for i in xrange(self.getNumReplacement()):
-         if len(pool) <= 0: break
+         if len(pool) <= 0:
+            break
          choice = rand_choice(pool)
          pool.remove(choice)
 
@@ -312,7 +314,8 @@ class MPIMigration(MigrationScheme):
       """ This is the main method, is where the individuals
       are exchanged """
 
-      if not self.isReady(): return
+      if not self.isReady():
+         return
 
       pool_to_send = self.selectPool(self.getNumIndividuals())
       pool_received = self.comm.sendrecv(sendobj=pool_to_send,
@@ -326,7 +329,8 @@ class MPIMigration(MigrationScheme):
 
       pool = pool_received
       for i in xrange(self.getNumReplacement()):
-         if len(pool) <= 0: break
+         if len(pool) <= 0:
+            break
 
          choice = rand_choice(pool)
          pool.remove(choice)

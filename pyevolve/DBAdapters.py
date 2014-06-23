@@ -148,8 +148,7 @@ class DBFileCSV(DBBaseAdapter):
          self.csvmod = Util.importSpecial("csv")
 
       logging.debug("Opening the CSV file to dump statistics [%s]", self.filename)
-      if self.reset: open_mode = "w"
-      else: open_mode = "a"
+      open_mode = 'w' if self.reset else 'a'
       self.fHandle = open(self.filename, open_mode)
       self.csvWriter = self.csvmod.writer(self.fHandle, delimiter=';')
 
@@ -252,7 +251,8 @@ class DBURLPost(DBBaseAdapter):
          response = self.urllibmod.urlopen(self.url, self.urllibmod.urlencode(params))
       else:  # GET
          response = self.urllibmod.urlopen(self.url + "?%s" % (self.urllibmod.urlencode(params)))
-      if response: response.close()
+      if response:
+         response.close()
 
 class DBSQLite(DBBaseAdapter):
    """ DBSQLite Class - Adapter to dump data in SQLite3 database format
@@ -393,7 +393,6 @@ class DBSQLite(DBBaseAdapter):
             print "\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n"
 
       self.commit()
-
 
    def resetStructure(self, stats):
       """ Deletes de current structure and calls createStructure
@@ -746,7 +745,6 @@ class DBMySQLAdapter(DBBaseAdapter):
       c.execute(stmt2)
 
       self.commit()
-
 
    def resetStructure(self, stats):
       """ Deletes de current structure and calls createStructure

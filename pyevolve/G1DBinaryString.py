@@ -87,7 +87,6 @@ class G1DBinaryString(GenomeBase, G1DBase):
       genome.crossover.set(Crossovers.G1DBinaryStringXUniform)
    """
 
-
    def __init__(self, length=10):
       """ The initializator of G1DList representation """
       GenomeBase.__init__(self)

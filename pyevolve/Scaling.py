@@ -57,7 +57,8 @@ def SigmaTruncScaling(pop):
    for i in xrange(len(pop)):
       f = pop[i].score - pop_rawAve
       f += c * pop_rawDev
-      if f < 0: f = 0.0
+      if f < 0:
+         f = 0.0
       pop[i].fitness = f
 
 def PowerLawScaling(pop):

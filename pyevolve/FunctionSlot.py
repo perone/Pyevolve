@@ -129,11 +129,9 @@ class FunctionSlot:
       self.funcList.append(func)
       self.funcWeights.append(weight)
 
-
    def isEmpty(self):
       """ Return true if the function slot is empy """
       return (len(self.funcList) == 0)
-
 
    def set(self, func, weight=0.5):
       """ Used to clear all functions in the slot and add one

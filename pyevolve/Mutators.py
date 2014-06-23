@@ -20,7 +20,8 @@ import GTree
 def G1DBinaryStringMutatorSwap(genome, **args):
    """ The 1D Binary String Swap Mutator """
 
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    stringLength = len(genome)
    mutations = args["pmut"] * (stringLength)
 
@@ -40,7 +41,8 @@ def G1DBinaryStringMutatorSwap(genome, **args):
 
 def G1DBinaryStringMutatorFlip(genome, **args):
    """ The classical flip mutator for binary strings """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    stringLength = len(genome)
    mutations = args["pmut"] * (stringLength)
 
@@ -48,15 +50,19 @@ def G1DBinaryStringMutatorFlip(genome, **args):
       mutations = 0
       for it in xrange(stringLength):
          if Util.randomFlipCoin(args["pmut"]):
-            if genome[it] == 0: genome[it] = 1
-            else: genome[it] = 0
+            if genome[it] == 0:
+               genome[it] = 1
+            else:
+               genome[it] = 0
             mutations += 1
 
    else:
       for it in xrange(int(round(mutations))):
          which = rand_randint(0, stringLength - 1)
-         if genome[which] == 0: genome[which] = 1
-         else: genome[which] = 0
+         if genome[which] == 0:
+            genome[which] = 1
+         else:
+            genome[which] = 0
 
    return int(mutations)
 
@@ -70,7 +76,8 @@ def G1DListMutatorSwap(genome, **args):
    .. note:: this mutator is :term:`Data Type Independent`
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome) - 1
    mutations = args["pmut"] * (listSize + 1)
 
@@ -93,7 +100,8 @@ def G1DListMutatorSIM(genome, **args):
 
    """
    mutations = 0
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
 
    cuts = [rand_randint(0, len(genome)), rand_randint(0, len(genome))]
 
@@ -105,7 +113,8 @@ def G1DListMutatorSIM(genome, **args):
 
    if Util.randomFlipCoin(args["pmut"]):
       part = genome[cuts[0]:cuts[1]]
-      if len(part) == 0: return 0
+      if len(part) == 0:
+         return 0
       part.reverse()
       genome[cuts[0]:cuts[1]] = part
       mutations += 1
@@ -118,7 +127,8 @@ def G1DListMutatorIntegerRange(genome, **args):
    Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome)
    mutations = args["pmut"] * listSize
 
@@ -145,7 +155,8 @@ def G1DListMutatorRealRange(genome, **args):
    Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome)
    mutations = args["pmut"] * (listSize)
 
@@ -177,7 +188,8 @@ def G1DListMutatorIntegerGaussianGradient(genome, **args):
    1 the random value falls on) and cast to integer
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome)
    mutations = args["pmut"] * (listSize)
 
@@ -215,7 +227,8 @@ def G1DListMutatorIntegerGaussian(genome, **args):
    represents the mean and the std. dev. of the random distribution.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome)
    mutations = args["pmut"] * (listSize)
 
@@ -260,7 +273,8 @@ def G1DListMutatorRealGaussian(genome, **args):
    represents the mean and the std. dev. of the random distribution.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome)
    mutations = args["pmut"] * (listSize)
 
@@ -313,7 +327,8 @@ def G1DListMutatorRealGaussianGradient(genome, **args):
    no matter how large it is.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome)
    mutations = args["pmut"] * (listSize)
 
@@ -349,7 +364,8 @@ def G1DListMutatorIntegerBinary(genome, **args):
    This mutator will random change the 0 and 1 elements of the 1D List.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome)
    mutations = args["pmut"] * (listSize)
 
@@ -357,15 +373,19 @@ def G1DListMutatorIntegerBinary(genome, **args):
       mutations = 0
       for it in xrange(listSize):
          if Util.randomFlipCoin(args["pmut"]):
-            if genome[it] == 0: genome[it] = 1
-            elif genome[it] == 1: genome[it] = 0
+            if genome[it] == 0:
+               genome[it] = 1
+            elif genome[it] == 1:
+               genome[it] = 0
 
             mutations += 1
    else:
       for it in xrange(int(round(mutations))):
          which_gene = rand_randint(0, listSize - 1)
-         if genome[which_gene] == 0: genome[which_gene] = 1
-         elif genome[which_gene] == 1: genome[which_gene] = 0
+         if genome[which_gene] == 0:
+            genome[which_gene] = 1
+         elif genome[which_gene] == 1:
+            genome[which_gene] = 0
 
    return int(mutations)
 
@@ -376,7 +396,8 @@ def G1DListMutatorAllele(genome, **args):
    :class:`GAllele.GAlleles` instance.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = len(genome) - 1
    mutations = args["pmut"] * (listSize + 1)
 
@@ -410,7 +431,8 @@ def G2DListMutatorSwap(genome, **args):
 
    """
 
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    height, width = genome.getSize()
    elements = height * width
 
@@ -438,7 +460,8 @@ def G2DListMutatorIntegerRange(genome, **args):
    Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    height, width = genome.getSize()
    elements = height * width
 
@@ -476,7 +499,8 @@ def G2DListMutatorIntegerGaussianGradient(genome, **args):
    no matter how large it is.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    height, width = genome.getSize()
    elements = height * width
 
@@ -521,7 +545,8 @@ def G2DListMutatorIntegerGaussian(genome, **args):
    represents the mean and the std. dev. of the random distribution.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    height, width = genome.getSize()
    elements = height * width
 
@@ -574,7 +599,8 @@ def G2DListMutatorAllele(genome, **args):
    .. warning:: the :class:`GAllele.GAlleles` instance must have the homogeneous flag enabled
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    listSize = genome.getHeight() * genome.getWidth() - 1
    mutations = args["pmut"] * (listSize + 1)
 
@@ -582,7 +608,7 @@ def G2DListMutatorAllele(genome, **args):
    if allele is None:
       Util.raiseException("to use the G2DListMutatorAllele, you must specify the 'allele' parameter", TypeError)
 
-   if allele.homogeneous == False:
+   if not allele.homogeneous:
       Util.raiseException("to use the G2DListMutatorAllele, the 'allele' must be homogeneous")
 
    if mutations < 1.0:
@@ -613,7 +639,8 @@ def G2DListMutatorRealGaussian(genome, **args):
    represents the mean and the std. dev. of the random distribution.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    height, width = genome.getSize()
    elements = height * width
 
@@ -665,7 +692,8 @@ def G2DListMutatorRealGaussianGradient(genome, **args):
    for a smooth gradient drift about the value.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    height, width = genome.getSize()
    elements = height * width
 
@@ -713,7 +741,8 @@ def G2DBinaryStringMutatorSwap(genome, **args):
       The *G2DBinaryStringMutatorSwap* function
    """
 
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    height, width = genome.getSize()
    elements = height * width
 
@@ -742,7 +771,8 @@ def G2DBinaryStringMutatorFlip(genome, **args):
    .. versionadded:: 0.6
       The *G2DBinaryStringMutatorFlip* function
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    height, width = genome.getSize()
    elements = height * width
 
@@ -754,8 +784,10 @@ def G2DBinaryStringMutatorFlip(genome, **args):
       for i in xrange(genome.getHeight()):
          for j in xrange(genome.getWidth()):
             if Util.randomFlipCoin(args["pmut"]):
-               if genome[i][j] == 0: genome.setItem(i, j, 1)
-               else:                 genome.setItem(i, j, 0)
+               if genome[i][j] == 0:
+                  genome.setItem(i, j, 1)
+               else:
+                  genome.setItem(i, j, 0)
                mutations += 1
    else:
 
@@ -763,8 +795,10 @@ def G2DBinaryStringMutatorFlip(genome, **args):
          which_x = rand_randint(0, genome.getWidth() - 1)
          which_y = rand_randint(0, genome.getHeight() - 1)
 
-         if genome[i][j] == 0: genome.setItem(which_y, which_x, 1)
-         else:                 genome.setItem(which_y, which_x, 0)
+         if genome[i][j] == 0:
+            genome.setItem(which_y, which_x, 1)
+         else:
+            genome.setItem(which_y, which_x, 0)
 
    return int(mutations)
 
@@ -777,7 +811,8 @@ def GTreeMutatorSwap(genome, **args):
    .. versionadded:: 0.6
       The *GTreeMutatorSwap* function
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    elements = len(genome)
    mutations = args["pmut"] * elements
 
@@ -806,7 +841,8 @@ def GTreeMutatorIntegerRange(genome, **args):
    .. versionadded:: 0.6
       The *GTreeMutatorIntegerRange* function
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    elements = len(genome)
    mutations = args["pmut"] * elements
 
@@ -839,7 +875,8 @@ def GTreeMutatorRealRange(genome, **args):
    .. versionadded:: 0.6
       The *GTreeMutatorRealRange* function
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    elements = len(genome)
    mutations = args["pmut"] * elements
 
@@ -872,7 +909,8 @@ def GTreeMutatorIntegerGaussian(genome, **args):
    represents the mean and the std. dev. of the random distribution.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    elements = len(genome)
    mutations = args["pmut"] * elements
 
@@ -908,7 +946,8 @@ def GTreeMutatorRealGaussian(genome, **args):
    represents the mean and the std. dev. of the random distribution.
 
    """
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    elements = len(genome)
    mutations = args["pmut"] * elements
 
@@ -935,8 +974,6 @@ def GTreeMutatorRealGaussian(genome, **args):
 
    return int(mutations)
 
-
-
 ###################
 ##     Tree GP   ##
 ###################
@@ -948,11 +985,11 @@ def GTreeGPMutatorOperation(genome, **args):
       The *GTreeGPMutatorOperation* function
    """
 
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    elements = len(genome)
    mutations = args["pmut"] * elements
    ga_engine = args["ga_engine"]
-
 
    gp_terminals = ga_engine.getParam("gp_terminals")
    assert gp_terminals is not None
@@ -1012,7 +1049,8 @@ def GTreeGPMutatorSubtree(genome, **args):
       The *GTreeGPMutatorSubtree* function
    """
 
-   if args["pmut"] <= 0.0: return 0
+   if args["pmut"] <= 0.0:
+      return 0
    ga_engine = args["ga_engine"]
    max_depth = genome.getParam("max_depth", None)
    mutations = 0

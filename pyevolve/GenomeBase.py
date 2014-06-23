@@ -49,7 +49,6 @@ class GenomeBase:
       genome.crossover.set(Crossovers.G1DListCrossoverUniform)
    """
 
-
    def __init__(self):
       """Genome Constructor"""
       self.evaluator = FunctionSlot("Evaluator")
@@ -437,10 +436,11 @@ class GTreeBase:
       internal nodes list and the internal nodes properties such as
       depth and height.
       """
-      if self.root_node is None: return
+      if self.root_node is None:
+         return
       self.nodes_list = self.getAllNodes()
       self.nodes_leaf = filter(lambda n: n.isLeaf(), self.nodes_list)
-      self.nodes_branch = filter(lambda n: n.isLeaf()==False, self.nodes_list)
+      self.nodes_branch = filter(lambda n: n.isLeaf() is False, self.nodes_list)
 
       if not cloning:
          self.tree_height = self.getNodeHeight(self.getRoot())
@@ -466,8 +466,10 @@ class GTreeBase:
 
       :rtype: the depth of the node, the depth of root node is 0
       """
-      if node==self.getRoot(): return 0
-      else:                    return 1 + self.getNodeDepth(node.getParent())
+      if node == self.getRoot():
+         return 0
+      else:
+         return 1 + self.getNodeDepth(node.getParent())
 
    def getNodeHeight(self, node):
       """ Returns the height of a node
@@ -521,7 +523,6 @@ class GTreeBase:
          str_buff += "%s%s\n" % (" " * spaces, child_node)
          str_buff += self.getTraversalString(child_node, spaces)
       return str_buff
-
 
    def traversal(self, callback, start_node=None):
       """ Traversal the tree, this method will call the
@@ -599,7 +600,8 @@ class GTreeBase:
          g.tree_height = self.tree_height
          node = self.root_node
 
-      if node is None: return None
+      if node is None:
+         return None
 
       newnode = node.clone()
 

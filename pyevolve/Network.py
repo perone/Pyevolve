@@ -102,7 +102,8 @@ class UDPThreadBroadcastClient(threading.Thread):
       with self.sentBytesLock:
          if self.sentBytes is None:
             Util.raiseException('Bytes sent is None')
-         else: sent = self.sentBytes
+         else:
+             sent = self.sentBytes
       return sent
 
    def send(self):
@@ -240,7 +241,8 @@ class UDPThreadUnicastClient(threading.Thread):
          Util.raiseException('You must set the target(s) before send data', ValueError)
 
       while True:
-         if self.doshutdown: break
+         if self.doshutdown:
+             break
 
          while self.isReady():
             data = self.popPool()
@@ -367,12 +369,14 @@ class UDPThreadServer(threading.Thread):
          # Get the data
          data = self.getData()
          # Shutdown called
-         if self.doshutdown: break
+         if self.doshutdown:
+             break
          # The pool is full
          if self.poolLength() >= self.poolSize:
             continue
          # There is no data received
-         if data == None: continue
+         if data is None:
+             continue
          # It's a packet from myself
          if data[0] == self.host:
             continue
@@ -390,7 +394,8 @@ def pickleAndCompress(obj, level=9):
 
    """
    pickled = cPickle.dumps(obj)
-   if level < 0: return pickled
+   if level < 0:
+       return pickled
    else:
       if not ZLIB_SUPPORT:
          Util.raiseException('zlib not found !', ImportError)
@@ -427,8 +432,6 @@ if __name__ == "__main__":
          time.sleep(4)
          s.shutdown()
          break
-
-
    elif arg == "client":
       print "Binding on %s..." % myself[0]
       s = UDPThreadUnicastClient(myself[0], 1500)
