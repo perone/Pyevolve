@@ -9,7 +9,6 @@ This module have the *selection methods*, like roulette wheel, tournament, ranki
 
 import random
 import Consts
-import operator
 
 def GRankSelector(population, **args):
    """ The Rank Selector - This selector will pick the best individual of

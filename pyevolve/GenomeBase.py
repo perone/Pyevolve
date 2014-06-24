@@ -385,7 +385,6 @@ class GTreeNodeBase:
       return self.parent
 
    def __repr__(self):
-      parent = "None" if self.getParent() is None else "Present"
       str_repr = "GTreeNodeBase [Childs=%d]" % len(self)
       return str_repr
 

@@ -12,7 +12,6 @@ you'll find the class :class:`FunctionSlot.FunctionSlot`, which is the slot clas
 """
 
 from random import uniform as rand_uniform
-import inspect
 from types import BooleanType
 
 import Util
