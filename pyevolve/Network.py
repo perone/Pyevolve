@@ -59,7 +59,7 @@ class UDPThreadBroadcastClient(threading.Thread):
 
    """
    def __init__(self, host, port, target_port):
-      threading.Thread.__init__(self)
+      super(UDPThreadBroadcastClient, self).__init__()
       self.host = host
       self.port = port
       self.targetPort = target_port
@@ -139,7 +139,7 @@ class UDPThreadUnicastClient(threading.Thread):
 
    """
    def __init__(self, host, port, pool_size=10, timeout=0.5):
-      threading.Thread.__init__(self)
+      super(UDPThreadUnicastClient, self).__init__()
       self.host = host
       self.port = port
       self.target = []
@@ -276,7 +276,7 @@ class UDPThreadServer(threading.Thread):
 
    """
    def __init__(self, host, port, poolSize=10, timeout=3):
-      threading.Thread.__init__(self)
+      super(UDPThreadServer, self).__init__()
       self.recvPool = []
       self.recvPoolLock = threading.Lock()
       self.bufferSize = 4096
