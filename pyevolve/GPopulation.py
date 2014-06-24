@@ -239,7 +239,6 @@ class GPopulation:
          return
       logging.debug("Running statistical calculations")
       raw_sum = 0
-      fit_sum = 0
 
       len_pop = len(self)
       for ind in xrange(len_pop):
