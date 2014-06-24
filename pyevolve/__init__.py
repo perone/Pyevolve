@@ -16,8 +16,8 @@ __all__ = ["Consts", "Crossovers", "DBAdapters", "FunctionSlot",
            "Migration", "Mutators", "Network", "Scaling", "Selectors",
            "Statistics", "Util"]
 
-__version__ =  '0.6'
-__author__ =  'Christian S. Perone'
+__version__ = '0.6'
+__author__ = 'Christian S. Perone'
 
 import pyevolve.Consts
 import sys
@@ -39,7 +39,7 @@ def logEnable(filename=Consts.CDefLogFile, level=Consts.CDefLogLevel):
    """
    import logging
    logging.basicConfig(level=level,
-                    format='%(asctime)s [%(module)s:%(funcName)s:%(lineno)d] %(levelname)s %(message)s',
-                    filename=filename,
-                    filemode='w')
+                       format='%(asctime)s [%(module)s:%(funcName)s:%(lineno)d] %(levelname)s %(message)s',
+                       filename=filename,
+                       filemode='w')
    logging.info("Pyevolve v.%s, the log was enabled by user.", __version__)

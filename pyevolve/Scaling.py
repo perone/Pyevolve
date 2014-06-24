@@ -25,7 +25,7 @@ def LinearScaling(pop):
    pop_rawAve = pop.stats["rawAve"]
    pop_rawMax = pop.stats["rawMax"]
    pop_rawMin = pop.stats["rawMin"]
-   
+
    if pop_rawAve == pop_rawMax:
       a = 1.0
       b = 0.0
@@ -56,8 +56,9 @@ def SigmaTruncScaling(pop):
    pop_rawDev = pop.stats["rawDev"]
    for i in xrange(len(pop)):
       f = pop[i].score - pop_rawAve
-      f+= c * pop_rawDev
-      if f < 0: f = 0.0
+      f += c * pop_rawDev
+      if f < 0:
+         f = 0.0
       pop[i].fitness = f
 
 def PowerLawScaling(pop):
@@ -82,16 +83,16 @@ def BoltzmannScaling(pop):
    can specify the **boltz_factor** and the **boltz_min** parameters, the **boltz_factor**
    is the value that the temperature will be subtracted and the **boltz_min** is the
    mininum temperature of the scaling scheme.
-   
+
    .. versionadded: 0.6
       The `BoltzmannScaling` function.
 
    """
    boltz_temperature = pop.getParam("boltz_temperature", Consts.CDefScaleBoltzStart)
-   boltz_factor      = pop.getParam("boltz_factor", Consts.CDefScaleBoltzFactor)
-   boltz_min         = pop.getParam("boltz_min", Consts.CDefScaleBoltzMinTemp)
+   boltz_factor = pop.getParam("boltz_factor", Consts.CDefScaleBoltzFactor)
+   boltz_min = pop.getParam("boltz_min", Consts.CDefScaleBoltzMinTemp)
 
-   boltz_temperature-= boltz_factor
+   boltz_temperature -= boltz_factor
    boltz_temperature = max(boltz_temperature, boltz_min)
    pop.setParams(boltzTemperature=boltz_temperature)
 
@@ -102,12 +103,12 @@ def BoltzmannScaling(pop):
       val = math.exp(pop[i].score / boltz_temperature)
       boltz_e.append(val)
       avg += val
-      
+
    avg /= len(pop)
 
    for i in xrange(len(pop)):
       pop[i].fitness = boltz_e[i] / avg
-   
+
 def ExponentialScaling(pop):
    """ Exponential Scaling Scheme. The fitness will be the same as (e^score).
 
@@ -127,5 +128,3 @@ def SaturatedScaling(pop):
    for i in xrange(len(pop)):
       score = pop[i].score
       pop[i].fitness = 1.0 - math.exp(score)
-
-

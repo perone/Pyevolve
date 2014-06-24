@@ -6,13 +6,13 @@
 This is the 1D List representation, this list can carry real
 numbers or integers or any kind of object, by default, we have
 genetic operators for integer and real lists, which can be found
-on the respective modules. 
+on the respective modules.
 
 Default Parameters
 -------------------------------------------------------------
 
 *Initializator*
-   
+
    :func:`Initializators.G1DListInitializatorInteger`
 
    The Integer Initializator for G1DList
@@ -197,4 +197,3 @@ class G1DList(GenomeBase, G1DBase):
         newcopy = G1DList(self.genomeSize, True)
         self.copy(newcopy)
         return newcopy
-

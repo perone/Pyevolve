@@ -28,16 +28,16 @@ class GAlleles:
 
    """
 
-   def __init__(self, allele_list = None, homogeneous=False):
+   def __init__(self, allele_list=None, homogeneous=False):
       """ The constructor of GAlleles class """
       self.allele_list = []
       if allele_list is not None:
          self.allele_list.extend(allele_list)
       self.homogeneous = homogeneous
-     
+
    def __iadd__(self, allele):
       """ To add more alleles using the += operator
-      
+
          .. versionadded:: 0.6
             The __iadd__ method.
       """
@@ -46,7 +46,7 @@ class GAlleles:
 
    def add(self, allele):
       """ Appends one allele to the alleles list
-      
+
       :param allele: allele to be added
 
       """
@@ -58,19 +58,21 @@ class GAlleles:
 
    def __getitem__(self, index):
       """ Returns the index allele of the alleles list """
-      if self.homogeneous: return self.allele_list[0]
+      if self.homogeneous:
+         return self.allele_list[0]
       try:
          val = self.allele_list[index]
       except IndexError:
          Util.raiseException(
-         """An error was occurred while finding allele for the %d position of chromosome.
-           You may consider use the 'homogeneous' parameter of the GAlleles class.
-         """ % (index,))
+             """An error was occurred while finding allele for the %d position of chromosome.
+             You may consider use the 'homogeneous' parameter of the GAlleles class.
+             """ % (index,))
       return val
 
    def __setitem__(self, index, value):
       """ Sets the index allele of the alleles list """
-      if self.homogeneous: self.allele_list[0] = value
+      if self.homogeneous:
+         self.allele_list[0] = value
       self.allele_list[index] = value
 
    def __iter__(self):
@@ -82,7 +84,8 @@ class GAlleles:
 
    def __len__(self):
       """ Returns the lenght of the alleles list """
-      if self.homogeneous: return 1
+      if self.homogeneous:
+         return 1
       return len(self.allele_list)
 
    def __repr__(self):
@@ -123,7 +126,7 @@ class GAlleleList:
    def clear(self):
       """ Removes all the allele options from the list """
       del self.options[:]
-   
+
    def getRandomAllele(self):
       """ Returns one random choice from the options list """
       return random.choice(self.options)
@@ -131,7 +134,7 @@ class GAlleleList:
    def add(self, option):
       """ Appends one option to the options list
 
-      :param option: option to be added in the list         
+      :param option: option to be added in the list
 
       """
       self.options.append(option)
@@ -168,7 +171,7 @@ class GAlleleList:
       """ Return a string representation of the allele """
       ret = "- GAlleleList\n"
       ret += "\tList size:\t %s\n" % (len(self),)
-      ret += "\tAllele Options:\t %s\n\n" % (self.options,) 
+      ret += "\tAllele Options:\t %s\n\n" % (self.options,)
       return ret
 
 class GAlleleRange:
@@ -196,8 +199,8 @@ class GAlleleRange:
 
    def __processMinMax(self):
       """ Process the mininum and maximum of the Allele """
-      self.minimum = min([x for x,y in self.beginEnd])
-      self.maximum = max([y for x,y in self.beginEnd])
+      self.minimum = min([x for x, y in self.beginEnd])
+      self.maximum = max([y for x, y in self.beginEnd])
 
    def add(self, begin, end):
       """ Add a new range
@@ -236,7 +239,7 @@ class GAlleleRange:
       :rtype: the minimum value
       """
       return self.minimum
-      
+
    def clear(self):
       """ Removes all ranges """
       del self.beginEnd[:]
@@ -247,8 +250,10 @@ class GAlleleRange:
       """ Returns one random choice between the range """
       rand_func = random.uniform if self.real else random.randint
 
-      if len(self.beginEnd) <= 1: choice = 0      
-      else: choice = random.randint(0, len(self.beginEnd)-1)
+      if len(self.beginEnd) <= 1:
+         choice = 0
+      else:
+         choice = random.randint(0, len(self.beginEnd) - 1)
       return rand_func(self.beginEnd[choice][0], self.beginEnd[choice][1])
 
    def setReal(self, flag=True):

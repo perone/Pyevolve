@@ -48,7 +48,7 @@ class DBBaseAdapter:
 
    def setIdentify(self, identify):
       """ Sets the identify of the statistics
-      
+
       :param identify: the id string
       """
       if identify is None:
@@ -58,21 +58,21 @@ class DBBaseAdapter:
 
    def getIdentify(self):
       """ Return the statistics identify
-      
+
       :rtype: identify string
       """
       return self.identify
 
    def getStatsGenFreq(self):
       """ Returns the frequency of statistical dump
-      
+
       :rtype: the generation interval of statistical dump
       """
       return self.statsGenFreq
 
    def setStatsGenFreq(self, statsGenFreq):
       """ Set the frequency of statistical dump
-      
+
       :param statsGenFreq: the generation interval of statistical dump
       """
       self.statsGenFreq = statsGenFreq
@@ -118,11 +118,11 @@ class DBFileCSV(DBBaseAdapter):
 
    """
    def __init__(self, filename=Consts.CDefCSVFileName, identify=None,
-                frequency = Consts.CDefCSVFileStatsGenFreq, reset=True):
+                frequency=Consts.CDefCSVFileStatsGenFreq, reset=True):
       """ The creator of DBFileCSV Class """
 
       DBBaseAdapter.__init__(self, frequency, identify)
-      
+
       self.csvmod = None
 
       self.filename = filename
@@ -148,8 +148,7 @@ class DBFileCSV(DBBaseAdapter):
          self.csvmod = Util.importSpecial("csv")
 
       logging.debug("Opening the CSV file to dump statistics [%s]", self.filename)
-      if self.reset: open_mode = "w"
-      else: open_mode = "a"
+      open_mode = 'w' if self.reset else 'a'
       self.fHandle = open(self.filename, open_mode)
       self.csvWriter = self.csvmod.writer(self.fHandle, delimiter=';')
 
@@ -189,7 +188,7 @@ class DBURLPost(DBBaseAdapter):
 
    The parameters that will be sent is all the statistics described in the :class:`Statistics.Statistics`
    class, and the parameters:
-   
+
    **generation**
       The generation of the statistics
 
@@ -206,9 +205,9 @@ class DBURLPost(DBBaseAdapter):
    .. versionadded:: 0.6
       Removed the stub methods and subclassed the :class:`DBBaseAdapter` class.
    """
-   
+
    def __init__(self, url, identify=None,
-                frequency = Consts.CDefURLPostStatsGenFreq, post=True):
+                frequency=Consts.CDefURLPostStatsGenFreq, post=True):
       """ The creator of the DBURLPost Class. """
 
       DBBaseAdapter.__init__(self, frequency, identify)
@@ -248,15 +247,16 @@ class DBURLPost(DBBaseAdapter):
       params = stats.internalDict.copy()
       params["generation"] = ga_engine.getCurrentGeneration()
       params["identify"] = self.getIdentify()
-      if self.post: # POST
+      if self.post:  # POST
          response = self.urllibmod.urlopen(self.url, self.urllibmod.urlencode(params))
-      else: # GET
+      else:  # GET
          response = self.urllibmod.urlopen(self.url + "?%s" % (self.urllibmod.urlencode(params)))
-      if response: response.close()
+      if response:
+         response.close()
 
 class DBSQLite(DBBaseAdapter):
    """ DBSQLite Class - Adapter to dump data in SQLite3 database format
-   
+
    Inheritance diagram for :class:`DBAdapters.DBSQLite`:
 
    .. inheritance-diagram:: DBAdapters.DBSQLite
@@ -271,7 +271,7 @@ class DBSQLite(DBBaseAdapter):
 
    This parameter will erase all the database tables and will create the new ones.
    The *resetDB* parameter is different from the *resetIdentify* parameter, the *resetIdentify*
-   only erases the rows with the same "identify" name.   
+   only erases the rows with the same "identify" name.
 
    :param dbname: the database filename
    :param identify: the identify if the run
@@ -293,7 +293,7 @@ class DBSQLite(DBBaseAdapter):
       self.resetDB = resetDB
       self.resetIdentify = resetIdentify
       self.dbName = dbname
-      self.typeDict = { types.FloatType : "real" }
+      self.typeDict = {types.FloatType: "real"}
       self.cursorPool = None
       self.commitFreq = commit_freq
 
@@ -381,7 +381,7 @@ class DBSQLite(DBBaseAdapter):
    def resetTableIdentify(self):
       """ Delete all records on the table with the same Identify """
       c = self.getCursor()
-      stmt  = "delete from %s where identify = ?" % (Consts.CDefSQLiteDBTable)
+      stmt = "delete from %s where identify = ?" % (Consts.CDefSQLiteDBTable)
       stmt2 = "delete from %s where identify = ?" % (Consts.CDefSQLiteDBTablePop)
 
       logging.debug("Erasing data from the tables with the identify = %s", self.getIdentify())
@@ -393,7 +393,6 @@ class DBSQLite(DBBaseAdapter):
             print "\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n"
 
       self.commit()
-
 
    def resetStructure(self, stats):
       """ Deletes de current structure and calls createStructure
@@ -407,7 +406,7 @@ class DBSQLite(DBBaseAdapter):
       c.execute("drop table if exists %s" % (Consts.CDefSQLiteDBTablePop,))
       self.commit()
       self.createStructure(stats)
-      
+
    def insert(self, ga_engine):
       """ Inserts the statistics data to database
 
@@ -416,7 +415,7 @@ class DBSQLite(DBBaseAdapter):
       .. versionchanged:: 0.6
          The method now receives the *ga_engine* parameter.
       """
-      stats      = ga_engine.getStatistics()
+      stats = ga_engine.getStatistics()
       population = ga_engine.getPopulation()
       generation = ga_engine.getCurrentGeneration()
 
@@ -424,7 +423,7 @@ class DBSQLite(DBBaseAdapter):
       pstmt = "insert into %s values (?, ?, " % (Consts.CDefSQLiteDBTable)
       for i in xrange(len(stats)):
          pstmt += "?, "
-      pstmt = pstmt[:-2] + ")" 
+      pstmt = pstmt[:-2] + ")"
       c.execute(pstmt, (self.getIdentify(), generation) + stats.asTuple())
 
       pstmt = "insert into %s values(?, ?, ?, ?, ?)" % (Consts.CDefSQLiteDBTablePop,)
@@ -455,7 +454,7 @@ class DBXMLRPC(DBBaseAdapter):
 
    .. note:: The XML RPC Server must implement the *insert* method, wich receives
              a python dictionary as argument.
-   
+
    Example of an server in Python: ::
 
       import xmlrpclib
@@ -473,7 +472,7 @@ class DBXMLRPC(DBBaseAdapter):
       The :class:`DBXMLRPC` class.
 
    """
-   def __init__(self, url, identify=None, frequency = Consts.CDefXMLRPCStatsGenFreq):
+   def __init__(self, url, identify=None, frequency=Consts.CDefXMLRPCStatsGenFreq):
       """ The creator of DBXMLRPC Class """
 
       DBBaseAdapter.__init__(self, frequency, identify)
@@ -528,7 +527,7 @@ class DBVPythonGraph(DBBaseAdapter):
    Example:
       >>> adapter = DBAdapters.DBVPythonGraph(identify="run_01", frequency = 1)
       >>> ga_engine.setDBAdapter(adapter)
-   
+
    :param identify: the identify of the run
    :param genmax: use the generations as max value for x-axis, default False
    :param frequency: the generational dump frequency
@@ -537,7 +536,7 @@ class DBVPythonGraph(DBBaseAdapter):
       The *DBVPythonGraph* class.
    """
 
-   def __init__(self, identify=None, frequency = 20, genmax=False):
+   def __init__(self, identify=None, frequency=20, genmax=False):
       DBBaseAdapter.__init__(self, frequency, identify)
       self.genmax = genmax
       self.vtkGraph = None
@@ -548,7 +547,7 @@ class DBVPythonGraph(DBBaseAdapter):
 
    def makeDisplay(self, title_sec, x, y, ga_engine):
       """ Used internally to create a new display for VPython.
-      
+
       :param title_sec: the title of the window
       :param x: the x position of the window
       :param y: the y position of the window
@@ -559,11 +558,11 @@ class DBVPythonGraph(DBBaseAdapter):
       title = "Pyevolve v.%s - %s - id [%s]" % (__version__, title_sec, self.identify)
       if self.genmax:
          disp = self.vtkGraph.gdisplay(title=title, xtitle='Generation', ytitle=title_sec,
-                                    xmax=ga_engine.getGenerations(), xmin=0., width=500,
-                                    height=250, x=x, y=y)
+                                       xmax=ga_engine.getGenerations(), xmin=0., width=500,
+                                       height=250, x=x, y=y)
       else:
          disp = self.vtkGraph.gdisplay(title=title, xtitle='Generation', ytitle=title_sec,
-                                    xmin=0., width=500, height=250, x=x, y=y)
+                                       xmin=0., width=500, height=250, x=x, y=y)
          return disp
 
    def open(self, ga_engine):
@@ -575,14 +574,14 @@ class DBVPythonGraph(DBBaseAdapter):
       if self.vtkGraph is None:
          self.vtkGraph = Util.importSpecial("visual.graph").graph
 
-      display_rawmin = self.makeDisplay("Raw Score (min)",       0,   0,   ga_engine)
-      display_rawmax = self.makeDisplay("Raw Score (max)",       0,   250, ga_engine)
-      display_rawdev = self.makeDisplay("Raw Score (std. dev.)", 500, 0,   ga_engine)
-      display_rawavg = self.makeDisplay("Raw Score (avg)",       500, 250, ga_engine)
+      display_rawmin = self.makeDisplay("Raw Score (min)", 0, 0, ga_engine)
+      display_rawmax = self.makeDisplay("Raw Score (max)", 0, 250, ga_engine)
+      display_rawdev = self.makeDisplay("Raw Score (std. dev.)", 500, 0, ga_engine)
+      display_rawavg = self.makeDisplay("Raw Score (avg)", 500, 250, ga_engine)
 
-      self.curveMin = self.vtkGraph.gcurve(color=self.vtkGraph.color.red,    gdisplay=display_rawmin)
-      self.curveMax = self.vtkGraph.gcurve(color=self.vtkGraph.color.green,  gdisplay=display_rawmax)
-      self.curveDev = self.vtkGraph.gcurve(color=self.vtkGraph.color.blue,   gdisplay=display_rawdev)
+      self.curveMin = self.vtkGraph.gcurve(color=self.vtkGraph.color.red, gdisplay=display_rawmin)
+      self.curveMax = self.vtkGraph.gcurve(color=self.vtkGraph.color.green, gdisplay=display_rawmax)
+      self.curveDev = self.vtkGraph.gcurve(color=self.vtkGraph.color.blue, gdisplay=display_rawdev)
       self.curveAvg = self.vtkGraph.gcurve(color=self.vtkGraph.color.orange, gdisplay=display_rawavg)
 
    def insert(self, ga_engine):
@@ -597,7 +596,7 @@ class DBVPythonGraph(DBBaseAdapter):
       self.curveMax.plot(pos=(generation, stats["rawMax"]))
       self.curveDev.plot(pos=(generation, stats["rawDev"]))
       self.curveAvg.plot(pos=(generation, stats["rawAve"]))
-      
+
 class DBMySQLAdapter(DBBaseAdapter):
    """ DBMySQLAdapter Class - Adapter to dump data in MySql database server
 
@@ -649,7 +648,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       self.port = port
       self.user = user
       self.passwd = passwd
-      self.typeDict = { types.FloatType : "DOUBLE(14,6)" }
+      self.typeDict = {types.FloatType: "DOUBLE(14,6)"}
       self.cursorPool = None
       self.commitFreq = commit_freq
 
@@ -738,7 +737,7 @@ class DBMySQLAdapter(DBBaseAdapter):
    def resetTableIdentify(self):
       """ Delete all records on the table with the same Identify """
       c = self.getCursor()
-      stmt  = "delete from %s where identify = '%s'" % (Consts.CDefMySQLDBTable, self.getIdentify())
+      stmt = "delete from %s where identify = '%s'" % (Consts.CDefMySQLDBTable, self.getIdentify())
       stmt2 = "delete from %s where identify = '%s'" % (Consts.CDefMySQLDBTablePop, self.getIdentify())
 
       logging.debug("Erasing data from the tables with the identify = %s", self.getIdentify())
@@ -746,7 +745,6 @@ class DBMySQLAdapter(DBBaseAdapter):
       c.execute(stmt2)
 
       self.commit()
-
 
    def resetStructure(self, stats):
       """ Deletes de current structure and calls createStructure
@@ -760,7 +758,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       c.execute("drop table if exists %s" % (Consts.CDefMySQLDBTablePop,))
       self.commit()
       self.createStructure(stats)
-      
+
    def insert(self, ga_engine):
       """ Inserts the statistics data to database
 
@@ -769,7 +767,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       .. versionchanged:: 0.6
          The method now receives the *ga_engine* parameter.
       """
-      stats      = ga_engine.getStatistics()
+      stats = ga_engine.getStatistics()
       population = ga_engine.getPopulation()
       generation = ga_engine.getCurrentGeneration()
 
@@ -777,7 +775,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       pstmt = "insert into " + Consts.CDefMySQLDBTable + " values (%s, %s, "
       for i in xrange(len(stats)):
          pstmt += "%s, "
-      pstmt = pstmt[:-2] + ")" 
+      pstmt = pstmt[:-2] + ")"
       c.execute(pstmt, (self.getIdentify(), generation) + stats.asTuple())
 
       pstmt = "insert into " + Consts.CDefMySQLDBTablePop + " values(%s, %s, %s, %s, %s)"

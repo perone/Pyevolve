@@ -45,7 +45,7 @@ def getPopScores(population, fitness=False):
    return score_list
 
 def plotPopScore(population, fitness=False):
-   """ Plot the population score distribution 
+   """ Plot the population score distribution
 
    Example:
       >>> Interaction.plotPopScore(population)
@@ -64,7 +64,7 @@ def plotPopScore(population, fitness=False):
    pylab.show()
 
 def plotHistPopScore(population, fitness=False):
-   """ Population score distribution histogram 
+   """ Population score distribution histogram
 
    Example:
       >>> Interaction.plotHistPopScore(population)
@@ -72,7 +72,7 @@ def plotHistPopScore(population, fitness=False):
    :param population: population object (:class:`GPopulation.GPopulation`)
    :param fitness: if is True, the fitness score will be used, otherwise, the raw.
    :rtype: None
-   
+
    """
    score_list = getPopScores(population, fitness)
    n, bins, patches = pylab.hist(score_list, 50, facecolor='green', alpha=0.75, normed=1)
@@ -82,4 +82,3 @@ def plotHistPopScore(population, fitness=False):
    pylab.grid(True)
    pylab.title("Plot of population score distribution")
    pylab.show()
-

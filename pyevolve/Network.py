@@ -31,7 +31,7 @@ def getMachineIP():
 
    Example:
       >>> Util.getMachineIP()
-      ['200.12.124.181', '192.168.0.1']      
+      ['200.12.124.181', '192.168.0.1']
 
    :rtype: a python list with the string IPs
 
@@ -69,7 +69,7 @@ class UDPThreadBroadcastClient(threading.Thread):
 
       self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
       self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-      self.sock.bind((host, port))     
+      self.sock.bind((host, port))
 
    def setData(self, data):
       """ Set the data to send
@@ -92,9 +92,9 @@ class UDPThreadBroadcastClient(threading.Thread):
       self.sock.close()
 
    def getSentBytes(self):
-      """ Returns the number of sent bytes. The use of this method makes sense 
+      """ Returns the number of sent bytes. The use of this method makes sense
       when you already have sent the data
-         
+
       :rtype: sent bytes
 
       """
@@ -102,13 +102,14 @@ class UDPThreadBroadcastClient(threading.Thread):
       with self.sentBytesLock:
          if self.sentBytes is None:
             Util.raiseException('Bytes sent is None')
-         else: sent = self.sentBytes
+         else:
+             sent = self.sentBytes
       return sent
 
    def send(self):
       """ Broadcasts the data """
       return self.sock.sendto(self.data, (Consts.CDefBroadcastAddress, self.targetPort))
-   
+
    def run(self):
       """ Method called when you call *.start()* of the thread """
       if self.data is None:
@@ -154,7 +155,7 @@ class UDPThreadUnicastClient(threading.Thread):
 
    def poolLength(self):
       """ Returns the size of the pool
-      
+
       :rtype: integer
 
       """
@@ -174,9 +175,9 @@ class UDPThreadUnicastClient(threading.Thread):
 
    def isReady(self):
       """ Returns True when there is data on the pool or False when not
-         
+
       :rtype: boolean
-      
+
       """
       with self.sendPoolLock:
          ret = True if len(self.sendPool) >= 1 else False
@@ -213,7 +214,7 @@ class UDPThreadUnicastClient(threading.Thread):
 
    def setMultipleTargetHost(self, address_list):
       """ Sets multiple host/port targets, the destinations
-      
+
       :param address_list: a list with tuples (ip, port)
       """
       del self.target[:]
@@ -233,21 +234,22 @@ class UDPThreadUnicastClient(threading.Thread):
       for destination in self.target:
          bytes = self.sock.sendto(data, destination)
       return bytes
-   
+
    def run(self):
       """ Method called when you call *.start()* of the thread """
       if len(self.target) <= 0:
          Util.raiseException('You must set the target(s) before send data', ValueError)
 
       while True:
-         if self.doshutdown: break
+         if self.doshutdown:
+             break
 
          while self.isReady():
             data = self.popPool()
             self.send(data)
 
          time.sleep(self.timeout)
-      
+
       self.close()
 
 class UDPThreadServer(threading.Thread):
@@ -268,7 +270,7 @@ class UDPThreadServer(threading.Thread):
 
    .. note:: this thread implements a pool to keep the received data,
              the *poolSize* parameter specifies how much individuals
-             we must keep on the pool until the *popPool* method 
+             we must keep on the pool until the *popPool* method
              is called; when the pool is full, the sever will
              discard the received individuals.
 
@@ -295,17 +297,17 @@ class UDPThreadServer(threading.Thread):
 
    def isReady(self):
       """ Returns True when there is data on the pool or False when not
-         
+
       :rtype: boolean
-      
+
       """
       with self.recvPoolLock:
          ret = True if len(self.recvPool) >= 1 else False
       return ret
-    
+
    def poolLength(self):
       """ Returns the size of the pool
-      
+
       :rtype: integer
 
       """
@@ -329,7 +331,7 @@ class UDPThreadServer(threading.Thread):
 
    def setBufferSize(self, size):
       """ Sets the receive buffer size
-      
+
       :param size: integer
 
       """
@@ -348,7 +350,7 @@ class UDPThreadServer(threading.Thread):
       when the data is received, the method will return a tuple
       with the IP of the sender and the data received. When a timeout
       exception occurs, the method return None.
-      
+
       :rtype: tuple (sender ip, data) or None when timeout exception
 
       """
@@ -357,7 +359,7 @@ class UDPThreadServer(threading.Thread):
       except socket.timeout:
          return None
       return (sender[0], data)
-      
+
    def run(self):
       """ Called when the thread is started by the user. This method
       is the main of the thread, when called, it will enter in loop
@@ -367,12 +369,14 @@ class UDPThreadServer(threading.Thread):
          # Get the data
          data = self.getData()
          # Shutdown called
-         if self.doshutdown: break
+         if self.doshutdown:
+             break
          # The pool is full
          if self.poolLength() >= self.poolSize:
             continue
          # There is no data received
-         if data == None: continue
+         if data is None:
+             continue
          # It's a packet from myself
          if data[0] == self.host:
             continue
@@ -383,14 +387,15 @@ class UDPThreadServer(threading.Thread):
 
 def pickleAndCompress(obj, level=9):
    """ Pickles the object and compress the dumped string with zlib
-   
+
    :param obj: the object to be pickled
    :param level: the compression level, 9 is the best
                     and -1 is to not compress
 
    """
    pickled = cPickle.dumps(obj)
-   if level < 0: return pickled
+   if level < 0:
+       return pickled
    else:
       if not ZLIB_SUPPORT:
          Util.raiseException('zlib not found !', ImportError)
@@ -399,7 +404,7 @@ def pickleAndCompress(obj, level=9):
 
 def unpickleAndDecompress(obj_dump, decompress=True):
    """ Decompress a zlib compressed string and unpickle the data
-   
+
    :param obj: the object to be decompressend and unpickled
    """
    if decompress:
@@ -417,7 +422,7 @@ if __name__ == "__main__":
    if arg == "server":
       s = UDPThreadServer(myself[0], 666)
       s.start()
-      
+
       while True:
          print ".",
          time.sleep(10)
@@ -427,8 +432,6 @@ if __name__ == "__main__":
          time.sleep(4)
          s.shutdown()
          break
-
-
    elif arg == "client":
       print "Binding on %s..." % myself[0]
       s = UDPThreadUnicastClient(myself[0], 1500)
@@ -437,8 +440,5 @@ if __name__ == "__main__":
       s.start()
       s.join()
       print s.getSentBytes()
-     
+
    print "end..."
-
-
-      

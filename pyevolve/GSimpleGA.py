@@ -116,7 +116,7 @@ def ConvergenceCriteria(ga_engine):
 
     """
     pop = ga_engine.getPopulation()
-    return pop[0] == pop[len(pop)-1]
+    return pop[0] == pop[len(pop) - 1]
 
 
 def RawStatsCriteria(ga_engine):
@@ -674,13 +674,13 @@ class GSimpleGA:
                     #re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score > newPop.bestRaw(i).score:
-                        newPop[len(newPop)-1-i] = self.internalPop.bestRaw(i)
+                        newPop[len(newPop) - 1 - i] = self.internalPop.bestRaw(i)
             elif self.getMinimax() == Consts.minimaxType["minimize"]:
                 for i in xrange(self.nElitismReplacement):
                     #re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score < newPop.bestRaw(i).score:
-                        newPop[len(newPop)-1-i] = self.internalPop.bestRaw(i)
+                        newPop[len(newPop) - 1 - i] = self.internalPop.bestRaw(i)
 
         self.internalPop = newPop
         self.internalPop.sort()
@@ -710,7 +710,7 @@ class GSimpleGA:
 
     def printTimeElapsed(self):
         """ Shows the time elapsed since the begin of evolution """
-        total_time = time()-self.time_init
+        total_time = time() - self.time_init
         print "Total time elapsed: %.3f seconds." % total_time
         return total_time
 

@@ -9,11 +9,11 @@ General constants
 ----------------------------------------------------------------------------
 
 .. attribute:: CDefPythonRequire
-  
+
    The mininum version required to run Pyevolve.
 
 .. attribute:: CDefLogFile
-   
+
    The default log filename.
 
 .. attribute:: CDefLogLevel
@@ -21,7 +21,7 @@ General constants
    Default log level.
 
 .. attribute:: sortType
-   
+
    Sort type, raw or scaled.
 
    Example:
@@ -35,7 +35,7 @@ General constants
    Example:
       >>> minmax = Consts.minimaxType["minimize"]
       >>> minmax = Consts.minimaxType["maximize]
-  
+
 .. attribute:: CDefESCKey
 
    The ESC key ASCII code. Used to start Interactive Mode.
@@ -49,11 +49,11 @@ General constants
    Maximum range. This constant is used as integer and real max/min.
 
 .. attribute:: CDefBroadcastAddress
-   
+
    The broadcast address for UDP, 255.255.255.255
 
 .. attribute:: CDefImportList
-   
+
    The import list and messages
 
 .. attribute:: nodeType
@@ -104,9 +104,9 @@ Scaling scheme constants (:mod:`Scaling`)
 
 Population constants (:class:`GPopulation.GPopulation`)
 ----------------------------------------------------------------------------
-   
+
 .. attribute:: CDefPopSortType
-   
+
    Default sort type parameter.
 
 .. attribute:: CDefPopMinimax
@@ -164,15 +164,15 @@ Population constants (:class:`GPopulation.GPopulation`)
 .. attribute:: CDefG1DListMutIntMU
 
    Default *mu* value of the 1D List Gaussian Integer Mutator (:func:`Mutators.G1DListMutatorIntegerGaussian`), the *mu* represents the mean of the distribution.
-   
+
 .. attribute:: CDefG1DListMutIntSIGMA
 
    Default *sigma* value of the 1D List Gaussian Integer Mutator (:func:`Mutators.G1DListMutatorIntegerGaussian`), the *sigma* represents the standard deviation of the distribution.
-   
+
 .. attribute:: CDefG1DListMutRealMU
 
    Default *mu* value of the 1D List Gaussian Real Mutator (:func:`Mutators.G1DListMutatorRealGaussian`), the *mu* represents the mean of the distribution.
-   
+
 .. attribute:: CDefG1DListMutRealSIGMA
 
    Default *sigma* value of the 1D List Gaussian Real Mutator (:func:`Mutators.G1DListMutatorRealGaussian`), the *sigma* represents the mean of the distribution.
@@ -184,15 +184,15 @@ Tree chromosome constants (:class:`GTree.GTree`)
 .. attribute:: CDefGTreeInit
 
    Default initializator of the tree chromosome.
-   
+
 .. attribute:: CDefGGTreeMutator
 
    Default mutator of the tree chromosome.
-   
+
 .. attribute:: CDefGTreeCrossover
 
    Default crossover of the tree chromosome.
-  
+
 
 2D List chromosome constants (:class:`G2DList.G2DList`)
 ----------------------------------------------------------------------------
@@ -208,7 +208,7 @@ Tree chromosome constants (:class:`GTree.GTree`)
 .. attribute:: CDefG2DListMutIntMU
 
    Default *mu* value of the 2D List Gaussian Integer Mutator (:func:`Mutators.G2DListMutatorIntegerGaussian`), the *mu* represents the mean of the distribution.
-   
+
 .. attribute:: CDefG2DListMutIntSIGMA
 
    Default *sigma* value of the 2D List Gaussian Integer Mutator (:func:`Mutators.G2DListMutatorIntegerGaussian`), the *sigma* represents the mean of the distribution.
@@ -262,7 +262,7 @@ SQLite3 DB Adapter Constants (:class:`DBAdapters.DBSQLite`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. attribute:: CDefSQLiteDBName
-   
+
    Default database filename.
 
 .. attribute:: CDefSQLiteDBTable
@@ -286,7 +286,7 @@ MySQL DB Adapter Constants (:class:`DBAdapters.DBMySQLAdapter`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. attribute:: CDefMySQLDBName
-   
+
    Default database name.
 
 .. attribute:: CDefMySQLDBTable
@@ -326,7 +326,7 @@ CSV File DB Adapter Constants (:class:`DBAdapters.DBFileCSV`)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. attribute:: CDefCSVFileName
-   
+
    The default CSV filename to dump statistics.
 
 .. attribute:: CDefCSVFileStatsGenFreq
@@ -344,7 +344,7 @@ XMP RPC DB Adapter Constants (:class:`DBAdapters.DBXMLRPC`)
 Migration Constants (:mod:`Migration`)
 ----------------------------------------------------------------------------
 .. attribute:: CDefGenMigrationRate
-   
+
    The default generations supposed to migrate and receive individuals
 
 .. attribute:: CDefMigrationNIndividuals
@@ -384,26 +384,26 @@ CDefLogLevel = logging.DEBUG
 # Types of sort
 # - raw: uses the "score" attribute
 # - scaled: uses the "fitness" attribute
-sortType = { 
-   "raw"    : 0,
-   "scaled" : 1
+sortType = {
+    "raw": 0,
+    "scaled": 1
 }
 
 # Optimization type
 # - Minimize or Maximize the Evaluator Function
-minimaxType = { "minimize" : 0,
-                "maximize" : 1
+minimaxType = {"minimize": 0,
+               "maximize": 1
                }
 
 CDefESCKey = 27
 
 CDefImportList = {"visual.graph": "you must install VPython !",
-                  "csv" : "csv module not found !",
-                  "urllib" : "urllib module not found !",
+                  "csv": "csv module not found !",
+                  "urllib": "urllib module not found !",
                   "sqlite3": "sqlite3 module not found, are you using Jython or IronPython ?",
-                  "xmlrpclib" : "xmlrpclib module not found !",
-                  "MySQLdb" : "MySQLdb module not found, you must install mysql-python !",
-                  "pydot" : "Pydot module not found, you must install Pydot to plot graphs !"}
+                  "xmlrpclib": "xmlrpclib module not found !",
+                  "MySQLdb": "MySQLdb module not found, you must install mysql-python !",
+                  "pydot": "Pydot module not found, you must install Pydot to plot graphs !"}
 
 ####################
 # Defaults section #
@@ -413,25 +413,25 @@ CDefImportList = {"visual.graph": "you must install VPython !",
 CDefTournamentPoolSize = 2
 
 # - Scale methods defaults
-CDefScaleLinearMultiplier     = 1.2
+CDefScaleLinearMultiplier = 1.2
 CDefScaleSigmaTruncMultiplier = 2.0
-CDefScalePowerLawFactor       = 1.0005
-CDefScaleBoltzMinTemp         = 1.0
-CDefScaleBoltzFactor          = 0.05
+CDefScalePowerLawFactor = 1.0005
+CDefScaleBoltzMinTemp = 1.0
+CDefScaleBoltzFactor = 0.05
 # 40 temp. = 500 generations
-CDefScaleBoltzStart           = 40.0
+CDefScaleBoltzStart = 40.0
 
 # - Population Defaults
-CDefPopSortType               = sortType["scaled"]
-CDefPopMinimax                = minimaxType["maximize"]
-CDefPopScale                  = Scaling.LinearScaling
+CDefPopSortType = sortType["scaled"]
+CDefPopMinimax = minimaxType["maximize"]
+CDefPopScale = Scaling.LinearScaling
 
 # - GA Engine defaults
-CDefGAGenerations    = 100
-CDefGAMutationRate   = 0.02
-CDefGACrossoverRate  = 0.9
+CDefGAGenerations = 100
+CDefGAMutationRate = 0.02
+CDefGACrossoverRate = 0.9
 CDefGAPopulationSize = 80
-CDefGASelector       = Selectors.GRankSelector
+CDefGASelector = Selectors.GRankSelector
 CDefGAElitismReplacement = 1
 
 # - This is general used by integer/real ranges defaults
@@ -439,25 +439,25 @@ CDefRangeMin = 0
 CDefRangeMax = 100
 
 # - G1DBinaryString defaults
-CDefG1DBinaryStringMutator     = Mutators.G1DBinaryStringMutatorFlip
-CDefG1DBinaryStringCrossover   = Crossovers.G1DBinaryStringXSinglePoint
-CDefG1DBinaryStringInit        = Initializators.G1DBinaryStringInitializator
+CDefG1DBinaryStringMutator = Mutators.G1DBinaryStringMutatorFlip
+CDefG1DBinaryStringCrossover = Crossovers.G1DBinaryStringXSinglePoint
+CDefG1DBinaryStringInit = Initializators.G1DBinaryStringInitializator
 CDefG1DBinaryStringUniformProb = 0.5
 
 # - G2DBinaryString defaults
-CDefG2DBinaryStringMutator     = Mutators.G2DBinaryStringMutatorFlip
-CDefG2DBinaryStringCrossover   = Crossovers.G2DBinaryStringXUniform
-CDefG2DBinaryStringInit        = Initializators.G2DBinaryStringInitializator
+CDefG2DBinaryStringMutator = Mutators.G2DBinaryStringMutatorFlip
+CDefG2DBinaryStringCrossover = Crossovers.G2DBinaryStringXUniform
+CDefG2DBinaryStringInit = Initializators.G2DBinaryStringInitializator
 CDefG2DBinaryStringUniformProb = 0.5
 
 # - GTree defaults
-CDefGTreeInit      = Initializators.GTreeInitializatorInteger
-CDefGGTreeMutator  = Mutators.GTreeMutatorIntegerRange
+CDefGTreeInit = Initializators.GTreeInitializatorInteger
+CDefGGTreeMutator = Mutators.GTreeMutatorIntegerRange
 CDefGTreeCrossover = Crossovers.GTreeCrossoverSinglePointStrict
 
 # - GTreeGP defaults
-CDefGTreeGPInit      = Initializators.GTreeGPInitializator
-CDefGGTreeGPMutator  = Mutators.GTreeGPMutatorSubtree
+CDefGTreeGPInit = Initializators.GTreeGPInitializator
+CDefGGTreeGPMutator = Mutators.GTreeGPMutatorSubtree
 CDefGTreeGPCrossover = Crossovers.GTreeGPCrossoverSinglePoint
 
 # - G1DList defaults
@@ -467,18 +467,18 @@ CDefG1DListMutIntSIGMA = 10
 CDefG1DListMutRealMU = 0
 CDefG1DListMutRealSIGMA = 1
 
-CDefG1DListMutator   = Mutators.G1DListMutatorSwap
+CDefG1DListMutator = Mutators.G1DListMutatorSwap
 CDefG1DListCrossover = Crossovers.G1DListCrossoverSinglePoint
-CDefG1DListInit      = Initializators.G1DListInitializatorInteger
+CDefG1DListInit = Initializators.G1DListInitializatorInteger
 CDefG1DListCrossUniformProb = 0.5
 
 # SBX Crossover defaults
 # Crossover distribution index for SBX
 # Larger Etac = similar to parents
 # Smaller Etac = far away from parents
-CDefG1DListSBXEtac  = 10
-CDefG1DListSBXEPS   = 1.0e-14
-  
+CDefG1DListSBXEtac = 10
+CDefG1DListSBXEPS = 1.0e-14
+
 # - G2DList defaults
 CDefG2DListMutIntMU = 2
 CDefG2DListMutIntSIGMA = 10
@@ -486,14 +486,14 @@ CDefG2DListMutIntSIGMA = 10
 CDefG2DListMutRealMU = 0
 CDefG2DListMutRealSIGMA = 1
 
-CDefG2DListMutator   = Mutators.G2DListMutatorSwap
+CDefG2DListMutator = Mutators.G2DListMutatorSwap
 CDefG2DListCrossover = Crossovers.G2DListCrossoverUniform
-CDefG2DListInit      = Initializators.G2DListInitializatorInteger
+CDefG2DListInit = Initializators.G2DListInitializatorInteger
 CDefG2DListCrossUniformProb = 0.5
 
 # Gaussian Gradient
 CDefGaussianGradientMU = 1.0
-CDefGaussianGradientSIGMA = (1.0/3.0) # approx. +/- 3-sigma is +/- 10%
+CDefGaussianGradientSIGMA = (1.0 / 3.0)  # approx. +/- 3-sigma is +/- 10%
 
 # - DB Adapters SQLite defaults
 CDefSQLiteDBName = "pyevolve.db"
@@ -523,7 +523,7 @@ CDefXMLRPCStatsGenFreq = 20
 
 # Util Consts
 CDefBroadcastAddress = "255.255.255.255"
-nodeType = {"TERMINAL" : 0, "NONTERMINAL": 1}
+nodeType = {"TERMINAL": 0, "NONTERMINAL": 1}
 
 CDefGPGenomes = [GTreeGP]
 
@@ -534,4 +534,3 @@ CDefGenMigrationReplacement = 3
 
 CDefNetworkIndividual = 1
 CDefNetworkInfo = 2
-

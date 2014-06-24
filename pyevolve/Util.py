@@ -173,7 +173,7 @@ class ErrorAccumulator:
         :param target: the target value
         :param evaluated: the evaluated value
         """
-        self.acc_square += (target - evaluated)**2
+        self.acc_square += (target - evaluated) ** 2
         self.acc += abs(target - evaluated)
         self.acc_len += 1
 
@@ -198,7 +198,7 @@ class ErrorAccumulator:
         """ Returns the adjusted fitness
         This fitness is calculated as 1 / (1 + standardized fitness)
         """
-        return 1.0/(1.0 + self.acc)
+        return 1.0 / (1.0 + self.acc)
 
     def getRMSE(self):
         """ Return the root mean square error
@@ -320,7 +320,7 @@ def G1DListGetEdges(individual):
     edg = {}
     ind_list = individual.getInternalList()
     for i in xrange(len(ind_list)):
-        a, b = ind_list[i], ind_list[i-1]
+        a, b = ind_list[i], ind_list[i - 1]
 
         if a not in edg:
             edg[a] = []

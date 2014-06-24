@@ -46,7 +46,7 @@ class MigrationScheme(object):
 
    def getCompressionLevel(self):
       """ Get the zlib compression level of network data
-      
+
       The values are in the interval described on the :func:`Network.pickleAndCompress`
       """
       return self.networkCompression
@@ -55,7 +55,7 @@ class MigrationScheme(object):
       """ Set the zlib compression level of network data
 
       The values are in the interval described on the :func:`Network.pickleAndCompress`
-      
+
       :param level: the zlib compression level
       """
       self.networkCompression = level
@@ -68,7 +68,7 @@ class MigrationScheme(object):
    def setNumReplacement(self, num_individuals):
       """ Return the number of individuals that will be
       replaced in the migration process
-      
+
       :param num_individuals: the number of individuals to be replaced
       """
       self.nReplacement = num_individuals
@@ -82,23 +82,23 @@ class MigrationScheme(object):
 
    def setNumIndividuals(self, num_individuals):
       """ Set the number of individuals that will migrate
-      
+
       :param num_individuals: the number of individuals
       """
-      self.nIndividuals = num_individuals 
-   
+      self.nIndividuals = num_individuals
+
    def setMigrationRate(self, generations):
       """ Sets the generation frequency supposed to migrate
       and receive individuals.
 
-      :param generations: the number of generations      
+      :param generations: the number of generations
       """
       self.nMigrationRate = generations
 
    def getMigrationRate(self):
       """ Return the the generation frequency supposed to migrate
       and receive individuals
-      
+
       :rtype: the number of generations
       """
       return self.nMigrationRate
@@ -117,7 +117,7 @@ class MigrationScheme(object):
 
    def select(self):
       """ Picks an individual from population using specific selection method
-      
+
       :rtype: an individual object
       """
       if self.selector.isEmpty():
@@ -129,7 +129,7 @@ class MigrationScheme(object):
 
    def selectPool(self, num_individuals):
       """ Select num_individuals number of individuals and return a pool
-      
+
       :param num_individuals: the number of individuals to select
       :rtype: list with individuals
       """
@@ -146,7 +146,7 @@ class WANMigration(MigrationScheme):
 
    Example:
       >>> mig = WANMigration("192.168.0.1", "10000", "group1")
-   
+
    :param host: the source hostname
    :param port: the source port number
    :param group_name: the group name
@@ -168,7 +168,7 @@ class WANMigration(MigrationScheme):
 
    def setMyself(self, host, port):
       """ Which interface you will use to send/receive data
-      
+
       :param host: your hostname
       :param port: your port
       """
@@ -176,7 +176,7 @@ class WANMigration(MigrationScheme):
 
    def getGroupName(self):
       """ Gets the group name
-      
+
       .. note:: all islands of evolution which are supposed to exchange
                 individuals, must have the same group name.
       """
@@ -184,7 +184,7 @@ class WANMigration(MigrationScheme):
 
    def setGroupName(self, name):
       """ Sets the group name
-      
+
       :param name: the group name
 
       .. note:: all islands of evolution which are supposed to exchange
@@ -194,7 +194,7 @@ class WANMigration(MigrationScheme):
 
    def setTopology(self, graph):
       """ Sets the topology of the migrations
-      
+
       :param graph: the :class:`Util.Graph` instance
       """
       self.topologyGraph = graph
@@ -205,7 +205,7 @@ class WANMigration(MigrationScheme):
 
       if self.topologyGraph is None:
          Util.raiseException("You must add a topology graph to the migration scheme !")
-      
+
       targets = self.topologyGraph.getNeighbors(self.myself)
       self.clientThread.setMultipleTargetHost(targets)
       self.clientThread.start()
@@ -217,8 +217,8 @@ class WANMigration(MigrationScheme):
       server_timeout = self.serverThread.timeout
       client_timeout = self.clientThread.timeout
 
-      self.serverThread.join(server_timeout+3)
-      self.clientThread.join(client_timeout+3)
+      self.serverThread.join(server_timeout + 3)
+      self.clientThread.join(client_timeout + 3)
 
       if self.serverThread.isAlive():
          logging.warning("warning: server thread not joined !")
@@ -226,17 +226,17 @@ class WANMigration(MigrationScheme):
       if self.clientThread.isAlive():
          logging.warning("warning: client thread not joined !")
 
-
    def exchange(self):
       """ This is the main method, is where the individuals
       are exchanged """
 
-      if not self.isReady(): return
+      if not self.isReady():
+         return
 
       # Client section --------------------------------------
       # How many will migrate ?
       pool = self.selectPool(self.getNumIndividuals())
-      
+
       for individual in pool:
          # (code, group name, individual)
          networkObject = (Consts.CDefNetworkIndividual, self.getGroupName(), individual)
@@ -254,17 +254,19 @@ class WANMigration(MigrationScheme):
          pool.append(networkObject)
 
       # No individuals received
-      if len(pool) <= 0: return
+      if len(pool) <= 0:
+         return
 
       population = self.GAEngine.getPopulation()
 
       for i in xrange(self.getNumReplacement()):
-         if len(pool) <= 0: break
+         if len(pool) <= 0:
+            break
          choice = rand_choice(pool)
          pool.remove(choice)
 
          # replace the worst
-         population[len(population)-1-i] = choice[2]
+         population[len(population) - 1 - i] = choice[2]
 
 
 class MPIMigration(MigrationScheme):
@@ -284,8 +286,8 @@ class MPIMigration(MigrationScheme):
          self.source = self.comm.size - 1
       else:
          self.source = self.comm.rank - 1
-      
-      self.dest = (self.comm.rank +1) % (self.comm.size)
+
+      self.dest = (self.comm.rank + 1) % (self.comm.size)
 
       self.all_stars = None
 
@@ -306,32 +308,34 @@ class MPIMigration(MigrationScheme):
       result is stored in process 0
       '''
       best_guy = self.select()
-      self.all_stars = self.comm.gather(sendobj = best_guy, root = 0)
+      self.all_stars = self.comm.gather(sendobj=best_guy, root=0)
 
    def exchange(self):
       """ This is the main method, is where the individuals
       are exchanged """
 
-      if not self.isReady(): return
+      if not self.isReady():
+         return
 
       pool_to_send = self.selectPool(self.getNumIndividuals())
-      pool_received  = self.comm.sendrecv(sendobj=pool_to_send,
-                                          dest=self.dest,
-                                          sendtag=0,
-                                          recvobj=None,
-                                          source=self.source,
-                                          recvtag=0)
+      pool_received = self.comm.sendrecv(sendobj=pool_to_send,
+                                         dest=self.dest,
+                                         sendtag=0,
+                                         recvobj=None,
+                                         source=self.source,
+                                         recvtag=0)
 
       population = self.GAEngine.getPopulation()
 
       pool = pool_received
       for i in xrange(self.getNumReplacement()):
-         if len(pool) <= 0: break
+         if len(pool) <= 0:
+            break
 
          choice = rand_choice(pool)
          pool.remove(choice)
 
          # replace the worst
-         population[len(population)-1-i] = choice
+         population[len(population) - 1 - i] = choice
 
       self.gather_bests()

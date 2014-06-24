@@ -9,7 +9,7 @@ Default Parameters
 -------------------------------------------------------------
 
 *Sort Type*
-   
+
    >>> Consts.sortType["scaled"]
 
    The scaled sort type
@@ -32,7 +32,8 @@ Class
 
 """
 
-import Consts, Util
+import Consts
+import Util
 from FunctionSlot import FunctionSlot
 from Statistics import Statistics
 from math import sqrt as math_sqrt
@@ -104,7 +105,7 @@ class GPopulation:
          >>> for ind in pop:
          >>>   print ind
          (...)
-         
+
          >>> for i in xrange(len(pop)):
          >>>    print pop[i]
          (...)
@@ -121,41 +122,41 @@ class GPopulation:
       """ The GPopulation Class creator """
 
       if isinstance(genome, GPopulation):
-         self.oneSelfGenome  = genome.oneSelfGenome
-         self.internalPop    = []
+         self.oneSelfGenome = genome.oneSelfGenome
+         self.internalPop = []
          self.internalPopRaw = []
-         self.popSize       = genome.popSize
-         self.sortType      = genome.sortType
-         self.sorted        = False
-         self.minimax       = genome.minimax
-         self.scaleMethod   = genome.scaleMethod
-         self.allSlots      = [self.scaleMethod]
+         self.popSize = genome.popSize
+         self.sortType = genome.sortType
+         self.sorted = False
+         self.minimax = genome.minimax
+         self.scaleMethod = genome.scaleMethod
+         self.allSlots = [self.scaleMethod]
 
          self.internalParams = genome.internalParams
          self.multiProcessing = genome.multiProcessing
 
          self.statted = False
-         self.stats   = Statistics()
+         self.stats = Statistics()
          return
 
       logging.debug("New population instance, %s class genomes.", genome.__class__.__name__)
-      self.oneSelfGenome  = genome
-      self.internalPop    = []
+      self.oneSelfGenome = genome
+      self.internalPop = []
       self.internalPopRaw = []
-      self.popSize       = 0
-      self.sortType      = Consts.CDefPopSortType
-      self.sorted        = False
-      self.minimax       = Consts.CDefPopMinimax
-      self.scaleMethod   = FunctionSlot("Scale Method")
+      self.popSize = 0
+      self.sortType = Consts.CDefPopSortType
+      self.sorted = False
+      self.minimax = Consts.CDefPopMinimax
+      self.scaleMethod = FunctionSlot("Scale Method")
       self.scaleMethod.set(Consts.CDefPopScale)
-      self.allSlots      = [self.scaleMethod]
+      self.allSlots = [self.scaleMethod]
 
       self.internalParams = {}
       self.multiProcessing = (False, False)
 
       # Statistics
       self.statted = False
-      self.stats   = Statistics()
+      self.stats = Statistics()
 
    def setMultiProcessing(self, flag=True, full_copy=False):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
@@ -164,7 +165,7 @@ class GPopulation:
       The parameter "full_copy" defines where the individual data should be copied back
       after the evaluation or not. This parameter is useful when you change the
       individual in the evaluation function.
-      
+
       :param flag: True (default) or False
       :param full_copy: True or False (default)
 
@@ -177,13 +178,13 @@ class GPopulation:
 
       """
       self.multiProcessing = (flag, full_copy)
-   
+
    def setMinimax(self, minimax):
       """ Sets the population minimax
 
       Example:
          >>> pop.setMinimax(Consts.minimaxType["maximize"])
-   
+
       :param minimax: the minimax type
 
       """
@@ -191,20 +192,20 @@ class GPopulation:
 
    def __repr__(self):
       """ Returns the string representation of the population """
-      ret =  "- GPopulation\n"
+      ret = "- GPopulation\n"
       ret += "\tPopulation Size:\t %d\n" % (self.popSize,)
       ret += "\tSort Type:\t\t %s\n" % (Consts.sortType.keys()[Consts.sortType.values().index(self.sortType)].capitalize(),)
       ret += "\tMinimax Type:\t\t %s\n" % (Consts.minimaxType.keys()[Consts.minimaxType.values().index(self.minimax)].capitalize(),)
       for slot in self.allSlots:
-         ret+= "\t" + slot.__repr__()
-      ret+="\n"
-      ret+= self.stats.__repr__()
+         ret += "\t" + slot.__repr__()
+      ret += "\n"
+      ret += self.stats.__repr__()
       return ret
 
    def __len__(self):
       """ Return the length of population """
       return len(self.internalPop)
-      
+
    def __getitem__(self, key):
       """ Returns the specified individual from population """
       return self.internalPop[key]
@@ -230,11 +231,12 @@ class GPopulation:
 
       """
       self.statistics()
-      return self.stats      
+      return self.stats
 
    def statistics(self):
       """ Do statistical analysis of population and set 'statted' to True """
-      if self.statted: return
+      if self.statted:
+         return
       logging.debug("Running statistical calculations")
       raw_sum = 0
       fit_sum = 0
@@ -250,10 +252,10 @@ class GPopulation:
       tmpvar = 0.0
       for ind in xrange(len_pop):
          s = self[ind].score - self.stats["rawAve"]
-         s*= s
+         s *= s
          tmpvar += s
 
-      tmpvar/= float((len(self) - 1))
+      tmpvar /= float((len(self) - 1))
       try:
          self.stats["rawDev"] = math_sqrt(tmpvar)
       except:
@@ -272,12 +274,12 @@ class GPopulation:
       """
       self.sort()
       return self.internalPop[index]
-  
+
    def worstFitness(self):
       """ Return the worst scaled fitness individual of the population
-      
+
       :rtype: the individual
-      
+
       """
       self.sort()
       return self.internalPop[-1]
@@ -290,22 +292,22 @@ class GPopulation:
 
       .. versionadded:: 0.6
          The parameter `index`.
-      
+
       """
       if self.sortType == Consts.sortType["raw"]:
          return self.internalPop[index]
       else:
          self.sort()
          return self.internalPopRaw[index]
-     
+
    def worstRaw(self):
       """ Return the worst raw score individual of population
-      
+
       :rtype: the individual
 
       .. versionadded:: 0.6
          The parameter `index`.
-      
+
       """
       if self.sortType == Consts.sortType["raw"]:
          return self.internalPop[-1]
@@ -315,7 +317,8 @@ class GPopulation:
 
    def sort(self):
       """ Sort the population """
-      if self.sorted: return
+      if self.sorted:
+         return
       rev = (self.minimax == Consts.minimaxType["maximize"])
 
       if self.sortType == Consts.sortType["raw"]:
@@ -362,7 +365,7 @@ class GPopulation:
       """ Initialize all individuals of population,
       this calls the initialize() of individuals """
       logging.debug("Initializing the population")
-   
+
       if self.oneSelfGenome.getParam("full_diversity", True) and hasattr(self.oneSelfGenome, "compare"):
          for i in xrange(len(self.internalPop)):
             curr = self.internalPop[i]
@@ -376,7 +379,7 @@ class GPopulation:
 
    def evaluate(self, **args):
       """ Evaluate all individuals in population, calls the evaluate() method of individuals
-   
+
       :param args: this params are passed to the evaluation function
 
       """
@@ -448,7 +451,7 @@ class GPopulation:
       pop.scaleMethod = self.scaleMethod
       pop.internalParams = self.internalParams
       pop.multiProcessing = self.multiProcessing
-   
+
    def getParam(self, key, nvl=None):
       """ Gets an internal parameter
 
@@ -461,7 +464,6 @@ class GPopulation:
 
       """
       return self.internalParams.get(key, nvl)
-
 
    def setParams(self, **args):
       """ Gets an internal parameter
@@ -481,11 +483,9 @@ class GPopulation:
       del self.internalPop[:]
       del self.internalPopRaw[:]
       self.clearFlags()
-      
+
    def clone(self):
       """ Return a brand-new cloned population """
       newpop = GPopulation(self.oneSelfGenome)
       self.copy(newpop)
       return newpop
-      
-
