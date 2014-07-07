@@ -234,6 +234,7 @@ class GSimpleGA:
         self.migrationAdapter = None
 
         self.time_init = None
+        self.max_time = None
         self.interactiveMode = interactiveMode
         self.interactiveGen = -1
         self.GPMode = False
@@ -557,6 +558,20 @@ class GSimpleGA:
         """
         return self.dbAdapter
 
+    def setMaxTime(self, seconds):
+        """ Sets the maximun evolve time of the GA Engine
+
+        :param seconds: maximum time in seconds
+        """
+        self.max_time = seconds
+
+    def getMaxTime(self):
+        """ Get the maximun evolve time of the GA Engine
+
+        :rtype: True or False
+        """
+        return self.max_time
+
     def bestIndividual(self):
         """ Returns the population best individual
 
@@ -689,6 +704,10 @@ class GSimpleGA:
 
         self.currentGeneration += 1
 
+        if self.max_time:
+           total_time = time() - self.time_init
+           if total_time > self.max_time:
+              return True
         return self.currentGeneration == self.nGenerations
 
     def printStats(self):
