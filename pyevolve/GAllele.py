@@ -83,7 +83,7 @@ class GAlleles:
       return iter(self.allele_list)
 
    def __len__(self):
-      """ Returns the lenght of the alleles list """
+      """ Returns the length of the alleles list """
       if self.homogeneous:
          return 1
       return len(self.allele_list)
@@ -156,7 +156,7 @@ class GAlleleList:
       return iter(self.options)
 
    def __len__(self):
-      """ Returns the lenght of the options list """
+      """ Returns the length of the options list """
       return len(self.options)
 
    def remove(self, option):
