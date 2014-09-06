@@ -24,7 +24,7 @@ class GAlleles:
       True
 
    :param allele_list: the list of alleles
-   :param homogeneous: if is True, all the alleles will be use only the first added
+   :param homogeneous: if True, all the alleles will be use only the first added
 
    """
 
@@ -257,7 +257,7 @@ class GAlleleRange:
       return rand_func(self.beginEnd[choice][0], self.beginEnd[choice][1])
 
    def setReal(self, flag=True):
-      """ Sets True if the range is real or False if is integer
+      """ Pass in True if the range is real or False if integer
 
       :param flag: True or False
 

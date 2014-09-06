@@ -111,7 +111,7 @@ class DBFileCSV(DBBaseAdapter):
       :param filename: the CSV filename
       :param identify: the identify of the run
       :param frequency: the generational dump frequency
-      :param reset: if is True, the file old data will be overwrite with the new
+      :param reset: if True, the file old data will be overwrite with the new
 
    .. versionadded:: 0.6
       Removed the stub methods and subclassed the :class:`DBBaseAdapter` class.

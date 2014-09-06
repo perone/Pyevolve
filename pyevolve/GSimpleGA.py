@@ -183,7 +183,7 @@ class GSimpleGA:
 
     now *"your_func"* will be called every generation.
     When this function returns True, the GA Engine will stop the evolution and show
-    a warning, if is False, the evolution continues.
+    a warning, if False, the evolution continues.
     """
 
     terminationCriteria = None
@@ -205,7 +205,7 @@ class GSimpleGA:
           return pop[0] == pop[len(pop)-1]
 
     When this function returns True, the GA Engine will stop the evolution and show
-    a warning, if is False, the evolution continues, this function is called every
+    a warning, if False, the evolution continues, this function is called every
     generation.
     """
 
