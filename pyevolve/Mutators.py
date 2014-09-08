@@ -78,18 +78,18 @@ def G1DListMutatorSwap(genome, **args):
    """
    if args["pmut"] <= 0.0:
       return 0
-   listSize = len(genome) - 1
-   mutations = args["pmut"] * (listSize + 1)
+   listSize = len(genome)
+   mutations = args["pmut"] * listSize
 
    if mutations < 1.0:
       mutations = 0
-      for it in xrange(listSize + 1):
+      for it in xrange(listSize):
          if Util.randomFlipCoin(args["pmut"]):
-            Util.listSwapElement(genome, it, rand_randint(0, listSize))
+            Util.listSwapElement(genome, it, rand_randint(0, listSize - 1))
             mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         Util.listSwapElement(genome, rand_randint(0, listSize), rand_randint(0, listSize))
+         Util.listSwapElement(genome, rand_randint(0, listSize - 1), rand_randint(0, listSize - 1))
 
    return int(mutations)
 
@@ -398,8 +398,8 @@ def G1DListMutatorAllele(genome, **args):
    """
    if args["pmut"] <= 0.0:
       return 0
-   listSize = len(genome) - 1
-   mutations = args["pmut"] * (listSize + 1)
+   listSize = len(genome)
+   mutations = args["pmut"] * listSize
 
    allele = genome.getParam("allele", None)
    if allele is None:
@@ -407,14 +407,14 @@ def G1DListMutatorAllele(genome, **args):
 
    if mutations < 1.0:
       mutations = 0
-      for it in xrange(listSize + 1):
+      for it in xrange(listSize):
          if Util.randomFlipCoin(args["pmut"]):
             new_val = allele[it].getRandomAllele()
             genome[it] = new_val
             mutations += 1
    else:
       for it in xrange(int(round(mutations))):
-         which_gene = rand_randint(0, listSize)
+         which_gene = rand_randint(0, listSize - 1)
          new_val = allele[which_gene].getRandomAllele()
          genome[which_gene] = new_val
 
