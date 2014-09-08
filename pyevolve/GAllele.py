@@ -95,11 +95,11 @@ class GAlleles:
       ret += "\tList size:\t %s\n" % (len(self),)
       ret += "\tAlleles:\n\n"
       if self.homogeneous:
-         ret += "Allele for 0 position:\n"
+         ret += "Allele for position 0:\n"
          ret += self.allele_list[0].__repr__()
       else:
          for i in xrange(len(self)):
-            ret += "Allele for %d position:\n" % (i,)
+            ret += "Allele for position %d:\n" % (i,)
             ret += self.allele_list[i].__repr__()
       return ret
 
