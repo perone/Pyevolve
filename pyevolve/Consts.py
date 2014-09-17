@@ -34,7 +34,7 @@ General constants
 
    Example:
       >>> minmax = Consts.minimaxType["minimize"]
-      >>> minmax = Consts.minimaxType["maximize]
+      >>> minmax = Consts.minimaxType["maximize"]
 
 .. attribute:: CDefESCKey
 
