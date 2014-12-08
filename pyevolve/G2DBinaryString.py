@@ -58,43 +58,12 @@ class G2DBinaryString(GenomeBase):
     :param width: the number of columns
 
     """
-
-    evaluator = None
-    """ This is the :term:`evaluation function` slot, you can add
-    a function with the *set* method: ::
-
-       genome.evaluator.set(eval_func)
-    """
-
-    initializator = None
-    """ This is the initialization function of the genome, you
-    can change the default initializator using the function slot: ::
-
-       genome.initializator.set(Initializators.G2DBinaryStringInitializator)
-
-    In this example, the initializator :func:`Initializators.G1DBinaryStringInitializator`
-    will be used to create the initial population.
-    """
-
-    mutator = None
-    """ This is the mutator function slot, you can change the default
-    mutator using the slot *set* function: ::
-
-       genome.mutator.set(Mutators.G2DBinaryStringMutatorSwap)
-
-    """
-
-    crossover = None
-    """ This is the reproduction function slot, the crossover. You
-    can change the default crossover method using: ::
-
-       genome.crossover.set(Crossovers.G2DBinaryStringXUniform)
-    """
+    __slots__ = [ "height", "width", "genomeString" ]
 
     def __init__(self, height, width):
         """ The initializator of G2DBinaryString representation,
         height and width must be specified """
-        GenomeBase.__init__(self)
+        super(G2DBinaryString ,self).__init__()
         self.height = height
         self.width = width
 

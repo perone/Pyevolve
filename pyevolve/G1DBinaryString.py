@@ -38,15 +38,14 @@ from GenomeBase import GenomeBase, G1DBase
 import Consts
 import Util
 
-class G1DBinaryString(GenomeBase, G1DBase):
+class G1DBinaryString(G1DBase):
    """ G1DBinaryString Class - The 1D Binary String chromosome
 
    Inheritance diagram for :class:`G1DBinaryString.G1DBinaryString`:
 
    .. inheritance-diagram:: G1DBinaryString.G1DBinaryString
 
-   This chromosome class extends the :class:`GenomeBase.GenomeBase`
-   and :class:`GenomeBase.G1DBase` classes.
+   This chromosome class extends the :class:`GenomeBase.G1DBase` class.
 
    Example:
       >>> genome = G1DBinaryString.G1DBinaryString(5)
@@ -54,43 +53,11 @@ class G1DBinaryString(GenomeBase, G1DBase):
    :param length: the 1D Binary String size
 
    """
-
-   evaluator = None
-   """ This is the :term:`evaluation function` slot, you can add
-   a function with the *set* method: ::
-
-      genome.evaluator.set(eval_func)
-   """
-
-   initializator = None
-   """ This is the initialization function of the genome, you
-   can change the default initializator using the function slot: ::
-
-      genome.initializator.set(Initializators.G1DBinaryStringInitializator)
-
-   In this example, the initializator :func:`Initializators.G1DBinaryStringInitializator`
-   will be used to create the initial population.
-   """
-
-   mutator = None
-   """ This is the mutator function slot, you can change the default
-   mutator using the slot *set* function: ::
-
-      genome.mutator.set(Mutators.G1DBinaryStringMutatorSwap)
-
-   """
-
-   crossover = None
-   """ This is the reproduction function slot, the crossover. You
-   can change the default crossover method using: ::
-
-      genome.crossover.set(Crossovers.G1DBinaryStringXUniform)
-   """
+   __slots__ = [ "stringLength" ]
 
    def __init__(self, length=10):
       """ The initializator of G1DList representation """
-      GenomeBase.__init__(self)
-      G1DBase.__init__(self, length)
+      super(G1DBinaryString, self).__init__(length)
       self.genomeList = []
       self.stringLength = length
       self.initializator.set(Consts.CDefG1DBinaryStringInit)

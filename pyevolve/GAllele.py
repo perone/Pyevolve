@@ -12,7 +12,7 @@ import random
 import Consts
 import Util
 
-class GAlleles:
+class GAlleles(object):
    """ GAlleles Class - The set of alleles
 
    Example:
@@ -104,7 +104,7 @@ class GAlleles:
       return ret
 
 
-class GAlleleList:
+class GAlleleList(object):
    """ GAlleleList Class - The list allele type
 
    Example:
@@ -174,7 +174,7 @@ class GAlleleList:
       ret += "\tAllele Options:\t %s\n\n" % (self.options,)
       return ret
 
-class GAlleleRange:
+class GAlleleRange(object):
    """ GAlleleRange Class - The range allele type
 
    Example:

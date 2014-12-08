@@ -9,7 +9,7 @@ generation. This class is used by the adapters and other statistics dump objects
 """
 
 
-class Statistics:
+class Statistics(object):
     """ Statistics Class - A class bean-like to store the statistics
 
     The statistics hold by this class are:
