@@ -24,7 +24,7 @@ class GAlleles:
       True
 
    :param allele_list: the list of alleles
-   :param homogeneous: if is True, all the alleles will be use only the first added
+   :param homogeneous: if True, all the alleles will be use only the first added
 
    """
 
@@ -83,7 +83,7 @@ class GAlleles:
       return iter(self.allele_list)
 
    def __len__(self):
-      """ Returns the lenght of the alleles list """
+      """ Returns the length of the alleles list """
       if self.homogeneous:
          return 1
       return len(self.allele_list)
@@ -95,11 +95,11 @@ class GAlleles:
       ret += "\tList size:\t %s\n" % (len(self),)
       ret += "\tAlleles:\n\n"
       if self.homogeneous:
-         ret += "Allele for 0 position:\n"
+         ret += "Allele for position 0:\n"
          ret += self.allele_list[0].__repr__()
       else:
          for i in xrange(len(self)):
-            ret += "Allele for %d position:\n" % (i,)
+            ret += "Allele for position %d:\n" % (i,)
             ret += self.allele_list[i].__repr__()
       return ret
 
@@ -156,7 +156,7 @@ class GAlleleList:
       return iter(self.options)
 
    def __len__(self):
-      """ Returns the lenght of the options list """
+      """ Returns the length of the options list """
       return len(self.options)
 
    def remove(self, option):
@@ -257,7 +257,7 @@ class GAlleleRange:
       return rand_func(self.beginEnd[choice][0], self.beginEnd[choice][1])
 
    def setReal(self, flag=True):
-      """ Sets True if the range is real or False if is integer
+      """ Pass in True if the range is real or False if integer
 
       :param flag: True or False
 

@@ -67,7 +67,7 @@ class Statistics:
         self.internalDict[key] = value
 
     def __len__(self):
-        """ Return the lenght of internal stats dictionary """
+        """ Return the length of internal stats dictionary """
         return len(self.internalDict)
 
     def __repr__(self):

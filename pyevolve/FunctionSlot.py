@@ -112,6 +112,7 @@ class FunctionSlot:
       """ Used to clear the functions in the slot """
       if len(self.funcList) > 0:
          del self.funcList[:]
+         del self.funcWeights[:]
 
    def add(self, func, weight=0.5):
       """ Used to add a function to the slot

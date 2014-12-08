@@ -35,7 +35,7 @@ def getPopScores(population, fitness=False):
       >>> lst = Interaction.getPopScores(population)
 
    :param population: population object (:class:`GPopulation.GPopulation`)
-   :param fitness: if is True, the fitness score will be used, otherwise, the raw.
+   :param fitness: if True, the fitness score will be used, otherwise, the raw.
    :rtype: list of population scores
 
    """
@@ -51,7 +51,7 @@ def plotPopScore(population, fitness=False):
       >>> Interaction.plotPopScore(population)
 
    :param population: population object (:class:`GPopulation.GPopulation`)
-   :param fitness: if is True, the fitness score will be used, otherwise, the raw.
+   :param fitness: if True, the fitness score will be used, otherwise, the raw.
    :rtype: None
 
    """
@@ -70,7 +70,7 @@ def plotHistPopScore(population, fitness=False):
       >>> Interaction.plotHistPopScore(population)
 
    :param population: population object (:class:`GPopulation.GPopulation`)
-   :param fitness: if is True, the fitness score will be used, otherwise, the raw.
+   :param fitness: if True, the fitness score will be used, otherwise, the raw.
    :rtype: None
 
    """

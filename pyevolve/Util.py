@@ -15,9 +15,9 @@ import Consts
 
 
 def randomFlipCoin(p):
-    """ Returns True with the *p* probability. If the *p* is 1.0,
-    the function will always return True, or if is 0.0, the
-    function will return always False.
+    """Returns True with the *p* probability. If *p* is 1, the
+    function will always return True. If *p* is 0, the function will
+    return always False.
 
     Example:
        >>> Util.randomFlipCoin(1.0)
