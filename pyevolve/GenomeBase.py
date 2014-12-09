@@ -16,7 +16,7 @@ import Util
 
 class GenomeBase(object):
    """ GenomeBase Class - The base of all chromosome representation """
-   __slots__ = [ "evaluator", "initializator", "mutator", "crossover", "internalParams", "score", "fitness" ]
+   __slots__ = ["evaluator", "initializator", "mutator", "crossover", "internalParams", "score", "fitness"]
 
    def __init__(self):
       """Genome Constructor"""
@@ -47,8 +47,8 @@ class GenomeBase(object):
 
    def __repr__(self):
       """String representation of Genome"""
-      allSlots = [ self.evaluator, self.initializator,
-                   self.mutator, self.crossover ]
+      allSlots = [self.evaluator, self.initializator, self.mutator,
+                  self.crossover]
 
       ret = "- GenomeBase\n"
       ret += "\tScore:\t\t\t %.6f\n" % (self.score,)
@@ -166,7 +166,7 @@ class G1DBase(GenomeBase):
    .. versionadded:: 0.6
       Added the *G1DBase* class
    """
-   __slots__ = [ "genomeSize", "genomeList" ]
+   __slots__ = ["genomeSize", "genomeList"]
 
    def __init__(self, size):
       super(G1DBase, self).__init__()
@@ -285,7 +285,7 @@ class GTreeNodeBase(object):
    .. versionadded:: 0.6
       Added the *GTreeNodeBase* class
    """
-   __slots__ = [ "parent", "childs" ]
+   __slots__ = ["parent", "childs"]
 
    def __init__(self, parent, childs=None):
       self.parent = parent
@@ -399,7 +399,7 @@ class GTreeBase(GenomeBase):
    .. versionadded:: 0.6
       Added the *GTreeBase* class
    """
-   __slots__ = [ "root_node", "tree_height", "nodes_list", "nodes_leaf", "nodes_branch" ]
+   __slots__ = ["root_node", "tree_height", "nodes_list", "nodes_leaf", "nodes_branch"]
 
    def __init__(self, root_node):
       super(GTreeBase, self).__init__()

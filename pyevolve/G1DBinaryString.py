@@ -53,7 +53,7 @@ class G1DBinaryString(G1DBase):
    :param length: the 1D Binary String size
 
    """
-   __slots__ = [ "stringLength" ]
+   __slots__ = ["stringLength"]
 
    def __init__(self, length=10):
       """ The initializator of G1DList representation """

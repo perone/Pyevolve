@@ -101,7 +101,7 @@ class GTreeNode(GTreeNodeBase):
     :param parent: the parent node, if root, this
                    must be *None*
     """
-    __slots__ = [ "node_data" ]
+    __slots__ = ["node_data"]
 
     def __init__(self, data, parent=None):
         super(GTreeNode, self).__init__(parent)
@@ -239,7 +239,7 @@ class GTreeNodeGP(GTreeNodeBase):
     :param parent: the node parent
 
     """
-    __slots__ = [ "node_type", "node_data" ]
+    __slots__ = ["node_type", "node_data"]
 
     def __init__(self, data, node_type=0, parent=None):
         super(GTreeNodeGP, self).__init__(parent)

@@ -87,7 +87,7 @@ class G2DList(GenomeBase):
 
     """
 
-    __slots__ = [ "height", "width", "genomeList" ]
+    __slots__ = ["height", "width", "genomeList"]
 
     def __init__(self, height, width, cloning=False):
         """ The initializator of G2DList representation,
