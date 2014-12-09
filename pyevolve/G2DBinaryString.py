@@ -58,12 +58,12 @@ class G2DBinaryString(GenomeBase):
     :param width: the number of columns
 
     """
-    __slots__ = [ "height", "width", "genomeString" ]
+    __slots__ = ["height", "width", "genomeString"]
 
     def __init__(self, height, width):
         """ The initializator of G2DBinaryString representation,
         height and width must be specified """
-        super(G2DBinaryString ,self).__init__()
+        super(G2DBinaryString, self).__init__()
         self.height = height
         self.width = width
 
