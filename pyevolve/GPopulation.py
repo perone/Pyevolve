@@ -31,12 +31,13 @@ Class
 
 
 """
+from __future__ import print_function
 from future.builtins import range
 
-import Consts
-import Util
-from FunctionSlot import FunctionSlot
-from Statistics import Statistics
+from . import Consts
+from . import Util
+from .FunctionSlot import FunctionSlot
+from .Statistics import Statistics
 from math import sqrt as math_sqrt
 import logging
 
@@ -435,7 +436,7 @@ class GPopulation(object):
       else:
          message = "Max/Min/Avg Raw [%(rawMax).2f/%(rawMin).2f/%(rawAve).2f]" % self.stats
       logging.info(message)
-      print message
+      print(message)
       return message
 
    def copy(self, pop):
