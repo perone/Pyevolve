@@ -22,10 +22,10 @@ from future.builtins import range
 from pyevolve import __version__
 from . import Consts
 from . import Util
+from . import Statistics
 import logging
 import types
 import datetime
-import Statistics
 
 
 class DBBaseAdapter(object):
