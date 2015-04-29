@@ -429,7 +429,7 @@ if __name__ == "__main__":
          time.sleep(10)
          if s.isReady():
             item = s.popPool()
-            print item
+            print(item)
          time.sleep(4)
          s.shutdown()
          break
