@@ -58,6 +58,8 @@ Class
 -------------------------------------------------------------
 
 """
+from future.builtins import range
+
 import random
 import logging
 from time import time
@@ -645,7 +647,7 @@ class GSimpleGA(object):
 
         crossover_empty = self.select(popID=self.currentGeneration).crossover.isEmpty()
 
-        for i in xrange(0, size_iterate, 2):
+        for i in range(0, size_iterate, 2):
             genomeMom = self.select(popID=self.currentGeneration)
             genomeDad = self.select(popID=self.currentGeneration)
 
@@ -686,13 +688,13 @@ class GSimpleGA(object):
         if self.elitism:
             logging.debug("Doing elitism.")
             if self.getMinimax() == Consts.minimaxType["maximize"]:
-                for i in xrange(self.nElitismReplacement):
+                for i in range(self.nElitismReplacement):
                     #re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score > newPop.bestRaw(i).score:
                         newPop[len(newPop) - 1 - i] = self.internalPop.bestRaw(i)
             elif self.getMinimax() == Consts.minimaxType["minimize"]:
-                for i in xrange(self.nElitismReplacement):
+                for i in range(self.nElitismReplacement):
                     #re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score < newPop.bestRaw(i).score:
