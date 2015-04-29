@@ -16,6 +16,7 @@ module, you'll find the adapters above cited.
       DB Adapters are set in the GSimpleGA Class.
 
 """
+from __future__ import print_function
 from future.builtins import range
 
 from pyevolve import __version__
@@ -391,7 +392,7 @@ class DBSQLite(DBBaseAdapter):
          c.execute(stmt2, (self.getIdentify(),))
       except self.sqlite3mod.OperationalError, expt:
          if str(expt).find("no such table") >= 0:
-            print "\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n"
+            print("\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n")
 
       self.commit()
 
