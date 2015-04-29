@@ -20,8 +20,8 @@ from __future__ import print_function
 from future.builtins import range
 
 from pyevolve import __version__
-import Consts
-import Util
+from . import Consts
+from . import Util
 import logging
 import types
 import datetime
