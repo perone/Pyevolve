@@ -37,10 +37,11 @@ Default Parameters
 Class
 -------------------------------------------------------------
 """
+from future.builtins import range
 
-from GenomeBase import GenomeBase
-import Consts
-import Util
+from .GenomeBase import GenomeBase
+from . import Consts
+from . import Util
 
 
 class G2DBinaryString(GenomeBase):
@@ -68,7 +69,7 @@ class G2DBinaryString(GenomeBase):
         self.width = width
 
         self.genomeString = [None] * height
-        for i in xrange(height):
+        for i in range(height):
             self.genomeString[i] = [None] * width
 
         self.initializator.set(Consts.CDefG2DBinaryStringInit)
@@ -167,7 +168,7 @@ class G2DBinaryString(GenomeBase):
         del self.genomeString[:]
 
         self.genomeString = [None] * self.height
-        for i in xrange(self.height):
+        for i in range(self.height):
             self.genomeString[i] = [None] * self.width
 
     def copy(self, g):
@@ -182,7 +183,7 @@ class G2DBinaryString(GenomeBase):
         GenomeBase.copy(self, g)
         g.height = self.height
         g.width = self.width
-        for i in xrange(self.height):
+        for i in range(self.height):
             g.genomeString[i] = self.genomeString[i][:]
 
     def clone(self):
