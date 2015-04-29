@@ -724,7 +724,7 @@ class GSimpleGA(object):
         percent = self.currentGeneration * 100 / float(self.nGenerations)
         message = "Gen. %d (%.2f%%):" % (self.currentGeneration, percent)
         logging.info(message)
-        print message,
+        print(message, end=" ")
         sys_stdout.flush()
         self.internalPop.statistics()
         stat_ret = self.internalPop.printStats()
@@ -733,7 +733,7 @@ class GSimpleGA(object):
     def printTimeElapsed(self):
         """ Shows the time elapsed since the begin of evolution """
         total_time = time() - self.time_init
-        print "Total time elapsed: %.3f seconds." % total_time
+        print("Total time elapsed: %.3f seconds." % total_time)
         return total_time
 
     def dumpStatsDB(self):
@@ -807,26 +807,26 @@ class GSimpleGA(object):
                 if stopFlagTerminationCriteria:
                     logging.debug("Evolution stopped by the Termination Criteria !")
                     if freq_stats:
-                        print "\n\tEvolution stopped by Termination Criteria function !\n"
+                        print("\n\tEvolution stopped by Termination Criteria function !\n")
                     break
 
                 if stopFlagCallback:
                     logging.debug("Evolution stopped by Step Callback function !")
                     if freq_stats:
-                        print "\n\tEvolution stopped by Step Callback function !\n"
+                        print("\n\tEvolution stopped by Step Callback function !\n")
                     break
 
                 if self.interactiveMode:
                     if sys_platform[:3] == "win":
                         if msvcrt.kbhit():
                             if ord(msvcrt.getch()) == Consts.CDefESCKey:
-                                print "Loading modules for Interactive Mode...",
+                                print("Loading modules for Interactive Mode...", end=" ")
                                 logging.debug(
                                     "Windows Interactive Mode key detected ! generation=%d",
                                     self.getCurrentGeneration()
                                 )
                                 from pyevolve import Interaction
-                                print " done !"
+                                print(" done !")
                                 interact_banner = "## Pyevolve v.%s - Interactive Mode ##\n" \
                                                   "Press CTRL-Z to quit interactive mode." % (pyevolve.__version__,)
                                 session_locals = {
@@ -835,18 +835,18 @@ class GSimpleGA(object):
                                     "pyevolve": pyevolve,
                                     "it": Interaction,
                                 }
-                                print
+                                print()
                                 code.interact(interact_banner, local=session_locals)
 
                     is_interactive_generation = self.getInteractiveGeneration() == self.getCurrentGeneration()
                     if self.getInteractiveGeneration() >= 0 and is_interactive_generation:
-                        print "Loading modules for Interactive Mode...",
+                        print("Loading modules for Interactive Mode...", end=" ")
                         logging.debug(
                             "Manual Interactive Mode key detected ! generation=%d",
                             self.getCurrentGeneration()
                         )
                         from pyevolve import Interaction
-                        print " done !"
+                        print(" done !")
                         interact_banner = "## Pyevolve v.%s - Interactive Mode ##" % (pyevolve.__version__,)
                         session_locals = {
                             "ga_engine": self,
@@ -854,7 +854,7 @@ class GSimpleGA(object):
                             "pyevolve": pyevolve,
                             "it": Interaction
                         }
-                        print
+                        print()
                         code.interact(interact_banner, local=session_locals)
 
                 if self.step():
@@ -863,7 +863,7 @@ class GSimpleGA(object):
         except KeyboardInterrupt:
             logging.debug("CTRL-C detected, finishing evolution.")
             if freq_stats:
-                print "\n\tA break was detected, you have interrupted the evolution !\n"
+                print("\n\tA break was detected, you have interrupted the evolution !\n")
 
         if freq_stats != 0:
             self.printStats()
