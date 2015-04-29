@@ -390,7 +390,7 @@ class DBSQLite(DBBaseAdapter):
       try:
          c.execute(stmt, (self.getIdentify(),))
          c.execute(stmt2, (self.getIdentify(),))
-      except self.sqlite3mod.OperationalError, expt:
+      except self.sqlite3mod.OperationalError as expt:
          if str(expt).find("no such table") >= 0:
             print("\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n")
 
