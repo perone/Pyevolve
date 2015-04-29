@@ -58,12 +58,12 @@ Class
 -------------------------------------------------------------
 
 """
+from __future__ import print_function
 from future.builtins import range
 
 import random
 import logging
 from time import time
-from types import BooleanType
 from sys import platform as sys_platform
 from sys import stdout as sys_stdout
 import code
@@ -421,10 +421,10 @@ class GSimpleGA(object):
            The `setMultiProcessing` method.
 
         """
-        if type(flag) != BooleanType:
+        if not isinstance(flag, bool):
             Util.raiseException("Multiprocessing option must be True or False", TypeError)
 
-        if type(full_copy) != BooleanType:
+        if not isinstance(full_copy, bool):
             Util.raiseException("Multiprocessing 'full_copy' option must be True or False", TypeError)
 
         self.internalPop.setMultiProcessing(flag, full_copy, max_processes)
