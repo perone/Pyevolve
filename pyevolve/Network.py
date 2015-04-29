@@ -9,6 +9,7 @@ In this module you'll find all the network related implementation
    The *Network* module.
 
 """
+from __future__ import print_function
 from __future__ import with_statement
 import threading
 import socket
@@ -424,7 +425,7 @@ if __name__ == "__main__":
       s.start()
 
       while True:
-         print ".",
+         print(".", end="")
          time.sleep(10)
          if s.isReady():
             item = s.popPool()
@@ -433,12 +434,12 @@ if __name__ == "__main__":
          s.shutdown()
          break
    elif arg == "client":
-      print "Binding on %s..." % myself[0]
+      print("Binding on %s..." % myself[0])
       s = UDPThreadUnicastClient(myself[0], 1500)
       s.setData("dsfssdfsfddf")
       s.setTargetHost(myself[0], 666)
       s.start()
       s.join()
-      print s.getSentBytes()
+      print(s.getSentBytes())
 
-   print "end..."
+   print("end...")
