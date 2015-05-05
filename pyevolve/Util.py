@@ -89,7 +89,7 @@ def raiseException(message, expt=None):
     if expt is None:
         raise Exception(message)
     else:
-        raise (expt, message)
+        raise expt(message)
 
 
 def cmp_individual_raw(a, b):
