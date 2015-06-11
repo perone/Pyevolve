@@ -362,7 +362,7 @@ class GSimpleGA(object):
            The *setInteractiveMode* method.
 
         """
-        if type(flag) != BooleanType:
+        if not isinstance(flag, bool):
             Util.raiseException("Interactive Mode option must be True or False", TypeError)
         self.interactiveMode = flag
 
