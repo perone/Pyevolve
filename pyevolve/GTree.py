@@ -33,6 +33,8 @@ Default Parameters
 Classes
 -------------------------------------------------------------
 """
+from past.builtins import xrange
+
 import random
 from GenomeBase import GenomeBase, GTreeBase, GTreeNodeBase
 import Consts
