@@ -33,6 +33,7 @@ Class
 """
 from __future__ import print_function
 from future.builtins import range
+from functools import cmp_to_key
 
 from . import Consts
 from . import Util
@@ -324,12 +325,23 @@ class GPopulation(object):
       rev = (self.minimax == Consts.minimaxType["maximize"])
 
       if self.sortType == Consts.sortType["raw"]:
-         self.internalPop.sort(cmp=Util.cmp_individual_raw, reverse=rev)
+         # TODO update to proper python3 sorting
+         # https://docs.python.org/3.3/howto/sorting.html
+         self.internalPop.sort(
+            key=cmp_to_key(Util.cmp_individual_raw),
+            reverse=rev
+         )
       else:
          self.scale()
-         self.internalPop.sort(cmp=Util.cmp_individual_scaled, reverse=rev)
+         self.internalPop.sort(
+            key=cmp_to_key(Util.cmp_individual_scaled),
+            reverse=rev
+         )
          self.internalPopRaw = self.internalPop[:]
-         self.internalPopRaw.sort(cmp=Util.cmp_individual_raw, reverse=rev)
+         self.internalPopRaw.sort(
+            key=cmp_to_key(Util.cmp_individual_raw),
+            reverse=rev
+         )
 
       self.sorted = True
 
