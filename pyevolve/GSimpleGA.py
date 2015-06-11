@@ -368,7 +368,9 @@ class GSimpleGA(object):
 
     def __repr__(self):
         """ The string representation of the GA Engine """
-        minimax_type = Consts.minimaxType.keys()[Consts.minimaxType.values().index(self.minimax)]
+        minimax_type = list(Consts.minimaxType.keys())[
+                            list(Consts.minimaxType.values()).index(self.minimax)
+                       ]
         ret = "- GSimpleGA\n"
         ret += "\tGP Mode:\t\t %s\n" % self.getGPMode()
         ret += "\tPopulation Size:\t %d\n" % self.internalPop.popSize
