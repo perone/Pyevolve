@@ -216,7 +216,7 @@ class GSimpleGA(object):
         if seed:
             random.seed(seed)
 
-        if type(interactiveMode) != BooleanType:
+        if not isinstance(interactiveMode, bool):
             Util.raiseException("Interactive Mode option must be True or False", TypeError)
 
         if not isinstance(genome, GenomeBase):
@@ -549,7 +549,7 @@ class GSimpleGA(object):
         :param flag: True or False
 
         """
-        if type(flag) != BooleanType:
+        if not isinstancetype(flag, bool):
             Util.raiseException("Elitism option must be True or False", TypeError)
         self.elitism = flag
 
