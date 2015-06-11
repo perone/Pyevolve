@@ -15,7 +15,6 @@ setup(
    author = __author__,
    author_email = "christian.perone@gmail.com",
    description = "A complete, free and open-source evolutionary framework written in Python",
-   install_requires = ['future'],
    license = "PSF",
    keywords = "genetic algorithm genetic programming algorithms framework library python ai evolutionary framework",
    url = "http://pyevolve.sourceforge.net/",
