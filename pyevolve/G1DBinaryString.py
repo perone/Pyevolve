@@ -34,9 +34,9 @@ Class
 
 """
 
-from GenomeBase import GenomeBase, G1DBase
-import Consts
-import Util
+from .GenomeBase import GenomeBase, G1DBase
+from . import Consts
+from . import Util
 
 class G1DBinaryString(G1DBase):
    """ G1DBinaryString Class - The 1D Binary String chromosome
