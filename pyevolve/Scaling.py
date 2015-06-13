@@ -8,8 +8,6 @@ This module have the *scaling schemes* like Linear scaling, etc.
 """
 from future.builtins import range
 
-import Consts
-import Util
 import math
 import logging
 
@@ -19,6 +17,7 @@ def LinearScaling(pop):
    .. warning :: Linear Scaling is only for positive raw scores
 
    """
+   from . import Consts, Util
    logging.debug("Running linear scaling.")
    pop.statistics()
    c = Consts.CDefScaleLinearMultiplier
@@ -51,6 +50,7 @@ def LinearScaling(pop):
 
 def SigmaTruncScaling(pop):
    """ Sigma Truncation scaling scheme, allows negative scores """
+   from . import Consts
    logging.debug("Running sigma truncation scaling.")
    pop.statistics()
    c = Consts.CDefScaleSigmaTruncMultiplier
@@ -69,6 +69,7 @@ def PowerLawScaling(pop):
    .. warning :: Power Law Scaling is only for positive raw scores
 
    """
+   from . import Consts
    logging.debug("Running power law scaling.")
    k = Consts.CDefScalePowerLawFactor
    for i in range(len(pop)):
