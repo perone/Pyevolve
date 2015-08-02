@@ -152,13 +152,13 @@ class GPopulation(object):
       self.allSlots = [self.scaleMethod]
 
       self.internalParams = {}
-      self.multiProcessing = (False, False, None)
+      self.multiProcessing = (False, False, None, None)
 
       # Statistics
       self.statted = False
       self.stats = Statistics()
 
-   def setMultiProcessing(self, flag=True, full_copy=False, max_processes=None):
+   def setMultiProcessing(self, flag=True, full_copy=False, max_processes=None, chunksize=None):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
       Use this option when you have more than one core on your CPU and when your
       evaluation function is very slow.
@@ -169,6 +169,7 @@ class GPopulation(object):
       :param flag: True (default) or False
       :param full_copy: True or False (default)
       :param max_processes: None (default) or an integer value
+      :param chunksize: None (default) or an integer value
 
       .. warning:: Use this option only when your evaluation function is slow, se you
                    will get a good tradeoff between the process communication speed and the
@@ -178,7 +179,7 @@ class GPopulation(object):
          The `setMultiProcessing` method.
 
       """
-      self.multiProcessing = (flag, full_copy, max_processes)
+      self.multiProcessing = (flag, full_copy, max_processes, chunksize)
 
    def setMinimax(self, minimax):
       """ Sets the population minimax
@@ -390,13 +391,13 @@ class GPopulation(object):
 
          # Multiprocessing full_copy parameter
          if self.multiProcessing[1]:
-            results = proc_pool.map(multiprocessing_eval_full, self.internalPop)
+            results = proc_pool.map(multiprocessing_eval_full, self.internalPop, chunksize=self.multiProcessing[3])
             proc_pool.close()
             proc_pool.join()
             for i in xrange(len(self.internalPop)):
                self.internalPop[i] = results[i]
          else:
-            results = proc_pool.map(multiprocessing_eval, self.internalPop)
+            results = proc_pool.map(multiprocessing_eval, self.internalPop, chunksize=self.multiProcessing[3])
             proc_pool.close()
             proc_pool.join()
             for individual, score in zip(self.internalPop, results):

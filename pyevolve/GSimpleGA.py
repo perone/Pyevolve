@@ -383,7 +383,7 @@ class GSimpleGA(object):
         ret += "\n"
         return ret
 
-    def setMultiProcessing(self, flag=True, full_copy=False, max_processes=None):
+    def setMultiProcessing(self, flag=True, full_copy=False, max_processes=None, chunksize=None):
         """ Sets the flag to enable/disable the use of python multiprocessing module.
         Use this option when you have more than one core on your CPU and when your
         evaluation function is very slow.
@@ -404,6 +404,7 @@ class GSimpleGA(object):
         :param flag: True (default) or False
         :param full_copy: True or False (default)
         :param max_processes: None (default) or an integer value
+        :param chunksize: None (default) or an integer value
 
         .. warning:: Use this option only when your evaluation function is slow, so you'll
                      get a good tradeoff between the process communication speed and the
@@ -425,7 +426,7 @@ class GSimpleGA(object):
         if type(full_copy) != BooleanType:
             Util.raiseException("Multiprocessing 'full_copy' option must be True or False", TypeError)
 
-        self.internalPop.setMultiProcessing(flag, full_copy, max_processes)
+        self.internalPop.setMultiProcessing(flag, full_copy, max_processes, chunksize)
 
     def setMigrationAdapter(self, migration_adapter=None):
         """ Sets the Migration Adapter
