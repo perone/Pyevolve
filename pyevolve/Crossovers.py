@@ -444,7 +444,7 @@ def G2DListCrossoverSingleHPoint(genome, **args):
    if args["count"] == 2:
       brother = gDad.clone()
       brother.resetStats()
-      for i in xrange(brother.getHeight()):
+      for i in xrange(cut, brother.getHeight()):
          brother[i][:] = gMom[i][:]
 
    return (sister, brother)
