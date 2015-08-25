@@ -13,6 +13,7 @@ from pyevolve.GTree import GTree, GTreeNode
 
 
 class CrossoverTestCase(unittest.TestCase):
+
     def assertCrossoverResultsEqual(
             self,
             crossover,
@@ -28,13 +29,16 @@ class CrossoverTestCase(unittest.TestCase):
             'dad': self.dad,
         }
         kwargs.update(crossover_extra_kwargs)
-        genome_value_getter = lambda g: getattr(g, genome_attr_name) if genome_attr_name else g
-        actual_sister, actual_brother = [genome_value_getter(g) if g else None for g in crossover(None, **kwargs)]
+        genome_value_getter = lambda g: getattr(
+            g, genome_attr_name) if genome_attr_name else g
+        actual_sister, actual_brother = [genome_value_getter(
+            g) if g else None for g in crossover(None, **kwargs)]
         getattr(self, assertion_name)(actual_sister, expected_sister)
         getattr(self, assertion_name)(actual_brother, expected_brother)
 
 
 class G1DBinaryStringCrossoversTestCase(CrossoverTestCase):
+
     def setUp(self):
         self.mom = G1DBinaryString(3)
         self.mom.append(1)
@@ -90,6 +94,7 @@ class G1DBinaryStringCrossoversTestCase(CrossoverTestCase):
 
 
 class G1DListCrossoversTestCase(CrossoverTestCase):
+
     def setUp(self):
         self.mom = G1DList(3)
         self.mom.genomeList = [1, 2, 3]
@@ -206,6 +211,7 @@ class G1DListCrossoversTestCase(CrossoverTestCase):
 
 
 class G2DListCrossoversTestCase(CrossoverTestCase):
+
     def setUp(self):
         self.mom = G2DList(3, 3)
         self.mom.genomeList = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -255,6 +261,7 @@ class G2DListCrossoversTestCase(CrossoverTestCase):
 
 
 class G2DBinaryStringCrossoversTestCase(CrossoverTestCase):
+
     def setUp(self):
         self.mom = G2DBinaryString(3, 3)
         self.mom.genomeString = [[0, 0, 0], [0, 0, 1], [0, 1, 0]]
@@ -309,6 +316,7 @@ class G2DBinaryStringCrossoversTestCase(CrossoverTestCase):
 
 
 class GTreeCrossoversTestCase(CrossoverTestCase):
+
     def setUp(self):
         mom_root = GTreeNode(1)
         mom_root.addChild(GTreeNode(2))
@@ -323,14 +331,16 @@ class GTreeCrossoversTestCase(CrossoverTestCase):
 
     def assetTreesEqual(self, tree1, tree2):
         """ Compares values of simplest trees with root and leafes from root"""
-        self.assertFalse((tree1 is None and tree2 is not None) or (tree1 is not None and tree2 is None))
+        self.assertFalse((tree1 is None and tree2 is not None)
+                         or (tree1 is not None and tree2 is None))
         if not(tree1 is None and tree2 is None):
             root1, root2 = tree1.getRoot(), tree2.getRoot()
             self.assertEqual(root1.node_data, root2.node_data)
             root1_childs = set([l.node_data for l in root1.getChilds()])
             root2_childs = set([l.node_data for l in root2.getChilds()])
             print root1_childs, root2_childs
-            self.assertFalse((root1_childs and not root2_childs) or (not root1_childs and root2_childs))
+            self.assertFalse((root1_childs and not root2_childs)
+                             or (not root1_childs and root2_childs))
             print root1_childs, root2_childs
             self.assertFalse(root1_childs - root2_childs)
 

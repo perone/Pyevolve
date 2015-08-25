@@ -6,6 +6,8 @@ from pyevolve import GAllele
 
 # This function is the evaluation function, we want
 # to give high score to more zero'ed chromosomes
+
+
 def eval_func(chromosome):
     score = 0.0
 
@@ -26,6 +28,7 @@ def eval_func(chromosome):
 
     return score
 
+
 def run_main():
     # Genome instance
     setOfAlleles = GAllele.GAlleles()
@@ -41,7 +44,7 @@ def run_main():
     for i in xrange(11, 20):
         # You can even add objects instead of strings or
         # primitive values
-        a = GAllele.GAlleleList(['a','b', 'xxx', 666, 0])
+        a = GAllele.GAlleleList(['a', 'b', 'xxx', 666, 0])
         setOfAlleles.add(a)
 
     genome = G1DList.G1DList(20)

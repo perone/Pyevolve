@@ -25,7 +25,8 @@ import Util
 
 def G1DBinaryStringInitializator(genome, **args):
     """ 1D Binary String initializator """
-    genome.genomeList = [rand_choice((0, 1)) for _ in xrange(genome.getListSize())]
+    genome.genomeList = [rand_choice((0, 1))
+                         for _ in xrange(genome.getListSize())]
 
 
 #############################
@@ -60,9 +61,11 @@ def G1DListInitializatorAllele(genome, **args):
 
     allele = genome.getParam("allele", None)
     if allele is None:
-        Util.raiseException("to use the G1DListInitializatorAllele, you must specify the 'allele' parameter")
+        Util.raiseException(
+            "to use the G1DListInitializatorAllele, you must specify the 'allele' parameter")
 
-    genome.genomeList = [allele[i].getRandomAllele() for i in xrange(genome.getListSize())]
+    genome.genomeList = [allele[i].getRandomAllele()
+                         for i in xrange(genome.getListSize())]
 
 
 def G1DListInitializatorInteger(genome, **args):
@@ -74,7 +77,8 @@ def G1DListInitializatorInteger(genome, **args):
     range_min = genome.getParam("rangemin", 0)
     range_max = genome.getParam("rangemax", 100)
 
-    genome.genomeList = [rand_randint(range_min, range_max) for i in xrange(genome.getListSize())]
+    genome.genomeList = [rand_randint(range_min, range_max)
+                         for i in xrange(genome.getListSize())]
 
 
 def G1DListInitializatorReal(genome, **args):
@@ -86,7 +90,8 @@ def G1DListInitializatorReal(genome, **args):
     range_min = genome.getParam("rangemin", 0)
     range_max = genome.getParam("rangemax", 100)
 
-    genome.genomeList = [rand_uniform(range_min, range_max) for i in xrange(genome.getListSize())]
+    genome.genomeList = [rand_uniform(range_min, range_max)
+                         for i in xrange(genome.getListSize())]
 
 
 ####################
@@ -135,10 +140,12 @@ def G2DListInitializatorAllele(genome, **args):
 
     allele = genome.getParam("allele", None)
     if allele is None:
-        Util.raiseException("to use the G2DListInitializatorAllele, you must specify the 'allele' parameter")
+        Util.raiseException(
+            "to use the G2DListInitializatorAllele, you must specify the 'allele' parameter")
 
     if not allele.homogeneous:
-        Util.raiseException("to use the G2DListInitializatorAllele, the 'allele' must be homogeneous")
+        Util.raiseException(
+            "to use the G2DListInitializatorAllele, the 'allele' must be homogeneous")
 
     genome.clearList()
 
@@ -181,16 +188,21 @@ def GTreeInitializatorInteger(genome, **args):
     method = genome.getParam("method", "grow")
 
     if method == "grow":
-        root = GTree.buildGTreeGrow(0, lambda_generator, max_siblings, max_depth)
+        root = GTree.buildGTreeGrow(
+            0, lambda_generator, max_siblings, max_depth)
     elif method == "full":
-        root = GTree.buildGTreeFull(0, lambda_generator, max_siblings, max_depth)
+        root = GTree.buildGTreeFull(
+            0, lambda_generator, max_siblings, max_depth)
     elif method == "ramped":
         if Util.randomFlipCoin(0.5):
-            root = GTree.buildGTreeGrow(0, lambda_generator, max_siblings, max_depth)
+            root = GTree.buildGTreeGrow(
+                0, lambda_generator, max_siblings, max_depth)
         else:
-            root = GTree.buildGTreeFull(0, lambda_generator, max_siblings, max_depth)
+            root = GTree.buildGTreeFull(
+                0, lambda_generator, max_siblings, max_depth)
     else:
-        Util.raiseException("Unknown tree initialization method [%s] !" % method)
+        Util.raiseException(
+            "Unknown tree initialization method [%s] !" % method)
 
     genome.setRoot(root)
     genome.processNodes()
@@ -214,22 +226,29 @@ def GTreeInitializatorAllele(genome, **args):
 
     allele = genome.getParam("allele", None)
     if allele is None:
-        Util.raiseException("to use the GTreeInitializatorAllele, you must specify the 'allele' parameter")
+        Util.raiseException(
+            "to use the GTreeInitializatorAllele, you must specify the 'allele' parameter")
 
     if not allele.homogeneous:
-        Util.raiseException("to use the GTreeInitializatorAllele, the 'allele' must be homogeneous")
+        Util.raiseException(
+            "to use the GTreeInitializatorAllele, the 'allele' must be homogeneous")
 
     if method == "grow":
-        root = GTree.buildGTreeGrow(0, allele[0].getRandomAllele, max_siblings, max_depth)
+        root = GTree.buildGTreeGrow(
+            0, allele[0].getRandomAllele, max_siblings, max_depth)
     elif method == "full":
-        root = GTree.buildGTreeFull(0, allele[0].getRandomAllele, max_siblings, max_depth)
+        root = GTree.buildGTreeFull(
+            0, allele[0].getRandomAllele, max_siblings, max_depth)
     elif method == "ramped":
         if Util.randomFlipCoin(0.5):
-            root = GTree.buildGTreeGrow(0, allele[0].getRandomAllele, max_siblings, max_depth)
+            root = GTree.buildGTreeGrow(
+                0, allele[0].getRandomAllele, max_siblings, max_depth)
         else:
-            root = GTree.buildGTreeFull(0, allele[0].getRandomAllele, max_siblings, max_depth)
+            root = GTree.buildGTreeFull(
+                0, allele[0].getRandomAllele, max_siblings, max_depth)
     else:
-        Util.raiseException("Unknown tree initialization method [%s] !" % method)
+        Util.raiseException(
+            "Unknown tree initialization method [%s] !" % method)
 
     genome.setRoot(root)
     genome.processNodes()
@@ -267,7 +286,8 @@ def GTreeGPInitializator(genome, **args):
         else:
             root = GTree.buildGTreeGPGrow(ga_engine, 0, max_depth)
     else:
-        Util.raiseException("Unknown tree initialization method [%s] !" % method)
+        Util.raiseException(
+            "Unknown tree initialization method [%s] !" % method)
 
     genome.setRoot(root)
     genome.processNodes()

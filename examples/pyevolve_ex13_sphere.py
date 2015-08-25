@@ -3,11 +3,14 @@ from pyevolve import Mutators, Initializators
 from pyevolve import GSimpleGA, Consts
 
 # This is the Sphere Function
+
+
 def sphere(xlist):
     total = 0
     for i in xlist:
         total += i**2
     return total
+
 
 def run_main():
     genome = G1DList.G1DList(140)
@@ -26,5 +29,3 @@ def run_main():
 
 if __name__ == "__main__":
     run_main()
-   
-

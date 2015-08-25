@@ -6,16 +6,19 @@ from pyevolve import DBAdapters
 
 # This function is the evaluation function, we want
 # to give high score to more zero'ed chromosomes
+
+
 def eval_func(genome):
     score = 0.0
 
     # iterate over the chromosome
     # The same as "score = len(filter(lambda x: x==0, genome))"
     for value in genome:
-        if value==0:
+        if value == 0:
             score += 1
 
     return score
+
 
 def run_main():
     # Genome instance, 1D List of 50 elements

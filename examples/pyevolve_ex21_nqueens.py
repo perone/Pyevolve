@@ -8,21 +8,27 @@ from random import shuffle
 BOARD_SIZE = 64
 
 # The n-queens fitness function
+
+
 def queens_eval(genome):
     collisions = 0
     for i in xrange(0, BOARD_SIZE):
-        if i not in genome: return 0
+        if i not in genome:
+            return 0
     for i in xrange(0, BOARD_SIZE):
         col = False
         for j in xrange(0, BOARD_SIZE):
-            if (i != j) and (abs(i-j) == abs(genome[j]-genome[i])):
+            if (i != j) and (abs(i - j) == abs(genome[j] - genome[i])):
                 col = True
-        if col == True: collisions +=1
-    return BOARD_SIZE-collisions
+        if col == True:
+            collisions += 1
+    return BOARD_SIZE - collisions
+
 
 def queens_init(genome, **args):
     genome.genomeList = range(0, BOARD_SIZE)
     shuffle(genome.genomeList)
+
 
 def run_main():
     genome = G1DList.G1DList(BOARD_SIZE)
@@ -42,7 +48,7 @@ def run_main():
     ga.setCrossoverRate(1.0)
 
     #sqlite_adapter = DBAdapters.DBSQLite(identify="queens")
-    #ga.setDBAdapter(sqlite_adapter)
+    # ga.setDBAdapter(sqlite_adapter)
 
     vpython_adapter = DBAdapters.DBVPythonGraph(identify="queens", frequency=1)
     ga.setDBAdapter(vpython_adapter)
@@ -55,4 +61,3 @@ def run_main():
 
 if __name__ == "__main__":
     run_main()
-  

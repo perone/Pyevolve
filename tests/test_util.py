@@ -4,6 +4,7 @@ from pyevolve import Util
 
 
 class UtilTestCase(TestCase):
+
     def test_listSwapElement(self):
         _list = [1, 2, 3]
         Util.listSwapElement(_list, 0, 1)

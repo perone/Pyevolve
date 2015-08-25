@@ -5,6 +5,7 @@ from pyevolve import Mutators
 import time
 import random
 
+
 def eval_func(chromosome):
     score = 0.0
     # If you want to add score values based
@@ -14,12 +15,13 @@ def eval_func(chromosome):
     #height = chromosome.getHeight()
 
     for node in chromosome:
-        score += (100 - node.getData())*0.1
+        score += (100 - node.getData()) * 0.1
 
-    #if height <= chromosome.getParam("max_depth"):
+    # if height <= chromosome.getParam("max_depth"):
     #   score += (score*0.8)
 
     return score
+
 
 def run_main():
     genome = GTree.GTree()
@@ -40,5 +42,3 @@ def run_main():
 
 if __name__ == "__main__":
     run_main()
-
-  

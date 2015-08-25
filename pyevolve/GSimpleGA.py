@@ -78,6 +78,7 @@ import pyevolve
 if sys_platform[:3] == "win":
     import msvcrt
 
+
 def RawScoreCriteria(ga_engine):
     """ Terminate the evolution using the **bestrawscore** and **rounddecimal**
     parameter obtained from the individual
@@ -93,7 +94,8 @@ def RawScoreCriteria(ga_engine):
     roundDecimal = ind.getParam("rounddecimal")
 
     if bestRawScore is None:
-        Util.raiseException("you must specify the bestrawscore parameter", ValueError)
+        Util.raiseException(
+            "you must specify the bestrawscore parameter", ValueError)
 
     if ga_engine.getMinimax() == Consts.minimaxType["maximize"]:
         if roundDecimal is not None:
@@ -146,6 +148,7 @@ def FitnessStatsCriteria(ga_engine):
          return True
    return False
 
+
 class GSimpleGA:
    """ GA Engine Class - The Genetic Algorithm Core
 
@@ -172,13 +175,13 @@ class GSimpleGA:
    stepCallback = None
    """ This is the :term:`step callback function` slot,
    if you want to set the function, you must do this: ::
-      
+
       def your_func(ga_engine):
          # Here you have access to the GA Engine
          return False
 
       ga_engine.stepCallback.set(your_func)
-      
+
    now *"your_func"* will be called every generation.
    When this function returns True, the GA Engine will stop the evolution and show
    a warning, if is False, the evolution continues.
@@ -189,7 +192,7 @@ class GSimpleGA:
    termination criteria, you must do this: ::
 
       ga_engine.terminationCriteria.set(GSimpleGA.ConvergenceCriteria)
-      
+
    Now, when you run your GA, it will stop when the population converges.
 
    There are those termination criteria functions: :func:`GSimpleGA.RawScoreCriteria`, :func:`GSimpleGA.ConvergenceCriteria`, :func:`GSimpleGA.RawStatsCriteria`, :func:`GSimpleGA.FitnessStatsCriteria`
@@ -211,34 +214,37 @@ class GSimpleGA:
       if seed: random.seed(seed)
 
       if type(interactiveMode) != BooleanType:
-         Util.raiseException("Interactive Mode option must be True or False", TypeError)
-      
-      if not isinstance(genome, GenomeBase):
-         Util.raiseException("The genome must be a GenomeBase subclass", TypeError)
+         Util.raiseException(
+             "Interactive Mode option must be True or False", TypeError)
 
-      self.internalPop  = GPopulation(genome)
+      if not isinstance(genome, GenomeBase):
+         Util.raiseException(
+             "The genome must be a GenomeBase subclass", TypeError)
+
+      self.internalPop = GPopulation(genome)
       self.nGenerations = Consts.CDefGAGenerations
-      self.pMutation    = Consts.CDefGAMutationRate
-      self.pCrossover   = Consts.CDefGACrossoverRate
+      self.pMutation = Consts.CDefGAMutationRate
+      self.pCrossover = Consts.CDefGACrossoverRate
       self.nElitismReplacement = Consts.CDefGAElitismReplacement
       self.setPopulationSize(Consts.CDefGAPopulationSize)
-      self.minimax      = Consts.minimaxType["maximize"]
-      self.elitism      = True
+      self.minimax = Consts.minimaxType["maximize"]
+      self.elitism = True
 
       # Adapters
-      self.dbAdapter        = None
+      self.dbAdapter = None
       self.migrationAdapter = None
-      
-      self.time_init       = None
+
+      self.time_init = None
       self.interactiveMode = interactiveMode
-      self.interactiveGen  = -1
+      self.interactiveGen = -1
       self.GPMode = False
 
-      self.selector            = FunctionSlot("Selector")
-      self.stepCallback        = FunctionSlot("Generation Step Callback")
+      self.selector = FunctionSlot("Selector")
+      self.stepCallback = FunctionSlot("Generation Step Callback")
       self.terminationCriteria = FunctionSlot("Termination Criteria")
       self.selector.set(Consts.CDefGASelector)
-      self.allSlots            = [ self.selector, self.stepCallback, self.terminationCriteria ]
+      self.allSlots = [self.selector,
+          self.stepCallback, self.terminationCriteria]
 
       self.internalParams = {}
 
@@ -246,22 +252,23 @@ class GSimpleGA:
 
       # GP Testing
       for classes in Consts.CDefGPGenomes:
-         if  isinstance(self.internalPop.oneSelfGenome, classes):
+         if isinstance(self.internalPop.oneSelfGenome, classes):
             self.setGPMode(True)
             break
-      
-      logging.debug("A GA Engine was created, nGenerations=%d", self.nGenerations)
+
+      logging.debug("A GA Engine was created, nGenerations=%d",
+                    self.nGenerations)
 
    def setGPMode(self, bool_value):
       """ Sets the Genetic Programming mode of the GA Engine
-      
+
       :param bool_value: True or False
       """
       self.GPMode = bool_value
 
    def getGPMode(self):
       """ Get the Genetic Programming mode of the GA Engine
-      
+
       :rtype: True or False
       """
       return self.GPMode
@@ -271,7 +278,7 @@ class GSimpleGA:
 
       Example:
          >>> ga_engine(freq_stats=10)
-         
+
       .. versionadded:: 0.6
          The callable method.
       """
@@ -293,7 +300,7 @@ class GSimpleGA:
          Added the *setParams* method.
       """
       self.internalParams.update(args)
-   
+
    def getParam(self, key, nvl=None):
       """ Gets an internal parameter
 
@@ -312,7 +319,7 @@ class GSimpleGA:
    def setInteractiveGeneration(self, generation):
       """ Sets the generation in which the GA must enter in the
       Interactive Mode
-      
+
       :param generation: the generation number, use "-1" to disable
 
       .. versionadded::0.6
@@ -325,7 +332,7 @@ class GSimpleGA:
    def getInteractiveGeneration(self):
       """ returns the generation in which the GA must enter in the
       Interactive Mode
-      
+
       :rtype: the generation number or -1 if not set
 
       .. versionadded::0.6
@@ -337,7 +344,7 @@ class GSimpleGA:
       """ Set the number of best individuals to copy to the next generation on the elitism
 
       :param numreplace: the number of individuals
-      
+
       .. versionadded:: 0.6
          The *setElitismReplacement* method.
 
@@ -346,41 +353,41 @@ class GSimpleGA:
          Util.raiseException("Replacement number must be >= 1", ValueError)
       self.nElitismReplacement = numreplace
 
-
    def setInteractiveMode(self, flag=True):
       """ Enable/disable the interactive mode
       If True, press CTRL-C to enter Interactive Mode during the evolution
       If False, CTRL-C will exit the evolution normally
-      
+
       :param flag: True or False
 
       .. versionadded: 0.6
          The *setInteractiveMode* method.
-      
+
       """
       if type(flag) != BooleanType:
-         Util.raiseException("Interactive Mode option must be True or False", TypeError)
+         Util.raiseException(
+             "Interactive Mode option must be True or False", TypeError)
       self.interactiveMode = flag
-
 
    def __repr__(self):
       """ The string representation of the GA Engine """
-      ret =  "- GSimpleGA\n"
+      ret = "- GSimpleGA\n"
       ret += "\tGP Mode:\t\t %s\n" % self.getGPMode()
       ret += "\tPopulation Size:\t %d\n" % (self.internalPop.popSize,)
       ret += "\tGenerations:\t\t %d\n" % (self.nGenerations,)
       ret += "\tCurrent Generation:\t %d\n" % (self.currentGeneration,)
       ret += "\tMutation Rate:\t\t %.2f\n" % (self.pMutation,)
       ret += "\tCrossover Rate:\t\t %.2f\n" % (self.pCrossover,)
-      ret += "\tMinimax Type:\t\t %s\n" % (Consts.minimaxType.keys()[Consts.minimaxType.values().index(self.minimax)].capitalize(),)
+      ret += "\tMinimax Type:\t\t %s\n" % (Consts.minimaxType.keys(
+          )[Consts.minimaxType.values().index(self.minimax)].capitalize(),)
       ret += "\tElitism:\t\t %s\n" % (self.elitism,)
       ret += "\tElitism Replacement:\t %d\n" % (self.nElitismReplacement,)
       ret += "\tDB Adapter:\t\t %s\n" % (self.dbAdapter,)
       for slot in self.allSlots:
-         ret+= "\t" + slot.__repr__()
-      ret+="\n"
+         ret += "\t" + slot.__repr__()
+      ret += "\n"
       return ret
-   
+
    def setMultiProcessing(self, flag=True, full_copy=False):
       """ Sets the flag to enable/disable the use of python multiprocessing module.
       Use this option when you have more than one core on your CPU and when your
@@ -393,12 +400,12 @@ class GSimpleGA:
 
       Pyevolve uses the **multiprocessing** to execute the evaluation function over
       the individuals, so the use of this feature will make sense if you have a
-      truly slow evaluation function (which is commom in GAs).      
+      truly slow evaluation function (which is commom in GAs).
 
       The parameter "full_copy" defines where the individual data should be copied back
       after the evaluation or not. This parameter is useful when you change the
       individual in the evaluation function.
-      
+
       :param flag: True (default) or False
       :param full_copy: True or False (default)
 
@@ -409,7 +416,8 @@ class GSimpleGA:
 
       .. note:: To enable the multiprocessing option, you **MUST** add the *__main__* check
                 on your application, otherwise, it will result in errors. See more on the
-                `Python Docs <http://docs.python.org/library/multiprocessing.html#multiprocessing-programming>`__
+                #multiprocessing-programming>`__
+                `Python Docs <http://docs.python.org/library/multiprocessing.html
                 site.
 
       .. versionadded:: 0.6
@@ -417,10 +425,12 @@ class GSimpleGA:
 
       """
       if type(flag) != BooleanType:
-         Util.raiseException("Multiprocessing option must be True or False", TypeError)
+         Util.raiseException(
+             "Multiprocessing option must be True or False", TypeError)
 
       if type(full_copy) != BooleanType:
-         Util.raiseException("Multiprocessing 'full_copy' option must be True or False", TypeError)
+         Util.raiseException(
+             "Multiprocessing 'full_copy' option must be True or False", TypeError)
 
       self.internalPop.setMultiProcessing(flag, full_copy)
 
@@ -972,13 +982,13 @@ class GSimpleGA(object):
          logging.debug("Doing elitism.")
          if self.getMinimax() == Consts.minimaxType["maximize"]:
             for i in xrange(self.nElitismReplacement):
-               #re-evaluate before being sure this is the best
+               # re-evaluate before being sure this is the best
                self.internalPop.bestRaw(i).evaluate()
                if self.internalPop.bestRaw(i).score > newPop.bestRaw(i).score:
                   newPop[len(newPop)-1-i] = self.internalPop.bestRaw(i)
          elif self.getMinimax() == Consts.minimaxType["minimize"]:
             for i in xrange(self.nElitismReplacement):
-               #re-evaluate before being sure this is the best
+               # re-evaluate before being sure this is the best
                self.internalPop.bestRaw(i).evaluate()
                if self.internalPop.bestRaw(i).score < newPop.bestRaw(i).score:
                   newPop[len(newPop)-1-i] = self.internalPop.bestRaw(i)

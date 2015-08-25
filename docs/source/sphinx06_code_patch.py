@@ -19,7 +19,7 @@ from sphinx import addnodes
 from sphinx.util import parselinenos
 
 
-# ------ highlight directive --------------------------------------------------------
+# ------ highlight directive ---------------------------------------------
 
 def highlightlang_directive(name, arguments, options, content, lineno,
                             content_offset, block_text, state, state_machine):
@@ -37,10 +37,11 @@ highlightlang_directive.content = 0
 highlightlang_directive.arguments = (1, 0, 0)
 highlightlang_directive.options = {'linenothreshold': directives.unchanged}
 directives.register_directive('highlight', highlightlang_directive)
-directives.register_directive('highlightlang', highlightlang_directive) # old name
+directives.register_directive(
+    'highlightlang', highlightlang_directive)  # old name
 
 
-# ------ code-block directive -------------------------------------------------------
+# ------ code-block directive --------------------------------------------
 
 def codeblock_directive(name, arguments, options, content, lineno,
                         content_offset, block_text, state, state_machine):
@@ -57,7 +58,7 @@ directives.register_directive('code-block', codeblock_directive)
 directives.register_directive('sourcecode', codeblock_directive)
 
 
-# ------ literalinclude directive ---------------------------------------------------
+# ------ literalinclude directive ----------------------------------------
 
 def literalinclude_directive(name, arguments, options, content, lineno,
                              content_offset, block_text, state, state_machine):
@@ -99,7 +100,7 @@ def literalinclude_directive(name, arguments, options, content, lineno,
                 'Object named %r not found in include file %r' %
                 (objectname, arguments[0]), line=lineno)]
         else:
-            lines = lines[tags[objectname][1] - 1 : tags[objectname][2] - 1]
+            lines = lines[tags[objectname][1] - 1: tags[objectname][2] - 1]
 
     linespec = options.get('lines')
     if linespec is not None:
@@ -126,7 +127,7 @@ def literalinclude_directive(name, arguments, options, content, lineno,
 
     text = ''.join(lines)
     text = re.sub("\r\n", "\n", text)
-    
+
     retnode = nodes.literal_block(text, text, source=fn)
     retnode.line = 1
     if options.get('language', ''):
