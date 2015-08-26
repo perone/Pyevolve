@@ -149,7 +149,7 @@ def FitnessStatsCriteria(ga_engine):
    return False
 
 
-class GSimpleGA:
+class GSimpleGA(object):
    """ GA Engine Class - The Genetic Algorithm Core
 
    Example:
@@ -416,7 +416,7 @@ class GSimpleGA:
 
       .. note:: To enable the multiprocessing option, you **MUST** add the *__main__* check
                 on your application, otherwise, it will result in errors. See more on the
-                #multiprocessing-programming>`__
+                # multiprocessing-programming>`__
                 `Python Docs <http://docs.python.org/library/multiprocessing.html
                 site.
 
