@@ -157,13 +157,13 @@ class GPopulation(object):
         self.allSlots = [self.scaleMethod]
 
         self.internalParams = {}
-        self.multiProcessing = (False, False, None, None)
+        self.multiProcessing = (False, False, {}, {})
 
         # Statistics
         self.statted = False
         self.stats = Statistics()
 
-    def setMultiProcessing(self, flag=True, full_copy=False, max_processes=None, chunksize=None):
+    def setMultiProcessing(self, flag=True, full_copy=False, pool_init_kwargs=None, pool_eval_kwargs=None):
         """ Sets the flag to enable/disable the use of python multiprocessing module.
         Use this option when you have more than one core on your CPU and when your
         evaluation function is very slow.
@@ -173,8 +173,10 @@ class GPopulation(object):
 
         :param flag: True (default) or False
         :param full_copy: True or False (default)
-        :param max_processes: None (default) or an integer value
-        :param chunksize: None (default) or an integer value
+        :param pool_init_kwargs: Dict of kwargs to pass to the Pool object (default is None).
+                                Can include max_processes for example.
+        :param pool_eval_kwargs: Dict of kwargs to pass to the Pool object eval (e.g. map/apply) (default is None).
+                                 Can include chunksize for example.
 
         .. warning:: Use this option only when your evaluation function is slow, se you
                      will get a good tradeoff between the process communication speed and the
@@ -184,7 +186,8 @@ class GPopulation(object):
            The `setMultiProcessing` method.
 
         """
-        self.multiProcessing = (flag, full_copy, max_processes, chunksize)
+        self.multiProcessing = (flag, full_copy, pool_init_kwargs if pool_init_kwargs else {},
+                                pool_eval_kwargs if pool_eval_kwargs else {})
 
     def setMinimax(self, minimax):
         """ Sets the population minimax
@@ -396,19 +399,19 @@ class GPopulation(object):
         if self.multiProcessing[0] and MULTI_PROCESSING:
             logging.debug(
                 "Evaluating the population using the multiprocessing method")
-            proc_pool = Pool(processes=self.multiProcessing[2])
+            proc_pool = Pool(**self.multiProcessing[2])
 
             # Multiprocessing full_copy parameter
             if self.multiProcessing[1]:
                 results = proc_pool.map(
-                    multiprocessing_eval_full, self.internalPop, chunksize=self.multiProcessing[3])
+                    multiprocessing_eval_full, self.internalPop, **self.multiProcessing[3])
                 proc_pool.close()
                 proc_pool.join()
                 for i in xrange(len(self.internalPop)):
                     self.internalPop[i] = results[i]
             else:
                 results = proc_pool.map(
-                    multiprocessing_eval, self.internalPop, chunksize=self.multiProcessing[3])
+                    multiprocessing_eval, self.internalPop, **self.multiProcessing[3])
                 proc_pool.close()
                 proc_pool.join()
                 for individual, score in zip(self.internalPop, results):
