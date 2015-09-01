@@ -1,4 +1,4 @@
-## Pyevolve
+## Pyevolve [![Build Status](https://travis-ci.org/erikreed-public/Pyevolve.svg)](https://travis-ci.org/erikreed-public/Pyevolve)
 This is a fork of [perone/Pyevolve](https://github.com/perone/Pyevolve) that attempts to continue where Pyevolve left off by merging outstanding pull requests, cleaning up the codebase, and adding new features. Pyevolve is a great package that has not been actively maintained by the owner.
 
 #### Notable changes
