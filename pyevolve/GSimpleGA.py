@@ -16,7 +16,7 @@ Default Parameters
 
 *Mutation Rate*
 
-   Default is 0.02, which represents 0.2%
+   Default is 0.02, which represents 2%
 
 *Crossover Rate*
 
