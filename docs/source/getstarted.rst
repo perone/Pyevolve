@@ -51,7 +51,7 @@ The next step is the creation of a :term:`sample genome` [#samplegenome]_ for th
 
 This will create an instance of the :class:`G1DList.G1DList` class (which resides in the :mod:`G1DList` module) with the list *n*-size of 20 and sets the evaluation function of the genome to the evaluation function **"eval_func"** that we created before.
 
-But wait - where is the range of integers that will be used in the list ? Where are the mutator, crossover and initialization functions ? They are all in the default parameters. As you see, these parameters keep things simple.
+But wait - where is the range of integers that will be used in the list? Where are the mutator, crossover and initialization functions? They are all set to their default parameters. Using these parameters keep things simple.
 
 By default (and you have the **documentation** to find these defaults), the range of the integers in the :class:`G1DList.G1DList` is between the inverval [ :attr:`Consts.CDefRangeMin`, :attr:`Consts.CDefRangeMax`] inclusive, and genetic operators is the same I have cited before: Swap Mutator :func:`Mutators.G1DListMutatorSwap`, One Point Crossover :func:`Crossovers.G1DListCrossoverSinglePoint` and the Integer Initializator :func:`Initializators.G1DListInitializatorInteger`. You can change everything with the API. For example, you can pass the ranges to the genome like so: ::
 
@@ -62,9 +62,9 @@ The GA Engine which we will use is the :class:`GSimpleGA.GSimpleGA` which reside
 
    ga = GSimpleGA.GSimpleGA(genome)
 
-Ready ! Easy, no ? We simply create our GA Engine with the previously created genome. You might be asking: "*Where is the selector method ? The number of generations ? Mutation rate ?*". Again: we have defaults. By default, the GA will evolve for 100 generations with a population size of 80 individuals, it will use the mutation rate of 2% and a crossover rate of 80%, the default selector is the Ranking Selection (:func:`Selectors.GRankSelector`) method. Those default parameters were not picked at random, they are all based on the commom used properties.
+The GA is now ready to use. We have simply created our GA Engine with the previously created genome. You might be asking: "*Where did we set the selector method, the number of generations, and the mutation rate?*". Again: we are using the default settings. By default, the GA will evolve for 100 generations with a population size of 80 individuals, it will use the mutation rate of 2% (there is a 2% chance that each individual created in a generation is mutated using the chosen mutation operator) and a crossover rate of 80% (there is an 80% chance that each individual created in a generation is created using the chosen crossover operator), the default selector is the Ranking Selection (:func:`Selectors.GRankSelector`) method. Those default parameters were not picked at random, they are all based on the commonly used settings.
 
-Now, all we need to do is to evolve ! ::
+Now, all we need to do is to evolve the population! ::
 
    # Do the evolution, with stats dump
    # frequency of 10 generations
@@ -77,10 +77,10 @@ Now, all we need to do is to evolve ! ::
           can use syntax like 'print object' and the object information will be show in an
           pretty format.
 
-Ready, now we have our first Genetic Algorithm, it looks more like a "Hello GA !" application. The code above shows the call of 
-the :meth:`GSimpleGA.GSimpleGA.evolve` method, with the parameter *freq_stats=10*. This method will do the evolution and will show the statistics every 10th generation. The next method called is the :meth:`GSimpleGA.GSimpleGA.bestIndividual`, this method will return the best individual after the end of the evolution, and with the *print* python command, we will show the genome on the screen.
+Ready, now we have our first Genetic Algorithm. It looks more like a "Hello GA!" application. The code above shows the call of 
+the :meth:`GSimpleGA.GSimpleGA.evolve` method, with the parameter *freq_stats=10*. This method will do the evolution and will show the statistics every 10th generation. The next method called is the :meth:`GSimpleGA.GSimpleGA.bestIndividual`. This method will return the best individual after the end of the evolution, and with the *print* python command, the genome is shown on the screen.
 
-This is what this example will produce as the result: ::
+When running the code, this is the resulting output: ::
 
    Gen. 1 (1.00%): Max/Min/Avg Fitness(Raw)     [2.40(3.00)   / 1.60(1.00)   /   2.00(2.00)]
    Gen. 10 (10.00%): Max/Min/Avg Fitness(Raw)   [10.80(10.00) / 7.20(8.00)   /   9.00(9.00)]
