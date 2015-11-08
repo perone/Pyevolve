@@ -4,13 +4,17 @@ from pyevolve import Selectors
 from pyevolve import Initializators, Mutators
 
 # Find negative element
+
+
 def eval_func(genome):
     score = 0.0
 
     for element in genome:
-        if element < 0: score += 0.1
+        if element < 0:
+            score += 0.1
 
     return score
+
 
 def run_main():
     # Genome instance
@@ -39,4 +43,3 @@ def run_main():
 
 if __name__ == "__main__":
     run_main()
-

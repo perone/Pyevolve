@@ -2,11 +2,15 @@ from pyevolve import G1DList, GSimpleGA, Selectors, Statistics
 from pyevolve import Initializators, Mutators, Consts, DBAdapters
 
 # This is the Rosenbrock Function
+
+
 def rosenbrock(xlist):
     sum_var = 0
     for x in xrange(1, len(xlist)):
-        sum_var += 100.0 * (xlist[x] - xlist[x-1]**2)**2 + (1 - xlist[x-1])**2
+        sum_var += 100.0 * (xlist[x] - xlist[x - 1] **
+                            2)**2 + (1 - xlist[x - 1])**2
     return sum_var
+
 
 def run_main():
     # Genome instance
@@ -37,16 +41,3 @@ def run_main():
 
 if __name__ == "__main__":
     run_main()
-
-
-
-
-
-
-
-
-
-
-
-
-

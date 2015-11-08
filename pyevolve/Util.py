@@ -148,7 +148,8 @@ def importSpecial(name):
     try:
         imp_mod = __import__(name)
     except ImportError:
-        raiseException("Cannot import module %s: %s" % (name, Consts.CDefImportList[name]), expt=ImportError)
+        raiseException("Cannot import module %s: %s" %
+                       (name, Consts.CDefImportList[name]), expt=ImportError)
     return imp_mod
 
 
@@ -156,6 +157,7 @@ class ErrorAccumulator(object):
     """ An accumulator for the Root Mean Square Error (RMSE) and the
     Mean Square Error (MSE)
     """
+
     def __init__(self):
         self.acc = 0.0
         self.acc_square = 0.0

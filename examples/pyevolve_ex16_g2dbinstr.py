@@ -6,6 +6,8 @@ from pyevolve import Mutators
 
 # This function is the evaluation function, we want
 # to give high score to more zero'ed chromosomes
+
+
 def eval_func(chromosome):
     score = 0.0
 
@@ -13,7 +15,7 @@ def eval_func(chromosome):
     for i in xrange(chromosome.getHeight()):
         for j in xrange(chromosome.getWidth()):
             # You can use the chromosome.getItem(i, j)
-            if chromosome[i][j]==0:
+            if chromosome[i][j] == 0:
                 score += 0.1
     return score
 

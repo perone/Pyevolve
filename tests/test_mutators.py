@@ -8,6 +8,7 @@ from pyevolve.G1DList import G1DList
 
 
 class G1DBinaryStringMutatorsTestCase(unittest.TestCase):
+
     def setUp(self):
         self.genome = G1DBinaryString(3)
         self.genome.append(1)
@@ -28,7 +29,6 @@ class G1DBinaryStringMutatorsTestCase(unittest.TestCase):
         Mutators.G1DBinaryStringMutatorSwap(self.genome, pmut=0.5)
         self.assertEqual(self.genome.genomeList, expected_result)
 
-
     @patch('pyevolve.Util.randomFlipCoin')
     def test_flip_mutator_small_pmut(self, coin_flip_mock):
         coin_flip_mock.return_value = 1
@@ -45,6 +45,7 @@ class G1DBinaryStringMutatorsTestCase(unittest.TestCase):
 
 
 class G1DListMutatorsTestCase(unittest.TestCase):
+
     def setUp(self):
         self.genome = G1DList(3)
         self.genome.genomeList = [1, 2, 3]

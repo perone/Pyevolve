@@ -6,11 +6,13 @@ from pyevolve import Scaling
 from pyevolve import Consts
 import math
 
+
 def eval_func(ind):
     score = 0.0
     var_x = ind[0]
-    var_z = var_x**2+2*var_x+1*math.cos(var_x)
+    var_z = var_x**2 + 2 * var_x + 1 * math.cos(var_x)
     return var_z
+
 
 def run_main():
     # Genome instance

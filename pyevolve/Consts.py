@@ -395,7 +395,6 @@ minimaxType = {"minimize": 0,
                "maximize": 1
                }
 
-CDefESCKey = 27
 
 CDefImportList = {"visual.graph": "you must install VPython !",
                   "csv": "csv module not found !",

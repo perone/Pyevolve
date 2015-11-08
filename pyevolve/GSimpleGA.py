@@ -383,7 +383,7 @@ class GSimpleGA(object):
         ret += "\n"
         return ret
 
-    def setMultiProcessing(self, flag=True, full_copy=False, max_processes=None):
+    def setMultiProcessing(self, flag=True, full_copy=False, pool_init_kwargs=None, pool_eval_kwargs=None):
         """ Sets the flag to enable/disable the use of python multiprocessing module.
         Use this option when you have more than one core on your CPU and when your
         evaluation function is very slow.
@@ -403,7 +403,10 @@ class GSimpleGA(object):
 
         :param flag: True (default) or False
         :param full_copy: True or False (default)
-        :param max_processes: None (default) or an integer value
+        :param pool_init_kwargs: Dict of kwargs to pass to the Pool object (default is None).
+                                Can include max_processes for example.
+        :param pool_eval_kwargs: Dict of kwargs to pass to the Pool object eval (e.g. map/apply) (default is None).
+                                 Can include chunksize for example.
 
         .. warning:: Use this option only when your evaluation function is slow, so you'll
                      get a good tradeoff between the process communication speed and the
@@ -422,10 +425,15 @@ class GSimpleGA(object):
         if type(flag) != BooleanType:
             Util.raiseException("Multiprocessing option must be True or False", TypeError)
 
-        if type(full_copy) != BooleanType:
-            Util.raiseException("Multiprocessing 'full_copy' option must be True or False", TypeError)
+        for p in (pool_init_kwargs, pool_eval_kwargs):
+            if pool_init_kwargs and type(p) != dict:
+                Util.raiseException("pool_kwargs options must be False-type or empty dictionary", TypeError)
 
-        self.internalPop.setMultiProcessing(flag, full_copy, max_processes)
+        if type(full_copy) != BooleanType:
+            Util.raiseException(
+                "Multiprocessing 'full_copy' option must be True or False", TypeError)
+
+        self.internalPop.setMultiProcessing(flag, full_copy, pool_init_kwargs, pool_eval_kwargs)
 
     def setMigrationAdapter(self, migration_adapter=None):
         """ Sets the Migration Adapter
@@ -606,7 +614,8 @@ class GSimpleGA(object):
                 function_set[obj] = op_len
 
         if len(function_set) <= 0:
-            Util.raiseException("No function set found using function prefix '%s' !" % prefix, ValueError)
+            Util.raiseException(
+                "No function set found using function prefix '%s' !" % prefix, ValueError)
 
         self.setParams(gp_function_set=function_set)
 
@@ -687,13 +696,13 @@ class GSimpleGA(object):
             logging.debug("Doing elitism.")
             if self.getMinimax() == Consts.minimaxType["maximize"]:
                 for i in xrange(self.nElitismReplacement):
-                    #re-evaluate before being sure this is the best
+                    # re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score > newPop.bestRaw(i).score:
                         newPop[len(newPop) - 1 - i] = self.internalPop.bestRaw(i)
             elif self.getMinimax() == Consts.minimaxType["minimize"]:
                 for i in xrange(self.nElitismReplacement):
-                    #re-evaluate before being sure this is the best
+                    # re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score < newPop.bestRaw(i).score:
                         newPop[len(newPop) - 1 - i] = self.internalPop.bestRaw(i)
@@ -706,9 +715,9 @@ class GSimpleGA(object):
         self.currentGeneration += 1
 
         if self.max_time:
-           total_time = time() - self.time_init
-           if total_time > self.max_time:
-              return True
+            total_time = time() - self.time_init
+            if total_time > self.max_time:
+                return True
         return self.currentGeneration == self.nGenerations
 
     def printStats(self):
@@ -826,7 +835,8 @@ class GSimpleGA(object):
                                 from pyevolve import Interaction
                                 print " done !"
                                 interact_banner = "## Pyevolve v.%s - Interactive Mode ##\n" \
-                                                  "Press CTRL-Z to quit interactive mode." % (pyevolve.__version__,)
+                                                  "Press CTRL-Z to quit interactive mode." % (
+                                                      pyevolve.__version__,)
                                 session_locals = {
                                     "ga_engine": self,
                                     "population": self.getPopulation(),
@@ -845,7 +855,8 @@ class GSimpleGA(object):
                         )
                         from pyevolve import Interaction
                         print " done !"
-                        interact_banner = "## Pyevolve v.%s - Interactive Mode ##" % (pyevolve.__version__,)
+                        interact_banner = "## Pyevolve v.%s - Interactive Mode ##" % (
+                            pyevolve.__version__,)
                         session_locals = {
                             "ga_engine": self,
                             "population": self.getPopulation(),

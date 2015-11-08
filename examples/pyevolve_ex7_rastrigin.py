@@ -6,17 +6,21 @@ from pyevolve import Consts
 import math
 
 # This is the Rastrigin Function, a deception function
+
+
 def rastrigin(genome):
     n = len(genome)
     total = 0
     for i in xrange(n):
-        total += genome[i]**2 - 10*math.cos(2*math.pi*genome[i])
-    return (10*n) + total
+        total += genome[i]**2 - 10 * math.cos(2 * math.pi * genome[i])
+    return (10 * n) + total
+
 
 def run_main():
     # Genome instance
     genome = G1DList.G1DList(20)
-    genome.setParams(rangemin=-5.2, rangemax=5.30, bestrawscore=0.00, rounddecimal=2)
+    genome.setParams(rangemin=-5.2, rangemax=5.30,
+                     bestrawscore=0.00, rounddecimal=2)
     genome.initializator.set(Initializators.G1DListInitializatorReal)
     genome.mutator.set(Mutators.G1DListMutatorRealGaussian)
 

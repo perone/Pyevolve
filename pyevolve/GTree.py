@@ -186,7 +186,8 @@ def buildGTreeGrow(depth, value_callback, max_siblings, max_depth):
         return n
 
     for i in xrange(random.randint(0, abs(max_siblings))):
-        child = buildGTreeGrow(depth + 1, value_callback, max_siblings, max_depth)
+        child = buildGTreeGrow(depth + 1, value_callback,
+                               max_siblings, max_depth)
         child.setParent(n)
         n.addChild(child)
     return n
@@ -217,7 +218,8 @@ def buildGTreeFull(depth, value_callback, max_siblings, max_depth):
         range_val = random.randint(1, abs(max_siblings))
 
     for i in xrange(range_val):
-        child = buildGTreeFull(depth + 1, value_callback, max_siblings, max_depth)
+        child = buildGTreeFull(depth + 1, value_callback,
+                               max_siblings, max_depth)
         child.setParent(n)
         n.addChild(child)
     return n
@@ -257,7 +259,8 @@ class GTreeNodeGP(GTreeNodeBase):
         :param other: the other GTreeNodeGP
         """
         if not isinstance(other, GTreeNodeGP):
-            Util.raiseException("The other node used to compare is not a GTreeNodeGP class", TypeError)
+            Util.raiseException(
+                "The other node used to compare is not a GTreeNodeGP class", TypeError)
 
         if other.node_type == self.node_type:
             if other.node_data == self.node_data:
@@ -342,6 +345,7 @@ class GTreeGP(GTreeBase):
 
     :param root_node: the Root node of the GP Tree
     """
+
     def __init__(self, root_node=None, cloning=False):
         super(GTreeGP, self).__init__(root_node)
         if not cloning:
@@ -521,7 +525,8 @@ class GTreeGP(GTreeBase):
         :param other: the other GTreeGP to compare
         """
         if not isinstance(other, GTreeGP):
-            Util.raiseException("The other tree used to compare is not a GTreeGP class", TypeError)
+            Util.raiseException(
+                "The other tree used to compare is not a GTreeGP class", TypeError)
 
         stack_self = []
         stack_other = []
@@ -565,7 +570,8 @@ class GTreeGP(GTreeBase):
         graph = pydot.Dot(graph_type="digraph")
 
         if not isinstance(pop[0], GTreeGP):
-            Util.raiseException("The population must have individuals of the GTreeGP chromosome !")
+            Util.raiseException(
+                "The population must have individuals of the GTreeGP chromosome !")
 
         n = 0
         end_index = len(pop) if end == 0 else end
@@ -573,7 +579,8 @@ class GTreeGP(GTreeBase):
             ind = pop[i]
             subg = pydot.Cluster(
                 "cluster_%d" % i,
-                label="\"Ind. #%d - Score Raw/Fit.: %.4f/%.4f\"" % (i, ind.getRawScore(), ind.getFitnessScore())
+                label="\"Ind. #%d - Score Raw/Fit.: %.4f/%.4f\"" % (
+                    i, ind.getRawScore(), ind.getFitnessScore())
             )
             n = ind.writeDotGraph(subg, n)
             graph.add_subgraph(subg)
@@ -602,7 +609,8 @@ class GTreeGP(GTreeBase):
         graph = pydot.Dot(graph_type="digraph")
 
         if not isinstance(pop[0], GTreeGP):
-            Util.raiseException("The population must have individuals of the GTreeGP chromosome !")
+            Util.raiseException(
+                "The population must have individuals of the GTreeGP chromosome !")
 
         n = 0
         end_index = len(pop) if end == 0 else end
@@ -610,7 +618,8 @@ class GTreeGP(GTreeBase):
             ind = pop[i]
             subg = pydot.Cluster(
                 "cluster_%d" % i,
-                label="\"Ind. #%d - Score Raw/Fit.: %.4f/%.4f\"" % (i, ind.getRawScore(), ind.getFitnessScore())
+                label="\"Ind. #%d - Score Raw/Fit.: %.4f/%.4f\"" % (
+                    i, ind.getRawScore(), ind.getFitnessScore())
             )
             n = ind.writeDotGraph(subg, n)
             graph.add_subgraph(subg)
@@ -676,7 +685,8 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
             random_node = random.choice(fchoice)
 
         if random_node in gp_terminals:
-            n = GTreeNodeGP(checkTerminal(random_node), Consts.nodeType["TERMINAL"])
+            n = GTreeNodeGP(checkTerminal(random_node),
+                            Consts.nodeType["TERMINAL"])
         else:
             n = GTreeNodeGP(random_node, Consts.nodeType["NONTERMINAL"])
 

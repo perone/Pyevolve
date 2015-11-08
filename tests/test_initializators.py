@@ -8,6 +8,7 @@ from pyevolve.GTree import GTree
 
 
 class InitializatorsTestCase(unittest.TestCase):
+
     def test_binary_string_initializator(self):
         genome = G1DBinaryString(3)
         Initializators.G1DBinaryStringInitializator(genome)
