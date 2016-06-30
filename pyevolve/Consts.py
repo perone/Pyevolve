@@ -373,6 +373,7 @@ import Mutators
 import Crossovers
 import logging
 from GTree import GTreeGP
+from G2DCartesian import G2DCartesian
 
 # Required python version 2.5+
 CDefPythonRequire = (2, 5)
@@ -491,6 +492,9 @@ CDefG2DListCrossover = Crossovers.G2DListCrossoverUniform
 CDefG2DListInit = Initializators.G2DListInitializatorInteger
 CDefG2DListCrossUniformProb = 0.5
 
+# - G2DCartesian defaults
+CDefG2DCartesianInit = Initializators.G2DCartesianInitializatorNode
+
 # Gaussian Gradient
 CDefGaussianGradientMU = 1.0
 CDefGaussianGradientSIGMA = (1.0 / 3.0)  # approx. +/- 3-sigma is +/- 10%
@@ -525,7 +529,7 @@ CDefXMLRPCStatsGenFreq = 20
 CDefBroadcastAddress = "255.255.255.255"
 nodeType = {"TERMINAL": 0, "NONTERMINAL": 1}
 
-CDefGPGenomes = [GTreeGP]
+CDefGPGenomes = [GTreeGP, G2DCartesian]
 
 # Migration Consts
 CDefGenMigrationRate = 20
