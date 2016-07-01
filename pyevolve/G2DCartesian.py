@@ -61,7 +61,9 @@ class G2DCartesian(GenomeBase):
                 "inputSlice", "internalSlice", "outputSlice", "nodes"]
 
     def __init__(self, rows, cols, inputs, outputs, cloning = False):
-    
+        """ The initializator of G2DCartesian representation,
+        rows, cols, inputs and outputs must be specified and none of them can
+        equal to 0"""
         if (rows * cols * inputs * outputs) == 0:
             raise ValueError("One of the genome parameter equals 0.")
     
@@ -83,21 +85,26 @@ class G2DCartesian(GenomeBase):
             self.crossover.set(Consts.CDefG2DCartesianCrossover)
 
     def __eq__(self, other):
+        """ Compares one chromosome with another """
         cond1 = (self.nodes == other.nodes)
         cond2 = (self.rows == other.rows)
         cond3 = (self.cols == other.cols)
         return True if cond1 and cond2 and cond3 else False
         
     def __getitem__(self, key):
+        """ Return the specified node of net (including inputs and outputs)"""
         return self.nodes[key]
         
     def __iter__(self):
+        """ Iterator support to the nodes """
         return iter(self.nodes)   
 
     def __len__(self):
+        """ Return the number of all nodes in net """
         return len(self.nodes)
 
     def __repr__(self):
+        """ Return a string representation of Genome """
         ret = GenomeBase.__repr__(self)
         ret += "- G2DCartesian\n"
         ret += "\tList size:\t %s\n" % (len(self.nodes,))
@@ -105,17 +112,41 @@ class G2DCartesian(GenomeBase):
         return ret
 
     def __setitem__(self, key, value):
+        """ Set the specified node in net """
         self.nodes[key] = value        
        
     def clone(self):
+        """ Return a new instace copy of the genome
+
+        :rtype: the G2DCartesian clone instance
+
+        """
         newcopy = G2DCartesian(self.rows, self.cols, self.inputs, self.outputs, 
                               True)
         self.copy(newcopy)
         return newcopy
 
     def copy(self, g):
+        """ Copy genome to 'g'
+
+        Example:
+           >>> genome_origin.copy(genome_destination)
+
+        :param g: the destination G2DCartesian instance
+
+        """
         GenomeBase.copy(self, g)
         g.nodes = copy.deepcopy(self.nodes)
+        
+    def getActiveNodes(self):
+        """ Return list of lists with active paths in net, the size of list
+        depends on the number of net outputs. It populates list in reverse
+        direction, from output to input """
+        actives = []
+        for i in xrange(0, self.outputs):            
+            actives.append([])
+            self.nodes[-i-1].getPreviousNodes(actives[i])
+        return actives
                 
 class CartesianNode():
 
@@ -156,7 +187,10 @@ class CartesianNode():
     paramMapping = {}
 
     def __init__(self, position_x, position_y, data_set = {}, 
-                previous_nodes = []):    
+                previous_nodes = []):
+        """ The initializator of CartesianNode representation,
+        position_x and position_y must be specified, data_set and previous_nodes
+        depends on type of the node """
         self.data = None       
         self.inputs = []        
         self.params = {}               
@@ -183,13 +217,27 @@ class CartesianNode():
             
         for param in CartesianNode.paramMapping.keys():
             self.params[param] = eval(CartesianNode.paramMapping[param])
-
-    def getData(self):
-        return (self.data, len(self.inputs))
-
+            
     def __repr__(self):
+        """ Return a string representation of Genome """
         ret = "\n\tCartesianNode [%s, %s] - " % (self.x, self.y)
         ret += "Data: %s" % (self.data)
         for i in self.inputs:
             ret += " Input: [%s, %s]" % (i.x, i.y)
-        return ret              
+        return ret 
+
+    def getData(self):
+        """ Return tuple with node value and number of its input args """
+        return (self.data, len(self.inputs))
+        
+    def getPreviousNodes(self, nodes):
+        """ Recursively returns previous, connected nodes in net of this node"""
+        if len(self.inputs) == 0:
+            return
+        elif self.data is not "":
+            nodes.append(self)
+
+        for i in self.inputs:
+            i.getPreviousNodes(nodes)
+
+             

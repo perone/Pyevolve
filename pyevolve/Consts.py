@@ -494,6 +494,8 @@ CDefG2DListCrossUniformProb = 0.5
 
 # - G2DCartesian defaults
 CDefG2DCartesianInit = Initializators.G2DCartesianInitializatorNode
+CDefG2DCartesianCrossover = None
+CDefG2DCartesianMutator = Mutators.G2DCartesianMutatorNodeFunction
 
 # Gaussian Gradient
 CDefGaussianGradientMU = 1.0
