@@ -43,7 +43,14 @@ class G2DCartesianGenomeTestCase(unittest.TestCase):
                             self.rows*self.cols*self.cols)
                             
     def test_genome_zero_param(self):
-        self.assertRaises(ValueError, G2DCartesian, 0, 1, 2, 10)        
+        self.assertRaises(ValueError, G2DCartesian, 0, 1, 2, 10)
+
+    def test_genome_active_nodes(self):
+        for key, node in enumerate(self.genome):
+            self.genome[key] = MagicMock()
+            self.genome[key].getPreviousNodes = MagicMock(return_value = [])
+        paths = self.genome.getActiveNodes()
+        self.assertTrue(len(paths) == 3)
                             
 class CartesianNodeTestCase(unittest.TestCase):
     def setUp(self):
@@ -84,5 +91,23 @@ class CartesianNodeTestCase(unittest.TestCase):
         CartesianNode.paramMapping = {"p1" : "random.randint(0, 10)"}
         node = CartesianNode(1, 1, {"f1" : 3}, [self.prev1, self.prev2])
         self.assertTrue(len(node.params) == len(CartesianNode.paramMapping))
+        
+    def test_node_previous_for_input(self):
+        node = CartesianNode(1, 1, {"b" : 1}, [])
+        previous = []
+        node.getPreviousNodes(previous)
+        self.assertTrue(len(previous) == 0)
+        
+    def test_node_previous_for_internal(self):
+        previous = []
+        self.node.getPreviousNodes(previous)
+        self.assertTrue(len(previous) > 0)
+        
+    def test_node_previous_for_output(self):
+        prev = CartesianNode(1, 1, {"f" : 2}, [self.prev1, self.prev2])
+        node = CartesianNode(1, 1, {}, [prev])
+        previous = []
+        node.getPreviousNodes(previous)
+        self.assertTrue(len(previous) > 0)
         
     
