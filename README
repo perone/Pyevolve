@@ -1,3 +1,5 @@
-This is the new official Pyevolve repository.
+This is the fork of pyevolve framework. 
 
-The documentation (html rendered) is still hosted at sourceforge.net at http://pyevolve.sourceforge.net/0_6rc1/
+The main puprose is to add a Cartesian Genetic Programming (CGP) genome to the evolution schema. 
+
+Also some fixes and reformation added.
