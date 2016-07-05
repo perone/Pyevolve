@@ -9,7 +9,7 @@ In this module we have the genetic operators of mutation for each chromosome rep
 
 import Util
 from random import randint as rand_randint, gauss as rand_gauss, uniform as rand_uniform
-from random import choice as rand_choice
+from random import choice as rand_choice, shuffle as rand_shuffle
 import Consts
 import GTree
 from G2DCartesian import CartesianNode
@@ -1153,9 +1153,10 @@ def G2DCartesianMutatorNodeInputs(genome, **args):
         
     for i in xrange(0, int(mutations)):
         choosen = rand_choice(genome.nodes[genome.inputs:])
-        previous_nodes = genome.nodes[:(genome.rows * choosen.y + genome.inputs)]
-        for idx, input in enumerate(node.inputs):
-            node.inputs[idx] = rand_choice(previous_nodes)
+        previous_nodes = genome.nodes[:(genome.rows * choosen.y + 
+                                        genome.inputs)]
+        for idx, input in enumerate(choosen.inputs):
+            choosen.inputs[idx] = rand_choice(previous_nodes)
             
     return int(mutations)
     
@@ -1163,8 +1164,8 @@ def G2DCartesianMutatorNodeInputs(genome, **args):
 def G2DCartesianMutatorNodeParams(genome, **args):
     """ The mutator of G2DCartesian, Node params mutator
 
-    This mutator will generate new values for parameters of node using parameters
-    mapping.
+    This mutator will generate new values for parameters of node using 
+    parameters mapping.
 
     .. versionadded::
       The *G2DCartesianMutatorNodeParams* function
@@ -1196,33 +1197,36 @@ def G2DCartesianMutatorNodeFunction(genome, **args):
     if mutations < 1.0:
         mutations = 1
         
-    function_set = ga_engine.getParam("gp_function_set")
-    previous_nodes = genome.nodes[:(genome.rows * choosen.y + genome.inputs)]
+    function_set = ga_engine.getParam("gp_function_set")    
     
     for i in xrange(0, int(mutations)):
         choosen = rand_choice(genome.nodes[genome.inputs:-genome.outputs])        
         choosen.data = rand_choice(function_set.keys())
-        
-        if len(choosen.inputs) > (function_set[choosen.data]-1):
-            del choosen.inputs[-1]               
-        elif len(choosen.inputs) < function_set[choosen.data]-1:        
-            choosen.inputs.append(random.choice(previous_nodes))
+        previous_nodes = genome.nodes[:(genome.rows * choosen.y + 
+                                        genome.inputs)]
+                   
+        inputs_diff = len(choosen.inputs) - (function_set[choosen.data]-1)        
+        if inputs_diff > 0:
+            del choosen.inputs[-inputs_diff:]          
+        elif inputs_diff < 0:
+            for i in xrange(0, -inputs_diff):
+                choosen.inputs.append(rand_choice(previous_nodes))
             
     return int(mutations)
     
 def G2DCartesianMutatorNodesOrder(genome, **args):
     """ The mutator of G2DCartesian, Nodes order in active path mutator
 
-   This mutator will recreate order of nodes in active path, preserving values
-   of nodes. It can also manipulate inputs of nodes if current inputs state does
-   not satisfy new node value args.
+    This mutator will recreate order of nodes in active path, preserving values
+    of nodes. It can also manipulate inputs of nodes if current inputs state does
+    not satisfy new node value args.
 
-   .. versionadded::
+    .. versionadded::
       The *G2DCartesianMutatorNodesOrder* function
-   """
+    """
     paths = genome.getActiveNodes()
     mutations = 0
-    for path in paths:                
+    for path in paths:
         shuffled_functions = []
         for node in path:
             shuffled_functions.append(node.getData())
@@ -1230,15 +1234,16 @@ def G2DCartesianMutatorNodesOrder(genome, **args):
 
         for idx, node in enumerate(path):
             new_function = shuffled_functions[idx]
-            previous_nodes = genome.nodes[:(genome.rows * node.y + genome.inputs)]
-            node.data = new_function[0]        
-            inputs_diff = len(node.inputs) - (new_function[1]-1)
+            previous_nodes = genome.nodes[:(genome.rows * node.y + 
+                                            genome.inputs)]
+            node.data = new_function[0]   
+            inputs_diff = len(node.inputs) - (new_function[1])
         
             if inputs_diff > 0:
                 del node.inputs[-inputs_diff:]          
             elif inputs_diff < 0:
                 for i in xrange(0, -inputs_diff):
-                    node.inputs.append(random.choice(previous_nodes))
+                    node.inputs.append(rand_choice(previous_nodes))
         mutations += len(path)
                 
     return mutations

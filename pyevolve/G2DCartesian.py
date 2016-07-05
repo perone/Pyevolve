@@ -207,7 +207,7 @@ class CartesianNode():
         except KeyError:
             inputs_count = 1
 
-        if (len(previous_nodes) < inputs_count):
+        if (len(previous_nodes) == 0 and inputs_count > 0):
             raise ValueError("Bad data set and previous nodes values " 
                             "combination. If specified data set with input args"
                             " then previous nodes can not be empty!")
