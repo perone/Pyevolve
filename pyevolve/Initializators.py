@@ -14,7 +14,7 @@ choosing random data.
 
 """
 
-from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice
+from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice, gauss as rand_gauss
 import GTree
 import G2DCartesian
 import Util
@@ -330,20 +330,21 @@ def G2DCartesianInitializatorNode(genome, **args):
         
     nodes = []
     for counter, terminal in enumerate(terminals):
-        nodes.append(G2DCartesian.CartesianNode(counter, -1, {terminal : 1}))
+        nodes.append(G2DCartesian.CartesianNode(-1, counter, {terminal : 1}))
     genome[inputSlice] = nodes
 
     previous_nodes = genome[0:inputs]
     nodes = []
     for counter in xrange(0, rows * cols):
-        nodes.append(G2DCartesian.CartesianNode(counter / rows, counter % cols, 
-                    functions_set, previous_nodes))        
-        previous_nodes += genome[counter-rows:counter*((counter % cols) == 
-                                (cols + 1))]        
+        nodes.append(G2DCartesian.CartesianNode(counter / cols, counter % cols, 
+                    functions_set, previous_nodes))
+        start = (counter / cols) * cols
+        end = (start+cols)*((counter % cols) == (cols - 1))
+        previous_nodes += nodes[start:end]
     genome[internalSlice] = nodes
 	
     nodes = []    
     for counter in xrange(0, outputs):
-        nodes.append(G2DCartesian.CartesianNode(counter, rows, {}, 
+        nodes.append(G2DCartesian.CartesianNode(rows, counter, {}, 
                     previous_nodes))
     genome[outputSlice] = nodes

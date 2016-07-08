@@ -7,7 +7,7 @@ from pyevolve.G1DList import G1DList
 from pyevolve.G2DList import G2DList
 from pyevolve.GTree import GTree
 from pyevolve.G2DCartesian import G2DCartesian
-import random
+from random import randint as rand_randint, uniform as rand_uniform
 
 
 class InitializatorsTestCase(unittest.TestCase):
@@ -54,8 +54,8 @@ class G2DCartesianInitializatorTestCase(unittest.TestCase):
             elif value == "gp_function_set":
                 return {"gp1" : 2, "gp2" : 2, "gp3" : 3}
             elif value == "gp_args_mapping":
-                return {"arg1" : "random.randint(0,10)", 
-                        "arg2" : "random.uniform(2.0,4.2)"}
+                return {"arg1" : "rand_randint(0,10)", 
+                        "arg2" : "rand_uniform(2.0,4.2)"}
                                 
         self.engine.getParam = MagicMock(side_effect=getParams)
  
@@ -83,7 +83,7 @@ class G2DCartesianInitializatorTestCase(unittest.TestCase):
         for node in self.genome[self.genome.internalSlice]:          
             self.assertTrue(len(node.inputs) in xrange(1,3))
             for input in node.inputs:
-                self.assertTrue(input.y < node.y)
+                self.assertTrue(input.x < node.x)
 
     def test_output_nodes_inputs(self):
         Initializators.G2DCartesianInitializatorNode(self.genome, 
@@ -91,7 +91,7 @@ class G2DCartesianInitializatorTestCase(unittest.TestCase):
         for node in self.genome[self.genome.outputSlice]:          
             self.assertTrue(len(node.inputs) == 1)
             for input in node.inputs:
-                self.assertTrue(input.y < node.y)
+                self.assertTrue(input.x < node.x)
         
     def test_input_nodes_data_sets(self):
         Initializators.G2DCartesianInitializatorNode(self.genome, 
@@ -119,22 +119,22 @@ class G2DCartesianInitializatorTestCase(unittest.TestCase):
         Initializators.G2DCartesianInitializatorNode(self.genome, 
                                                     ga_engine=self.engine)
         for idx, node in enumerate(self.genome[self.genome.inputSlice]):
-            self.assertTrue(node.x == idx)
-            self.assertTrue(node.y == -1)
+            self.assertTrue(node.x == -1)
+            self.assertTrue(node.y == idx)
             
     def test_internal_nodes_positions(self):
         Initializators.G2DCartesianInitializatorNode(self.genome, 
                                                     ga_engine=self.engine)
         for idx, node in enumerate(self.genome[self.genome.internalSlice]):
-            self.assertTrue(node.x == idx / self.genome.rows)
+            self.assertTrue(node.x == idx / self.genome.cols)
             self.assertTrue(node.y == idx % self.genome.cols)
             
     def test_output_nodes_positions(self):
         Initializators.G2DCartesianInitializatorNode(self.genome, 
                                                     ga_engine=self.engine)
         for idx, node in enumerate(self.genome[self.genome.outputSlice]):
-            self.assertTrue(node.x == idx)
-            self.assertTrue(node.y == self.genome.rows)
+            self.assertTrue(node.x == self.genome.rows)
+            self.assertTrue(node.y == idx)
 
     def test_nodes_params(self):
         Initializators.G2DCartesianInitializatorNode(self.genome, 

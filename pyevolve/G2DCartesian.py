@@ -22,7 +22,8 @@ Class
 
 from GenomeBase import GenomeBase
 import Consts
-import random
+from random import randint as rand_randint, choice as rand_choice
+from random import uniform as rand_uniform, gauss as rand_gauss
 import pydot
 import copy
 
@@ -67,7 +68,7 @@ class G2DCartesian(GenomeBase):
         if (rows * cols * inputs * outputs) == 0:
             raise ValueError("One of the genome parameter equals 0.")
     
-        super(G2DCartesian, self).__init__()      
+        super(G2DCartesian, self).__init__()
         self.rows = rows
         self.cols = cols
         self.inputs = inputs
@@ -147,6 +148,43 @@ class G2DCartesian(GenomeBase):
             actives.append([])
             self.nodes[-i-1].getPreviousNodes(actives[i])
         return actives
+        
+    def getCompiledCode(self):
+        """ Returns list of expressions from the genome, size of list depends on
+        outputs count. Expressions are already a python compile object """
+        expr = [None] * self.outputs
+        for i in xrange(0, self.outputs):
+            expr[i] = self.nodes[-i-1].getExpression("")
+        compiled = []
+        for e in expr:
+            compiled.append(compile(e, "<string>", "eval"))
+        return compiled        
+        
+    def writeDotGraph(self, graph):
+        """ Populates graph for pydot from active expression of genome """
+        node_counter = 0
+        for out in xrange(0, self.outputs):            
+            node_stack = []
+            node_dict = {}
+            node_stack.append(self.nodes[-1-out])
+            while node_stack:
+                current_node = node_stack.pop()                
+                if current_node.data != "":
+                    node_label = current_node.data
+                    for param in current_node.params.keys():                        
+                        node_label += " " + str(current_node.params[param])
+                    graph.add_node(pydot.Node(str(node_counter), 
+                                    label = node_label))
+                    if current_node in node_dict:
+                        graph.add_edge(pydot.Edge(node_dict[current_node], 
+                                                    str(node_counter)))
+
+                for input in current_node.inputs:                
+                    node_stack.append(input)
+                    if current_node.data != "":
+                        node_dict[input] = str(node_counter)
+                if current_node.data != "":
+                    node_counter += 1
                 
 class CartesianNode():
 
@@ -198,7 +236,7 @@ class CartesianNode():
         self.y = position_y        
 
         try:
-            self.data = random.choice(data_set.keys())
+            self.data = rand_choice(data_set.keys())
         except IndexError:
             self.data = ""
 
@@ -213,7 +251,7 @@ class CartesianNode():
                             " then previous nodes can not be empty!")
             
         for i in range(0, inputs_count):
-            self.inputs.append(random.choice(previous_nodes))            
+            self.inputs.append(rand_choice(previous_nodes))            
             
         for param in CartesianNode.paramMapping.keys():
             self.params[param] = eval(CartesianNode.paramMapping[param])
@@ -224,11 +262,35 @@ class CartesianNode():
         ret += "Data: %s" % (self.data)
         for i in self.inputs:
             ret += " Input: [%s, %s]" % (i.x, i.y)
-        return ret 
+        return ret
 
     def getData(self):
         """ Return tuple with node value and number of its input args """
         return (self.data, len(self.inputs))
+        
+    def getExpression(self, expr):
+        """ Recursively iterates through input nodes of current node and return
+        merged expression (function in the node and params) in string format """
+        if self.data is not "":
+            expr += self.data
+            if self.inputs:
+                expr += "( "
+                input_counter = 0
+                for idx, input in enumerate(self.inputs):
+                    expr += input.getExpression("")                    
+                    if idx < len(self.inputs)-1:
+                        expr += ", "
+                        
+                expr += ", {"                
+                for idx, param in enumerate(self.params.keys()):
+                    expr += "\"" + param + "\"" + " : "
+                    expr += str(self.params[param])
+                    if idx < len(self.params)-1:
+                        expr += ", "              
+                expr += "} )"
+        else:
+            expr += self.inputs[0].getExpression("")
+        return expr
         
     def getPreviousNodes(self, nodes):
         """ Recursively returns previous, connected nodes in net of this node"""

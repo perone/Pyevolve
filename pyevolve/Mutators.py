@@ -9,7 +9,7 @@ In this module we have the genetic operators of mutation for each chromosome rep
 
 import Util
 from random import randint as rand_randint, gauss as rand_gauss, uniform as rand_uniform
-from random import choice as rand_choice, shuffle as rand_shuffle
+from random import choice as rand_choice, shuffle as rand_shuffle, gauss as rand_gauss
 import Consts
 import GTree
 from G2DCartesian import CartesianNode
@@ -1150,10 +1150,10 @@ def G2DCartesianMutatorNodeInputs(genome, **args):
                                 genome.inputs)
     if mutations < 1.0:
         mutations = 1
-        
+       
     for i in xrange(0, int(mutations)):
         choosen = rand_choice(genome.nodes[genome.inputs:])
-        previous_nodes = genome.nodes[:(genome.rows * choosen.y + 
+        previous_nodes = genome.nodes[:(genome.cols * choosen.x + 
                                         genome.inputs)]
         for idx, input in enumerate(choosen.inputs):
             choosen.inputs[idx] = rand_choice(previous_nodes)
@@ -1196,13 +1196,13 @@ def G2DCartesianMutatorNodeFunction(genome, **args):
     ga_engine = args["ga_engine"]                                
     if mutations < 1.0:
         mutations = 1
-        
+
     function_set = ga_engine.getParam("gp_function_set")    
     
     for i in xrange(0, int(mutations)):
         choosen = rand_choice(genome.nodes[genome.inputs:-genome.outputs])        
         choosen.data = rand_choice(function_set.keys())
-        previous_nodes = genome.nodes[:(genome.rows * choosen.y + 
+        previous_nodes = genome.nodes[:(genome.cols * choosen.x + 
                                         genome.inputs)]
                    
         inputs_diff = len(choosen.inputs) - (function_set[choosen.data]-1)        
@@ -1234,7 +1234,7 @@ def G2DCartesianMutatorNodesOrder(genome, **args):
 
         for idx, node in enumerate(path):
             new_function = shuffled_functions[idx]
-            previous_nodes = genome.nodes[:(genome.rows * node.y + 
+            previous_nodes = genome.nodes[:(genome.cols * node.x + 
                                             genome.inputs)]
             node.data = new_function[0]   
             inputs_diff = len(node.inputs) - (new_function[1])
