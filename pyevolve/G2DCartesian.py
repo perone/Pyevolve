@@ -11,10 +11,13 @@ Default Parameters
    :func:`Initializators.G2DCartesianInitializatorNode`
    The Node Initializator for G2DCartesian
 *Mutator*
-   :func:`None`
-   The Mutator for G2DCartesian
+   :func:`Mutators.G2DCartesianMutatorNodeInputs`
+   :func:`Mutators.G2DCartesianMutatorNodeParams`
+   :func:`Mutators.G2DCartesianMutatorNodeFunction`
+   :func:`Mutators.G2DCartesianMutatorNodesOrder`
+   The Mutators for G2DCartesian
 *Crossover*
-   :func:`None`
+   :func:`Crossovers.G2DCartesianCrossoverNode`
    The Crossover for G2DCartesian
 Class
 -------------------------------------------------------------
@@ -59,7 +62,8 @@ class G2DCartesian(GenomeBase):
     """
 	
     __slots__ = ["inputs", "outputs", "cols", "rows", "internalNodes", 
-                "inputSlice", "internalSlice", "outputSlice", "nodes"]
+                "inputSlice", "internalSlice", "outputSlice", "nodes",
+                "reevaluate", "expressionNodes"]
 
     def __init__(self, rows, cols, inputs, outputs, cloning = False):
         """ The initializator of G2DCartesian representation,
@@ -79,6 +83,8 @@ class G2DCartesian(GenomeBase):
         self.internalSlice = slice(self.inputs, self.inputs+self.internalNodes)
         self.outputSlice = slice(self.inputs+self.internalNodes, 
                                 self.inputs+self.internalNodes+self.outputs)
+        self.expressionNodes = {}
+        self.reevaluate = True
 
         if not cloning:
             self.initializator.set(Consts.CDefG2DCartesianInit)
@@ -139,6 +145,18 @@ class G2DCartesian(GenomeBase):
         GenomeBase.copy(self, g)
         g.nodes = copy.deepcopy(self.nodes)
         
+    def evaluate(self, **args):
+        """ Overloaded method of GenomeBase. It is performance improvement,
+        genome score is evaluated only when mutations had influence on nodes
+        active in the expression path """
+        if self.reevaluate:
+            super(G2DCartesian, self).evaluate(**args)
+            self.expressionNodes.clear()
+            for path in self.getActiveNodes():
+                print path
+                for node in path:
+                    self.expressionNodes[node] = True    
+        
     def getActiveNodes(self):
         """ Return list of lists with active paths in net, the size of list
         depends on the number of net outputs. It populates list in reverse
@@ -158,7 +176,23 @@ class G2DCartesian(GenomeBase):
         compiled = []
         for e in expr:
             compiled.append(compile(e, "<string>", "eval"))
-        return compiled        
+        return compiled
+
+    def mutate(self, **args):
+        """ Overloaded method of GenomeBase. Mutators of G2DCartesian return
+        list of mutated nodes and if any of them is on the list of active
+        expression nodes then genome flag to reevaluate is set """
+        mutated_nodes = []
+        for it in self.mutator.applyFunctions(self, **args):
+            mutated_nodes += it
+
+        for node in mutated_nodes:
+            if self.expressionNodes.has_key(node):
+                self.reevaluate = True
+                return len(mutated_nodes)
+        
+        self.reevaluate = False            
+        return len(mutated_nodes)                    
         
     def writeDotGraph(self, graph):
         """ Populates graph for pydot from active expression of genome """

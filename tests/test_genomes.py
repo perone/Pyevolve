@@ -103,6 +103,65 @@ class G2DCartesianGenomeTestCase(unittest.TestCase):
         graph = pydot.Dot(graph_type='graph')    
         self.genome.writeDotGraph(graph)
         self.assertTrue(len(graph.get_node_list()) >= self.genome.outputs)
+           
+    def test_genome_mutate_expressed(self):
+        self.genome.expressionNodes = {MagicMock() : True, MagicMock() : True, 
+                                        MagicMock() : True}
+        def apply_effect(arg, **args):
+            mutated = []
+            mutated.append([])
+            for i in xrange(0, len(self.genome.expressionNodes)):
+                mutated[0].append(choice(self.genome.expressionNodes.keys()))
+            return mutated
+                
+        self.genome.mutator.applyFunctions = MagicMock(
+                                                    side_effect = apply_effect)
+        ret = self.genome.mutate()
+        self.assertTrue(ret > 0)        
+        self.assertTrue(self.genome.reevaluate)
+       
+    def test_genome_mutate_non_expressed(self):       
+        def apply_effect(arg, **args):
+            mutated = []
+            mutated.append([MagicMock(), MagicMock(), MagicMock()])
+            return mutated
+                
+        self.genome.mutator.applyFunctions = MagicMock(
+                                                    side_effect = apply_effect)
+        ret = self.genome.mutate()
+        self.assertTrue(ret > 0)        
+        self.assertFalse(self.genome.reevaluate)
+        
+    def test_genome_evaluate_not(self):
+        expected_expression_nodes = {MagicMock() : True, MagicMock() : True, 
+                                        MagicMock() : True}
+        self.genome.expressionNodes = expected_expression_nodes
+        self.genome.reevaluate = False
+        self.genome.evaluate()
+        self.assertEqual(expected_expression_nodes, self.genome.expressionNodes)
+        
+    def test_genome_evaluate_do(self):                
+        nodes_pool = []
+        for i in xrange(0, 10):
+            nodes_pool.append(MagicMock())
+            
+        def get_effect(arg):
+            ret = []
+            for i in xrange(0, randint(1, 5)):
+                ret.append(choice(nodes_pool))
+            arg[:] = list(ret)
+            
+        for i in xrange(0, self.outs):            
+            self.genome[-1-i] = MagicMock()
+            self.genome[-1-i].getPreviousNodes = MagicMock(
+                                                    side_effect = get_effect)                                                                        
+        self.genome.evaluator.applyFunctions = MagicMock(
+                                                    return_value = [0.1 , 3.0])    
+        self.genome.reevaluate = True
+        self.genome.evaluate()
+        self.assertTrue(len(self.genome.expressionNodes) > 0)
+        for node in self.genome.expressionNodes.keys():        
+            self.assertTrue(node in nodes_pool)
                             
 class CartesianNodeTestCase(unittest.TestCase):
     @patch('pyevolve.G2DCartesian.rand_randint')

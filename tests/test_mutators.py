@@ -219,8 +219,10 @@ class G2DCartesianMutatorsTestCase(unittest.TestCase):
         
         for i in values[1:]:
             expected_result.append(self.genome[i])
-        Mutators.G2DCartesianMutatorNodeInputs(self.genome, pmut=0.1)
+        mutations = Mutators.G2DCartesianMutatorNodeInputs(self.genome, 
+                                                            pmut=0.1)
         self.assertEqual(self.genome[3].inputs, expected_result)
+        self.assertTrue(self.genome[3] in mutations)
         
     @patch('pyevolve.Mutators.rand_choice')
     def test_cartesian_mutator_inputs_large_pmut(self, rand_mock):
@@ -241,9 +243,11 @@ class G2DCartesianMutatorsTestCase(unittest.TestCase):
                                                     self.genome[values[idx]])
             idx = idx+1
         
-        Mutators.G2DCartesianMutatorNodeInputs(self.genome, pmut=0.7)        
+        mutations = Mutators.G2DCartesianMutatorNodeInputs(self.genome, 
+                                                            pmut=0.7)        
         for key in expected_result.keys():
             self.assertEqual(self.genome[key].inputs, expected_result[key])
+            self.assertTrue(self.genome[key] in mutations)
      
     @patch('pyevolve.Mutators.rand_choice')
     def test_cartesian_mutator_function_small_pmut(self, rand_mock):        
@@ -256,10 +260,11 @@ class G2DCartesianMutatorsTestCase(unittest.TestCase):
                 return what
                     
         rand_mock.side_effect = choice_effect                
-        Mutators.G2DCartesianMutatorNodeFunction(self.genome, pmut=0.1, 
-                                                    ga_engine = self.ga_engine)        
+        mutations = Mutators.G2DCartesianMutatorNodeFunction(self.genome, 
+                                pmut=0.1, ga_engine = self.ga_engine)        
         self.assertEqual(self.genome[4].data, "f3")
         self.assertEqual(len(self.genome[4].inputs), self.function_set["f3"]-1)
+        self.assertTrue(self.genome[4] in mutations)
         
     @patch('pyevolve.Mutators.rand_choice')
     def test_cartesian_mutator_function_large_pmut(self, rand_mock):
@@ -272,8 +277,8 @@ class G2DCartesianMutatorsTestCase(unittest.TestCase):
                 return what
                     
         rand_mock.side_effect = choice_effect                
-        Mutators.G2DCartesianMutatorNodeFunction(self.genome, pmut=0.7, 
-                                                    ga_engine = self.ga_engine)
+        mutations = Mutators.G2DCartesianMutatorNodeFunction(self.genome, 
+                                pmut=0.7, ga_engine = self.ga_engine)
         values = [1, "f3", 0,  2, "f4", 0, 0, 0, 3, "f1", 4, "f4", 0, 0]                 
         idx = 0
         while idx >= 0:
@@ -283,6 +288,7 @@ class G2DCartesianMutatorsTestCase(unittest.TestCase):
             self.assertEqual(self.genome[node_idx].data, func)
             self.assertEqual(len(self.genome[node_idx].inputs), 
                                 self.function_set[func]-1)
+            self.assertTrue(self.genome[node_idx] in mutations)
             values = values[2:]
             idx = (next((key for key, val in 
                                 enumerate(values) if 
@@ -296,9 +302,11 @@ class G2DCartesianMutatorsTestCase(unittest.TestCase):
         for param in CartesianNode.paramMapping.keys():
             self.genome[value].params[param] = -1
         rand_mock.return_value = self.genome[value]
-        Mutators.G2DCartesianMutatorNodeParams(self.genome, pmut=0.1)
+        mutations = Mutators.G2DCartesianMutatorNodeParams(self.genome, 
+                                                            pmut=0.1)
         for param in self.genome[value].params.values():
             self.assertTrue(param in range(0,11))
+        self.assertTrue(self.genome[value] in mutations)
         CartesianNode.paramMapping.clear()
         
     @patch('pyevolve.Mutators.rand_choice')
@@ -312,11 +320,13 @@ class G2DCartesianMutatorsTestCase(unittest.TestCase):
         def choice_effect(arg):
             return self.genome[values.pop(0)]
         rand_mock.side_effect = choice_effect
-        Mutators.G2DCartesianMutatorNodeParams(self.genome, pmut=0.7)
+        mutations = Mutators.G2DCartesianMutatorNodeParams(self.genome, 
+                                                            pmut=0.7)
         values = [1, 2, 3, 4]
         for v in values:
             for param in self.genome[v].params.values():
                 self.assertTrue(param in range(0,11))
+            self.assertTrue(self.genome[v] in mutations)
         CartesianNode.paramMapping.clear()
         
     @patch('pyevolve.Mutators.rand_shuffle')
@@ -331,11 +341,16 @@ class G2DCartesianMutatorsTestCase(unittest.TestCase):
             return
             
         rand_mock.side_effect = shuffle_effect
-        Mutators.G2DCartesianMutatorNodesOrder(self.genome, pmut=0.2)        
-        paths = self.genome.getActiveNodes()            
+        mutations = Mutators.G2DCartesianMutatorNodesOrder(self.genome, 
+                                                            pmut=0.2)
+
+        paths = self.genome.getActiveNodes()         
         shuffled_functions = []
         for node in paths[0]:
             shuffled_functions.append(node.getData())
 
+        for mutation in mutations:
+            self.assertTrue(mutation in paths[0])
+
         for func in expected_order:
-            self.assertTrue(func in shuffled_functions)
+            self.assertTrue(func in shuffled_functions)                   
