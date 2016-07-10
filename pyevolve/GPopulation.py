@@ -203,6 +203,8 @@ class GPopulation(object):
       :param flag: True (default) or False
       :param max_threads: None (default) or an integer value
 
+      .. versionadded::
+         The `setMultiThreading` method.
 
       """      
            
