@@ -263,6 +263,8 @@ class WANMigration(MigrationScheme):
          if len(pool) <= 0:
             break
          choice = rand_choice(pool)
+         # reevaluate choice, sometimes we use different methods on islands
+         choice[2].evaluate()
          pool.remove(choice)
 
          # replace the worst
@@ -333,6 +335,8 @@ class MPIMigration(MigrationScheme):
             break
 
          choice = rand_choice(pool)
+         # reevaluate choice, sometimes we use different methods on islands
+         choice[2].evaluate()
          pool.remove(choice)
 
          # replace the worst

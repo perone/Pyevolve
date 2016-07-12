@@ -232,8 +232,16 @@ class UDPThreadUnicastClient(threading.Thread):
       """
       bytes = -1
       for destination in self.target:
-         bytes = self.sock.sendto(data, destination)
-      return bytes
+         totalsent = 0
+         data_copy = data[:]
+         data = format(len(data), "#06x") + data
+         to_sent = len(data)         
+         while totalsent < to_sent:
+            bytes = self.sock.sendto(data, destination)
+            totalsent += bytes
+            data = data[bytes:]
+         data = data_copy[:]
+      return totalsent
 
    def run(self):
       """ Method called when you call *.start()* of the thread """
@@ -354,8 +362,17 @@ class UDPThreadServer(threading.Thread):
       :rtype: tuple (sender ip, data) or None when timeout exception
 
       """
+      received = 0
+      length = 1
+      data = ""
       try:
-         data, sender = self.sock.recvfrom(self.bufferSize)
+         while received < length:
+            buffer, sender = self.sock.recvfrom(self.bufferSize)
+            if received == 0:
+                length = int(buffer[:6], 16)
+                buffer = buffer[6:]
+            received += len(buffer)
+            data += buffer
       except socket.timeout:
          return None
       return (sender[0], data)
