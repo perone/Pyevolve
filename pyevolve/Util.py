@@ -180,8 +180,8 @@ class ErrorAccumulator(object):
     def __iadd__(self, value):
         """ The same as append, but you must pass a tuple """
         self.append(*value)
-        return self
-
+        return self    
+        
     def getMean(self):
         """ Return the mean of the non-squared accumulator """
         return self.acc / self.acc_len
@@ -214,6 +214,65 @@ class ErrorAccumulator(object):
         """
         return self.acc_square / float(self.acc_len)
 
+try:
+    import numpy as np
+
+    class VectorErrorAccumulator(ErrorAccumulator):
+        """ Vector version of error accumulator, it uses numpy and it is natural 
+        choice for analysing signal data (e.g. images). Appending one by one - 
+        result and target from fitness function, is slower than passing it via 
+        numpy arrays. Numpy also offers some methods usuable for signal 
+        comparing, especially in making confusion matrix.
+        """
+        def __init__(self, confusion = True, non_zeros = True):
+            super(VectorErrorAccumulator, self).__init__()        
+            self.non_zeros = 0
+            self.confusion = np.zeros([2, 2])
+            self.calculate_confusion = confusion
+            self.calculate_non_zeros = non_zeros
+            
+        def reset(self):
+            """ Reset the accumulator """
+            super(VectorErrorAccumulator, self).reset()
+            self.confusion = np.zeros([2,2])
+            self.non_zeros = 0
+            
+        def append(self, target, evaluated):
+            """ Add array value to the accumulator
+
+            :param target: the array target value
+            :param evaluated: the array evaluated value
+            """        
+            diff = target - evaluated
+            
+            if self.calculate_confusion:
+                targetBin = np.ravel(np.where(target > 0, 1, 0))
+                evaluatedBin = np.ravel(np.where(evaluated > 0, 1, 0))
+                flags=np.logical_not(np.bitwise_xor(targetBin,evaluatedBin))        
+                self.confusion = np.bincount(2 * flags + evaluatedBin, 
+                                minlength=4).reshape(2, 2).astype(np.float64)
+                
+            if self.calculate_non_zeros:
+                self.non_zeros = np.count_nonzero(diff)
+            
+            self.acc_square += np.sum((diff)**2)
+            self.acc += np.sum(np.absolute(diff))
+            self.acc_len += target.size
+            
+        def getConfusionMatrix(self):
+            """ Return the confusion matrix of accumulator """
+            return self.confusion
+            
+        def getNonZeros(self):
+            """ Return the counter of non zero values in the accumulator """
+            return self.non_zeros
+     
+        def getZeros(self):
+            """ Return the counter of zero values in the accumulator """
+            return self.acc_len - self.non_zeros
+
+except:
+    print 'No numpy module found, VectorErrorAccumulator class is unavailable.'
 
 class Graph(object):
     """ The Graph class
