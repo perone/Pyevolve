@@ -143,6 +143,8 @@ class G2DCartesian(GenomeBase):
 
         """
         GenomeBase.copy(self, g)
+        g.expressionNodes = self.expressionNodes.copy()
+        g.reevaluate = self.reevaluate
         g.nodes = copy.deepcopy(self.nodes)
         
     def evaluate(self, **args):
@@ -153,9 +155,8 @@ class G2DCartesian(GenomeBase):
             super(G2DCartesian, self).evaluate(**args)
             self.expressionNodes.clear()
             for path in self.getActiveNodes():
-                print path
                 for node in path:
-                    self.expressionNodes[node] = True    
+                    self.expressionNodes[(node.x, node.y)] = True    
         
     def getActiveNodes(self):
         """ Return list of lists with active paths in net, the size of list
@@ -187,7 +188,7 @@ class G2DCartesian(GenomeBase):
             mutated_nodes += it
 
         for node in mutated_nodes:
-            if self.expressionNodes.has_key(node):
+            if self.expressionNodes.has_key((node.x, node.y)):
                 self.reevaluate = True
                 return len(mutated_nodes)
         
