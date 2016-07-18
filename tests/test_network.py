@@ -5,7 +5,7 @@ from pyevolve import Network
 
 class UDPThreadServerTestCase(TestCase):
     def setUp(self):
-        self.server = Network.UDPThreadServer("localhost", 777)
+        self.server = Network.UDPThreadServer("localhost", 1777)
         self.plain_data = ("living is not enough one must have sunshine freedom"
                             "and a little flower")
         self.data = format(len(self.plain_data), "#06x") + self.plain_data
@@ -25,7 +25,7 @@ class UDPThreadServerTestCase(TestCase):
         
 class UDPThreadUnicastClientTestCase(TestCase):
     def setUp(self):
-        self.client = Network.UDPThreadUnicastClient("localhost", 777)
+        self.client = Network.UDPThreadUnicastClient("localhost", 1777)
         self.plain_data = ("living is not enough one must have sunshine freedom"
                             "and a little flower")
         self.client.target = 4*[None]
