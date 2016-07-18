@@ -104,14 +104,20 @@ class G2DCartesianGenomeTestCase(unittest.TestCase):
         self.genome.writeDotGraph(graph)
         self.assertTrue(len(graph.get_node_list()) >= self.genome.outputs)
            
-    def test_genome_mutate_expressed(self):
-        self.genome.expressionNodes = {MagicMock() : True, MagicMock() : True, 
-                                        MagicMock() : True}
+    def test_genome_mutate_expressed(self):    
+        nodes = []
+        for i in xrange(0, randint(2, 5)):
+            node = MagicMock()
+            node.x = randint(0, 7)
+            node.y = randint(0, 7)
+            self.genome.expressionNodes[(node.x, node.y)] = True
+            nodes.append(node)
+
         def apply_effect(arg, **args):
             mutated = []
             mutated.append([])
             for i in xrange(0, len(self.genome.expressionNodes)):
-                mutated[0].append(choice(self.genome.expressionNodes.keys()))
+                mutated[0].append(choice(nodes))
             return mutated
                 
         self.genome.mutator.applyFunctions = MagicMock(
@@ -142,13 +148,19 @@ class G2DCartesianGenomeTestCase(unittest.TestCase):
         
     def test_genome_evaluate_do(self):                
         nodes_pool = []
+        coords_pool = []
         for i in xrange(0, 10):
-            nodes_pool.append(MagicMock())
+            node = MagicMock()
+            node.x = randint(0, 4)
+            node.y = randint(0, 4)
+            nodes_pool.append(node)
             
         def get_effect(arg):
             ret = []
             for i in xrange(0, randint(1, 5)):
-                ret.append(choice(nodes_pool))
+                node = choice(nodes_pool)
+                ret.append(node)
+                coords_pool.append((node.x, node.y))
             arg[:] = list(ret)
             
         for i in xrange(0, self.outs):            
@@ -161,7 +173,7 @@ class G2DCartesianGenomeTestCase(unittest.TestCase):
         self.genome.evaluate()
         self.assertTrue(len(self.genome.expressionNodes) > 0)
         for node in self.genome.expressionNodes.keys():        
-            self.assertTrue(node in nodes_pool)
+            self.assertTrue(node in coords_pool)
                             
 class CartesianNodeTestCase(unittest.TestCase):
     @patch('pyevolve.G2DCartesian.rand_randint')
