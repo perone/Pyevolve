@@ -418,25 +418,24 @@ class GPopulation(object):
       if self.multiThreading[0] and MULTI_THREADING:
         logging.debug("Evaluating the population using the" 
                         "multithreading method")
-        t = {}
+        current_threads = {}
         if self.multiThreading[1] == None:
             spawn_size = len(self)
         else:
             spawn_size = self.multiThreading[1]
         
         for counter in xrange(0, len(self), spawn_size):
-            t.clear()
+            current_threads.clear()
             is_overflow = (counter + spawn_size) > len(self)
             overflow_size = is_overflow * (spawn_size+counter - len(self))
             start = counter
             end = counter + spawn_size - overflow_size
             for ind, idx in zip(self.internalPop[start:end], 
                                 xrange(0, spawn_size-overflow_size)):
-                t[idx] = Thread(target=ind.evaluate(), args=(ind, ))
-                t[idx].start()
-            
-            for idx in range(0, spawn_size-overflow_size):
-                t[idx].join()
+                current_threads[idx] = Thread(target=ind.evaluate, args=())                             
+                
+            [thread.start() for thread in current_threads.values()]
+            [thread.join() for thread in current_threads.values()]            
       
       # We have multiprocessing
       elif self.multiProcessing[0] and MULTI_PROCESSING:
@@ -506,6 +505,7 @@ class GPopulation(object):
       pop.scaleMethod = self.scaleMethod
       pop.internalParams = self.internalParams
       pop.multiProcessing = self.multiProcessing
+      pop.multiThreading = self.multiThreading
 
    def getParam(self, key, nvl=None):
       """ Gets an internal parameter

@@ -427,6 +427,41 @@ class GSimpleGA(object):
 
         self.internalPop.setMultiProcessing(flag, full_copy, max_processes)
 
+    def setMultiThreading(self, flag=True, max_threads=None):
+        """ Sets the flag to enable/disable the use of python multithreading module.
+        Use this option when you have more than one core on your CPU and when your
+        evaluation function is very slow.
+
+        Pyevolve will automaticly check if your Python version has **multithreading**
+        support and if you have more than one single CPU core. If you don't have support
+        or have just only one core, Pyevolve will not use the **multithreading**
+        feature.
+
+        Pyevolve uses the **multithreading** to execute the evaluation function over
+        the individuals, so the use of this feature will make sense if you have a
+        truly slow evaluation function (which is commom in GAs).
+      
+        Multithreading in general is better than multiprocessing when target data
+        to compare is big and copying it during process initialization is time
+        expensive.
+      
+        :param flag: True (default) or False
+        :param max_threads: None (default) or an integer value
+
+        .. warning:: Use this option only when your evaluation function is slow, so you'll
+                   get a good tradeoff between the process communication speed and the
+                   parallel evaluation. The use of the **multithreading** doesn't means
+                   always a better performance.
+
+        .. versionadded::
+            The `setMultiThreading` method.
+
+        """
+        if type(flag) != BooleanType:
+            Util.raiseException("Threading option must be True or False", TypeError)
+
+        self.internalPop.setMultiThreading(flag, max_threads)
+
     def setMigrationAdapter(self, migration_adapter=None):
         """ Sets the Migration Adapter
 
