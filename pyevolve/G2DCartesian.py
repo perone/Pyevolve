@@ -154,9 +154,11 @@ class G2DCartesian(GenomeBase):
         if self.reevaluate:
             super(G2DCartesian, self).evaluate(**args)
             self.expressionNodes.clear()
-            for path in self.getActiveNodes():
+            for idx, path in enumerate(self.getActiveNodes()):
                 for node in path:
-                    self.expressionNodes[(node.x, node.y)] = True    
+                    self.expressionNodes[(node.x, node.y)] = True
+                out = self.nodes[-idx-1]
+                self.expressionNodes[(out.x, out.y)] = True
         
     def getActiveNodes(self):
         """ Return list of lists with active paths in net, the size of list
@@ -183,6 +185,7 @@ class G2DCartesian(GenomeBase):
         """ Overloaded method of GenomeBase. Mutators of G2DCartesian return
         list of mutated nodes and if any of them is on the list of active
         expression nodes then genome flag to reevaluate is set """
+        self.reevaluate = False
         mutated_nodes = []
         for it in self.mutator.applyFunctions(self, **args):
             mutated_nodes += it
@@ -192,7 +195,6 @@ class G2DCartesian(GenomeBase):
                 self.reevaluate = True
                 return len(mutated_nodes)
         
-        self.reevaluate = False            
         return len(mutated_nodes)                    
         
     def writeDotGraph(self, graph):
@@ -203,10 +205,10 @@ class G2DCartesian(GenomeBase):
             node_dict = {}
             node_stack.append(self.nodes[-1-out])
             while node_stack:
-                current_node = node_stack.pop()                
+                current_node = node_stack.pop()
                 if current_node.data != "":
                     node_label = current_node.data
-                    for param in current_node.params.keys():                        
+                    for param in current_node.params.keys():
                         node_label += " " + str(current_node.params[param])
                     graph.add_node(pydot.Node(str(node_counter), 
                                     label = node_label))
@@ -264,11 +266,11 @@ class CartesianNode():
         """ The initializator of CartesianNode representation,
         position_x and position_y must be specified, data_set and previous_nodes
         depends on type of the node """
-        self.data = None       
-        self.inputs = []        
-        self.params = {}               
+        self.data = None
+        self.inputs = []
+        self.params = {}
         self.x = position_x
-        self.y = position_y        
+        self.y = position_y
 
         try:
             self.data = rand_choice(data_set.keys())
