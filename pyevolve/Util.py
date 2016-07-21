@@ -272,7 +272,8 @@ try:
             return self.acc_len - self.non_zeros
 
 except:
-    print 'No numpy module found, VectorErrorAccumulator class is unavailable.'
+    logging.info('No numpy module found, VectorErrorAccumulator class is '
+                    'unavailable.')
 
 class Graph(object):
     """ The Graph class
