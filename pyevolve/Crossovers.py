@@ -798,3 +798,10 @@ def GTreeGPCrossoverSinglePoint(genome, **args):
       assert brother.getHeight() <= max_depth
 
    return (sister, brother)
+
+#############################################################################
+#################  G2DCartesian Crossovers  #################################
+#############################################################################
+
+def G2DCartesianCrossoverNode(genome, **args):
+   return (args["mom"].clone(), args["dad"].clone())

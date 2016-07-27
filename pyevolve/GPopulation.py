@@ -47,6 +47,15 @@ try:
 except ImportError:
    MULTI_PROCESSING = False
    logging.debug("You don't have multiprocessing support for your Python version !")
+   
+try:
+   from threading import Thread
+   CPU_COUNT = cpu_count()
+   MULTI_THREADING = True if CPU_COUNT > 1 else False
+   logging.debug("You have %d CPU cores, so the threading state is %s", CPU_COUNT, MULTI_PROCESSING)   
+except ImportError:
+   MULTI_THREADING = False
+   logging.debug("You don't have threading support for your Python version !")
 
 
 def key_raw_score(individual):
@@ -134,6 +143,7 @@ class GPopulation(object):
 
          self.internalParams = genome.internalParams
          self.multiProcessing = genome.multiProcessing
+         self.multiThreading = genome.multiThreading
 
          self.statted = False
          self.stats = Statistics()
@@ -153,6 +163,7 @@ class GPopulation(object):
 
       self.internalParams = {}
       self.multiProcessing = (False, False, None)
+      self.multiThreading = (False, None) 
 
       # Statistics
       self.statted = False
@@ -179,6 +190,25 @@ class GPopulation(object):
 
       """
       self.multiProcessing = (flag, full_copy, max_processes)
+      
+   def setMultiThreading(self, flag=True, max_threads=None):
+      """ Sets the flag to enable/disable the use of python multithreading module.
+      Use this option when you have more than one core on your CPU and when your
+      evaluation function is very slow and can use the same non mutuable target
+      to evaluate fitness (e.g. images). Threading seems to be more efficient
+      than processing, there is no need of copying resources. Thread just points
+      the method and data in existing memory to execute but remember that 
+      threads share memory space.
+      
+      :param flag: True (default) or False
+      :param max_threads: None (default) or an integer value
+
+      .. versionadded::
+         The `setMultiThreading` method.
+
+      """      
+           
+      self.multiThreading = (flag, max_threads)
 
    def setMinimax(self, minimax):
       """ Sets the population minimax
@@ -383,8 +413,32 @@ class GPopulation(object):
       :param args: this params are passed to the evaluation function
 
       """
+      
+      # We have multithreading
+      if self.multiThreading[0] and MULTI_THREADING:
+        logging.debug("Evaluating the population using the" 
+                        "multithreading method")
+        current_threads = {}
+        if self.multiThreading[1] == None:
+            spawn_size = len(self)
+        else:
+            spawn_size = self.multiThreading[1]
+        
+        for counter in xrange(0, len(self), spawn_size):
+            current_threads.clear()
+            is_overflow = (counter + spawn_size) > len(self)
+            overflow_size = is_overflow * (spawn_size+counter - len(self))
+            start = counter
+            end = counter + spawn_size - overflow_size
+            for ind, idx in zip(self.internalPop[start:end], 
+                                xrange(0, spawn_size-overflow_size)):
+                current_threads[idx] = Thread(target=ind.evaluate, args=())                             
+                
+            [thread.start() for thread in current_threads.values()]
+            [thread.join() for thread in current_threads.values()]            
+      
       # We have multiprocessing
-      if self.multiProcessing[0] and MULTI_PROCESSING:
+      elif self.multiProcessing[0] and MULTI_PROCESSING:
          logging.debug("Evaluating the population using the multiprocessing method")
          proc_pool = Pool(processes=self.multiProcessing[2])
 
@@ -451,6 +505,7 @@ class GPopulation(object):
       pop.scaleMethod = self.scaleMethod
       pop.internalParams = self.internalParams
       pop.multiProcessing = self.multiProcessing
+      pop.multiThreading = self.multiThreading
 
    def getParam(self, key, nvl=None):
       """ Gets an internal parameter

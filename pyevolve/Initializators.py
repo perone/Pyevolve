@@ -14,8 +14,9 @@ choosing random data.
 
 """
 
-from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice
+from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice, gauss as rand_gauss
 import GTree
+import G2DCartesian
 import Util
 
 
@@ -272,3 +273,78 @@ def GTreeGPInitializator(genome, **args):
     genome.setRoot(root)
     genome.processNodes()
     assert genome.getHeight() <= max_depth
+	
+####################
+##  Cartesian GP  ##
+####################
+	
+def G2DCartesianInitializatorNode(genome, **args):
+    """This initializator is for Cartesian Genetic Programming, it uses three 
+        types of "slicers" from genome: inputs, internals and outputs. Every 
+        input get single terminal from engine, internals get a set of possible
+        functions, their parameters mapping set and previous available nodes 
+        outputs get just previous available nodes. From ga_engine is uses:
+
+    *gp_function_set*
+        Dict of functions and their arguments counter founded automatically 
+        after defining function prefix in ga_engine.
+
+    *gp_terminals*
+        List of terminals passed to ga_engine.
+        
+    *gp_args_mapping*
+        Dict of parameters for node with value being a str generating value for 
+        them via eval(), example: 
+            {"param1" : "random.randint(0,10)"} 
+        uses for parameter 'param1' random integer generator.
+
+    .. versionadded::
+       The *G2DCartesianInitializatorNode* function.
+    """
+    
+    if not isinstance(genome, G2DCartesian.G2DCartesian):
+        raise TypeError("Specified genome unsuitable for this Initializator.")
+    
+    ga_engine = args["ga_engine"]
+    inputs = genome.inputs
+    outputs = genome.outputs
+    rows = genome.rows
+    cols = genome.cols
+    inputSlice = genome.inputSlice
+    internalSlice = genome.internalSlice
+    outputSlice = genome.outputSlice
+    terminals = ga_engine.getParam("gp_terminals")
+    functions_set = ga_engine.getParam("gp_function_set")
+    args_mapping = ga_engine.getParam("gp_args_mapping")       
+
+    if terminals is None:
+        raise AssertionError("Empty terminal set.")
+    if functions_set is None:
+        raise AssertionError("Empty function set.")
+    if args_mapping is None:
+        raise AssertionError("Empty argument mapping set.")
+    if not len(terminals) == inputs:
+        raise AssertionError("Terminal set must be equal with input length.")
+
+    G2DCartesian.CartesianNode.paramMapping = args_mapping
+        
+    nodes = []
+    for counter, terminal in enumerate(terminals):
+        nodes.append(G2DCartesian.CartesianNode(-1, counter, {terminal : 1}))
+    genome[inputSlice] = nodes
+
+    previous_nodes = genome[0:inputs]
+    nodes = []
+    for counter in xrange(0, rows * cols):
+        nodes.append(G2DCartesian.CartesianNode(counter / cols, counter % cols, 
+                    functions_set, previous_nodes))
+        start = (counter / cols) * cols
+        end = (start+cols)*((counter % cols) == (cols - 1))
+        previous_nodes += nodes[start:end]
+    genome[internalSlice] = nodes
+	
+    nodes = []    
+    for counter in xrange(0, outputs):
+        nodes.append(G2DCartesian.CartesianNode(rows, counter, {}, 
+                    previous_nodes))
+    genome[outputSlice] = nodes

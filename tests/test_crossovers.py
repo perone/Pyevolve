@@ -10,6 +10,7 @@ from pyevolve.G1DList import G1DList
 from pyevolve.G2DBinaryString import G2DBinaryString
 from pyevolve.G2DList import G2DList
 from pyevolve.GTree import GTree, GTreeNode
+from pyevolve.G2DCartesian import G2DCartesian
 
 
 class CrossoverTestCase(unittest.TestCase):
@@ -390,3 +391,18 @@ class GTreeCrossoversTestCase(CrossoverTestCase):
             assertion_name='assetTreesEqual',
             crossover_extra_kwargs={'count': 2}
         )
+        
+class G2DCartesianCrossoverTestCase(CrossoverTestCase):
+    def setUp(self):
+        self.mom = G2DCartesian(2, 2, 1, 1)
+        self.dad = G2DCartesian(2, 2, 1, 1)
+
+    def test_crossover_node(self):
+        self.assertCrossoverResultsEqual(
+            Crossovers.G2DCartesianCrossoverNode,
+            self.mom,
+            self.dad,
+            None,
+            ''
+        )
+    
