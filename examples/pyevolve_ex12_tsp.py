@@ -8,12 +8,15 @@ import sys, random
 random.seed(1024)
 from math import sqrt
 
+print('Seems totally broken in Python 3, exit')
+sys.exit()
+
 PIL_SUPPORT = None
 
 try:
     from PIL import Image, ImageDraw, ImageFont
     PIL_SUPPORT = True
-except:
+except ImportError:
     PIL_SUPPORT = False
 
 
@@ -70,11 +73,11 @@ def write_tour_to_img(coords, tour, img_file):
         d.ellipse((x-5,y-5,x+5,y+5),outline=(0,0,0),fill=(196,196,196))
     del d
     img.save(img_file, "PNG")
-    print "The plot was saved into the %s file." % (img_file,)
+    print("The plot was saved into the %s file." % (img_file,))
 
 def G1DListTSPInitializator(genome, **args):
     """ The initializator for the TSP """
-    lst = [i for i in xrange(genome.getListSize())]
+    lst = [i for i in range(genome.getListSize())]
     random.shuffle(lst)
     genome.setInternalList(lst)
 
@@ -96,7 +99,7 @@ def main_run():
     global cm, coords, WIDTH, HEIGHT
 
     coords = [(random.randint(0, WIDTH), random.randint(0, HEIGHT))
-              for i in xrange(CITIES)]
+              for i in range(CITIES)]
     cm     = cartesian_matrix(coords)
     genome = G1DList.G1DList(len(coords))
 
@@ -115,8 +118,7 @@ def main_run():
     # This is to make a video
     ga.stepCallback.set(evolve_callback)
     # 21666.49
-    import psyco
-    psyco.full()
+
 
     ga.evolve(freq_stats=500)
     best = ga.bestIndividual()
@@ -124,7 +126,7 @@ def main_run():
     if PIL_SUPPORT:
         write_tour_to_img(coords, best, "tsp_result.png")
     else:
-        print "No PIL detected, cannot plot the graph !"
+        print("No PIL detected, cannot plot the graph !")
 
 if __name__ == "__main__":
     main_run()

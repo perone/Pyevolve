@@ -16,7 +16,7 @@ Default Parameters
 
 *Mutation Rate*
 
-   Default is 0.02, which represents 2%
+   Default is 0.02, which represents 0.2%
 
 *Crossover Rate*
 
@@ -58,20 +58,22 @@ Class
 -------------------------------------------------------------
 
 """
+
+from future.builtins import range
+
 import random
 import logging
 from time import time
-from types import BooleanType
 from sys import platform as sys_platform
 from sys import stdout as sys_stdout
 import code
 
-from GPopulation import GPopulation
-from FunctionSlot import FunctionSlot
-from GenomeBase import GenomeBase
-from DBAdapters import DBBaseAdapter
-import Consts
-import Util
+from .GPopulation import GPopulation
+from .FunctionSlot import FunctionSlot
+from .GenomeBase import GenomeBase
+from .DBAdapters import DBBaseAdapter
+from . import Consts
+from . import Util
 import pyevolve
 
 # Platform dependant code for the Interactive Mode
@@ -214,7 +216,7 @@ class GSimpleGA(object):
         if seed:
             random.seed(seed)
 
-        if type(interactiveMode) != BooleanType:
+        if not isinstance(interactiveMode, bool):
             Util.raiseException("Interactive Mode option must be True or False", TypeError)
 
         if not isinstance(genome, GenomeBase):
@@ -360,13 +362,15 @@ class GSimpleGA(object):
            The *setInteractiveMode* method.
 
         """
-        if type(flag) != BooleanType:
+        if not isinstance(flag, bool):
             Util.raiseException("Interactive Mode option must be True or False", TypeError)
         self.interactiveMode = flag
 
     def __repr__(self):
         """ The string representation of the GA Engine """
-        minimax_type = Consts.minimaxType.keys()[Consts.minimaxType.values().index(self.minimax)]
+        minimax_type = list(Consts.minimaxType.keys())[
+                            list(Consts.minimaxType.values()).index(self.minimax)
+                       ]
         ret = "- GSimpleGA\n"
         ret += "\tGP Mode:\t\t %s\n" % self.getGPMode()
         ret += "\tPopulation Size:\t %d\n" % self.internalPop.popSize
@@ -419,10 +423,10 @@ class GSimpleGA(object):
            The `setMultiProcessing` method.
 
         """
-        if type(flag) != BooleanType:
+        if not isinstance(flag, bool):
             Util.raiseException("Multiprocessing option must be True or False", TypeError)
 
-        if type(full_copy) != BooleanType:
+        if not isinstance(full_copy, bool):
             Util.raiseException("Multiprocessing 'full_copy' option must be True or False", TypeError)
 
         self.internalPop.setMultiProcessing(flag, full_copy, max_processes)
@@ -471,7 +475,7 @@ class GSimpleGA(object):
         :param sort_type: the Sort Type
 
         """
-        if sort_type not in Consts.sortType.values():
+        if sort_type not in list(Consts.sortType.values()):
             Util.raiseException("sort type must be a Consts.sortType type", TypeError)
         self.internalPop.sortType = sort_type
 
@@ -529,7 +533,7 @@ class GSimpleGA(object):
         :param mtype: the minimax mode, from Consts.minimaxType
 
         """
-        if mtype not in Consts.minimaxType.values():
+        if mtype not in list(Consts.minimaxType.values()):
             Util.raiseException("Minimax must be maximize or minimize", TypeError)
         self.minimax = mtype
 
@@ -547,7 +551,7 @@ class GSimpleGA(object):
         :param flag: True or False
 
         """
-        if type(flag) != BooleanType:
+        if not isinstancetype(flag, bool):
             Util.raiseException("Elitism option must be True or False", TypeError)
         self.elitism = flag
 
@@ -597,10 +601,10 @@ class GSimpleGA(object):
         function_set = {}
 
         main_dict = mod_main.__dict__
-        for obj, addr in main_dict.items():
+        for obj, addr in list(main_dict.items()):
             if obj[0:len(prefix)] == prefix:
                 try:
-                    op_len = addr.func_code.co_argcount
+                    op_len = addr.__code__.co_argcount
                 except:
                     continue
                 function_set[obj] = op_len
@@ -645,7 +649,7 @@ class GSimpleGA(object):
 
         crossover_empty = self.select(popID=self.currentGeneration).crossover.isEmpty()
 
-        for i in xrange(0, size_iterate, 2):
+        for i in range(0, size_iterate, 2):
             genomeMom = self.select(popID=self.currentGeneration)
             genomeDad = self.select(popID=self.currentGeneration)
 
@@ -686,13 +690,13 @@ class GSimpleGA(object):
         if self.elitism:
             logging.debug("Doing elitism.")
             if self.getMinimax() == Consts.minimaxType["maximize"]:
-                for i in xrange(self.nElitismReplacement):
+                for i in range(self.nElitismReplacement):
                     #re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score > newPop.bestRaw(i).score:
                         newPop[len(newPop) - 1 - i] = self.internalPop.bestRaw(i)
             elif self.getMinimax() == Consts.minimaxType["minimize"]:
-                for i in xrange(self.nElitismReplacement):
+                for i in range(self.nElitismReplacement):
                     #re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score < newPop.bestRaw(i).score:
@@ -722,7 +726,7 @@ class GSimpleGA(object):
         percent = self.currentGeneration * 100 / float(self.nGenerations)
         message = "Gen. %d (%.2f%%):" % (self.currentGeneration, percent)
         logging.info(message)
-        print message,
+        print(message, end=" ")
         sys_stdout.flush()
         self.internalPop.statistics()
         stat_ret = self.internalPop.printStats()
@@ -731,7 +735,7 @@ class GSimpleGA(object):
     def printTimeElapsed(self):
         """ Shows the time elapsed since the begin of evolution """
         total_time = time() - self.time_init
-        print "Total time elapsed: %.3f seconds." % total_time
+        print("Total time elapsed: %.3f seconds." % total_time)
         return total_time
 
     def dumpStatsDB(self):
@@ -805,26 +809,26 @@ class GSimpleGA(object):
                 if stopFlagTerminationCriteria:
                     logging.debug("Evolution stopped by the Termination Criteria !")
                     if freq_stats:
-                        print "\n\tEvolution stopped by Termination Criteria function !\n"
+                        print("\n\tEvolution stopped by Termination Criteria function !\n")
                     break
 
                 if stopFlagCallback:
                     logging.debug("Evolution stopped by Step Callback function !")
                     if freq_stats:
-                        print "\n\tEvolution stopped by Step Callback function !\n"
+                        print("\n\tEvolution stopped by Step Callback function !\n")
                     break
 
                 if self.interactiveMode:
                     if sys_platform[:3] == "win":
                         if msvcrt.kbhit():
                             if ord(msvcrt.getch()) == Consts.CDefESCKey:
-                                print "Loading modules for Interactive Mode...",
+                                print("Loading modules for Interactive Mode...", end=" ")
                                 logging.debug(
                                     "Windows Interactive Mode key detected ! generation=%d",
                                     self.getCurrentGeneration()
                                 )
                                 from pyevolve import Interaction
-                                print " done !"
+                                print(" done !")
                                 interact_banner = "## Pyevolve v.%s - Interactive Mode ##\n" \
                                                   "Press CTRL-Z to quit interactive mode." % (pyevolve.__version__,)
                                 session_locals = {
@@ -833,18 +837,18 @@ class GSimpleGA(object):
                                     "pyevolve": pyevolve,
                                     "it": Interaction,
                                 }
-                                print
+                                print()
                                 code.interact(interact_banner, local=session_locals)
 
                     is_interactive_generation = self.getInteractiveGeneration() == self.getCurrentGeneration()
                     if self.getInteractiveGeneration() >= 0 and is_interactive_generation:
-                        print "Loading modules for Interactive Mode...",
+                        print("Loading modules for Interactive Mode...", end=" ")
                         logging.debug(
                             "Manual Interactive Mode key detected ! generation=%d",
                             self.getCurrentGeneration()
                         )
                         from pyevolve import Interaction
-                        print " done !"
+                        print(" done !")
                         interact_banner = "## Pyevolve v.%s - Interactive Mode ##" % (pyevolve.__version__,)
                         session_locals = {
                             "ga_engine": self,
@@ -852,7 +856,7 @@ class GSimpleGA(object):
                             "pyevolve": pyevolve,
                             "it": Interaction
                         }
-                        print
+                        print()
                         code.interact(interact_banner, local=session_locals)
 
                 if self.step():
@@ -861,7 +865,7 @@ class GSimpleGA(object):
         except KeyboardInterrupt:
             logging.debug("CTRL-C detected, finishing evolution.")
             if freq_stats:
-                print "\n\tA break was detected, you have interrupted the evolution !\n"
+                print("\n\tA break was detected, you have interrupted the evolution !\n")
 
         if freq_stats != 0:
             self.printStats()

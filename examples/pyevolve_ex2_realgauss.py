@@ -35,7 +35,7 @@ def run_main():
     ga.evolve(freq_stats=10)
 
     # Best individual
-    print ga.bestIndividual()
+    print(ga.bestIndividual())
 
 if __name__ == "__main__":
     run_main()

@@ -8,9 +8,11 @@ class that holds the allele types) and all the
 allele types to use with the supported chromosomes.
 
 """
+from future.builtins import range
+
 import random
-import Consts
-import Util
+from . import Consts
+from . import Util
 
 class GAlleles(object):
    """ GAlleles Class - The set of alleles
@@ -98,7 +100,7 @@ class GAlleles(object):
          ret += "Allele for position 0:\n"
          ret += self.allele_list[0].__repr__()
       else:
-         for i in xrange(len(self)):
+         for i in range(len(self)):
             ret += "Allele for position %d:\n" % (i,)
             ret += self.allele_list[i].__repr__()
       return ret

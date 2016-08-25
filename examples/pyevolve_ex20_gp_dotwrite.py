@@ -13,8 +13,8 @@ def eval_func(chromosome):
     rmse_accum.reset()
     code_comp = chromosome.getCompiledCode()
 
-    for a in xrange(0, 5):
-        for b in xrange(0, 5):
+    for a in range(0, 5):
+        for b in range(0, 5):
             evaluated     = eval(code_comp)
             target        = math.sqrt((a*a)+(b*b))
             rmse_accum   += (target, evaluated)

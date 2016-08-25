@@ -12,9 +12,9 @@ you'll find the class :class:`FunctionSlot.FunctionSlot`, which is the slot clas
 """
 
 from random import uniform as rand_uniform
-from types import BooleanType
 
-import Util
+from . import Util
+import collections
 
 class FunctionSlot(object):
    """ FunctionSlot Class - The function slot
@@ -62,7 +62,7 @@ class FunctionSlot(object):
 
       :param func: the function object
       """
-      if not callable(func):
+      if not isinstance(func, collections.Callable):
          Util.raiseException("The function must be a method or function", TypeError)
 
    def __iadd__(self, func):
@@ -103,7 +103,7 @@ class FunctionSlot(object):
       :param flag: True or False
 
       """
-      if type(flag) != BooleanType:
+      if not isinstance(flag, bool):
          Util.raiseException("Random option must be True or False", TypeError)
 
       self.rand_apply = flag
@@ -195,8 +195,8 @@ class FunctionSlot(object):
          return strRet
 
       for f, w in zip(self.funcList, self.funcWeights):
-         strRet += "\t\tName: %s - Weight: %.2f\n" % (f.func_name, w)
-         if f.func_doc:
-            strRet += "\t\tDoc: " + f.func_doc + "\n"
+         strRet += "\t\tName: %s - Weight: %.2f\n" % (f.__name__, w)
+         if f.__doc__:
+            strRet += "\t\tDoc: " + f.__doc__ + "\n"
 
       return strRet
