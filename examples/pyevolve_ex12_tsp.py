@@ -4,12 +4,9 @@ from pyevolve import Mutators
 from pyevolve import Crossovers
 from pyevolve import Consts
 
-import sys, random
+import sys, random, os
 random.seed(1024)
 from math import sqrt
-
-print('Seems totally broken in Python 3, exit')
-sys.exit()
 
 PIL_SUPPORT = None
 
@@ -88,6 +85,10 @@ def G1DListTSPInitializator(genome, **args):
 #
 def evolve_callback(ga_engine):
     global LAST_SCORE
+    try:
+        os.makedirs('tspimg')
+    except OSError:
+        pass
     if ga_engine.getCurrentGeneration() % 100 == 0:
         best = ga_engine.bestIndividual()
         if LAST_SCORE != best.getRawScore():
@@ -116,7 +117,8 @@ def main_run():
     ga.setPopulationSize(80)
 
     # This is to make a video
-    ga.stepCallback.set(evolve_callback)
+    if PIL_SUPPORT:
+         ga.stepCallback.set(evolve_callback)
     # 21666.49
 
 

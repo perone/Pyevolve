@@ -1,3 +1,4 @@
+from __future__ import print_function, absolute_import
 """
 
 :mod:`GTree` and GTreeGP -- the tree chromosomes
@@ -38,7 +39,6 @@ from past.builtins import xrange
 import random
 from .GenomeBase import GenomeBase, GTreeBase, GTreeNodeBase
 from . import Util
-from . import Consts
 
 try:
     import pydot_ng as pydot
@@ -62,7 +62,7 @@ class GTree(GTreeBase):
     """
 
     def __init__(self, root_node=None):
-        from pyevolve import Consts
+        from . import Consts
         super(GTree, self).__init__(root_node)
         self.initializator.set(Consts.CDefGTreeInit)
         self.mutator.set(Consts.CDefGGTreeMutator)
@@ -347,7 +347,7 @@ class GTreeGP(GTreeBase):
     """
 
     def __init__(self, root_node=None, cloning=False):
-        from pyevolve import Consts
+        from . import Consts
         super(GTreeGP, self).__init__(root_node)
         if not cloning:
             self.initializator.set(Consts.CDefGTreeGPInit)
@@ -663,7 +663,7 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
     :max_depth: the maximum depth of the tree
     :rtype: the root node
     """
-
+    from . import Consts
     gp_terminals = ga_engine.getParam("gp_terminals")
     assert gp_terminals is not None
 

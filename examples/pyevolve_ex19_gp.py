@@ -78,8 +78,11 @@ def main_run():
     print(ga.bestIndividual())
 
     graph = pydot.Dot()
-    ga.bestIndividual().writeDotGraph(graph)
-    graph.write_jpeg('tree.png', prog='dot')
+    try:
+        ga.bestIndividual().writeDotGraph(graph)
+        graph.write_jpeg('tree.png', prog='dot')
+    except pydot_ng.InvocationException:
+        print('Graphviz not installed')
 
 if __name__ == "__main__":
     main_run()

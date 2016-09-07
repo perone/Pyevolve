@@ -1,3 +1,4 @@
+from __future__ import print_function
 """
 
 :mod:`GSimpleGA` -- the genetic algorithm by itself
@@ -16,7 +17,7 @@ Default Parameters
 
 *Mutation Rate*
 
-   Default is 0.02, which represents 0.2%
+   Default is 0.02, which represents 2%
 
 *Crossover Rate*
 

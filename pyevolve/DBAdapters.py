@@ -24,7 +24,6 @@ from . import Consts
 from . import Util
 from . import Statistics
 import logging
-import types
 import datetime
 
 
