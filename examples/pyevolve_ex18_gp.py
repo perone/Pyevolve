@@ -16,8 +16,8 @@ def eval_func(chromosome):
     rmse_accum.reset()
     code_comp = chromosome.getCompiledCode()
 
-    for a in xrange(0, 5):
-        for b in xrange(0, 5):
+    for a in range(0, 5):
+        for b in range(0, 5):
             evaluated     = eval(code_comp)
             target        = math.sqrt((a*a)+(b*b))
             rmse_accum   += (target, evaluated)
@@ -41,7 +41,7 @@ def main_run():
 
     ga(freq_stats=10)
     best = ga.bestIndividual()
-    print best
+    print(best)
 
 if __name__ == "__main__":
     main_run()

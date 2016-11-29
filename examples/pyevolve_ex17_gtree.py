@@ -36,7 +36,7 @@ def run_main():
     ga.setMutationRate(0.05)
 
     ga.evolve(freq_stats=10)
-    print ga.bestIndividual()
+    print(ga.bestIndividual())
 
 if __name__ == "__main__":
     run_main()

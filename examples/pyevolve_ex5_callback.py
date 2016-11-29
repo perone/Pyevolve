@@ -7,8 +7,8 @@ from pyevolve import Selectors
 def evolve_callback(ga_engine):
     generation = ga_engine.getCurrentGeneration()
     if generation % 100 == 0:
-        print "Current generation: %d" % (generation,)
-        print ga_engine.getStatistics()
+        print("Current generation: %d" % (generation,))
+        print(ga_engine.getStatistics())
     return False
 
 # This function is the evaluation function, we want
@@ -38,7 +38,7 @@ def run_main():
     ga.evolve()
 
     # Best individual
-    print ga.bestIndividual()
+    print(ga.bestIndividual())
 
 if __name__ == "__main__":
     run_main()

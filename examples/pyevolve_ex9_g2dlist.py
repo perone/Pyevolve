@@ -10,8 +10,8 @@ def eval_func(chromosome):
     score = 0.0
 
     # iterate over the chromosome
-    for i in xrange(chromosome.getHeight()):
-        for j in xrange(chromosome.getWidth()):
+    for i in range(chromosome.getHeight()):
+        for j in range(chromosome.getWidth()):
             # You can use the chromosome.getItem(i, j) too
             if chromosome[i][j]==0:
                 score += 0.1
@@ -36,7 +36,7 @@ def run_main():
     ga.evolve(freq_stats=100)
 
     # Best individual
-    print ga.bestIndividual()
+    print(ga.bestIndividual())
 
 
 if __name__ == "__main__":

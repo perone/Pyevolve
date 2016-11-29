@@ -4,7 +4,7 @@ from pyevolve import Consts
 from pyevolve import Selectors
 from pyevolve import Mutators
 from math import sqrt
-import pydot
+import pydot_ng as pydot
 import random
 
 def gp_add(a, b):
@@ -34,8 +34,8 @@ def gp_mul(a,b):
     return new_list
 
 def random_lists(size):
-    list_a = [random.randint(1,20) for i in xrange(size)]
-    list_b = [random.randint(1,20) for i in xrange(size)]
+    list_a = [random.randint(1,20) for i in range(size)]
+    list_b = [random.randint(1,20) for i in range(size)]
 
     return (list_a, list_b)
 
@@ -45,7 +45,7 @@ def eval_func(chromosome):
     code_comp     = chromosome.getCompiledCode()
     square_accum  = 0.0
 
-    for j in xrange(sz):
+    for j in range(sz):
         a, b = random_lists(5)
         target_list   = gp_add(gp_mul(a,b),gp_mul(a,b))
         ret_list      = eval(code_comp)
@@ -75,11 +75,14 @@ def main_run():
     ga.setPopulationSize(80)
 
     ga(freq_stats=1)
-    print ga.bestIndividual()
+    print(ga.bestIndividual())
 
     graph = pydot.Dot()
-    ga.bestIndividual().writeDotGraph(graph)
-    graph.write_jpeg('tree.png', prog='dot')
+    try:
+        ga.bestIndividual().writeDotGraph(graph)
+        graph.write_jpeg('tree.png', prog='dot')
+    except pydot_ng.InvocationException:
+        print('Graphviz not installed')
 
 if __name__ == "__main__":
     main_run()
