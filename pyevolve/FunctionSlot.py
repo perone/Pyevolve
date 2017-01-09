@@ -195,8 +195,8 @@ class FunctionSlot(object):
          return strRet
 
       for f, w in zip(self.funcList, self.funcWeights):
-         strRet += "\t\tName: %s - Weight: %.2f\n" % (f.func_name, w)
-         if f.func_doc:
-            strRet += "\t\tDoc: " + f.func_doc + "\n"
+         strRet += "\t\tName: %s - Weight: %.2f\n" % (f.__name__, w)
+         if f.__doc__:
+            strRet += "\t\tDoc: " + f.__doc__ + "\n"
 
       return strRet

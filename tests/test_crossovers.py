@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from itertools import cycle
 import unittest
 
@@ -329,9 +331,9 @@ class GTreeCrossoversTestCase(CrossoverTestCase):
             self.assertEqual(root1.node_data, root2.node_data)
             root1_childs = set([l.node_data for l in root1.getChilds()])
             root2_childs = set([l.node_data for l in root2.getChilds()])
-            print root1_childs, root2_childs
+            print(root1_childs, root2_childs)
             self.assertFalse((root1_childs and not root2_childs) or (not root1_childs and root2_childs))
-            print root1_childs, root2_childs
+            print(root1_childs, root2_childs)
             self.assertFalse(root1_childs - root2_childs)
 
     @patch('pyevolve.Crossovers.rand_choice')

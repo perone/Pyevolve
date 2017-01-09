@@ -34,8 +34,10 @@ Class
 -------------------------------------------------------------
 
 """
-from GenomeBase import GenomeBase, G1DBase
-import Consts
+from future.builtins import range
+
+from .GenomeBase import GenomeBase, G1DBase
+from . import Consts
 
 
 class G1DList(G1DBase):
@@ -116,21 +118,21 @@ class G1DList(G1DBase):
     def __mul__(self, other):
         """ Multiply every element of G1DList by "other" """
         newObj = self.clone()
-        for i in xrange(len(newObj)):
+        for i in range(len(newObj)):
             newObj[i] *= other
         return newObj
 
     def __add__(self, other):
         """ Plus every element of G1DList by "other" """
         newObj = self.clone()
-        for i in xrange(len(newObj)):
+        for i in range(len(newObj)):
             newObj[i] += other
         return newObj
 
     def __sub__(self, other):
         """ Plus every element of G1DList by "other" """
         newObj = self.clone()
-        for i in xrange(len(newObj)):
+        for i in range(len(newObj)):
             newObj[i] -= other
         return newObj
 

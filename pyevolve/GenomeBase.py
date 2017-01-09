@@ -8,6 +8,8 @@ if you are planning to create a new representation, you must
 take a inside look into this module.
 
 """
+from future.builtins import range
+
 from random import choice as rand_choice
 import inspect
 
@@ -588,7 +590,7 @@ class GTreeBase(GenomeBase):
          newnode.setParent(node_parent)
          node_parent.replaceChild(node, newnode)
 
-      for ci in xrange(len(newnode)):
+      for ci in range(len(newnode)):
          GTreeBase.copy(self, g, newnode.getChild(ci), newnode)
 
       return newnode

@@ -16,14 +16,16 @@ module, you'll find the adapters above cited.
       DB Adapters are set in the GSimpleGA Class.
 
 """
+from __future__ import print_function
+from future.builtins import range
 
 from pyevolve import __version__
-import Consts
-import Util
+from . import Consts
+from . import Util
+from . import Statistics
 import logging
 import types
 import datetime
-import Statistics
 
 
 class DBBaseAdapter(object):
@@ -388,9 +390,9 @@ class DBSQLite(DBBaseAdapter):
       try:
          c.execute(stmt, (self.getIdentify(),))
          c.execute(stmt2, (self.getIdentify(),))
-      except self.sqlite3mod.OperationalError, expt:
+      except self.sqlite3mod.OperationalError as expt:
          if str(expt).find("no such table") >= 0:
-            print "\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n"
+            print("\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n")
 
       self.commit()
 
@@ -421,14 +423,14 @@ class DBSQLite(DBBaseAdapter):
 
       c = self.getCursor()
       pstmt = "insert into %s values (?, ?, " % (Consts.CDefSQLiteDBTable)
-      for i in xrange(len(stats)):
+      for i in range(len(stats)):
          pstmt += "?, "
       pstmt = pstmt[:-2] + ")"
       c.execute(pstmt, (self.getIdentify(), generation) + stats.asTuple())
 
       pstmt = "insert into %s values(?, ?, ?, ?, ?)" % (Consts.CDefSQLiteDBTablePop,)
       tups = []
-      for i in xrange(len(population)):
+      for i in range(len(population)):
          ind = population[i]
          tups.append((self.getIdentify(), generation, i, ind.fitness, ind.score))
 
@@ -773,7 +775,7 @@ class DBMySQLAdapter(DBBaseAdapter):
 
       c = self.getCursor()
       pstmt = "insert into " + Consts.CDefMySQLDBTable + " values (%s, %s, "
-      for i in xrange(len(stats)):
+      for i in range(len(stats)):
          pstmt += "%s, "
       pstmt = pstmt[:-2] + ")"
       c.execute(pstmt, (self.getIdentify(), generation) + stats.asTuple())
@@ -781,7 +783,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       pstmt = "insert into " + Consts.CDefMySQLDBTablePop + " values(%s, %s, %s, %s, %s)"
 
       tups = []
-      for i in xrange(len(population)):
+      for i in range(len(population)):
          ind = population[i]
          tups.append((self.getIdentify(), generation, i, ind.fitness, ind.score))
 

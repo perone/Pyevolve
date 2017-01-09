@@ -7,6 +7,7 @@ This is the utility module, with some utility functions of general
 use, like list item swap, random utilities and etc.
 
 """
+from future.builtins import range
 
 from random import random as rand_random
 from math import sqrt as math_sqrt
@@ -88,7 +89,7 @@ def raiseException(message, expt=None):
     if expt is None:
         raise Exception(message)
     else:
-        raise (expt, message)
+        raise expt(message)
 
 
 def cmp_individual_raw(a, b):
@@ -319,7 +320,7 @@ def G1DListGetEdges(individual):
     """
     edg = {}
     ind_list = individual.getInternalList()
-    for i in xrange(len(ind_list)):
+    for i in range(len(ind_list)):
         a, b = ind_list[i], ind_list[i - 1]
 
         if a not in edg:
