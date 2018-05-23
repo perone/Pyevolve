@@ -8,6 +8,7 @@ setup(
    version = __version__,
    packages = ["pyevolve"],
    scripts = ['pyevolve_graph.py'],
+   install_requires = ['future'],
    package_data = {
       'pyevolve': ['*.txt']
    },
