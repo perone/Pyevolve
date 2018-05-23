@@ -1,0 +1,10 @@
+
+\.tox/
+
+Pyevolve\.egg-info/
+
+*.pyc
+
+dist/
+
+build/
