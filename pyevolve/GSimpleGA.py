@@ -552,7 +552,7 @@ class GSimpleGA(object):
         :param flag: True or False
 
         """
-        if not isinstancetype(flag, bool):
+        if not isinstance(flag, bool):
             Util.raiseException("Elitism option must be True or False", TypeError)
         self.elitism = flag
 
