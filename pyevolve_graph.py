@@ -427,6 +427,7 @@ if __name__ == "__main__":
    print("Loading modules....")
 
    import os.path
+   from sys import exit
    if not os.path.exists(options.dbfile):
       print("Database file '%s' not found !" % (options.dbfile, ))
       exit()
