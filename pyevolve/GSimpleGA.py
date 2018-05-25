@@ -369,9 +369,7 @@ class GSimpleGA(object):
 
     def __repr__(self):
         """ The string representation of the GA Engine """
-        minimax_type = list(Consts.minimaxType.keys())[
-                            list(Consts.minimaxType.values()).index(self.minimax)
-                       ]
+        minimax_type = list(Consts.minimaxType.keys())[list(Consts.minimaxType.values()).index(self.minimax)]
         ret = "- GSimpleGA\n"
         ret += "\tGP Mode:\t\t %s\n" % self.getGPMode()
         ret += "\tPopulation Size:\t %d\n" % self.internalPop.popSize
@@ -606,7 +604,7 @@ class GSimpleGA(object):
             if obj[0:len(prefix)] == prefix:
                 try:
                     op_len = addr.__code__.co_argcount
-                except:
+                except: # noqa # TODO need to do some investigate here
                     continue
                 function_set[obj] = op_len
 
@@ -692,13 +690,13 @@ class GSimpleGA(object):
             logging.debug("Doing elitism.")
             if self.getMinimax() == Consts.minimaxType["maximize"]:
                 for i in range(self.nElitismReplacement):
-                    #re-evaluate before being sure this is the best
+                    # re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score > newPop.bestRaw(i).score:
                         newPop[len(newPop) - 1 - i] = self.internalPop.bestRaw(i)
             elif self.getMinimax() == Consts.minimaxType["minimize"]:
                 for i in range(self.nElitismReplacement):
-                    #re-evaluate before being sure this is the best
+                    # re-evaluate before being sure this is the best
                     self.internalPop.bestRaw(i).evaluate()
                     if self.internalPop.bestRaw(i).score < newPop.bestRaw(i).score:
                         newPop[len(newPop) - 1 - i] = self.internalPop.bestRaw(i)
@@ -711,9 +709,9 @@ class GSimpleGA(object):
         self.currentGeneration += 1
 
         if self.max_time:
-           total_time = time() - self.time_init
-           if total_time > self.max_time:
-              return True
+            total_time = time() - self.time_init
+            if total_time > self.max_time:
+                return True
         return self.currentGeneration == self.nGenerations
 
     def printStats(self):

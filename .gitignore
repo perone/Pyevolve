@@ -8,3 +8,7 @@ Pyevolve\.egg-info/
 dist/
 
 build/
+
+\.idea/
+
+\.coverage

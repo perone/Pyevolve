@@ -24,13 +24,17 @@ class CrossoverTestCase(unittest.TestCase):
             genome_attr_name='genomeList',  # TODO refactor with Genome getter method
             assertion_name='assertEqual'
     ):
+        def genome_value_getter(g):
+            if genome_attr_name:
+                return getattr(g, genome_attr_name)
+            else:
+                return g
         crossover_extra_kwargs = crossover_extra_kwargs or {}
         kwargs = {
             'mom': self.mom,
             'dad': self.dad,
         }
         kwargs.update(crossover_extra_kwargs)
-        genome_value_getter = lambda g: getattr(g, genome_attr_name) if genome_attr_name else g
         actual_sister, actual_brother = [genome_value_getter(g) if g else None for g in crossover(None, **kwargs)]
         getattr(self, assertion_name)(actual_sister, expected_sister)
         getattr(self, assertion_name)(actual_brother, expected_brother)
@@ -173,7 +177,7 @@ class G1DListCrossoversTestCase(CrossoverTestCase):
         )
 
     @patch('pyevolve.Crossovers.rand_random')
-    def test_crossfill_crossover(self, rand_mock):
+    def test_crossfill_crossover_sbx(self, rand_mock):
         rand_mock.return_value = 0.6
         self.assertCrossoverResultsEqual(
             Crossovers.G1DListCrossoverRealSBX,

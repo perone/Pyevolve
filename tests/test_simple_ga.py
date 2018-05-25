@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from pyevolve import GSimpleGA, G1DList, Consts
+from pyevolve import GSimpleGA, G1DList
 from pyevolve.GTree import GTreeGP
 
 
@@ -52,7 +52,7 @@ class GSimpleGATestCase(TestCase):
 
     def test_exception_no_wrong_mutation_rate_size(self):
         self.assertRaises(BaseException, self.ga.setMutationRate, [2])
-        #self.assertRaises(ValueError, self.ga.setMutationRate, [2])
+        # self.assertRaises(ValueError, self.ga.setMutationRate, [2])
 
     def test_repr(self):
         ga = self.ga

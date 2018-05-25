@@ -20,18 +20,14 @@ from . import GTree
 from . import Util
 
 
-#############################
-##     1D Binary String    ##
-#############################
+# 1D Binary String
 
 def G1DBinaryStringInitializator(genome, **args):
     """ 1D Binary String initializator """
     genome.genomeList = [rand_choice((0, 1)) for _ in range(genome.getListSize())]
 
 
-#############################
-##     2D Binary String    ##
-#############################
+# 2D Binary String
 
 def G2DBinaryStringInitializator(genome, **args):
     """ Integer initialization function of 2D Binary String
@@ -47,9 +43,7 @@ def G2DBinaryStringInitializator(genome, **args):
             genome.setItem(i, j, random_gene)
 
 
-####################
-##     1D List    ##
-####################
+# 1D List
 
 def G1DListInitializatorAllele(genome, **args):
     """ Allele initialization function of G1DList
@@ -90,9 +84,7 @@ def G1DListInitializatorReal(genome, **args):
     genome.genomeList = [rand_uniform(range_min, range_max) for i in range(genome.getListSize())]
 
 
-####################
-##     2D List    ##
-####################
+# 2D List
 
 def G2DListInitializatorInteger(genome, **args):
     """ Integer initialization function of G2DList
@@ -149,9 +141,7 @@ def G2DListInitializatorAllele(genome, **args):
             genome.setItem(i, j, random_allele)
 
 
-####################
-##      Tree      ##
-####################
+# Tree
 
 def GTreeInitializatorInteger(genome, **args):
     """ Integer initialization function of GTree
@@ -177,7 +167,8 @@ def GTreeInitializatorInteger(genome, **args):
     range_min = genome.getParam("rangemin", 0)
     range_max = genome.getParam("rangemax", 100)
 
-    lambda_generator = lambda: rand_randint(range_min, range_max)
+    def lambda_generator():
+        return rand_randint(range_min, range_max)
 
     method = genome.getParam("method", "grow")
 
@@ -193,7 +184,7 @@ def GTreeInitializatorInteger(genome, **args):
     else:
         Util.raiseException("Unknown tree initialization method [%s] !" % method)
 
-    genome.setRoot(root)
+    genome.setRoot(root)  # TODO probably additional check needed
     genome.processNodes()
     assert genome.getHeight() <= max_depth
 
@@ -237,9 +228,7 @@ def GTreeInitializatorAllele(genome, **args):
     assert genome.getHeight() <= max_depth
 
 
-####################
-##      Tree GP   ##
-####################
+# Tree GP   ##
 
 def GTreeGPInitializator(genome, **args):
     """This initializator accepts the follow parameters:

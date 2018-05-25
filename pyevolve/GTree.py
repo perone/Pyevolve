@@ -34,8 +34,6 @@ Default Parameters
 Classes
 -------------------------------------------------------------
 """
-from past.builtins import xrange
-
 import random
 from .GenomeBase import GenomeBase, GTreeBase, GTreeNodeBase
 from . import Util
@@ -704,7 +702,7 @@ def buildGTreeGPFull(ga_engine, depth, max_depth):
     :param depth: the initial depth
     :max_depth: the maximum depth of the tree
     :rtype: the root node
-    """ 
+    """
     from . import Consts
 
     gp_terminals = ga_engine.getParam("gp_terminals")

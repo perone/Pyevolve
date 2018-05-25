@@ -28,7 +28,6 @@ class G1DBinaryStringMutatorsTestCase(unittest.TestCase):
         Mutators.G1DBinaryStringMutatorSwap(self.genome, pmut=0.5)
         self.assertEqual(self.genome.genomeList, expected_result)
 
-
     @patch('pyevolve.Util.randomFlipCoin')
     def test_flip_mutator_small_pmut(self, coin_flip_mock):
         coin_flip_mock.return_value = 1
