@@ -1,8 +1,9 @@
 from pyevolve import G1DList
 from pyevolve import GSimpleGA
-from pyevolve import Selectors
-from pyevolve import DBAdapters
-from pyevolve import Statistics
+# from pyevolve import Selectors
+# from pyevolve import DBAdapters
+# from pyevolve import Statistics
+
 
 # This function is the evaluation function, we want
 # to give high score to more zero'ed chromosomes
@@ -11,9 +12,10 @@ def eval_func(chromosome):
 
     # iterate over the chromosome
     for value in chromosome:
-        if value==0:
+        if value == 0:
             score += 0.5
     return score
+
 
 # Genome instance
 genome = G1DList.G1DList(100)
@@ -28,12 +30,12 @@ ga.setGenerations(80)
 ga.setMutationRate(0.2)
 
 # Create DB Adapter and set as adapter
-#sqlite_adapter = DBAdapters.DBSQLite(identify="ex6", resetDB=True)
-#ga.setDBAdapter(sqlite_adapter)
+#sqlite_adapter = DBAdapters.DBSQLite(identify="ex6", resetDB=True)  # noqa
+#ga.setDBAdapter(sqlite_adapter)  # noqa
 
 # Using CSV Adapter
-#csvfile_adapter = DBAdapters.DBFileCSV()
-#ga.setDBAdapter(csvfile_adapter)
+#csvfile_adapter = DBAdapters.DBFileCSV()  # noqa
+#ga.setDBAdapter(csvfile_adapter)  # noqa
 
 # Using the URL Post Adapter
 # urlpost_adapter = DBAdapters.DBURLPost(url="http://whatismyip.oceanus.ro/server_variables.php", post=False)
@@ -44,4 +46,4 @@ ga.setMutationRate(0.2)
 ga.evolve(freq_stats=10)
 
 # Best individual
-#print ga.bestIndividual()
+#print ga.bestIndividual()  # noqa

@@ -3,6 +3,7 @@ from pyevolve import GSimpleGA
 from pyevolve import Selectors
 from pyevolve import Mutators
 
+
 # This function is the evaluation function, we want
 # to give high score to more zero'ed chromosomes
 def eval_func(chromosome):
@@ -14,6 +15,7 @@ def eval_func(chromosome):
             score += 0.1
 
     return score
+
 
 def run_main():
     # Genome instance
@@ -35,6 +37,6 @@ def run_main():
     # Best individual
     print(ga.bestIndividual())
 
+
 if __name__ == "__main__":
     run_main()
-   

@@ -33,11 +33,12 @@ def highlightlang_directive(name, arguments, options, content, lineno,
     return [addnodes.highlightlang(lang=arguments[0].strip(),
                                    linenothreshold=linenothreshold)]
 
+
 highlightlang_directive.content = 0
 highlightlang_directive.arguments = (1, 0, 0)
 highlightlang_directive.options = {'linenothreshold': directives.unchanged}
 directives.register_directive('highlight', highlightlang_directive)
-directives.register_directive('highlightlang', highlightlang_directive) # old name
+directives.register_directive('highlightlang', highlightlang_directive)  # old name
 
 
 # ------ code-block directive -------------------------------------------------------
@@ -50,6 +51,7 @@ def codeblock_directive(name, arguments, options, content, lineno,
     literal['linenos'] = 'linenos' in options
     return [literal]
 
+
 codeblock_directive.content = 1
 codeblock_directive.arguments = (1, 0, 0)
 codeblock_directive.options = {'linenos': directives.flag}
@@ -59,7 +61,7 @@ directives.register_directive('sourcecode', codeblock_directive)
 
 # ------ literalinclude directive ---------------------------------------------------
 
-def literalinclude_directive(name, arguments, options, content, lineno,
+def literalinclude_directive(name, arguments, options, content, lineno,  # noqa
                              content_offset, block_text, state, state_machine):
     """Like .. include:: :literal:, but only warns if the include file is not found."""
     if not state.document.settings.file_insertion_enabled:
@@ -99,13 +101,13 @@ def literalinclude_directive(name, arguments, options, content, lineno,
                 'Object named %r not found in include file %r' %
                 (objectname, arguments[0]), line=lineno)]
         else:
-            lines = lines[tags[objectname][1] - 1 : tags[objectname][2] - 1]
+            lines = lines[tags[objectname][1] - 1: tags[objectname][2] - 1]
 
     linespec = options.get('lines')
     if linespec is not None:
         try:
             linelist = parselinenos(linespec, len(lines))
-        except ValueError, err:
+        except ValueError as err:  # TODO untested
             return [state.document.reporter.warning(str(err), line=lineno)]
         lines = [lines[i] for i in linelist]
 
@@ -126,7 +128,7 @@ def literalinclude_directive(name, arguments, options, content, lineno,
 
     text = ''.join(lines)
     text = re.sub("\r\n", "\n", text)
-    
+
     retnode = nodes.literal_block(text, text, source=fn)
     retnode.line = 1
     if options.get('language', ''):
@@ -135,6 +137,7 @@ def literalinclude_directive(name, arguments, options, content, lineno,
         retnode['linenos'] = True
     state.document.settings.env.note_dependency(rel_fn)
     return [retnode]
+
 
 literalinclude_directive.options = {'linenos': directives.flag,
                                     'language': directives.unchanged_required,

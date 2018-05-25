@@ -1,8 +1,8 @@
 from pyevolve import G2DBinaryString
 from pyevolve import GSimpleGA
-from pyevolve import Selectors
 from pyevolve import Crossovers
 from pyevolve import Mutators
+
 
 # This function is the evaluation function, we want
 # to give high score to more zero'ed chromosomes
@@ -13,9 +13,10 @@ def eval_func(chromosome):
     for i in range(chromosome.getHeight()):
         for j in range(chromosome.getWidth()):
             # You can use the chromosome.getItem(i, j)
-            if chromosome[i][j]==0:
+            if chromosome[i][j] == 0:
                 score += 0.1
     return score
+
 
 # Genome instance
 genome = G2DBinaryString.G2DBinaryString(8, 5)

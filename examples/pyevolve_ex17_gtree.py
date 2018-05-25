@@ -1,9 +1,7 @@
 from pyevolve import GSimpleGA
 from pyevolve import GTree
 from pyevolve import Crossovers
-from pyevolve import Mutators
-import time
-import random
+
 
 def eval_func(chromosome):
     score = 0.0
@@ -11,15 +9,16 @@ def eval_func(chromosome):
     # in the height of the Tree, the extra
     # code is commented.
 
-    #height = chromosome.getHeight()
+    # height = chromosome.getHeight()
 
     for node in chromosome:
-        score += (100 - node.getData())*0.1
+        score += (100 - node.getData()) * 0.1
 
-    #if height <= chromosome.getParam("max_depth"):
+    # if height <= chromosome.getParam("max_depth"):
     #   score += (score*0.8)
 
     return score
+
 
 def run_main():
     genome = GTree.GTree()
@@ -38,7 +37,6 @@ def run_main():
     ga.evolve(freq_stats=10)
     print(ga.bestIndividual())
 
+
 if __name__ == "__main__":
     run_main()
-
-  

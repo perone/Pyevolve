@@ -2,12 +2,14 @@ from pyevolve import G1DList
 from pyevolve import Mutators, Initializators
 from pyevolve import GSimpleGA, Consts
 
+
 # This is the Sphere Function
 def sphere(xlist):
     total = 0
     for i in xlist:
         total += i**2
     return total
+
 
 def run_main():
     genome = G1DList.G1DList(140)
@@ -22,9 +24,6 @@ def run_main():
     ga.setMutationRate(0.01)
     ga.evolve(freq_stats=500)
 
-    best = ga.bestIndividual()
 
 if __name__ == "__main__":
     run_main()
-   
-
