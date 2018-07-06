@@ -61,7 +61,8 @@ Class
 import random
 import logging
 from time import time
-from types import BooleanType
+#from types import BooleanType
+BooleanType = bool
 from sys import platform as sys_platform
 from sys import stdout as sys_stdout
 import code
@@ -360,7 +361,7 @@ class GSimpleGA(object):
            The *setInteractiveMode* method.
 
         """
-        if type(flag) != BooleanType:
+        if type(flag) != bool:#BooleanType:
             Util.raiseException("Interactive Mode option must be True or False", TypeError)
         self.interactiveMode = flag
 
