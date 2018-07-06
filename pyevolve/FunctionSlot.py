@@ -14,7 +14,7 @@ you'll find the class :class:`FunctionSlot.FunctionSlot`, which is the slot clas
 from random import uniform as rand_uniform
 from types import BooleanType
 
-import Util
+from . import Util
 
 class FunctionSlot(object):
    """ FunctionSlot Class - The function slot
@@ -195,8 +195,8 @@ class FunctionSlot(object):
          return strRet
 
       for f, w in zip(self.funcList, self.funcWeights):
-         strRet += "\t\tName: %s - Weight: %.2f\n" % (f.func_name, w)
-         if f.func_doc:
-            strRet += "\t\tDoc: " + f.func_doc + "\n"
+         strRet += "\t\tName: %s - Weight: %.2f\n" % (f.__name__, w)
+         if f.__doc__:
+            strRet += "\t\tDoc: " + f.__doc__ + "\n"
 
       return strRet

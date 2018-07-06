@@ -32,10 +32,10 @@ Class
 
 """
 
-import Consts
-import Util
-from FunctionSlot import FunctionSlot
-from Statistics import Statistics
+from . import Consts
+from . import Util
+from .FunctionSlot import FunctionSlot
+from .Statistics import Statistics
 from math import sqrt as math_sqrt
 import logging
 
@@ -195,8 +195,8 @@ class GPopulation(object):
       """ Returns the string representation of the population """
       ret = "- GPopulation\n"
       ret += "\tPopulation Size:\t %d\n" % (self.popSize,)
-      ret += "\tSort Type:\t\t %s\n" % (Consts.sortType.keys()[Consts.sortType.values().index(self.sortType)].capitalize(),)
-      ret += "\tMinimax Type:\t\t %s\n" % (Consts.minimaxType.keys()[Consts.minimaxType.values().index(self.minimax)].capitalize(),)
+      ret += "\tSort Type:\t\t %s\n" % (list(Consts.sortType.keys())[list(Consts.sortType.values()).index(self.sortType)].capitalize(),)
+      ret += "\tMinimax Type:\t\t %s\n" % (list(Consts.minimaxType.keys())[list(Consts.minimaxType.values()).index(self.minimax)].capitalize(),)
       for slot in self.allSlots:
          ret += "\t" + slot.__repr__()
       ret += "\n"
@@ -242,7 +242,7 @@ class GPopulation(object):
       raw_sum = 0
 
       len_pop = len(self)
-      for ind in xrange(len_pop):
+      for ind in range(len_pop):
          raw_sum += self[ind].score
 
       self.stats["rawMax"] = max(self, key=key_raw_score).score
@@ -250,7 +250,7 @@ class GPopulation(object):
       self.stats["rawAve"] = raw_sum / float(len_pop)
 
       tmpvar = 0.0
-      for ind in xrange(len_pop):
+      for ind in range(len_pop):
          s = self[ind].score - self.stats["rawAve"]
          s *= s
          tmpvar += s
@@ -353,11 +353,11 @@ class GPopulation(object):
    def create(self, **args):
       """ Clone the example genome to fill the population """
       self.minimax = args["minimax"]
-      self.internalPop = [self.oneSelfGenome.clone() for i in xrange(self.popSize)]
+      self.internalPop = [self.oneSelfGenome.clone() for i in range(self.popSize)]
       self.clearFlags()
 
    def __findIndividual(self, individual, end):
-      for i in xrange(end):
+      for i in range(end):
          if individual.compare(self.internalPop[i]) == 0:
             return True
 
@@ -367,7 +367,7 @@ class GPopulation(object):
       logging.debug("Initializing the population")
 
       if self.oneSelfGenome.getParam("full_diversity", True) and hasattr(self.oneSelfGenome, "compare"):
-         for i in xrange(len(self.internalPop)):
+         for i in range(len(self.internalPop)):
             curr = self.internalPop[i]
             curr.initialize(**args)
             while self.__findIndividual(curr, i):
@@ -393,7 +393,7 @@ class GPopulation(object):
             results = proc_pool.map(multiprocessing_eval_full, self.internalPop)
             proc_pool.close()
             proc_pool.join()
-            for i in xrange(len(self.internalPop)):
+            for i in range(len(self.internalPop)):
                self.internalPop[i] = results[i]
          else:
             results = proc_pool.map(multiprocessing_eval, self.internalPop)
@@ -417,7 +417,7 @@ class GPopulation(object):
          pass
 
       fit_sum = 0
-      for ind in xrange(len(self)):
+      for ind in range(len(self)):
          fit_sum += self[ind].fitness
 
       self.stats["fitMax"] = max(self, key=key_fitness_score).fitness
@@ -434,7 +434,7 @@ class GPopulation(object):
       else:
          message = "Max/Min/Avg Raw [%(rawMax).2f/%(rawMin).2f/%(rawAve).2f]" % self.stats
       logging.info(message)
-      print message
+      print(message)
       return message
 
    def copy(self, pop):

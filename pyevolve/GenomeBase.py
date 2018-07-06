@@ -11,8 +11,8 @@ take a inside look into this module.
 from random import choice as rand_choice
 import inspect
 
-from FunctionSlot import FunctionSlot
-import Util
+from .FunctionSlot import FunctionSlot
+from . import Util
 
 class GenomeBase(object):
    """ GenomeBase Class - The base of all chromosome representation """
@@ -294,7 +294,7 @@ class GTreeNodeBase(object):
       if childs is not None:
          if type(childs) != list:
             Util.raiseException("Childs must be a list of nodes", TypeError)
-         typecheck_list = filter(lambda x: not isinstance(x, GTreeNodeBase), childs)
+         typecheck_list = [x for x in childs if not isinstance(x, GTreeNodeBase)]
          if len(typecheck_list) > 0:
             Util.raiseException("Childs must be a list of nodes", TypeError)
          self.childs += childs
@@ -416,8 +416,8 @@ class GTreeBase(GenomeBase):
       if self.root_node is None:
          return
       self.nodes_list = self.getAllNodes()
-      self.nodes_leaf = filter(lambda n: n.isLeaf(), self.nodes_list)
-      self.nodes_branch = filter(lambda n: n.isLeaf() is False, self.nodes_list)
+      self.nodes_leaf = [n for n in self.nodes_list if n.isLeaf()]
+      self.nodes_branch = [n for n in self.nodes_list if n.isLeaf() is False]
 
       if not cloning:
          self.tree_height = self.getNodeHeight(self.getRoot())
@@ -588,7 +588,7 @@ class GTreeBase(GenomeBase):
          newnode.setParent(node_parent)
          node_parent.replaceChild(node, newnode)
 
-      for ci in xrange(len(newnode)):
+      for ci in range(len(newnode)):
          GTreeBase.copy(self, g, newnode.getChild(ci), newnode)
 
       return newnode

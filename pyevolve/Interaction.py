@@ -20,13 +20,13 @@ try:
    import pylab
 except:
    logging.debug("cannot import Matplotlib ! Plots will not be available !")
-   print "Warning: cannot import Matplotlib ! Plots will not be available !"
+   print("Warning: cannot import Matplotlib ! Plots will not be available !")
 
 try:
    import numpy
 except:
    logging.debug("cannot import Numpy ! Some functions will not be available !")
-   print "Warning: cannot import Numpy ! Some functions will not be available !"
+   print("Warning: cannot import Numpy ! Some functions will not be available !")
 
 def getPopScores(population, fitness=False):
    """ Returns a list of population scores

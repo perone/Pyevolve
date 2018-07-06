@@ -10,11 +10,11 @@ GA related functions.
 
 """
 
-import Util
+from . import Util
 from random import randint as rand_randint, choice as rand_choice
-import Network
-import Consts
-from FunctionSlot import FunctionSlot
+from . import Network
+from . import Consts
+from .FunctionSlot import FunctionSlot
 import logging
 
 try:
@@ -133,7 +133,7 @@ class MigrationScheme(object):
       :param num_individuals: the number of individuals to select
       :rtype: list with individuals
       """
-      pool = [self.select() for i in xrange(num_individuals)]
+      pool = [self.select() for i in range(num_individuals)]
       return pool
 
    def exchange(self):
@@ -259,7 +259,7 @@ class WANMigration(MigrationScheme):
 
       population = self.GAEngine.getPopulation()
 
-      for i in xrange(self.getNumReplacement()):
+      for i in range(self.getNumReplacement()):
          if len(pool) <= 0:
             break
          choice = rand_choice(pool)
@@ -328,7 +328,7 @@ class MPIMigration(MigrationScheme):
       population = self.GAEngine.getPopulation()
 
       pool = pool_received
-      for i in xrange(self.getNumReplacement()):
+      for i in range(self.getNumReplacement()):
          if len(pool) <= 0:
             break
 
