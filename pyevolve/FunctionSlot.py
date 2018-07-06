@@ -12,7 +12,7 @@ you'll find the class :class:`FunctionSlot.FunctionSlot`, which is the slot clas
 """
 
 from random import uniform as rand_uniform
-from types import BooleanType
+#from types import BooleanType
 
 from . import Util
 
@@ -103,7 +103,7 @@ class FunctionSlot(object):
       :param flag: True or False
 
       """
-      if type(flag) != BooleanType:
+      if type(flag) != bool:#BooleanType:
          Util.raiseException("Random option must be True or False", TypeError)
 
       self.rand_apply = flag
