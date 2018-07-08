@@ -544,7 +544,8 @@ class GTreeGP(GTreeBase):
         return 0
 
     @staticmethod
-    def writePopulationDot(ga_engine, filename, format="jpeg", start=0, end=0):
+    #def writePopulationDot(ga_engine, filename, format="jpeg", start=0, end=0):
+    def writePopulationDot(ga_engine, filename, format="fig", start=0, end=0):
         """ Writes to a graphical file using pydot, the population of trees
 
         Example:
