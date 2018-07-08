@@ -109,7 +109,7 @@ def GRouletteWheel(population, **args):
    lower = 0
    upper = len(population) - 1
    while(upper >= lower):
-      i = lower + ((upper - lower) / 2)
+      i = int(lower + ((upper - lower) / 2))
       if psum[i] > cutoff:
          upper = i - 1
       else:
