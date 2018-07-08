@@ -24,7 +24,8 @@ import logging
 import types
 import datetime
 from . import Statistics
-
+import urllib.request as request
+import urllib.parse as parse 
 
 class DBBaseAdapter(object):
    """ DBBaseAdapter Class - The base class for all DB Adapters
@@ -151,7 +152,11 @@ class DBFileCSV(DBBaseAdapter):
       open_mode = 'w' if self.reset else 'a'
       self.fHandle = open(self.filename, open_mode)
       self.csvWriter = self.csvmod.writer(self.fHandle, delimiter=';')
-
+      line = ['identity', 'generation', 'Maximum_raw_score','Minimum_raw_score',
+              'Average_of_raw_scores','Standard_deviation_of_raw_scores','Raw_scores_variance',
+              'Maximum_fitness', 'Minimum_fitness','Fitness_average']
+      self.csvWriter.writerow(line)
+        
    def close(self):
       """ Closes the CSV file handle """
       logging.debug("Closing the CSV file [%s]", self.filename)
@@ -248,12 +253,18 @@ class DBURLPost(DBBaseAdapter):
       params["generation"] = ga_engine.getCurrentGeneration()
       params["identify"] = self.getIdentify()
       if self.post:  # POST
-         response = self.urllibmod.urlopen(self.url, self.urllibmod.urlencode(params))
+         response = self.urllibmod.urlopen(self.url, self.urllibmod.urlencode(params))      
       else:  # GET
-         response = self.urllibmod.urlopen(self.url + "?%s" % (self.urllibmod.urlencode(params)))
+         #print(    self.urllibmod )#,   self.urllibmod.urlencode(params) ) 
+         #response = self.urllibmod.request.urlopen(self.url + "?%s" % (self.urllibmod.request.urlencode(params)))
+         response =  request.urlopen(self.url + "?%s" % ( parse.urlencode(params)))
       if response:
          response.close()
 
+#import urllib.request
+#with urllib.request.urlopen("http://www.python.org") as url:
+#    s = url.read()
+    
 class DBSQLite(DBBaseAdapter):
    """ DBSQLite Class - Adapter to dump data in SQLite3 database format
 
