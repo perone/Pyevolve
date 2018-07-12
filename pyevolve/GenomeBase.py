@@ -191,14 +191,16 @@ class G1DBase(GenomeBase):
     def __contains__(self, value):
         """ Used on: *value in genome* """
         return value in self.genomeList
+    # These methods are correctly overrided in every child class
+    # Deprecated in Python 3
 
-    def __getslice__(self, a, b):
-        """ Return the sliced part of chromosome """
-        return self.genomeList[a:b]
-
-    def __setslice__(self, a, b, val):
-        """ Sets the slice part of chromosome """
-        self.genomeList[a:b] = val
+    # def __getslice__(self, a, b):
+    #     """ Return the sliced part of chromosome """
+    #     return self.genomeList[a:b]
+    #
+    # def __setslice__(self, a, b, val):
+    #     """ Sets the slice part of chromosome """
+    #     self.genomeList[a:b] = val
 
     def __getitem__(self, key):
         """ Return the specified gene of List """

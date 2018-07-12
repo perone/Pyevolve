@@ -76,11 +76,11 @@ class G1DBinaryString(G1DBase):
         0
 
         """
-        if isinstance(value, int) and value not in (0, 1):
+        if isinstance(value, int) and value not in (0, 1):  # TODO add type check
             Util.raiseException("The value must be zero (0) or one (1), used (%s)" % value, ValueError)
-        elif isinstance(value, list) and not set(value) <= set([0, 1]):
+        elif isinstance(value, list) and not set(value) <= set([0, 1]):  # TODO use {0, 1} notation or list compr.
             # if slice notation is used we check all passed values
-            vals = set(value) - set([0, 1])
+            vals = set(value) - set([0, 1])  # TODO check what to do with slice key
             Util.raiseException("The value must be zero (0) or one (1), used (%s)" % vals, ValueError)
         G1DBase.__setitem__(self, key, value)
 
