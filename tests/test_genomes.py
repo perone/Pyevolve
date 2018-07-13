@@ -68,3 +68,26 @@ class G1DBinaryStringTestCase(TestCase):
     def test_repr(self):
         _genome = G1DBinaryString.G1DBinaryString()
         self.assertIsInstance(repr(_genome), str)
+
+
+class G2DListTestCase(TestCase):
+
+    # def setUp(self):
+    #     self._stats = Statistics.Statistics()
+
+    def test_create2DList_default(self):
+        _genome = G2DList.G2DList(3, 3)
+        self.assertTrue(hasattr(_genome, 'width'))
+        self.assertTrue(hasattr(_genome, 'height'))
+        self.assertTrue(hasattr(_genome, 'genomeList'))
+        self.assertTrue(hasattr(_genome, 'initializator'))
+        self.assertTrue(hasattr(_genome, 'mutator'))
+        self.assertTrue(hasattr(_genome, 'crossover'))
+
+    def test_create2DList_len(self):
+        _genome = G2DList.G2DList(3, 3)
+        # self.assertTrue(hasattr(_genome, 'genomeList'))
+        # self.assertEqual(_genome.genomeSize, 5)
+        # self.assertTrue(hasattr(_genome, 'initializator'))
+        # self.assertTrue(hasattr(_genome, 'mutator'))
+        # self.assertTrue(hasattr(_genome, 'crossover'))

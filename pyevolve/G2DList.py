@@ -111,7 +111,7 @@ class G2DList(GenomeBase):
         cond1 = (self.genomeList == other.genomeList)
         cond2 = (self.height == other.height)
         cond3 = (self.width == other.width)
-        return True if cond1 and cond2 and cond3 else False
+        return True if cond1 and cond2 and cond3 else False  # TODO remove bool values, leave only condition
 
     def getItem(self, x, y):
         """ Return the specified gene of List
