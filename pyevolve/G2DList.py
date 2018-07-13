@@ -142,7 +142,7 @@ class G2DList(GenomeBase):
         """
         self.genomeList[x][y] = value
 
-    def __getitem__(self, key):
+    def __getitem__(self, key):  # TODO __setitem__ is needed
         """ Return the specified gene of List """
         return self.genomeList[key]
 
