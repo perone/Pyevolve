@@ -115,21 +115,21 @@ class G1DList(G1DBase):
             self.mutator.set(Consts.CDefG1DListMutator)
             self.crossover.set(Consts.CDefG1DListCrossover)
 
-    def __mul__(self, other):
+    def __mul__(self, other):  # TODO: __rmul__ is needed
         """ Multiply every element of G1DList by "other" """
         newObj = self.clone()
         for i in range(len(newObj)):
             newObj[i] *= other
         return newObj
 
-    def __add__(self, other):
+    def __add__(self, other):  # TODO: __radd__ is needed
         """ Plus every element of G1DList by "other" """
         newObj = self.clone()
         for i in range(len(newObj)):
             newObj[i] += other
         return newObj
 
-    def __sub__(self, other):
+    def __sub__(self, other):  # TODO: __rsub__ is needed
         """ Plus every element of G1DList by "other" """
         newObj = self.clone()
         for i in range(len(newObj)):

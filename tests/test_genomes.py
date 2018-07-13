@@ -85,7 +85,7 @@ class G2DListTestCase(TestCase):
         self.assertTrue(hasattr(_genome, 'mutator'))
         self.assertTrue(hasattr(_genome, 'crossover'))
 
-    def test_create2DList_eq(self):
+    def test_2DList_eq(self):
         _genome1 = G2DList.G2DList(3, 2)
         _genome2 = G2DList.G2DList(3, 3)
         self.assertFalse(_genome1 == _genome2)
@@ -104,7 +104,7 @@ class G2DListTestCase(TestCase):
         _genome2 = G2DList.G2DList(3, 3)
         self.assertTrue(_genome1 == _genome2)
 
-    def test_create2DList_iter(self):
+    def test_2DList_iter(self):
         _genome = G2DList.G2DList(3, 3)
         self.assertIsInstance(iter(_genome), Iterable)
 
@@ -112,6 +112,104 @@ class G2DListTestCase(TestCase):
         _genome = G2DList.G2DList(3, 3)
         self.assertIsInstance(repr(_genome), str)
 
-    def test_create2DList_resumeString(self):
+    def test_2DList_resumeString(self):
         _genome = G2DList.G2DList(3, 3)
         self.assertIsInstance(_genome.resumeString(), str)
+
+
+class G1DListTestCase(TestCase):
+
+    # def setUp(self):
+    #     self._stats = Statistics.Statistics()
+
+    def test_create1DList_default(self):
+        _genome = G1DList.G1DList()
+        self.assertTrue(hasattr(_genome, 'genomeSize'))
+        self.assertTrue(hasattr(_genome, 'initializator'))
+        self.assertTrue(hasattr(_genome, 'mutator'))
+        self.assertTrue(hasattr(_genome, 'crossover'))
+
+    def test_1DList_mul(self):
+        _genome1 = G1DList.G1DList(size=3)
+        _genome1[:] = [1, 2, 3]
+        other = 2
+        result = _genome1 * other
+        self.assertEqual(result.genomeList, [2, 4, 6])
+
+    def test_1DList_add(self):
+        _genome1 = G1DList.G1DList(size=3)
+        _genome1[:] = [1, 2, 3]
+        other = 2
+        result = _genome1 + other
+        self.assertEqual(result.genomeList, [3, 4, 5])
+
+    def test_1DList_sub(self):
+        _genome1 = G1DList.G1DList(size=3)
+        _genome1[:] = [1, 2, 3]
+        other = 2
+        result = _genome1 - other
+        self.assertEqual(result.genomeList, [-1, 0, 1])
+
+    def test_repr(self):
+        _genome = G1DList.G1DList()
+        self.assertIsInstance(repr(_genome), str)
+
+
+class G2DBinaryStringTestCase(TestCase):
+
+    # def setUp(self):
+    #     self._stats = Statistics.Statistics()
+
+    def test_create2DBinary_default(self):
+        _genome = G2DBinaryString.G2DBinaryString(3, 3)
+        self.assertTrue(hasattr(_genome, 'width'))
+        self.assertTrue(hasattr(_genome, 'height'))
+        self.assertTrue(hasattr(_genome, 'initializator'))
+        self.assertTrue(hasattr(_genome, 'mutator'))
+        self.assertTrue(hasattr(_genome, 'crossover'))
+
+    def test_2DBinary_eq(self):
+        _genome1 = G2DBinaryString.G2DBinaryString(3, 2)
+        _genome2 = G2DBinaryString.G2DBinaryString(3, 3)
+        self.assertFalse(_genome1 == _genome2)
+
+        _genome1 = G2DBinaryString.G2DBinaryString(2, 3)
+        _genome2 = G2DBinaryString.G2DBinaryString(3, 3)
+        self.assertFalse(_genome1 == _genome2)
+
+        _genome1 = G2DBinaryString.G2DBinaryString(3, 3)
+        _genome2 = G2DBinaryString.G2DBinaryString(3, 3)
+        _genome1.setItem(2, 1, 0)
+        _genome2.setItem(2, 1, 1)
+        self.assertFalse(_genome1 == _genome2)
+
+        _genome1 = G2DBinaryString.G2DBinaryString(3, 3)
+        _genome2 = G2DBinaryString.G2DBinaryString(3, 3)
+        self.assertTrue(_genome1 == _genome2)
+
+    def test_2DBinary_setitem(self):
+        _genome = G2DBinaryString.G2DBinaryString(3, 3)
+        _genome.setItem(1,1,1)
+        self.assertEqual(_genome.getItem(1,1), 1)
+        with self.assertRaises(ValueError):
+            _genome.setItem(1, 1, 2)
+
+
+    def test_2DBinary_iter(self):
+        _genome = G2DBinaryString.G2DBinaryString(3, 3)
+        self.assertIsInstance(iter(_genome), Iterable)
+
+    def test_repr(self):
+        _genome = G2DBinaryString.G2DBinaryString(3, 3)
+        self.assertIsInstance(repr(_genome), str)
+
+    def test_2DBinary_resumeString(self):
+        _genome = G2DBinaryString.G2DBinaryString(3, 3)
+        self.assertIsInstance(_genome.resumeString(), str)
+
+    def test_2DBinary_clearString(self):
+        _genome = G2DBinaryString.G2DBinaryString(2, 4)
+        _genome.clearString()
+        self.assertEqual(len(_genome.genomeString), _genome.getHeight())
+        self.assertEqual(len(_genome.genomeString[0]), _genome.getWidth())
+        self.assertEqual(_genome[1][1], None)
