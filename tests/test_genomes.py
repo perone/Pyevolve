@@ -1,4 +1,5 @@
 # flake8: noqa
+from collections import Iterable
 from unittest import TestCase
 
 from pyevolve import G1DBinaryString
@@ -68,3 +69,49 @@ class G1DBinaryStringTestCase(TestCase):
     def test_repr(self):
         _genome = G1DBinaryString.G1DBinaryString()
         self.assertIsInstance(repr(_genome), str)
+
+
+class G2DListTestCase(TestCase):
+
+    # def setUp(self):
+    #     self._stats = Statistics.Statistics()
+
+    def test_create2DList_default(self):
+        _genome = G2DList.G2DList(3, 3)
+        self.assertTrue(hasattr(_genome, 'width'))
+        self.assertTrue(hasattr(_genome, 'height'))
+        self.assertTrue(hasattr(_genome, 'genomeList'))
+        self.assertTrue(hasattr(_genome, 'initializator'))
+        self.assertTrue(hasattr(_genome, 'mutator'))
+        self.assertTrue(hasattr(_genome, 'crossover'))
+
+    def test_create2DList_eq(self):
+        _genome1 = G2DList.G2DList(3, 2)
+        _genome2 = G2DList.G2DList(3, 3)
+        self.assertFalse(_genome1 == _genome2)
+
+        _genome1 = G2DList.G2DList(2, 3)
+        _genome2 = G2DList.G2DList(3, 3)
+        self.assertFalse(_genome1 == _genome2)
+
+        _genome1 = G2DList.G2DList(3, 3)
+        _genome2 = G2DList.G2DList(3, 3)
+        _genome1.setItem(2, 1, 0)
+        _genome2.setItem(2, 1, 1)
+        self.assertFalse(_genome1 == _genome2)
+
+        _genome1 = G2DList.G2DList(3, 3)
+        _genome2 = G2DList.G2DList(3, 3)
+        self.assertTrue(_genome1 == _genome2)
+
+    def test_create2DList_iter(self):
+        _genome = G2DList.G2DList(3, 3)
+        self.assertIsInstance(iter(_genome), Iterable)
+
+    def test_repr(self):
+        _genome = G2DList.G2DList(3, 3)
+        self.assertIsInstance(repr(_genome), str)
+
+    def test_create2DList_resumeString(self):
+        _genome = G2DList.G2DList(3, 3)
+        self.assertIsInstance(_genome.resumeString(), str)
