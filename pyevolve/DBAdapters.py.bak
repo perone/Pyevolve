@@ -18,14 +18,13 @@ module, you'll find the adapters above cited.
 """
 
 from pyevolve import __version__
-from . import Consts
-from . import Util
+import Consts
+import Util
 import logging
 import types
 import datetime
-from . import Statistics
-import urllib.request as request
-import urllib.parse as parse 
+import Statistics
+
 
 class DBBaseAdapter(object):
    """ DBBaseAdapter Class - The base class for all DB Adapters
@@ -152,11 +151,7 @@ class DBFileCSV(DBBaseAdapter):
       open_mode = 'w' if self.reset else 'a'
       self.fHandle = open(self.filename, open_mode)
       self.csvWriter = self.csvmod.writer(self.fHandle, delimiter=';')
-      line = ['identity', 'generation', 'Maximum_raw_score','Minimum_raw_score',
-              'Average_of_raw_scores','Standard_deviation_of_raw_scores','Raw_scores_variance',
-              'Maximum_fitness', 'Minimum_fitness','Fitness_average']
-      self.csvWriter.writerow(line)
-        
+
    def close(self):
       """ Closes the CSV file handle """
       logging.debug("Closing the CSV file [%s]", self.filename)
@@ -253,18 +248,12 @@ class DBURLPost(DBBaseAdapter):
       params["generation"] = ga_engine.getCurrentGeneration()
       params["identify"] = self.getIdentify()
       if self.post:  # POST
-         response = self.urllibmod.urlopen(self.url, self.urllibmod.urlencode(params))      
+         response = self.urllibmod.urlopen(self.url, self.urllibmod.urlencode(params))
       else:  # GET
-         #print(    self.urllibmod )#,   self.urllibmod.urlencode(params) ) 
-         #response = self.urllibmod.request.urlopen(self.url + "?%s" % (self.urllibmod.request.urlencode(params)))
-         response =  request.urlopen(self.url + "?%s" % ( parse.urlencode(params)))
+         response = self.urllibmod.urlopen(self.url + "?%s" % (self.urllibmod.urlencode(params)))
       if response:
          response.close()
 
-#import urllib.request
-#with urllib.request.urlopen("http://www.python.org") as url:
-#    s = url.read()
-    
 class DBSQLite(DBBaseAdapter):
    """ DBSQLite Class - Adapter to dump data in SQLite3 database format
 
@@ -304,7 +293,7 @@ class DBSQLite(DBBaseAdapter):
       self.resetDB = resetDB
       self.resetIdentify = resetIdentify
       self.dbName = dbname
-      self.typeDict = {float: "real"}
+      self.typeDict = {types.FloatType: "real"}
       self.cursorPool = None
       self.commitFreq = commit_freq
 
@@ -377,7 +366,7 @@ class DBSQLite(DBBaseAdapter):
       """
       c = self.getCursor()
       pstmt = "create table if not exists %s(identify text, generation integer, " % (Consts.CDefSQLiteDBTable)
-      for k, v in list(stats.items()):
+      for k, v in stats.items():
          pstmt += "%s %s, " % (k, self.typeDict[type(v)])
       pstmt = pstmt[:-2] + ")"
       logging.debug("Creating table %s: %s.", Consts.CDefSQLiteDBTable, pstmt)
@@ -399,9 +388,9 @@ class DBSQLite(DBBaseAdapter):
       try:
          c.execute(stmt, (self.getIdentify(),))
          c.execute(stmt2, (self.getIdentify(),))
-      except self.sqlite3mod.OperationalError as expt:
+      except self.sqlite3mod.OperationalError, expt:
          if str(expt).find("no such table") >= 0:
-            print("\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n")
+            print "\n ## The DB Adapter can't find the tables ! Consider enable the parameter resetDB ! ##\n"
 
       self.commit()
 
@@ -432,14 +421,14 @@ class DBSQLite(DBBaseAdapter):
 
       c = self.getCursor()
       pstmt = "insert into %s values (?, ?, " % (Consts.CDefSQLiteDBTable)
-      for i in range(len(stats)):
+      for i in xrange(len(stats)):
          pstmt += "?, "
       pstmt = pstmt[:-2] + ")"
       c.execute(pstmt, (self.getIdentify(), generation) + stats.asTuple())
 
       pstmt = "insert into %s values(?, ?, ?, ?, ?)" % (Consts.CDefSQLiteDBTablePop,)
       tups = []
-      for i in range(len(population)):
+      for i in xrange(len(population)):
          ind = population[i]
          tups.append((self.getIdentify(), generation, i, ind.fitness, ind.score))
 
@@ -659,7 +648,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       self.port = port
       self.user = user
       self.passwd = passwd
-      self.typeDict = {float: "DOUBLE(14,6)"}
+      self.typeDict = {types.FloatType: "DOUBLE(14,6)"}
       self.cursorPool = None
       self.commitFreq = commit_freq
 
@@ -733,7 +722,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       """
       c = self.getCursor()
       pstmt = "create table if not exists %s(identify VARCHAR(80), generation INTEGER, " % (Consts.CDefMySQLDBTable)
-      for k, v in list(stats.items()):
+      for k, v in stats.items():
          pstmt += "%s %s, " % (k, self.typeDict[type(v)])
       pstmt = pstmt[:-2] + ")"
       logging.debug("Creating table %s: %s.", Consts.CDefSQLiteDBTable, pstmt)
@@ -784,7 +773,7 @@ class DBMySQLAdapter(DBBaseAdapter):
 
       c = self.getCursor()
       pstmt = "insert into " + Consts.CDefMySQLDBTable + " values (%s, %s, "
-      for i in range(len(stats)):
+      for i in xrange(len(stats)):
          pstmt += "%s, "
       pstmt = pstmt[:-2] + ")"
       c.execute(pstmt, (self.getIdentify(), generation) + stats.asTuple())
@@ -792,7 +781,7 @@ class DBMySQLAdapter(DBBaseAdapter):
       pstmt = "insert into " + Consts.CDefMySQLDBTablePop + " values(%s, %s, %s, %s, %s)"
 
       tups = []
-      for i in range(len(population)):
+      for i in xrange(len(population)):
          ind = population[i]
          tups.append((self.getIdentify(), generation, i, ind.fitness, ind.score))
 

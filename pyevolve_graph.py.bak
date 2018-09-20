@@ -15,7 +15,7 @@ def graph_pop_heatmap_raw(pop, minimize, colormap="jet", filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -29,7 +29,7 @@ def graph_pop_heatmap_fitness(pop, minimize, colormap="jet", filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -90,7 +90,7 @@ def graph_diff_raw(pop, minimize, filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -160,7 +160,7 @@ def graph_maxmin_raw(pop, minimize, filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -207,7 +207,7 @@ def graph_maxmin_fitness(pop, minimize, filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -235,7 +235,7 @@ def graph_errorbars_raw(pop, minimize, filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -264,7 +264,7 @@ def graph_errorbars_fitness(pop, minimize, filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -304,7 +304,7 @@ def graph_compare_raw(pop, minimize, id_list, filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -343,7 +343,7 @@ def graph_compare_fitness(pop, minimize, id_list, filesave=None):
 
    if filesave:
       pylab.savefig(filesave)
-      print("Graph saved to %s file !" % (filesave,))
+      print "Graph saved to %s file !" % (filesave,)
    else:
       pylab.show()
 
@@ -354,8 +354,8 @@ if __name__ == "__main__":
 
    popGraph = False
 
-   print("Pyevolve %s - Graph Plot Tool" % (pyevolve_version,))
-   print("By %s\n" % (pyevolve_author,))
+   print "Pyevolve %s - Graph Plot Tool" % (pyevolve_version,)
+   print "By %s\n" % (pyevolve_author,)
    parser = OptionParser()
 
    parser.add_option("-f", "--file", dest="dbfile",
@@ -424,11 +424,11 @@ if __name__ == "__main__":
       parser.print_help()
       exit()
 
-   print("Loading modules....")
+   print "Loading modules...."
 
    import os.path
    if not os.path.exists(options.dbfile):
-      print("Database file '%s' not found !" % (options.dbfile, ))
+      print "Database file '%s' not found !" % (options.dbfile, )
       exit()
 
    import pylab
@@ -438,10 +438,10 @@ if __name__ == "__main__":
    import math
    import os
 
-   print("Loading database and creating graph...")
+   print "Loading database and creating graph..."
 
    identify_list = options.identify.split(",")
-   identify_list = list(map(str.strip, identify_list))
+   identify_list = map(str.strip, identify_list)
 
    pop = None
 
@@ -458,7 +458,7 @@ if __name__ == "__main__":
 
       generations = ret.fetchall()
       if len(generations) <= 0:
-         print("No generation data found for the identify '%s' !" % (options.identify,))
+         print "No generation data found for the identify '%s' !" % (options.identify,)
          exit()
 
       pop = []
@@ -492,10 +492,10 @@ if __name__ == "__main__":
       conn.close()
 
       if len(pop) <= 0:
-         print("No statistic data found for the identify '%s' !" % (options.identify,))
+         print "No statistic data found for the identify '%s' !" % (options.identify,)
          exit()
 
-      print("%d generations found !" % (len(pop),))
+      print "%d generations found !" % (len(pop),)
 
       popGraph = True
 
@@ -520,10 +520,10 @@ if __name__ == "__main__":
       conn.close()
 
       if len(pop) <= 0:
-         print("No statistic data found for the identify '%s' !" % (options.identify,))
+         print "No statistic data found for the identify '%s' !" % (options.identify,)
          exit()
 
-      print("%d generations found !" % (len(pop),))
+      print "%d generations found !" % (len(pop),)
    
    elif len(identify_list) > 1 and not popGraph:
       pop = []
@@ -547,10 +547,10 @@ if __name__ == "__main__":
       conn.close()
 
       if len(pop) <= 0:
-         print("No statistic data found for the identify list '%s' !" % (options.identify,))
+         print "No statistic data found for the identify list '%s' !" % (options.identify,)
          exit()
 
-      print("%d identify found !" % (len(pop),))
+      print "%d identify found !" % (len(pop),)
 
    if options.errorbars_raw:
       if options.outfile: graph_errorbars_raw(pop, options.minimize, options.outfile + "." + options.extension)
@@ -588,7 +588,7 @@ if __name__ == "__main__":
          filename += "." + options.extension
          graph(pop, options.minimize, filename)
       
-      print("\n\tDone ! The graphs was saved in the directory '%s'" % (dirname))
+      print "\n\tDone ! The graphs was saved in the directory '%s'" % (dirname)
 
    if options.compare_raw:
       if options.outfile: graph_compare_raw(pop, options.minimize, identify_list, options.outfile + "." + options.extension)
