@@ -430,10 +430,10 @@ if __name__ == "__main__":
 
     (options, args) = parser.parse_args()
 
-    if options.identify and (not options.errorbars_raw and not options.errorbars_fitness and not options.maxmin_raw and
-                             not options.maxmin_fitness and not options.diff_raw and not options.all_graphs and
-                             not options.compare_raw and not options.pop_heatmap_raw and
-                             not options.pop_heatmap_fitness and not options.compare_fitness):
+    if options.identify and (not options.errorbars_raw and not options.errorbars_fitness and not
+                             options.maxmin_raw and not options.maxmin_fitness and not options.diff_raw and not
+                             options.all_graphs and not options.compare_raw and not options.pop_heatmap_raw and not
+                             options.pop_heatmap_fitness and not options.compare_fitness):
         parser.error("You must choose one graph type !")
 
     if (not options.identify) or (not options.dbfile):

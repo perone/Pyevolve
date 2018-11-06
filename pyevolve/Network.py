@@ -25,8 +25,8 @@ try:
 except ImportError:
     ZLIB_SUPPORT = False
 
-import Consts
-import Util
+from . import Consts
+from . import Util
 
 
 def getMachineIP():
