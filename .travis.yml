@@ -1,0 +1,12 @@
+language: python
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+  - "pypy3.5"
+  - "cov"
+install:
+  - pip install -r requirements_test.txt
+  - pip install tox-travis
+script:
+  - tox
