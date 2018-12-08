@@ -1,17 +1,18 @@
 from pyevolve import GSimpleGA
 from pyevolve import G1DList
 from pyevolve import Mutators, Initializators
-from pyevolve import Selectors
 from pyevolve import Consts
 import math
+
 
 # This is the Rastrigin Function, a deception function
 def rastrigin(genome):
     n = len(genome)
     total = 0
-    for i in xrange(n):
-        total += genome[i]**2 - 10*math.cos(2*math.pi*genome[i])
-    return (10*n) + total
+    for i in range(n):
+        total += genome[i]**2 - 10 * math.cos(2 * math.pi * genome[i])
+    return (10 * n) + total
+
 
 def run_main():
     # Genome instance
@@ -34,7 +35,8 @@ def run_main():
     ga.evolve(freq_stats=50)
 
     best = ga.bestIndividual()
-    print best
+    print(best)
+
 
 if __name__ == "__main__":
     run_main()

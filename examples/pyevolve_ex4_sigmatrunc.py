@@ -6,11 +6,12 @@ from pyevolve import Scaling
 from pyevolve import Consts
 import math
 
+
 def eval_func(ind):
-    score = 0.0
     var_x = ind[0]
-    var_z = var_x**2+2*var_x+1*math.cos(var_x)
+    var_z = var_x**2 + 2 * var_x + 1 * math.cos(var_x)
     return var_z
+
 
 def run_main():
     # Genome instance
@@ -43,7 +44,8 @@ def run_main():
     ga.evolve(10)
 
     # Best individual
-    print ga.bestIndividual()
+    print(ga.bestIndividual())
+
 
 if __name__ == "__main__":
     run_main()

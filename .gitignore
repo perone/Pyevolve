@@ -1,0 +1,14 @@
+
+\.tox/
+
+Pyevolve\.egg-info/
+
+*.pyc
+
+dist/
+
+build/
+
+\.idea/
+
+\.coverage

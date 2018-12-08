@@ -1,3 +1,5 @@
-nose==1.3.0
-coverage==3.7
-mock==1.0.1
+nose
+coverage
+mock
+future
+flake8

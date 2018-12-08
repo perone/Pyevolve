@@ -4,6 +4,7 @@ from pyevolve import Mutators
 from pyevolve import Initializators
 from pyevolve import GAllele
 
+
 # This function is the evaluation function, we want
 # to give high score to more zero'ed chromosomes
 def eval_func(chromosome):
@@ -26,22 +27,23 @@ def eval_func(chromosome):
 
     return score
 
+
 def run_main():
     # Genome instance
     setOfAlleles = GAllele.GAlleles()
 
     # From 0 to 10 we can have only some
     # defined ranges of integers
-    for i in xrange(11):
+    for i in range(11):
         a = GAllele.GAlleleRange(0, i)
         setOfAlleles.add(a)
 
     # From 11 to 19 we can have a set
     # of elements
-    for i in xrange(11, 20):
+    for i in range(11, 20):
         # You can even add objects instead of strings or
         # primitive values
-        a = GAllele.GAlleleList(['a','b', 'xxx', 666, 0])
+        a = GAllele.GAlleleList(['a', 'b', 'xxx', 666, 0])
         setOfAlleles.add(a)
 
     genome = G1DList.G1DList(20)
@@ -65,7 +67,7 @@ def run_main():
     ga.evolve(freq_stats=5)
 
     # Best individual
-    print ga.bestIndividual()
+    print(ga.bestIndividual())
 
 
 if __name__ == "__main__":

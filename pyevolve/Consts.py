@@ -3,7 +3,9 @@
 :mod:`Consts` -- constants module
 ============================================================================
 
-Pyevolve have defaults in all genetic operators, settings and etc, this is an issue to helps the user in the API use and minimize the source code needed to make simple things. In the module :mod:`Consts`, you will find those defaults settings. You are encouraged to see the constants, but not to change directly on the module, there are methods for this.
+Pyevolve have defaults in all genetic operators, settings and etc, this is an issue to helps the user in the API use
+and minimize the source code needed to make simple things. In the module :mod:`Consts`, you will find those defaults
+settings. You are encouraged to see the constants, but not to change directly on the module, there are methods for this.
 
 General constants
 ----------------------------------------------------------------------------
@@ -135,7 +137,8 @@ Population constants (:class:`GPopulation.GPopulation`)
 
 .. attribute:: CDefG1DBinaryStringUniformProb
 
-   The default uniform probability used for some uniform genetic operators for the 1D Binary String (:class:`G1DBinaryString.G1DBinaryString`) chromosome.
+   The default uniform probability used for some uniform genetic operators for the
+   1D Binary String (:class:`G1DBinaryString.G1DBinaryString`) chromosome.
 
 
 2D Binary String Defaults (:class:`G2DBinaryString.G2DBinaryString`)
@@ -155,7 +158,8 @@ Population constants (:class:`GPopulation.GPopulation`)
 
 .. attribute:: CDefG2DBinaryStringUniformProb
 
-   The default uniform probability used for some uniform genetic operators for the 2D Binary String (:class:`G2DBinaryString.G2DBinaryString`) chromosome.
+   The default uniform probability used for some uniform genetic operators for the
+   2D Binary String (:class:`G2DBinaryString.G2DBinaryString`) chromosome.
 
 
 1D List chromosome constants (:class:`G1DList.G1DList`)
@@ -163,19 +167,23 @@ Population constants (:class:`GPopulation.GPopulation`)
 
 .. attribute:: CDefG1DListMutIntMU
 
-   Default *mu* value of the 1D List Gaussian Integer Mutator (:func:`Mutators.G1DListMutatorIntegerGaussian`), the *mu* represents the mean of the distribution.
+   Default *mu* value of the 1D List Gaussian Integer Mutator (:func:`Mutators.G1DListMutatorIntegerGaussian`),
+   the *mu* represents the mean of the distribution.
 
 .. attribute:: CDefG1DListMutIntSIGMA
 
-   Default *sigma* value of the 1D List Gaussian Integer Mutator (:func:`Mutators.G1DListMutatorIntegerGaussian`), the *sigma* represents the standard deviation of the distribution.
+   Default *sigma* value of the 1D List Gaussian Integer Mutator (:func:`Mutators.G1DListMutatorIntegerGaussian`),
+   the *sigma* represents the standard deviation of the distribution.
 
 .. attribute:: CDefG1DListMutRealMU
 
-   Default *mu* value of the 1D List Gaussian Real Mutator (:func:`Mutators.G1DListMutatorRealGaussian`), the *mu* represents the mean of the distribution.
+   Default *mu* value of the 1D List Gaussian Real Mutator (:func:`Mutators.G1DListMutatorRealGaussian`),
+   the *mu* represents the mean of the distribution.
 
 .. attribute:: CDefG1DListMutRealSIGMA
 
-   Default *sigma* value of the 1D List Gaussian Real Mutator (:func:`Mutators.G1DListMutatorRealGaussian`), the *sigma* represents the mean of the distribution.
+   Default *sigma* value of the 1D List Gaussian Real Mutator (:func:`Mutators.G1DListMutatorRealGaussian`),
+   the *sigma* represents the mean of the distribution.
 
 
 Tree chromosome constants (:class:`GTree.GTree`)
@@ -199,19 +207,23 @@ Tree chromosome constants (:class:`GTree.GTree`)
 
 .. attribute:: CDefG2DListMutRealMU
 
-   Default *mu* value of the 2D List Gaussian Real Mutator (:func:`Mutators.G2DListMutatorRealGaussian`), the *mu* represents the mean of the distribution.
+   Default *mu* value of the 2D List Gaussian Real Mutator (:func:`Mutators.G2DListMutatorRealGaussian`),
+   the *mu* represents the mean of the distribution.
 
 .. attribute:: CDefG2DListMutRealSIGMA
 
-   Default *sigma* value of the 2D List Gaussian Real Mutator (:func:`Mutators.G2DListMutatorRealGaussian`), the *sigma* represents the mean of the distribution.
+   Default *sigma* value of the 2D List Gaussian Real Mutator (:func:`Mutators.G2DListMutatorRealGaussian`),
+   the *sigma* represents the mean of the distribution.
 
 .. attribute:: CDefG2DListMutIntMU
 
-   Default *mu* value of the 2D List Gaussian Integer Mutator (:func:`Mutators.G2DListMutatorIntegerGaussian`), the *mu* represents the mean of the distribution.
+   Default *mu* value of the 2D List Gaussian Integer Mutator (:func:`Mutators.G2DListMutatorIntegerGaussian`),
+   the *mu* represents the mean of the distribution.
 
 .. attribute:: CDefG2DListMutIntSIGMA
 
-   Default *sigma* value of the 2D List Gaussian Integer Mutator (:func:`Mutators.G2DListMutatorIntegerGaussian`), the *sigma* represents the mean of the distribution.
+   Default *sigma* value of the 2D List Gaussian Integer Mutator (:func:`Mutators.G2DListMutatorIntegerGaussian`),
+   the *sigma* represents the mean of the distribution.
 
 .. attribute:: CDefG2DListMutator
 
@@ -366,13 +378,14 @@ Migration Constants (:mod:`Migration`)
 
 
 """
-import Scaling
-import Selectors
-import Initializators
-import Mutators
-import Crossovers
 import logging
-from GTree import GTreeGP
+
+from . import Scaling
+from . import Selectors
+from . import Initializators
+from . import Mutators
+from . import Crossovers
+from .GTree import GTreeGP
 
 # Required python version 2.5+
 CDefPythonRequire = (2, 5)

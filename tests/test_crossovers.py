@@ -1,3 +1,5 @@
+
+
 from itertools import cycle
 import unittest
 
@@ -22,13 +24,17 @@ class CrossoverTestCase(unittest.TestCase):
             genome_attr_name='genomeList',  # TODO refactor with Genome getter method
             assertion_name='assertEqual'
     ):
+        def genome_value_getter(g):
+            if genome_attr_name:
+                return getattr(g, genome_attr_name)
+            else:
+                return g
         crossover_extra_kwargs = crossover_extra_kwargs or {}
         kwargs = {
             'mom': self.mom,
             'dad': self.dad,
         }
         kwargs.update(crossover_extra_kwargs)
-        genome_value_getter = lambda g: getattr(g, genome_attr_name) if genome_attr_name else g
         actual_sister, actual_brother = [genome_value_getter(g) if g else None for g in crossover(None, **kwargs)]
         getattr(self, assertion_name)(actual_sister, expected_sister)
         getattr(self, assertion_name)(actual_brother, expected_brother)
@@ -171,7 +177,7 @@ class G1DListCrossoversTestCase(CrossoverTestCase):
         )
 
     @patch('pyevolve.Crossovers.rand_random')
-    def test_crossfill_crossover(self, rand_mock):
+    def test_crossfill_crossover_sbx(self, rand_mock):
         rand_mock.return_value = 0.6
         self.assertCrossoverResultsEqual(
             Crossovers.G1DListCrossoverRealSBX,
@@ -329,9 +335,9 @@ class GTreeCrossoversTestCase(CrossoverTestCase):
             self.assertEqual(root1.node_data, root2.node_data)
             root1_childs = set([l.node_data for l in root1.getChilds()])
             root2_childs = set([l.node_data for l in root2.getChilds()])
-            print root1_childs, root2_childs
+            print(root1_childs, root2_childs)
             self.assertFalse((root1_childs and not root2_childs) or (not root1_childs and root2_childs))
-            print root1_childs, root2_childs
+            print(root1_childs, root2_childs)
             self.assertFalse(root1_childs - root2_childs)
 
     @patch('pyevolve.Crossovers.rand_choice')

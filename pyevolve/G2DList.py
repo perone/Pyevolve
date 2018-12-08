@@ -34,9 +34,10 @@ Class
 
 
 """
+from future.builtins import range
 
-from GenomeBase import GenomeBase
-import Consts
+from .GenomeBase import GenomeBase
+from . import Consts
 
 
 class G2DList(GenomeBase):
@@ -97,7 +98,7 @@ class G2DList(GenomeBase):
         self.width = width
 
         self.genomeList = [None] * height
-        for i in xrange(height):
+        for i in range(height):
             self.genomeList[i] = [None] * width
 
         if not cloning:
@@ -110,7 +111,7 @@ class G2DList(GenomeBase):
         cond1 = (self.genomeList == other.genomeList)
         cond2 = (self.height == other.height)
         cond3 = (self.width == other.width)
-        return True if cond1 and cond2 and cond3 else False
+        return True if cond1 and cond2 and cond3 else False  # TODO remove bool values, leave only condition
 
     def getItem(self, x, y):
         """ Return the specified gene of List
@@ -141,7 +142,7 @@ class G2DList(GenomeBase):
         """
         self.genomeList[x][y] = value
 
-    def __getitem__(self, key):
+    def __getitem__(self, key):  # TODO __setitem__ is needed
         """ Return the specified gene of List """
         return self.genomeList[key]
 
@@ -199,7 +200,7 @@ class G2DList(GenomeBase):
         del self.genomeList[:]
 
         self.genomeList = [None] * self.height
-        for i in xrange(self.height):
+        for i in range(self.height):
             self.genomeList[i] = [None] * self.width
 
     def copy(self, g):
@@ -214,7 +215,7 @@ class G2DList(GenomeBase):
         GenomeBase.copy(self, g)
         g.height = self.height
         g.width = self.width
-        for i in xrange(self.height):
+        for i in range(self.height):
             g.genomeList[i] = self.genomeList[i][:]
 
     def clone(self):

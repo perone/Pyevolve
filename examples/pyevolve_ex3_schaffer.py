@@ -2,16 +2,18 @@ from pyevolve import G1DList, GSimpleGA, Selectors
 from pyevolve import Initializators, Mutators, Consts
 import math
 
+
 # This is the Schaffer F6 Function
-# This function has been conceived by Schaffer, it's a 
+# This function has been conceived by Schaffer, it's a
 # multimodal function and it's hard for GAs due to the
 # large number of local minima, the global minimum is
 # at x=0,y=0 and there are many local minima around it
 def schafferF6(genome):
-    t1 = math.sin(math.sqrt(genome[0]**2 + genome[1]**2));
-    t2 = 1.0 + 0.001*(genome[0]**2 + genome[1]**2);
-    score = 0.5 + (t1*t1 - 0.5)/(t2*t2)
+    t1 = math.sin(math.sqrt(genome[0]**2 + genome[1]**2))
+    t2 = 1.0 + 0.001 * (genome[0]**2 + genome[1]**2)
+    score = 0.5 + (t1 * t1 - 0.5) / (t2 * t2)
     return score
+
 
 def run_main():
     # Genome instance
@@ -39,8 +41,9 @@ def run_main():
 
     # Best individual
     best = ga.bestIndividual()
-    print best
-    print "Best individual score: %.2f" % best.getRawScore()
+    print(best)
+    print("Best individual score: %.2f" % best.getRawScore())
+
 
 if __name__ == "__main__":
     run_main()

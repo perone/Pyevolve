@@ -1,12 +1,14 @@
-from pyevolve import G1DList, GSimpleGA, Selectors, Statistics
-from pyevolve import Initializators, Mutators, Consts, DBAdapters
+from pyevolve import G1DList, GSimpleGA, Selectors
+from pyevolve import Initializators, Mutators, Consts
+
 
 # This is the Rosenbrock Function
 def rosenbrock(xlist):
     sum_var = 0
-    for x in xrange(1, len(xlist)):
-        sum_var += 100.0 * (xlist[x] - xlist[x-1]**2)**2 + (1 - xlist[x-1])**2
+    for x in range(1, len(xlist)):
+        sum_var += 100.0 * (xlist[x] - xlist[x - 1]**2)**2 + (1 - xlist[x - 1])**2
     return sum_var
+
 
 def run_main():
     # Genome instance
@@ -31,22 +33,9 @@ def run_main():
 
     # Best individual
     best = ga.bestIndividual()
-    print "\nBest individual score: %.2f" % (best.score,)
-    print best
+    print("\nBest individual score: %.2f" % (best.score,))
+    print(best)
 
 
 if __name__ == "__main__":
     run_main()
-
-
-
-
-
-
-
-
-
-
-
-
-

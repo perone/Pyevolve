@@ -1,3 +1,4 @@
+from __future__ import print_function, absolute_import
 """
 
 :mod:`GTree` and GTreeGP -- the tree chromosomes
@@ -34,12 +35,11 @@ Classes
 -------------------------------------------------------------
 """
 import random
-from GenomeBase import GenomeBase, GTreeBase, GTreeNodeBase
-import Consts
-import Util
+from .GenomeBase import GenomeBase, GTreeBase, GTreeNodeBase
+from . import Util
 
 try:
-    import pydot
+    import pydot_ng as pydot
     HAVE_PYDOT = True
 except ImportError:
     HAVE_PYDOT = False
@@ -60,6 +60,7 @@ class GTree(GTreeBase):
     """
 
     def __init__(self, root_node=None):
+        from . import Consts
         super(GTree, self).__init__(root_node)
         self.initializator.set(Consts.CDefGTreeInit)
         self.mutator.set(Consts.CDefGGTreeMutator)
@@ -185,7 +186,7 @@ def buildGTreeGrow(depth, value_callback, max_siblings, max_depth):
     if depth == max_depth:
         return n
 
-    for i in xrange(random.randint(0, abs(max_siblings))):
+    for i in range(random.randint(0, abs(max_siblings))):
         child = buildGTreeGrow(depth + 1, value_callback, max_siblings, max_depth)
         child.setParent(n)
         n.addChild(child)
@@ -216,7 +217,7 @@ def buildGTreeFull(depth, value_callback, max_siblings, max_depth):
     else:
         range_val = random.randint(1, abs(max_siblings))
 
-    for i in xrange(range_val):
+    for i in range(range_val):
         child = buildGTreeFull(depth + 1, value_callback, max_siblings, max_depth)
         child.setParent(n)
         n.addChild(child)
@@ -342,7 +343,9 @@ class GTreeGP(GTreeBase):
 
     :param root_node: the Root node of the GP Tree
     """
+
     def __init__(self, root_node=None, cloning=False):
+        from . import Consts
         super(GTreeGP, self).__init__(root_node)
         if not cloning:
             self.initializator.set(Consts.CDefGTreeGPInit)
@@ -388,8 +391,10 @@ class GTreeGP(GTreeBase):
         :param graph: the pydot Graph instance
         :param startNode: used to plot more than one individual
         """
+        from . import Consts
+
         if not HAVE_PYDOT:
-            print "You must install Pydot to use this feature !"
+            print("You must install Pydot to use this feature !")
             return
 
         count = startNode
@@ -397,7 +402,7 @@ class GTreeGP(GTreeBase):
         nodes_dict = {}
         import __main__ as main_module
 
-        for i in xrange(len(self.nodes_list)):
+        for i in range(len(self.nodes_list)):
             newnode = pydot.Node(str(count), style="filled")
             count += 1
 
@@ -480,7 +485,7 @@ class GTreeGP(GTreeBase):
             all_childs = start_node.getChilds()
             str_buff += "(" + self.getPreOrderExpression(all_childs[0])
 
-            for index in xrange(1, len(all_childs)):
+            for index in range(1, len(all_childs)):
                 child = all_childs[index]
                 str_buff += ", " + self.getPreOrderExpression(child)
             str_buff += ")"
@@ -569,7 +574,7 @@ class GTreeGP(GTreeBase):
 
         n = 0
         end_index = len(pop) if end == 0 else end
-        for i in xrange(start, end_index):
+        for i in range(start, end_index):
             ind = pop[i]
             subg = pydot.Cluster(
                 "cluster_%d" % i,
@@ -606,7 +611,7 @@ class GTreeGP(GTreeBase):
 
         n = 0
         end_index = len(pop) if end == 0 else end
-        for i in xrange(start, end_index):
+        for i in range(start, end_index):
             ind = pop[i]
             subg = pydot.Cluster(
                 "cluster_%d" % i,
@@ -656,7 +661,7 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
     :max_depth: the maximum depth of the tree
     :rtype: the root node
     """
-
+    from . import Consts
     gp_terminals = ga_engine.getParam("gp_terminals")
     assert gp_terminals is not None
 
@@ -670,9 +675,9 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
     else:
         # Do not generate degenerative trees
         if depth == 0:
-            random_node = random.choice(gp_function_set.keys())
+            random_node = random.choice(list(gp_function_set.keys()))
         else:
-            fchoice = random.choice([gp_function_set.keys(), gp_terminals])
+            fchoice = random.choice([list(gp_function_set.keys()), gp_terminals])
             random_node = random.choice(fchoice)
 
         if random_node in gp_terminals:
@@ -681,7 +686,7 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
             n = GTreeNodeGP(random_node, Consts.nodeType["NONTERMINAL"])
 
     if n.getType() == Consts.nodeType["NONTERMINAL"]:
-        for i in xrange(gp_function_set[n.getData()]):
+        for i in range(gp_function_set[n.getData()]):
             child = buildGTreeGPGrow(ga_engine, depth + 1, max_depth)
             child.setParent(n)
             n.addChild(child)
@@ -698,6 +703,8 @@ def buildGTreeGPFull(ga_engine, depth, max_depth):
     :max_depth: the maximum depth of the tree
     :rtype: the root node
     """
+    from . import Consts
+
     gp_terminals = ga_engine.getParam("gp_terminals")
     assert gp_terminals is not None
 
@@ -709,11 +716,11 @@ def buildGTreeGPFull(ga_engine, depth, max_depth):
         n = GTreeNodeGP(random_terminal, Consts.nodeType["TERMINAL"])
         return n
     else:
-        random_oper = random.choice(gp_function_set.keys())
+        random_oper = random.choice(list(gp_function_set.keys()))
         n = GTreeNodeGP(random_oper, Consts.nodeType["NONTERMINAL"])
 
     if n.getType() == Consts.nodeType["NONTERMINAL"]:
-        for i in xrange(gp_function_set[n.getData()]):
+        for i in range(gp_function_set[n.getData()]):
             child = buildGTreeGPFull(ga_engine, depth + 1, max_depth)
             child.setParent(n)
             n.addChild(child)

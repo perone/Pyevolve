@@ -19,27 +19,28 @@ __all__ = ["Consts", "Crossovers", "DBAdapters", "FunctionSlot",
 __version__ = '0.6'
 __author__ = 'Christian S. Perone'
 
-import pyevolve.Consts
+from . import Consts
 import sys
 
 if sys.version_info[:2] < Consts.CDefPythonRequire:
-   raise Exception("Python 2.5+ required, the version %s was found on your system !" % (sys.version_info[:2],))
+    raise Exception("Python 2.5+ required, the version %s was found on your system !" % (sys.version_info[:2],))
 
 del sys
 
+
 def logEnable(filename=Consts.CDefLogFile, level=Consts.CDefLogLevel):
-   """ Enable the log system for pyevolve
+    """ Enable the log system for pyevolve
 
-   :param filename: the log filename
-   :param level: the debugging level
+    :param filename: the log filename
+    :param level: the debugging level
 
-   Example:
-      >>> pyevolve.logEnable()
+    Example:
+       >>> pyevolve.logEnable()
 
-   """
-   import logging
-   logging.basicConfig(level=level,
-                       format='%(asctime)s [%(module)s:%(funcName)s:%(lineno)d] %(levelname)s %(message)s',
-                       filename=filename,
-                       filemode='w')
-   logging.info("Pyevolve v.%s, the log was enabled by user.", __version__)
+    """
+    import logging
+    logging.basicConfig(level=level,
+                        format='%(asctime)s [%(module)s:%(funcName)s:%(lineno)d] %(levelname)s %(message)s',
+                        filename=filename,
+                        filemode='w')
+    logging.info("Pyevolve v.%s, the log was enabled by user.", __version__)
