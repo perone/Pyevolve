@@ -55,7 +55,7 @@ class GAlleles(object):
         """
         self.allele_list.append(allele)
 
-    def __getslice__(self, a, b):
+    def __getslice__(self, a, b):  # deprecated since 2.0, handled by getitem
         """ Returns the slice part of alleles list """
         return self.allele_list[a:b]
 
@@ -69,14 +69,14 @@ class GAlleles(object):
             Util.raiseException(
                 """An error was occurred while finding allele for the %d position of chromosome.
                 You may consider use the 'homogeneous' parameter of the GAlleles class.
-                """ % (index,))
+                """ % (index,))  # TODO IndexError will be better here
         return val
 
     def __setitem__(self, index, value):
         """ Sets the index allele of the alleles list """
         if self.homogeneous:
             self.allele_list[0] = value
-        self.allele_list[index] = value
+        self.allele_list[index] = value  # TODO 'else' might be missed
 
     def __iter__(self):
         """ Return the list iterator """
@@ -142,7 +142,7 @@ class GAlleleList(object):
         """
         self.options.append(option)
 
-    def __getslice__(self, a, b):
+    def __getslice__(self, a, b):  # deprecated since 2.0, handled by getitem
         """ Returns the slice part of options """
         return self.options[a:b]
 
@@ -205,6 +205,7 @@ class GAlleleRange(object):
         """ Process the mininum and maximum of the Allele """
         self.minimum = min([x for x, y in self.beginEnd])
         self.maximum = max([y for x, y in self.beginEnd])
+        # TODO crashes on empty beginend
 
     def add(self, begin, end):
         """ Add a new range
@@ -223,8 +224,9 @@ class GAlleleRange(object):
         return self.beginEnd[index]
 
     def __setitem__(self, index, value):
-        if value[0] > value[1]:
-            Util.raiseException('Wrong value, the end of the range is greater than the begin ! %s' % value, ValueError)
+        if value[0] > value[1]:  # TODO type checking is needed
+            Util.raiseException(
+                'Wrong value, the end of the range is greater than the begin ! %s' % (value,), ValueError)
         self.beginEnd[index] = value
         self.__processMinMax()
 
@@ -250,15 +252,17 @@ class GAlleleRange(object):
         del self.beginEnd[:]
         self.minimum = None
         self.maximum = None
+        # TODO might crash if we access minimum immediately after
+        # processminmax is needed
 
     def getRandomAllele(self):
         """ Returns one random choice between the range """
         rand_func = random.uniform if self.real else random.randint
 
-        if len(self.beginEnd) <= 1:
+        if len(self.beginEnd) <= 1:  # TODO crashes after clear
             choice = 0
         else:
-            choice = random.randint(0, len(self.beginEnd) - 1)
+            choice = random.randint(0, len(self.beginEnd) - 1)  # TODO refactor needed
         return rand_func(self.beginEnd[choice][0], self.beginEnd[choice][1])
 
     def setReal(self, flag=True):
@@ -267,7 +271,7 @@ class GAlleleRange(object):
         :param flag: True or False
 
         """
-        self.real = flag
+        self.real = flag  # TODO type-checking is needed
 
     def getReal(self):
         """ Returns True if the range is real or False if it is integer """
