@@ -198,7 +198,7 @@ class GAlleleRange(object):
       self.__processMinMax()
 
    def __processMinMax(self):
-      """ Process the mininum and maximum of the Allele """
+      """ Process the minimum and maximum of the Allele """
       self.minimum = min([x for x, y in self.beginEnd])
       self.maximum = max([y for x, y in self.beginEnd])
 

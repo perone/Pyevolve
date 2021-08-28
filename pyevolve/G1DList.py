@@ -155,7 +155,7 @@ class G1DList(G1DBase):
         G1DBase.copy(self, g)
 
     def clone(self):
-        """ Return a new instace copy of the genome
+        """ Return a new instance copy of the genome
 
         :rtype: the G1DList clone instance
 

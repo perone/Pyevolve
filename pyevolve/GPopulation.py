@@ -2,7 +2,7 @@
 :mod:`GPopulation` -- the population module
 ================================================================
 
-This module contains the :class:`GPopulation.GPopulation` class, which is reponsible
+This module contains the :class:`GPopulation.GPopulation` class, which is responsible
 to keep the population and the statistics.
 
 Default Parameters

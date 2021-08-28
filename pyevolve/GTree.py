@@ -444,7 +444,7 @@ class GTreeGP(GTreeBase):
         return count
 
     def getSExpression(self, start_node=None):
-        """ Returns a tree-formated string (s-expression) of the tree.
+        """ Returns a tree-formatted string (s-expression) of the tree.
 
         :rtype: a S-Expression representing the tree
         """

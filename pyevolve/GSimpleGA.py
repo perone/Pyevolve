@@ -5,7 +5,7 @@
 
 This module contains the GA Engine, the GA Engine class is responsible
 for all the evolutionary process. It contains the GA Engine related
-funtions, like the Termination Criteria functions for convergence analysis, etc.
+functions, like the Termination Criteria functions for convergence analysis, etc.
 
 Default Parameters
 -------------------------------------------------------------
@@ -134,7 +134,7 @@ def RawStatsCriteria(ga_engine):
 
 
 def FitnessStatsCriteria(ga_engine):
-    """ Terminate the evoltion based on the fitness stats
+    """ Terminate the evolution based on the fitness stats
 
     Example:
        >>> ga_engine.terminationCriteria.set(GSimpleGA.FitnessStatsCriteria)
@@ -388,7 +388,7 @@ class GSimpleGA(object):
         Use this option when you have more than one core on your CPU and when your
         evaluation function is very slow.
 
-        Pyevolve will automaticly check if your Python version has **multiprocessing**
+        Pyevolve will automatically check if your Python version has **multiprocessing**
         support and if you have more than one single CPU core. If you don't have support
         or have just only one core, Pyevolve will not use the **multiprocessing**
         feature.

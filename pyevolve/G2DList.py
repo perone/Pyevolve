@@ -218,7 +218,7 @@ class G2DList(GenomeBase):
             g.genomeList[i] = self.genomeList[i][:]
 
     def clone(self):
-        """ Return a new instace copy of the genome
+        """ Return a new instance copy of the genome
 
         :rtype: the G2DList clone instance
 

@@ -10,7 +10,7 @@ General constants
 
 .. attribute:: CDefPythonRequire
 
-   The mininum version required to run Pyevolve.
+   The minimum version required to run Pyevolve.
 
 .. attribute:: CDefLogFile
 
@@ -89,7 +89,7 @@ Scaling scheme constants (:mod:`Scaling`)
 
 .. attribute:: CDefScaleBoltzMinTemp
 
-   The default mininum temperature of the (:func:`Scaling.BoltzmannScaling`) scaling scheme factor.
+   The default minimum temperature of the (:func:`Scaling.BoltzmannScaling`) scaling scheme factor.
 
 .. attribute:: CDefScaleBoltzFactor
 
