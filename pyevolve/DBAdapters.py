@@ -452,7 +452,7 @@ class DBXMLRPC(DBBaseAdapter):
       :param frequency: the generational dump frequency
 
 
-   .. note:: The XML RPC Server must implement the *insert* method, wich receives
+   .. note:: The XML RPC Server must implement the *insert* method, which receives
              a python dictionary as argument.
 
    Example of an server in Python: ::

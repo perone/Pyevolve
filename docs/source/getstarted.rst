@@ -160,7 +160,7 @@ module.
 
 .. warning:: note that the Interactive Mode for Linux/Mac was disabled in the
              0.6 release of Pyevolve. The cause was the platform dependant code.
-             To use it in Linux/Mac you must set the generation in wich Pyevolve
+             To use it in Linux/Mac you must set the generation in which Pyevolve
              will enter in the Interactive Mode by using :meth:`GSimpleGA.GSimpleGA.setInteractiveGeneration`
              method; see the :mod:`Interaction` module documentation for more information.
 

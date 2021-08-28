@@ -3,7 +3,7 @@
 :mod:`Statistics` -- statistical structure module
 ==========================================================================
 
-This module have the class which is reponsible to keep statistics of each
+This module have the class which is responsible to keep statistics of each
 generation. This class is used by the adapters and other statistics dump objects.
 
 """
@@ -21,7 +21,7 @@ class Statistics(object):
        Standard Deviation and Variance of raw scores
 
     **fitMax, fitMin, fitAve**
-       Maximum, mininum and average of fitness scores
+       Maximum, minimum and average of fitness scores
 
     **rawTot, fitTot**
        The total (sum) of raw scores and the fitness scores

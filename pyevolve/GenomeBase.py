@@ -486,7 +486,7 @@ class GTreeBase(GenomeBase):
       return count
 
    def getTraversalString(self, start_node=None, spc=0):
-      """ Returns a tree-formated string of the tree. This
+      """ Returns a tree-formatted string of the tree. This
       method is used by the __repr__ method of the tree
 
       :rtype: a string representing the tree

@@ -299,7 +299,7 @@ Sites
    A book, freely downloadable under a Creative Commons license.
 
 `The Genetic Programming Bibliography <http://www.cs.bham.ac.uk/~wbl/biblio/README.html>`_
-   A very interesting initiative mantained by William Langdon, Steven Gustafson, and John Koza.
+   A very interesting initiative maintained by William Langdon, Steven Gustafson, and John Koza.
    Over than 6000 GP references !
 
 
@@ -401,7 +401,7 @@ To install Pyevolve in PyS60 you simple need to copy the "pyevolve" package (you
 or even the "pyevolve" of your Python installation to the smartphone in a place that PyS60 can find it, usually
 in :file:`c:\\resource\\Python25`, for more information read the PyS60 documentation. The Genetic Algorithms and the
 Genetic Programming cores of Pyevolve was tested with PyS60 2.0, but to use Genetic Programming, you must
-explicitly define the funtions of the GP, like in :ref:`snippet_gp_explicit`.
+explicitly define the functions of the GP, like in :ref:`snippet_gp_explicit`.
 
 Of course not all features of Pyevolve are supported in PyS60, for example some DBAdapters and the graphical
 plotting tool, since no matplotlib port is available to PyS60 at the moment. Pyevolve was tested with PyS60 2.0

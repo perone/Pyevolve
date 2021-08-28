@@ -82,7 +82,7 @@ def BoltzmannScaling(pop):
    population parameters, this parameter will set the start temperature. You
    can specify the **boltz_factor** and the **boltz_min** parameters, the **boltz_factor**
    is the value that the temperature will be subtracted and the **boltz_min** is the
-   mininum temperature of the scaling scheme.
+   minimum temperature of the scaling scheme.
 
    .. versionadded: 0.6
       The `BoltzmannScaling` function.

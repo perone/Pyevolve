@@ -151,7 +151,7 @@ class G1DBinaryString(G1DBase):
       G1DBase.copy(self, g)
 
    def clone(self):
-      """ Return a new instace copy of the genome
+      """ Return a new instance copy of the genome
 
       Example:
          >>> g = G1DBinaryString(5)
